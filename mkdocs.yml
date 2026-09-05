@@ -1,0 +1,147 @@
+site_name: MAD2 Course Book
+site_description: Modern Application Development 2 course reference for the IIT Madras BS Degree
+site_url: https://24f2005644.github.io/appdev2coursebook/
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Week 1:
+      - Overview: week1/index.md
+      - "Review: MAD1 web fundamentals": week1/01_review_mad1_web_fundamentals.md
+      - Web application development model: week1/02_web_app_development_model.md
+      - Course trajectory: week1/03_course_trajectory.md
+      - JavaScript origins and standardization: week1/04_javascript_origins_standardization.md
+      - Architectural implications: week1/05_architectural_implications.md
+      - Program structure and execution: week1/06_program_structure_execution.md
+      - Identifiers, statements, and expressions: week1/07_identifiers_statements_expressions.md
+      - Data types, strings, and non-values: week1/08_data_types_strings_nonvalues.md
+      - Operators, comparisons, and coercion: week1/09_operators_comparisons_coercion.md
+      - Variables, declarations, and scoping: week1/10_variables_declarations_scoping.md
+      - Control-flow constructs: week1/11_control_flow_constructs.md
+      - Functions and execution patterns: week1/12_functions_execution_patterns.md
+      - The DOM and interactivity: week1/13_dom_and_interactivity.md
+      - References, tooling, and ecosystem: week1/14_references_tooling_ecosystem.md
+  - Week 2:
+      - Overview: week2/index.md
+      - JavaScript collections: week2/01_javascript_collections.md
+      - Modularity and object-oriented JavaScript: week2/02_modularity_and_oop.md
+      - Asynchrony and the JavaScript runtime: week2/03_asynchrony_and_runtime.md
+      - JSON: week2/04_json.md
+  - Week 3:
+      - Overview: week3/index.md
+      - Introduction to frontend development: week3/01_introduction_to_frontend.md
+      - Programming paradigms: week3/02_programming_paradigms.md
+      - Understanding state: week3/03_understanding_state.md
+      - State management: week3/04_state_management.md
+      - Tic-Tac-Toe case study: week3/05_case_study_tictactoe.md
+  - Week 4:
+      - Overview: week4/index.md
+      - Declarative rendering: week4/01_declarative_rendering.md
+      - The ViewModel pattern and Vue: week4/02_viewmodel_and_vue.md
+      - Vue components: week4/03_vue_components.md
+      - Reactivity under the hood: week4/04_reactivity_under_the_hood.md
+  - Week 5:
+      - Overview: week5/index.md
+      - Architecture and separation of concerns: week5/1_architecture_separation_of_concerns.md
+      - Asynchronous JavaScript fundamentals: week5/2_asynchronous_javascript_fundamentals.md
+      - Callbacks, events, and promises: week5/3_async_patterns_callbacks_events_promises.md
+      - Fetch API and Axios: week5/4_fetch_api_and_axios.md
+      - Vue lifecycle and asynchronous integration: week5/5_vue_lifecycle_async_integration.md
+  - Week 6:
+      - Overview: week6/index.md
+      - Persistent storage: week6/01_persistent_storage.md
+      - Form validation: week6/02_form_validation.md
+      - Single File Components: week6/03_sfc_components.md
+      - Testing Vue applications: week6/04_testing_vue.md
+  - Week 7:
+      - Overview: week7/index.md
+      - State management: week7/01_state_management.md
+      - Vue Router: week7/02_vue_router.md
+      - Single-page application architecture: week7/03_spa_modern_web_architecture.md
+      - Vue CLI and Single File Components: week7/04_vue_cli_single_file_components.md
+  - Week 8:
+      - Overview: week8/index.md
+      - Web API design with REST: week8/01_web_api_design_rest.md
+      - Problems with REST and GraphQL: week8/02_rest_problems_graphql.md
+      - Markup and text representations: week8/03_markup_text_representations.md
+      - JAMstack architecture: week8/04_jamstack_architecture.md
+      - Vue and Flask integration: week8/05_vue_flask_integration.md
+  - Week 9:
+      - Overview: week9/index.md
+      - Web servers and concurrency: week9/01_web_servers_concurrency.md
+      - Asynchronous task architecture: week9/02_async_task_architecture.md
+      - Distributed messaging: week9/03_distributed_messaging.md
+      - Task queue mechanics: week9/04_task_queue_mechanics.md
+      - Celery: week9/05_celery.md
+  - Week 10:
+      - Overview: week10/index.md
+      - Inter-service messaging and message queues: week10/01_inter_service_messaging_and_message_queues_recap.md
+      - Lightweight API calls and messaging patterns: week10/02_lightweight_api_calls_and_messaging_patterns.md
+      - Webhooks: week10/03_webhooks_deep_dive.md
+      - Webhooks and alternative architectures: week10/04_webhooks_vs_alternative_architectures.md
+      - Webhook implementation, debugging, and security: week10/05_webhook_implementation_debugging_security.md
+      - Client-side updates and push to client: week10/06_client_side_updates_and_push_to_client.md
+      - Polling and long polling: week10/07_client_update_strategies_polling_and_long_polling.md
+      - Server-Sent Events: week10/08_server_sent_events_sse.md
+      - Push notifications and modern push protocols: week10/09_push_notifications_and_modern_push_protocols.md
+  - Week 11:
+      - Overview: week11/index.md
+      - Performance fundamentals: week11/notes_performance.md
+      - Speed: week11/notes_speed.md
+      - User experience: week11/notes_user_experience.md
+      - Tools and measurement: week11/notes_tools_and_measurement.md
+      - Scaling: week11/notes_scaling.md
+      - Components of an application: week11/notes_components_of_an_app.md
+      - Server architecture: week11/notes_server_architecture.md
+      - Monitoring and measuring: week11/notes_monitoring_and_measuring.md
+      - Caching: week11/notes_caching.md
+      - Summary: week11/notes_summary.md
+  - Week 12:
+      - Overview: week12/index.md
+      - Privacy versus security: week12/01_fundamentals_privacy_vs_security.md
+      - Frontend security: week12/02_frontend_security.md
+      - Backend security: week12/03_backend_security.md
+
+strict: true
