@@ -1,0 +1,15 @@
+.md-copyright {
+  display: none;
+}
+
+.md-nav--secondary .md-nav__list {
+  line-height: 1.35;
+}
+
+.md-nav--secondary .md-nav__item .md-nav__link {
+  white-space: normal;
+}
+
+.md-nav--secondary .md-nav__item .md-nav__list {
+  margin-left: 0.6rem;
+}
