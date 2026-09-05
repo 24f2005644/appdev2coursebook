@@ -2,6 +2,9 @@ site_name: MAD2 Course Book
 site_description: Modern Application Development 2 course reference for the IIT Madras BS Degree
 site_url: https://24f2005644.github.io/appdev2coursebook/
 
+extra:
+  generator: false
+
 theme:
   name: material
   language: en
