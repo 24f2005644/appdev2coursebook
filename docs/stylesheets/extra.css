@@ -2,6 +2,68 @@
   display: none;
 }
 
+:root {
+  --mad2-radius: 0.65rem;
+  --mad2-accent: #26a69a;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #171a23;
+  --md-default-bg-color--light: #1e222d;
+  --md-default-fg-color: #e6e8ef;
+  --md-default-fg-color--light: #b8bdc9;
+  --md-default-fg-color--lightest: #343a49;
+  --md-typeset-a-color: #80cbc4;
+}
+
+[data-md-color-scheme="default"] {
+  --md-default-bg-color--light: #f5f7fb;
+  --md-default-fg-color--lightest: #dfe4ed;
+  --md-typeset-a-color: #3949ab;
+}
+
+body {
+  letter-spacing: 0.005em;
+}
+
+.md-typeset {
+  line-height: 1.75;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.md-typeset h2 {
+  margin-top: 2.2em;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset a {
+  transition: color 160ms ease;
+}
+
+.md-typeset a:hover {
+  color: var(--mad2-accent);
+}
+
+.md-typeset code {
+  border-radius: 0.3rem;
+}
+
+.md-typeset pre > code {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: var(--mad2-radius);
+}
+
+.md-typeset table {
+  border-radius: var(--mad2-radius);
+}
+
 .md-nav--secondary .md-nav__list {
   line-height: 1.35;
 }
@@ -12,4 +74,65 @@
 
 .md-nav--secondary .md-nav__item .md-nav__list {
   margin-left: 0.6rem;
+}
+
+.home-hero {
+  padding: 2.5rem 2rem;
+  margin: 0 0 2rem;
+  border-radius: var(--mad2-radius);
+  background: linear-gradient(135deg, #3949ab, #5e35b1 65%, #00897b);
+  color: #fff;
+}
+
+.home-hero h2 {
+  margin-top: 0;
+  color: #fff;
+}
+
+.home-hero .md-button {
+  margin: 0.35rem 0.35rem 0 0;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.home-hero .md-button--primary {
+  background: #fff;
+  color: #3949ab;
+  border-color: #fff;
+}
+
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.home-card {
+  padding: 1.25rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: var(--mad2-radius);
+  background: var(--md-default-bg-color--light);
+}
+
+.home-card h3 {
+  margin-top: 0;
+}
+
+.week-grid ul {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem 1.5rem;
+  padding-left: 1.25rem;
+}
+
+@media screen and (max-width: 768px) {
+  .home-hero {
+    padding: 1.5rem;
+  }
+
+  .home-cards,
+  .week-grid ul {
+    grid-template-columns: 1fr;
+  }
 }
