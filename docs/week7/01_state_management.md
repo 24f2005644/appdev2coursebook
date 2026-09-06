@@ -1,4 +1,14 @@
 # Module 1: State Management
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Module 1: State Management**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -1042,3 +1052,10 @@ User Interaction (click, submit, keypress)
 | `commit()` vs `dispatch()` | `commit` triggers mutations; `dispatch` triggers actions |
 | Props down, events up | Standard component communication without Vuex |
 | Vuex vs local state | Global = Vuex; ephemeral/single-component = `data()` |
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

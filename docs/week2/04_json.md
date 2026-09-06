@@ -1,4 +1,14 @@
 # 4. JSON (JavaScript Object Notation)
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **4. JSON (JavaScript Object Notation)**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -405,3 +415,9 @@ console.log(original.b.c);  // 2 — original unchanged ✅
 | **Silent loss** | Functions, `undefined`, `Symbol` are silently dropped on stringify | Be explicit about what you're serializing |
 | **Circular refs** | `stringify()` throws on circular structures | Use `flatted` or a custom replacer |
 | **Round-trip** | `stringify` → transmit → `parse` | Core of every REST API interaction |
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

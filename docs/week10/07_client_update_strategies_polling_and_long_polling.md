@@ -1,4 +1,14 @@
 # Topic 07: Client Update Strategies — Polling & Long Polling
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 07: Client Update Strategies — Polling & Long Polling**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -345,3 +355,10 @@ Browsers limit the number of concurrent HTTP connections **per domain** (typical
 ```
 
 > **Next up:** A cleaner, more efficient solution for one-way server push → Topic 8: Server-Sent Events (SSE).
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

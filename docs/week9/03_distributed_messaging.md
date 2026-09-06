@@ -1,4 +1,14 @@
 # Topic 3: Distributed Messaging & Message Queues
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 3: Distributed Messaging & Message Queues**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -483,3 +493,10 @@ Celery App: task.delay()
 | Pub/Sub | ✅ Native | ✅ Via fanout exchange |
 | Monitoring | ⭐ Redis-CLI / RedisInsight | ⭐⭐⭐ Built-in Management UI |
 | Production recommendation | Medium-scale | Large-scale / critical |
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

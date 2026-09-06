@@ -27,6 +27,7 @@ theme:
         name: Switch to dark mode
   features:
     - navigation.top
+    - navigation.footer
     - search.highlight
     - search.share
     - content.code.copy

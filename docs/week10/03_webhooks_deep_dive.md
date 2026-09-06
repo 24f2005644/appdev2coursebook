@@ -1,4 +1,14 @@
 # Topic 03: Webhooks Deep Dive
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 03: Webhooks Deep Dive**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -222,3 +232,10 @@ A key advantage of webhooks over dedicated message queue systems:
 ```
 
 > **Next up:** How do webhooks compare to WebSockets, Pub/Sub, Polling, and REST APIs? → Topic 4: Webhooks vs. Alternative Architectures.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

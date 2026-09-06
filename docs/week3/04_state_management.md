@@ -1,4 +1,14 @@
 # 4. Application and UI State Management
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **4. Application and UI State Management**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -219,3 +229,9 @@ User clicks "Add to Cart"
 - **Real world**: Most apps use a thoughtful hybrid of both.
 
 The choice of strategy directly impacts **UX, security, scalability, and development complexity** — it is one of the most important architectural decisions in web development.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

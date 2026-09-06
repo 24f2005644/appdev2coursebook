@@ -1,4 +1,14 @@
 # Topic 06: Client-Side Updates & Push to Client
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 06: Client-Side Updates & Push to Client**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -186,3 +196,10 @@ This is how **mobile push notifications** work (covered in Topic 9).
 ```
 
 > **Next up:** The two simplest approaches to bridge this gap — **polling** and **long polling** → Topic 7: Client Update Strategies.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

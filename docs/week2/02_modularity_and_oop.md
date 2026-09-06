@@ -1,4 +1,14 @@
 # 2. Modularity & Object-Oriented JavaScript
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **2. Modularity & Object-Oriented JavaScript**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -585,3 +595,9 @@ u.validate();   // true
 | **Prototypes** | Delegation-based inheritance chain | `[[Prototype]]`, `__proto__` |
 | **ES6 Classes** | Syntactic sugar over prototypes | `class`, `extends`, `super()` |
 | **Mixins** | Simulate multiple inheritance | HOF returning a class |
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

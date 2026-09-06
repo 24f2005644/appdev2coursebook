@@ -1,4 +1,14 @@
 # Topic 5: Architectural Implications of JavaScript's Origins
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 5: Architectural Implications of JavaScript's Origins**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **MAD-II Week 1 | Detailed Notes**
 
@@ -563,3 +573,9 @@ ARCHITECTURAL IMPLICATIONS OF JAVASCRIPT'S ORIGINS
         ├── Event Loop: "Is stack empty? → Run next callback from queue"
         └── Result: Non-blocking concurrency WITHOUT threads
 ```
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

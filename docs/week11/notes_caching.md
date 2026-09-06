@@ -1,4 +1,14 @@
 # Caching — Detailed Notes
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Caching — Detailed Notes**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **Parent Topic:** Performance & Scaling
 > **Scope:** What caching is, where it lives in the stack, how HTTP supports it, Flask-specific caching patterns, memoization, Jinja template caching, and the caching backend options.
@@ -1013,3 +1023,10 @@ def update_product(product_id, data):
 - **Jinja caching**: Jinja auto-caches compiled templates. Wrap entire views or fragments in `@cache.cached()` to cache rendered HTML.
 - **Choose the right backend**: NullCache for tests, SimpleCache for single-process dev, FileSystemCache for single-server with persistence, **RedisCache for all production deployments**.
 - **Cache invalidation is the hard part** — use TTL for low-risk data, event-driven invalidation (`delete_memoized`) for data that must be consistent after writes.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

@@ -1,4 +1,14 @@
 # 5. Vue.js Component Lifecycle & Async Integration
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **5. Vue.js Component Lifecycle & Async Integration**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -690,3 +700,9 @@ Topic 5: Vue.js Component Lifecycle & Async Integration
       ├── Global listeners    ──► removeEventListener() with same function reference
       └── HTTP Requests       ──► AbortController.abort() → fetch (signal) + axios (signal)
 ```
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

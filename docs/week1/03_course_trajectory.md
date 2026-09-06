@@ -1,4 +1,14 @@
 # Topic 3: Course Trajectory — Moving Forward
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 3: Course Trajectory — Moving Forward**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **MAD-II Week 1 | Detailed Notes**
 
@@ -430,3 +440,9 @@ MAD-II TRAJECTORY
             ├── gRPC: High-performance binary protocol for microservices
             └── WebSockets: Real-time bi-directional persistent connections
 ```
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

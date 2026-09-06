@@ -1,4 +1,14 @@
 # 1. JavaScript Collections
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **1. JavaScript Collections**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -543,3 +553,9 @@ for (let i = 0; i < 7; i++) {
 | **Set** | Collection of unique values | `new Set()`, `.add()`, `.has()` |
 | **Destructuring** | Unpack arrays/objects into variables | `const [a, b] = arr`, `const {x} = obj` |
 | **Generators** | Lazily produce values on demand | `function*`, `yield`, `.next()` |
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

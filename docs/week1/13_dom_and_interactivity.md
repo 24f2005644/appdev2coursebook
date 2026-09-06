@@ -1,4 +1,14 @@
 # Topic 13: The Document Object Model (DOM) & Interactivity
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 13: The Document Object Model (DOM) & Interactivity**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **MAD-II Week 1 | Detailed Notes**
 
@@ -602,3 +612,10 @@ Let's combine element selection, DOM creation, class toggling, event handling, a
 | **Event Binding** | `element.addEventListener("click", handler)` | Inline HTML attributes (`onclick="..."`) |
 | **Form Submissions** | Always invoke `event.preventDefault()` | Allowing form to trigger default HTTP page refresh |
 | **Lists & Tables** | **Event Delegation** on container parent | Attaching hundreds of individual event listeners to children |
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

@@ -1,4 +1,14 @@
 # 2. Asynchronous JavaScript Fundamentals
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **2. Asynchronous JavaScript Fundamentals**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -316,3 +326,9 @@ Topic 2: Asynchronous JavaScript Fundamentals
       ├── Law          ──► Parallelism ⊂ Concurrency (not the other way around)
       └── JS Reality   ──► Event loop = concurrent; Web Workers = parallel
 ```
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

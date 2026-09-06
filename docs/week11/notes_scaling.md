@@ -1,4 +1,14 @@
 # Scaling — Detailed Notes
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Scaling — Detailed Notes**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **Parent Topic:** Performance
 > **Scope:** Multi-user performance — how a web application behaves when many users access it simultaneously.
@@ -603,3 +613,10 @@ App Servers (expose /metrics endpoint)
 - **Language choice matters:** interpreted languages (Python) are slower and have concurrency limitations (GIL); async I/O (asyncio, Node.js) is key for I/O-bound scaling.
 - **You cannot scale what you cannot see** — implement server logs and live monitoring (ELK + Prometheus/Grafana) from day one.
 - **Measure first, then scale** — find your actual bottleneck before throwing more hardware at the problem.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

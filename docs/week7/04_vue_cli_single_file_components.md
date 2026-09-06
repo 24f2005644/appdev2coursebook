@@ -1,4 +1,14 @@
 # Module 4: Vue CLI & Single File Components (SFCs)
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Module 4: Vue CLI & Single File Components (SFCs)**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -876,3 +886,9 @@ export default new Vuex.Store({
 9. **HMR**: Saves file → Webpack patches only that module → UI updates in milliseconds without losing state.
 10. **`main.js` bootstrapping**: `new Vue({ router, store, render: h => h(App) }).$mount('#app')`.
 11. **Lazy loading routes**: Dynamic `import()` → Webpack splits component into separate chunk → only downloaded when route is first visited → smaller initial bundle.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

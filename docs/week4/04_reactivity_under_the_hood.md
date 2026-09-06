@@ -1,4 +1,14 @@
 # 4. Reactivity Under the Hood
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **4. Reactivity Under the Hood**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **Module**: MAD II — Week 4 | **Topic**: Vue.js Fundamentals
 > **Subtopics**: 4.1 → 4.4
@@ -600,3 +610,10 @@ SET  →  trigger() →  "This changed. Notify all recorded dependents."
 ```
 
 Everything else in Vue's reactivity system — computed properties, watchers, component re-renders — is built on top of these two primitive operations.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

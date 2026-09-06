@@ -1,4 +1,14 @@
 # 5. Case Study / Application: Tic-Tac-Toe
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **5. Case Study / Application: Tic-Tac-Toe**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -277,3 +287,10 @@ Tic-Tac-Toe illustrates all the core frontend principles in one simple package:
 | **Client vs. Server state** | Local game = client-maintained; multiplayer = server-maintained |
 
 > Tic-Tac-Toe is a microcosm of every web application. Master the state and rendering model here, and the same principles apply whether you're building a game, a dashboard, or a social platform.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

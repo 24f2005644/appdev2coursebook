@@ -1,4 +1,14 @@
 # 3. Asynchrony & The JavaScript Runtime
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **3. Asynchrony & The JavaScript Runtime**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -494,3 +504,9 @@ All three are still in use today. `async`/`await` is the modern default, but und
 | **Callback Hell** | Deeply nested callbacks, hard to manage | Pyramid of doom |
 | **Promises** | Object representing a future value; chainable | `.then()`, `.catch()` |
 | **`async`/`await`** | Synchronous-looking syntax over Promises | `await`, `async function` |
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

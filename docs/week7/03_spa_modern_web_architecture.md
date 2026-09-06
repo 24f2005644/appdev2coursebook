@@ -1,4 +1,14 @@
 # Module 3: Single Page Applications (SPAs) & Modern Web Architecture
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Module 3: Single Page Applications (SPAs) & Modern Web Architecture**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -563,3 +573,9 @@ The gap between web and native is narrowing dramatically:
 8. **WebAssembly**: Compile C/C++/Rust to near-native binary; runs in browser; used for compute-heavy tasks.
 9. **Web Workers**: Offload CPU-intensive tasks to a background thread to avoid freezing the UI event loop.
 10. **Web vs. Native**: Web = write once, zero install, instant deploy; Native = hardware API access, best performance. Gap rapidly closing via modern Web APIs.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

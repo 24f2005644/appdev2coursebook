@@ -1,4 +1,14 @@
 # Summary — Short Notes (Quick Revision)
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Summary — Short Notes (Quick Revision)**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > Complete revision cheat-sheet covering all topics: Performance, Scaling, and Caching.
 
@@ -401,3 +411,9 @@ MONITORING WINS:
   ✅ Check slow query log regularly
   ✅ Track cache hit rate — low hit rate = cache is ineffective
 ```
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

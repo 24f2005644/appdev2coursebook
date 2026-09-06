@@ -1,4 +1,14 @@
 # 1. Persistent Storage
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **1. Persistent Storage**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -206,3 +216,9 @@ export default {
 | **localStorage** | ~5MB | Permanent | Very Low | Preferences, simple app state |
 | **sessionStorage** | ~5MB | Tab session | Very Low | Temporary tab-scoped state |
 | **IndexedDB** | Hundreds of MB | Permanent | High | Large data, offline apps |
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

@@ -1,4 +1,14 @@
 # 1. Introduction to Frontend
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **1. Introduction to Frontend**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -81,3 +91,9 @@ Beyond the hard requirements, a good frontend strives for these qualities:
 | Adaptive | Works on all screen sizes/devices |
 
 The frontend is not just "making things look pretty" — it's a carefully constrained engineering layer that must be **fast**, **secure** (by deferring logic), **flexible** (across devices), and **pleasant** (for the user).
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

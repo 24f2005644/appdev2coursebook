@@ -1,4 +1,14 @@
 # Topic 02: Lightweight API Calls & Messaging Patterns
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 02: Lightweight API Calls & Messaging Patterns**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -183,3 +193,10 @@ X-Signature-256: sha256=abc123    ← optional: for security verification
 - This pattern eliminates **polling** entirely, resulting in real-time responsiveness with zero wasted requests.
 
 > This sets the foundation for understanding **Webhooks** (Topic 3), which is the formalized, industry-standard implementation of this lightweight messaging pattern.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

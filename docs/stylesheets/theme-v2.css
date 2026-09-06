@@ -64,6 +64,30 @@ body {
   border-radius: var(--mad2-radius);
 }
 
+.md-footer__inner {
+  gap: 1rem;
+  padding: 1.25rem 0;
+}
+
+.md-footer__link {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: var(--mad2-radius);
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.md-footer__link:hover {
+  border-color: var(--mad2-accent);
+  background-color: var(--md-default-bg-color--light);
+}
+
+.md-footer__direction {
+  color: var(--mad2-accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .md-nav--secondary .md-nav__list {
   line-height: 1.35;
 }

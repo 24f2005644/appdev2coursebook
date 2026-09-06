@@ -1,4 +1,14 @@
 # Speed — Detailed Notes
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Speed — Detailed Notes**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **Parent Topic:** Performance
 > **Scope:** Single-user experience — how fast does *one* user get a usable response?
@@ -411,3 +421,10 @@ Total Load Time ≈
 - **Compression (Brotli preferred)** can cut text asset sizes by 60–75% for free.
 - **Images** are often the largest contributors to page weight — use modern formats (WebP/AVIF), resize correctly, and lazy-load.
 - Always **measure with Lighthouse and DevTools Network tab** before and after optimization.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

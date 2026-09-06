@@ -1,4 +1,14 @@
 # Topic 05: Webhook Implementation, Debugging & Security
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 05: Webhook Implementation, Debugging & Security**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -378,3 +388,10 @@ def github_webhook():
 ```
 
 > **Next up:** Shifting from Server-to-Server to Server-to-Client — how do we push updates to browsers? → Topic 6: Client-Side Updates & Push to Client.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

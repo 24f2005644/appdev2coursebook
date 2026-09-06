@@ -1,4 +1,14 @@
 # 2. Programming Paradigms in Frontend Development
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **2. Programming Paradigms in Frontend Development**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -171,3 +181,9 @@ Declarative →  "This is what the UI should look like. Now figure it out."
 - The **imperative** approach gives full control but is fragile and hard to scale.
 - The **declarative** approach is the foundation of all modern frontend frameworks.
 - `UI = f(state)` is the elegant mathematical expression of the declarative paradigm: the UI is always a **deterministic function** of the current state.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

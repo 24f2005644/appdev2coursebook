@@ -1,4 +1,14 @@
 # Topic 8: Data Types, Strings & Non-Values
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 8: Data Types, Strings & Non-Values**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **MAD-II Week 1 | Detailed Notes**
 
@@ -742,3 +752,9 @@ DATA TYPES, STRINGS & NON-VALUES
         ├── ?? (nullish coalescing): right side if left is null/undefined
         └── ?. (optional chaining): safe deep access, returns undefined
 ```
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

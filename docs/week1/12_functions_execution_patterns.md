@@ -1,4 +1,14 @@
 # Topic 12: Functions & Execution Patterns
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 12: Functions & Execution Patterns**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **MAD-II Week 1 | Detailed Notes**
 
@@ -475,3 +485,10 @@ In modern JavaScript (ES6+), **IIFEs are largely obsolete and considered an anti
    ```
 4. **Use Rest Parameters (`...args`) instead of `arguments`**: Rest parameters yield true arrays and work consistently across both standard and arrow functions.
 5. **Replace IIFEs with ES Modules**: Structure your projects as modules using `import`/`export` rather than wrapping code in self-invoking function wrappers.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

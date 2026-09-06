@@ -1,4 +1,14 @@
 # Module 2: Client-Side Routing & Vue Router
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Module 2: Client-Side Routing & Vue Router**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -691,3 +701,9 @@ When you hand navigation entirely to JavaScript:
 | Named views | `components: { default, name1, name2 }` (plural!); multiple `<router-view name="...">` outlets |
 | Hash mode | Default; `/#/path`; no server config needed; hash never sent to server |
 | History mode | `mode: 'history'`; clean URLs; **requires server fallback** to `index.html` to avoid 404s |
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

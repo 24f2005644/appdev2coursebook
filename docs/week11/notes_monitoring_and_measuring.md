@@ -1,4 +1,14 @@
 # Monitoring and Measuring — Detailed Notes
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Monitoring and Measuring — Detailed Notes**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **Parent Topic:** Scaling
 > **Scope:** How to observe, measure, and understand what a production web application is doing in real time — server logs, metrics, and live monitoring stacks.
@@ -742,3 +752,10 @@ node_filesystem_avail_bytes  — disk space remaining
 - **Grafana** visualizes data from any source (Prometheus, Elasticsearch, PostgreSQL) in unified dashboards with alerting.
 - **Alertmanager** routes alerts to Slack/PagerDuty/email when thresholds are breached — essential for on-call response.
 - Monitor at **every layer**: web server, app server, database, and system resources — the bottleneck can be anywhere.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

@@ -1,4 +1,14 @@
 # User Experience (UX) — Detailed Notes
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **User Experience (UX) — Detailed Notes**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **Parent Topic:** Performance → Speed
 > **Scope:** How users *feel* about a web application's performance, and why that feeling matters as much as raw numbers.
@@ -226,3 +236,10 @@ Poor Performance → Bad UX → High Bounce Rate → Lower SEO → Fewer Users
 - Performance is an **accessibility and inclusion issue** — not just a luxury for fast connections.
 - Measure UX with both **quantitative** (bounce rate, Core Web Vitals) and **qualitative** (user testing, recordings) methods.
 - Performance and good UX create a **virtuous cycle** that compounds into business outcomes.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

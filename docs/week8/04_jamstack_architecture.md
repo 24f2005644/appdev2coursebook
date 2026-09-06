@@ -1,4 +1,14 @@
 # Topic 4: The JAMstack Architecture & Modern Web Paradigms
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 4: The JAMstack Architecture & Modern Web Paradigms**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -736,3 +746,10 @@ The boundary between "static" and "dynamic" continues to blur — the future is 
 | Collaborative real-time app (Google Docs style) | No — need full server infrastructure |
 | High-frequency trading / finance | No — latency and real-time requirements exceed JAMstack |
 | Social media feed (real-time updates) | Partially — hybrid approach needed |
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

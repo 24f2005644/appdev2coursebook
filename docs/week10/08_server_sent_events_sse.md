@@ -1,4 +1,14 @@
 # Topic 08: Server-Sent Events (SSE)
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 08: Server-Sent Events (SSE)**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -380,3 +390,10 @@ A **Service Worker** is a more powerful script that runs as a **proxy between th
 ```
 
 > **Next up (and final topic):** What about pushing to browsers/devices when the tab is closed? → Topic 9: Push Notifications & Modern Push Protocols.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

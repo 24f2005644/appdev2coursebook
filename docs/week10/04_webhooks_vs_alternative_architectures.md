@@ -1,4 +1,14 @@
 # Topic 04: Webhooks vs. Alternative Architectures
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 04: Webhooks vs. Alternative Architectures**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -248,3 +258,10 @@ Your App ◄─── { "amount": 5000, "currency": "usd", "customer": {...} } �
 - **REST APIs** complement webhooks — webhooks alert, REST APIs retrieve the full details.
 
 > **Next up:** How do you actually set up, debug, and secure a webhook integration? → Topic 5: Webhook Implementation, Debugging & Security.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

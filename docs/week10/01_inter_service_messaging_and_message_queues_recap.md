@@ -1,4 +1,14 @@
 # Topic 01: Inter-Service Messaging & Message Queues Recap
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 01: Inter-Service Messaging & Message Queues Recap**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -107,3 +117,10 @@ graph TD
 
 - **Internal / Microservice Messaging** $\rightarrow$ Solved efficiently with **Message Queues / Brokers** (RabbitMQ, Redis, Celery).
 - **Cross-Organization / Internet-Distributed Messaging** $\rightarrow$ Requires **Lightweight API Calls & Webhooks** using standard HTTP infrastructure.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

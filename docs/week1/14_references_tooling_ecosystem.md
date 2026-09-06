@@ -1,4 +1,14 @@
 # Topic 14: References, Tooling & Ecosystem Utilities
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 14: References, Tooling & Ecosystem Utilities**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **MAD-II Week 1 | Detailed Notes**
 
@@ -272,3 +282,9 @@ As you progress through MAD-II (moving from raw JavaScript into Vue.js, componen
 | **Node.js** | Runtime | Server-side JavaScript execution and tooling foundation | [nodejs.org](https://nodejs.org/) |
 | **Replit / CodeSandbox** | Sandbox | Zero-setup interactive cloud coding environments | [replit.com](https://replit.com/) |
 | **Vite** | Build Tool | Modern dev server and bundling engine for Vue.js apps | [vitejs.dev](https://vitejs.dev/) |
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

@@ -1,4 +1,14 @@
 # 1. Architecture & Separation of Concerns
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **1. Architecture & Separation of Concerns**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -228,3 +238,9 @@ Topic 1: Architecture & Separation of Concerns
       ├── SSR (Push)  ──► Server renders full HTML, pushes to browser, full reloads
       └── CSR (Pull)  ──► Browser boots JS app, pulls JSON via API, updates DOM dynamically
 ```
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

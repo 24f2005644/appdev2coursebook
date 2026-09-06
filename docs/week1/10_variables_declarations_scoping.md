@@ -1,4 +1,14 @@
 # Topic 10: Variables, Declarations & Scoping Rules
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 10: Variables, Declarations & Scoping Rules**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **MAD-II Week 1 | Detailed Notes**
 
@@ -512,3 +522,10 @@ Today, **ES Modules have made IIFEs obsolete for namespace isolation**:
 3. **Never use `var` in modern JavaScript**: It is a legacy keyword that breaks block scoping, hoists with `undefined`, permits silent re-declarations, and introduces subtle asynchronous bugs.
 4. **Remember the TDZ**: Variables declared with `let` and `const` exist throughout their block scope, but cannot be read or written until execution passes their declaration.
 5. **Remember `const` mutability**: `const` freezes the **binding**, not the **value**. Arrays and objects declared with `const` can still be mutated unless locked with `Object.freeze()`.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

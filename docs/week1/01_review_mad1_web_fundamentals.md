@@ -1,4 +1,14 @@
 # Topic 1: Review of MAD-I & Web Application Fundamentals
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 1: Review of MAD-I & Web Application Fundamentals**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **MAD-II Week 1 | Detailed Notes**
 
@@ -185,3 +195,9 @@ WHY WEB?
   ✓ Low barrier to entry (rapid prototyping)
   ✓ High flexibility (simple pages → complex systems)
 ```
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

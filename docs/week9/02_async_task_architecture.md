@@ -1,4 +1,14 @@
 # Topic 2: Architecture for Heavy Compute & Async Task Frameworks
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 2: Architecture for Heavy Compute & Async Task Frameworks**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -300,3 +310,10 @@ Your Flask/Django App
 - Your application only needs to call `.delay()` — Celery handles everything else.
 
 > Celery is covered in detail in **Topic 5**. The next topics (3 & 4) build the foundations of how messaging and queues actually work.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

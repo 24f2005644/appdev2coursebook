@@ -1,4 +1,14 @@
 # 1. Declarative Rendering
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **1. Declarative Rendering**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **Module**: MAD II — Week 4 | **Topic**: Vue.js Fundamentals
 > **Subtopics**: 1.1 → 1.8
@@ -647,3 +657,10 @@ data() {
 | CSS conditional | `v-show` | Toggles `display: none` |
 | List rendering | `v-for="item in list"` | Renders element per item |
 | Identity tracking | `:key="unique-id"` | Efficient Virtual DOM diffing |
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

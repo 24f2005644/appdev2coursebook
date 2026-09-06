@@ -1,4 +1,14 @@
 # Tools & Measurement — Detailed Notes
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Tools & Measurement — Detailed Notes**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **Parent Topic:** Performance
 > **Scope:** How to objectively measure web performance, what tools exist, what each metric means, and where automated tools fall short.
@@ -578,3 +588,10 @@ Lighthouse cannot tell you:
 - **LCP and CLS are Core Web Vitals** — they directly influence Google Search ranking.
 - Lighthouse also audits **Accessibility, Best Practices, and SEO** — treat all four categories seriously.
 - **Automated checks have real limits** — a high score doesn't guarantee a good experience. Use them as starting points, not final verdicts.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

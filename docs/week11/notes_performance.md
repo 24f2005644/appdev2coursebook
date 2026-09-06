@@ -1,4 +1,14 @@
 # Performance — Detailed Notes
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Performance — Detailed Notes**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -247,3 +257,10 @@ Lighthouse and similar tools are **valuable but not perfect**. Key limitations:
 - The **6 core metrics** (FCP, SI, LCP, TTI, TBT, CLS) each capture a different dimension of the loading experience.
 - **Automated tools have limits** — always combine them with real-world monitoring.
 - **Measure first, then optimize.** Never prematurely optimize without data.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

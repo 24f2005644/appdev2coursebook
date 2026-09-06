@@ -1,4 +1,14 @@
 # Topic 9: Operators, Comparisons & Type Coercion
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 9: Operators, Comparisons & Type Coercion**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **MAD-II Week 1 | Detailed Notes**
 
@@ -657,3 +667,9 @@ null >= 0;  // true!  (null -> 0, 0 >= 0 is true!)
 4. **Use Nullish Coalescing (`??`) instead of Logical OR (`||`)** when defaulting values where `0`, `""`, or `false` are valid inputs.
 5. **Remember the 8 Falsy values**: `false`, `0`, `-0`, `0n`, `""`, `null`, `undefined`, `NaN`. Everything else is truthy.
 6. **Arrays and Objects are compared by reference**: `[] === []` is always `false`. To compare object or array contents, inspect elements individually or serialize them.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

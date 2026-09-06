@@ -1,4 +1,14 @@
 # 3. Asynchronous Patterns: Callbacks, Events & Promises
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **3. Asynchronous Patterns: Callbacks, Events & Promises**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -572,3 +582,9 @@ Topic 3: Asynchronous Patterns — Callbacks, Events & Promises
       ├── Promise.allSettled() ──► Always resolves; reports each outcome individually
       └── Promise.any()        ──► First to FULFILL wins; ignores rejections unless all fail
 ```
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.

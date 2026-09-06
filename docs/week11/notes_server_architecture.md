@@ -1,4 +1,14 @@
 # Server Architecture Details — Detailed Notes
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Server Architecture Details — Detailed Notes**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 > **Parent Topic:** Scaling
 > **Scope:** Deep dive into the server-side architectural choices that determine how well an application scales — load balancing, proxies, databases, and language/runtime decisions.
@@ -821,3 +831,10 @@ Most modern applications **mix paradigms** pragmatically:
 - **The GIL** makes Python multi-threading ineffective for CPU-bound work — use multiple processes (Gunicorn) or async I/O (FastAPI) instead.
 - **Async/event-loop** models (Node.js, asyncio, Go goroutines) are the most scalable for I/O-heavy workloads — thousands of concurrent connections on a single thread.
 - **Functional programming principles** (pure functions, immutability) make concurrent code dramatically safer and easier to reason about.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

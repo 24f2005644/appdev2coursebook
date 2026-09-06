@@ -1,4 +1,14 @@
 # Topic 09: Push Notifications & Modern Push Protocols
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 09: Push Notifications & Modern Push Protocols**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -429,3 +439,10 @@ Modern best practices:
 ```
 
 > This completes the full Week 10 topic on Messaging — from internal service message queues, through webhooks, to client-side push in all its forms.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

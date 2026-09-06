@@ -1,4 +1,14 @@
 # Topic 1: Web API Design & REST Conventions
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 1: Web API Design & REST Conventions**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -574,3 +584,10 @@ Strict theoretical REST purity is rarely the right goal:
 | Use standard auth protocols | OAuth2 + JWT |
 | Be consistent | Same conventions across all endpoints |
 | Design for developers | Optimize for DX, not theoretical purity |
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+

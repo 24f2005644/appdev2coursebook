@@ -1,4 +1,14 @@
 # Topic 4: Task Queue Mechanics & Asynchronous Execution
+
+
+
+## Learning objectives
+
+By the end of this topic, you should be able to:
+
+- Explain the main ideas covered in **Topic 4: Task Queue Mechanics & Asynchronous Execution**.
+- Connect these ideas to modern web application development.
+- Recognize the patterns, terminology, and trade-offs used in practice.
 
 ---
 
@@ -482,3 +492,10 @@ Worker: long-poll ────────── (server holds 20s) ────
 | **Best for** | Large projects needing full control | Quick setup, Redis-only stacks |
 
 **Celery** is the de facto standard for Python async tasks and is covered in detail in **Topic 5**.
+
+## Further practice
+
+- Revisit the examples in this topic and explain each step in your own words.
+- Identify one place where the concept could be used in a web application.
+- Test a small variation and note how the behavior changes.
+
