@@ -33,7 +33,7 @@ theme:
     - toc.follow
 
 extra_css:
-  - stylesheets/extra.css
+  - stylesheets/theme-v2.css
 
 markdown_extensions:
   - admonition
