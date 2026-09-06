@@ -1,0 +1,4464 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week1/11_control_flow_constructs/">
+      
+      
+        <link rel="prev" href="../10_variables_declarations_scoping/">
+      
+      
+        <link rel="next" href="../12_functions_execution_patterns/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Control-flow constructs - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#topic-11-control-flow-constructs" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Control-flow constructs
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#111-conditional-branching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 Conditional Branching
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11.1 Conditional Branching">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-if-else-if-else-ladder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The if, else if, else Ladder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#curly-braces-always-mandatory-in-clean-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Curly Braces: Always Mandatory in Clean Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-guard-clause-pattern-early-return" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Guard Clause Pattern (Early Return)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-conditional-ternary-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Conditional (Ternary) Operator (?:)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#112-multi-way-branching-switch-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 Multi-Way Branching: switch ... case
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11.2 Multi-Way Branching: switch ... case">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-strict-equality-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Strict Equality Rule (===)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fall-through-mechanics-the-break-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fall-Through Mechanics &amp; The break Statement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#block-scoping-inside-switch-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Block Scoping Inside switch Statements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modern-alternative-object-map-lookup-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modern Alternative: Object / Map Lookup Tables
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#113-iteration-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 Iteration &amp; Loops
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11.3 Iteration &amp; Loops">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-classic-for-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Classic for Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-while-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The while Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-do-while-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The do ... while Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loop-control-keywords-break-and-continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loop Control Keywords: break and continue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#labeled-statements-breaking-nested-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Labeled Statements (Breaking Nested Loops)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#114-browser-performance-the-single-thread-hazard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.4 Browser Performance &amp; The Single-Thread Hazard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11.4 Browser Performance &amp; The Single-Thread Hazard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-danger-of-infinite-or-heavy-synchronous-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Danger of Infinite or Heavy Synchronous Loops:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-best-practices-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary &amp; Best Practices Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#111-conditional-branching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 Conditional Branching
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11.1 Conditional Branching">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-if-else-if-else-ladder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The if, else if, else Ladder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#curly-braces-always-mandatory-in-clean-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Curly Braces: Always Mandatory in Clean Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-guard-clause-pattern-early-return" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Guard Clause Pattern (Early Return)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-conditional-ternary-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Conditional (Ternary) Operator (?:)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#112-multi-way-branching-switch-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 Multi-Way Branching: switch ... case
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11.2 Multi-Way Branching: switch ... case">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-strict-equality-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Strict Equality Rule (===)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fall-through-mechanics-the-break-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fall-Through Mechanics &amp; The break Statement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#block-scoping-inside-switch-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Block Scoping Inside switch Statements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modern-alternative-object-map-lookup-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modern Alternative: Object / Map Lookup Tables
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#113-iteration-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 Iteration &amp; Loops
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11.3 Iteration &amp; Loops">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-classic-for-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Classic for Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-while-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The while Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-do-while-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The do ... while Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loop-control-keywords-break-and-continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loop Control Keywords: break and continue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#labeled-statements-breaking-nested-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Labeled Statements (Breaking Nested Loops)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#114-browser-performance-the-single-thread-hazard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.4 Browser Performance &amp; The Single-Thread Hazard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11.4 Browser Performance &amp; The Single-Thread Hazard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-danger-of-infinite-or-heavy-synchronous-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Danger of Infinite or Heavy Synchronous Loops:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-best-practices-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary &amp; Best Practices Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="topic-11-control-flow-constructs">Topic 11: Control Flow Constructs</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Topic 11: Control Flow Constructs</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<blockquote>
+<p><strong>MAD-II Week 1 | Detailed Notes</strong></p>
+</blockquote>
+<hr />
+<h2 id="overview">Overview</h2>
+<p>By default, the JavaScript runtime executes code <strong>sequentially</strong>—from top to bottom, one statement after another. <strong>Control flow constructs</strong> allow programmers to divert, branch, or repeat this execution path based on runtime conditions, state evaluations, and data structures.</p>
+<p>Control flow constructs in JavaScript fall into three broad classes:
+1. <strong>Conditional Branching</strong>: Choosing between alternative execution paths (<code>if</code>, <code>else if</code>, <code>else</code>, ternary <code>?:</code>).
+2. <strong>Multi-Way Branching</strong>: Matching an expression against multiple predefined values (<code>switch ... case</code>).
+3. <strong>Iteration &amp; Loops</strong>: Repeating execution blocks until a boundary condition is satisfied (<code>for</code>, <code>while</code>, <code>do ... while</code>).</p>
+<p>Because JavaScript is <strong>single-threaded</strong> in the browser, control flow carries unique architectural implications: poorly constructed synchronous loops can completely freeze the browser tab, blocking UI rendering and user interactions.</p>
+<pre class="mermaid"><code>flowchart TD
+    Start["Program Execution"] --&gt; Decision{"Evaluate Condition"}
+    Decision -- "Truthy" --&gt; BranchA["Execute Branch A"]
+    Decision -- "Falsy" --&gt; BranchB["Execute Branch B"]
+    BranchA --&gt; Merge["Continue Sequential Execution"]
+    BranchB --&gt; Merge
+
+    Merge --&gt; LoopCheck{"Loop Condition Met?"}
+    LoopCheck -- "Yes" --&gt; LoopBody["Execute Loop Body &amp; Step"]
+    LoopBody --&gt; LoopCheck
+    LoopCheck -- "No" --&gt; Done["Terminate Loop &amp; Exit"]</code></pre>
+<hr />
+<h2 id="111-conditional-branching">11.1 Conditional Branching</h2>
+<h3 id="the-if-else-if-else-ladder">The <code>if</code>, <code>else if</code>, <code>else</code> Ladder</h3>
+<p>The <code>if</code> statement evaluates an expression inside parentheses. If the expression evaluates to a <strong>truthy</strong> value (via the internal <code>ToBoolean</code> abstract operation), the accompanying block executes.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">userScore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">85</span><span class="p">;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">userScore</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">90</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Grade: A"</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">userScore</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">80</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Grade: B"</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">userScore</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">70</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Grade: C"</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Grade: F"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="implicit-truthyfalsy-evaluation-in-conditions">Implicit Truthy/Falsy Evaluation in Conditions</h4>
+<p>The condition inside <code>if (...)</code> is coerced into a boolean automatically. You do <strong>not</strong> need to write <code>if (isValid === true)</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">activeUsers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5</span><span class="p">;</span>
+
+<span class="c1">// Idiomatic: Evaluates ToBoolean(activeUsers). 5 is non-zero, hence truthy:</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">activeUsers</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"There are active users online."</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">inputName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">;</span>
+<span class="c1">// "" is falsy:</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">inputName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Name field cannot be blank!"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p>[!WARNING]
+<strong>The Zero Pitfall</strong>:
+If <code>0</code> is a valid input (e.g., a bank account balance, an index, or an item count), evaluating <code>if (balance)</code> will treat <code>0</code> as <strong>falsy</strong>!
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">balance</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// WILL NOT RUN because 0 is falsy!</span>
+<span class="w">    </span><span class="nx">renderAccount</span><span class="p">(</span><span class="nx">balance</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Correct: Explicit comparison</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">balance</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">undefined</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">balance</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">renderAccount</span><span class="p">(</span><span class="nx">balance</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</blockquote>
+<hr />
+<h3 id="curly-braces-always-mandatory-in-clean-code">Curly Braces: Always Mandatory in Clean Code</h3>
+<p>JavaScript permits omitting curly braces if an <code>if</code> statement contains only a single statement:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Valid syntax, but HIGHLY DISCOURAGED:</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">isLoggedIn</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">redirectDashboard</span><span class="p">();</span>
+</code></pre></div>
+<p>Omitting braces is widely recognized as a <strong>critical anti-pattern</strong> in production software. It introduces catastrophic indentation traps:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// DANGEROUS:</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">userIsAdmin</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">deleteDatabase</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">notifyAdmin</span><span class="p">();</span><span class="w"> </span><span class="c1">// THIS ALWAYS RUNS regardless of userIsAdmin!</span>
+</code></pre></div>
+<p>Because <code>notifyAdmin()</code> is not part of the <code>if</code> body (only the immediate first statement is), it executes unconditionally. This syntax omission caused Apple's famous 2014 <strong>"goto fail" SSL/TLS security vulnerability</strong>.</p>
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Production Standard</strong>: Always wrap control flow bodies in curly braces <code>{ ... }</code>, even for single-line statements.</p>
+</blockquote>
+<hr />
+<h3 id="the-guard-clause-pattern-early-return">The Guard Clause Pattern (Early Return)</h3>
+<p>Deeply nested <code>if-else</code> blocks create what developers call the <strong>"Pyramid of Doom"</strong> or <strong>Arrow Anti-pattern</strong>, making code difficult to read, test, and maintain.</p>
+<h4 id="the-bad-pattern-deep-nesting">The Bad Pattern (Deep Nesting):</h4>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">processOrder</span><span class="p">(</span><span class="nx">order</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">order</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">order</span><span class="p">.</span><span class="nx">items</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">order</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">order</span><span class="p">.</span><span class="nx">paymentStatus</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">"PAID"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// Actual core business logic buried 4 levels deep:</span>
+<span class="w">                </span><span class="nx">shipOrder</span><span class="p">(</span><span class="nx">order</span><span class="p">);</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">};</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s2">"Payment required"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s2">"Cart is empty"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s2">"Invalid order"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="the-professional-pattern-guard-clauses">The Professional Pattern (Guard Clauses):</h4>
+<p>Invert the conditions and return early. The function exits as soon as an error or invalid state is encountered, keeping the main logic flat and at zero indentation:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">processOrder</span><span class="p">(</span><span class="nx">order</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Guard Clause 1: Order exists?</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">order</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s2">"Invalid order"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Guard Clause 2: Has items?</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">order</span><span class="p">.</span><span class="nx">items</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">order</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s2">"Cart is empty"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Guard Clause 3: Paid?</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">order</span><span class="p">.</span><span class="nx">paymentStatus</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s2">"PAID"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s2">"Payment required"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Happy path: Clean, un-nested, and immediately readable</span>
+<span class="w">    </span><span class="nx">shipOrder</span><span class="p">(</span><span class="nx">order</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h3 id="the-conditional-ternary-operator">The Conditional (Ternary) Operator (<code>?:</code>)</h3>
+<p>The <strong>ternary operator</strong> is JavaScript's only operator that takes three operands:
+<div class="highlight"><pre><span></span><code><span class="nx">condition</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">expressionIfTrue</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nx">expressionIfFalse</span>
+</code></pre></div></p>
+<h4 id="statement-vs-expression">Statement vs. Expression:</h4>
+<ul>
+<li>An <code>if ... else</code> construct is a <strong>statement</strong>—it performs actions but does <strong>not evaluate to a value</strong>. You cannot assign an <code>if</code> statement to a variable.</li>
+<li>The ternary operator is an <strong>expression</strong>—it produces a value that can be assigned, returned, or passed as a parameter.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">20</span><span class="p">;</span>
+
+<span class="c1">// Verbose using statement:</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">accessLevel</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">age</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">18</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">accessLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Adult"</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">accessLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Minor"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Idiomatic and concise using ternary expression:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">accessLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">age</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">18</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">"Adult"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">"Minor"</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="multi-branch-nested-ternaries">Multi-Branch (Nested) Ternaries:</h4>
+<p>Ternary operators can be chained to represent multiple branches:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">score</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">85</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">grade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">score</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">90</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">"A"</span>
+<span class="w">            </span><span class="o">:</span><span class="w"> </span><span class="nx">score</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">80</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">"B"</span>
+<span class="w">            </span><span class="o">:</span><span class="w"> </span><span class="nx">score</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">70</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">"C"</span>
+<span class="w">            </span><span class="o">:</span><span class="w"> </span><span class="s2">"F"</span><span class="p">;</span>
+</code></pre></div>
+<blockquote>
+<p>[!TIP]
+<strong>Readability Rule</strong>: Use single ternaries for simple binary state selections (<code>const label = isOpen ? "Close" : "Open"</code>). If branching logic exceeds two conditions or contains side-effects, use <code>if-else</code> or <code>switch</code> instead of nested ternaries.</p>
+</blockquote>
+<hr />
+<h2 id="112-multi-way-branching-switch-case">11.2 Multi-Way Branching: <code>switch ... case</code></h2>
+<p>When a single variable or expression must be evaluated against numerous discrete constant values, a <code>switch</code> statement provides a structured alternative to a long chain of <code>else if</code> statements.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">userRole</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"editor"</span><span class="p">;</span>
+
+<span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">userRole</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"admin"</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Full system access granted."</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"editor"</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Can edit and publish content."</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"viewer"</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Read-only access granted."</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Unknown role. Access denied."</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h3 id="the-strict-equality-rule">The Strict Equality Rule (<code>===</code>)</h3>
+<blockquote>
+<p>[!CAUTION]
+<strong><code>switch</code> uses Strict Equality (<code>===</code>) exclusively.</strong></p>
+</blockquote>
+<p>The <code>switch</code> statement evaluates cases against the test expression using the <strong>Strict Equality Comparison Algorithm</strong> (<code>===</code>). <strong>No type coercion is performed.</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"200"</span><span class="p">;</span>
+
+<span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">code</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mf">200</span><span class="o">:</span><span class="w"> </span><span class="c1">// Number 200 !== String "200"</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Success"</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"No match found!"</span><span class="p">);</span><span class="w"> </span><span class="c1">// This WILL execute!</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Because <code>"200" === 200</code> is <code>false</code>, the case does not match.</p>
+<hr />
+<h3 id="fall-through-mechanics-the-break-statement">Fall-Through Mechanics &amp; The <code>break</code> Statement</h3>
+<p>The <code>break</code> keyword stops execution of the <code>switch</code> block and jumps execution to the first statement following the switch.</p>
+<p>If you omit <code>break</code>, execution continues unconditionally into the subsequent <code>case</code> blocks, regardless of whether their case expressions match! This is known as <strong>fall-through</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+
+<span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">level</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mf">1</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Level 1 completed"</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// BUG: Forgot break!</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mf">2</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Level 2 completed"</span><span class="p">);</span><span class="w"> </span><span class="c1">// Executes!</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mf">3</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Level 3 completed"</span><span class="p">);</span><span class="w"> </span><span class="c1">// Executes!</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Game Over"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// Outputs:</span>
+<span class="c1">// "Level 1 completed"</span>
+<span class="c1">// "Level 2 completed"</span>
+<span class="c1">// "Level 3 completed"</span>
+</code></pre></div>
+<h4 id="intentional-fall-through-grouping-cases">Intentional Fall-Through (Grouping Cases):</h4>
+<p>Fall-through is useful when multiple cases share the exact same logic:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Saturday"</span><span class="p">;</span>
+
+<span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">day</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"Monday"</span><span class="o">:</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"Tuesday"</span><span class="o">:</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"Wednesday"</span><span class="o">:</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"Thursday"</span><span class="o">:</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"Friday"</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Weekday: Set alarm for 7:00 AM."</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"Saturday"</span><span class="o">:</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"Sunday"</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Weekend: Alarm disabled."</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">default</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Invalid day of the week."</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h3 id="block-scoping-inside-switch-statements">Block Scoping Inside <code>switch</code> Statements</h3>
+<p>A notorious trap in JavaScript is that <strong>the entire <code>switch</code> statement shares a single lexical scope</strong>. Declaring a <code>let</code> or <code>const</code> with the same name across different <code>case</code> blocks throws a <code>SyntaxError</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// SYNTAX ERROR:</span>
+<span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">action</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"login"</span><span class="o">:</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Welcome!"</span><span class="p">;</span><span class="w"> </span><span class="c1">// Error: Identifier 'message' has already been declared</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"logout"</span><span class="o">:</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Goodbye!"</span><span class="p">;</span><span class="w"> </span><span class="c1">// Error!</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="the-solution-wrap-case-bodies-in-curly-braces">The Solution: Wrap <code>case</code> bodies in curly braces <code>{ ... }</code></h4>
+<p>Enclosing the case body inside a block <code>{ ... }</code> creates a private block scope for that case:</p>
+<div class="highlight"><pre><span></span><code><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">action</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"login"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Welcome!"</span><span class="p">;</span><span class="w"> </span><span class="c1">// Scoped strictly to this case block</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"logout"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Goodbye!"</span><span class="p">;</span><span class="w"> </span><span class="c1">// Distinct, legal lexical scope</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h3 id="modern-alternative-object-map-lookup-tables">Modern Alternative: Object / Map Lookup Tables</h3>
+<p>In modern JavaScript and frontend development (e.g., Vue methods, React reducers), long <code>switch</code> statements are often replaced with clean <strong>dictionary / object lookups</strong>:</p>
+<p><div class="highlight"><pre><span></span><code><span class="c1">// Modern Dictionary Dispatch:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">rolePermissions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">admin</span><span class="o">:</span><span class="w">  </span><span class="p">[</span><span class="s2">"read"</span><span class="p">,</span><span class="w"> </span><span class="s2">"write"</span><span class="p">,</span><span class="w"> </span><span class="s2">"delete"</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">editor</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"read"</span><span class="p">,</span><span class="w"> </span><span class="s2">"write"</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">viewer</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"read"</span><span class="p">]</span>
+<span class="p">};</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">getPermissions</span><span class="p">(</span><span class="nx">role</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">rolePermissions</span><span class="p">[</span><span class="nx">role</span><span class="p">]</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="p">[</span><span class="s2">"none"</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getPermissions</span><span class="p">(</span><span class="s2">"editor"</span><span class="p">));</span><span class="w"> </span><span class="c1">// ["read", "write"]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getPermissions</span><span class="p">(</span><span class="s2">"guest"</span><span class="p">));</span><span class="w">  </span><span class="c1">// ["none"]</span>
+</code></pre></div>
+This pattern is declarative, easier to extend dynamically, and avoids switch-scoping and fall-through bugs.</p>
+<hr />
+<h2 id="113-iteration-loops">11.3 Iteration &amp; Loops</h2>
+<p>Loops repeat a block of statements until a termination condition evaluates to <code>false</code>.</p>
+<hr />
+<h3 id="1-the-classic-for-loop">1. The Classic <code>for</code> Loop</h3>
+<p>The classic <code>for</code> loop contains three optional expressions separated by semicolons:
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="nx">initialization</span><span class="p">;</span><span class="w"> </span><span class="nx">condition</span><span class="p">;</span><span class="w"> </span><span class="kr">final</span><span class="o">-</span><span class="nx">expression</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Loop body</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">5</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Iteration: </span><span class="si">${</span><span class="nx">i</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// Outputs: 0, 1, 2, 3, 4</span>
+</code></pre></div>
+<h4 id="execution-order">Execution Order:</h4>
+<ol>
+<li><strong>Initialization</strong>: <code>let i = 0</code> runs once before anything else.</li>
+<li><strong>Condition</strong>: <code>i &lt; 5</code> is evaluated. If truthy, proceed; if falsy, exit.</li>
+<li><strong>Body</strong>: <code>{ console.log(...); }</code> executes.</li>
+<li><strong>Final-Expression</strong>: <code>i++</code> increments the counter.</li>
+<li>Repeat from Step 2.</li>
+</ol>
+<blockquote>
+<p>[!NOTE]
+<strong>Recall from Topic 10</strong>: Always declare the loop index with <strong><code>let</code></strong>, never <code>var</code>. <code>let</code> creates a distinct, isolated lexical binding for each loop iteration, preserving closures in asynchronous operations.</p>
+</blockquote>
+<hr />
+<h3 id="2-the-while-loop">2. The <code>while</code> Loop</h3>
+<p>A <code>while</code> loop evaluates its condition <strong>before</strong> executing the loop body. If the condition begins as <code>false</code>, the body <strong>never executes</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">attempts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">maxRetries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3</span><span class="p">;</span>
+
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nx">attempts</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">maxRetries</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Connection attempt </span><span class="si">${</span><span class="nx">attempts</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="si">}</span><span class="sb">...`</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">attempts</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Use <code>while</code> loops when the number of iterations cannot be known ahead of time (e.g., polling an API until a status changes or reading from a stream).</p>
+<hr />
+<h3 id="3-the-do-while-loop">3. The <code>do ... while</code> Loop</h3>
+<p>A <code>do ... while</code> loop evaluates its condition <strong>after</strong> executing the body. Therefore, the body is <strong>guaranteed to run at least once</strong>, regardless of the condition:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span>
+
+<span class="k">do</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Count is: </span><span class="si">${</span><span class="nx">count</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">count</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nx">count</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">5</span><span class="p">);</span>
+
+<span class="c1">// Output: "Count is: 10" (Runs once despite 10 not being &lt; 5!)</span>
+</code></pre></div>
+<p><strong>Practical Use Case</strong>: Gathering user input, processing initial handshake requests, or running a workflow where an initial run is required before testing validity.</p>
+<hr />
+<h3 id="loop-control-keywords-break-and-continue">Loop Control Keywords: <code>break</code> and <code>continue</code></h3>
+<h4 id="1-break">1. <code>break</code></h4>
+<p>Immediately terminates the innermost loop and transfers execution to the statement immediately following the loop:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">i</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">6</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Terminating loop at 6."</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"> </span><span class="c1">// Exits loop entirely</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// Outputs: 1, 2, 3, 4, 5, "Terminating loop at 6."</span>
+</code></pre></div>
+<h4 id="2-continue">2. <code>continue</code></h4>
+<p>Terminates execution of statements in the <strong>current iteration</strong> only, skipping directly to the next loop evaluation (increment in <code>for</code>, condition in <code>while</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mf">5</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">i</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">continue</span><span class="p">;</span><span class="w"> </span><span class="c1">// Skip the rest of this iteration when i is 3</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// Outputs: 1, 2, 4, 5 (3 is skipped)</span>
+</code></pre></div>
+<hr />
+<h3 id="labeled-statements-breaking-nested-loops">Labeled Statements (Breaking Nested Loops)</h3>
+<p>In standard JavaScript, <code>break</code> only exits the immediate loop in which it is nested. To break out of an <strong>outer loop</strong> from within an inner nested loop, JavaScript supports <strong>Labeled Statements</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">outerLoop</span><span class="o">:</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">row</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">3</span><span class="p">;</span><span class="w"> </span><span class="nx">row</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">col</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">3</span><span class="p">;</span><span class="w"> </span><span class="nx">col</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">row</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">col</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Target found at [</span><span class="si">${</span><span class="nx">row</span><span class="si">}</span><span class="sb">, </span><span class="si">${</span><span class="nx">col</span><span class="si">}</span><span class="sb">]. Aborting entire grid search.`</span><span class="p">);</span>
+<span class="w">            </span><span class="k">break</span><span class="w"> </span><span class="nx">outerLoop</span><span class="p">;</span><span class="w"> </span><span class="c1">// Terminates BOTH loops!</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Checking [</span><span class="si">${</span><span class="nx">row</span><span class="si">}</span><span class="sb">, </span><span class="si">${</span><span class="nx">col</span><span class="si">}</span><span class="sb">]`</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="114-browser-performance-the-single-thread-hazard">11.4 Browser Performance &amp; The Single-Thread Hazard</h2>
+<p>Unlike multi-threaded server environments, JavaScript in the browser runs on a <strong>single main execution thread</strong>. </p>
+<p>This single thread is responsible for:
+1. Executing your JavaScript code.
+2. Parsing and computing CSS styles.
+3. Calculating layout geometry.
+4. Repainting pixels on the screen (60 frames per second).
+5. Processing user input (clicks, scrolls, typing).</p>
+<h3 id="the-danger-of-infinite-or-heavy-synchronous-loops">The Danger of Infinite or Heavy Synchronous Loops:</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// CATASTROPHIC:</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Infinite synchronous execution</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If a loop never terminates, or takes seconds to process a massive dataset:
+- The browser tab <strong>completely freezes</strong>.
+- Buttons cannot be clicked, text cannot be highlighted, animations stutter and stop.
+- The browser eventually prompts the user with an <em>"Unresponsive Page — Kill or Wait"</em> modal.</p>
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Web Application Design Principle</strong>: Heavy computations or large array processing should never block the main browser thread. Modern web development achieves this using:
+- <strong>Asynchronous Batching</strong> (<code>setTimeout</code>, <code>requestAnimationFrame</code>)
+- <strong>Web Workers</strong> (background multi-threading in the browser)</p>
+</blockquote>
+<hr />
+<h2 id="summary-best-practices-checklist">Summary &amp; Best Practices Checklist</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Construct</th>
+<th style="text-align: left;">Best Suited For</th>
+<th style="text-align: left;">Key Watch-Out</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>if ... else</code></td>
+<td style="text-align: left;">Dynamic, range-based, or boolean conditions</td>
+<td style="text-align: left;">Always use <code>{ ... }</code> to prevent accidental execution leaks.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Guard Clauses</strong></td>
+<td style="text-align: left;">Validating inputs and error checking at function start</td>
+<td style="text-align: left;">Invert conditions and return early to eliminate nested pyramids.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ternary (<code>?:</code>)</strong></td>
+<td style="text-align: left;">Assigning values or returning expressions conditionally</td>
+<td style="text-align: left;">Keep simple. Avoid chaining multiple levels of nested ternaries.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>switch ... case</code></td>
+<td style="text-align: left;">Matching one expression against many known constants</td>
+<td style="text-align: left;">Uses <code>===</code> (no coercion). Always include <code>break;</code> and <code>default;</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>for (let i = 0...)</code></td>
+<td style="text-align: left;">Fixed, deterministic iteration counts</td>
+<td style="text-align: left;">Always declare loop index with <code>let</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>while</code></td>
+<td style="text-align: left;">Indeterminate loops where condition is checked first</td>
+<td style="text-align: left;">Ensure condition variable updates to prevent infinite loops.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>do ... while</code></td>
+<td style="text-align: left;">Scenarios where body must execute at least once</td>
+<td style="text-align: left;">Remember body runs before condition check.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Object Lookup</strong></td>
+<td style="text-align: left;">Replacing large <code>switch</code> blocks with dictionary mapping</td>
+<td style="text-align: left;">Highly scalable, clean, and declarative alternative to <code>switch</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../10_variables_declarations_scoping/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Variables, declarations, and scoping">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Variables, declarations, and scoping
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../12_functions_execution_patterns/" class="md-footer__link md-footer__link--next" aria-label="Next: Functions and execution patterns">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Functions and execution patterns
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

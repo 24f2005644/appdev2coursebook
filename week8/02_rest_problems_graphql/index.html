@@ -1,0 +1,5019 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week8/02_rest_problems_graphql/">
+      
+      
+        <link rel="prev" href="../01_web_api_design_rest/">
+      
+      
+        <link rel="next" href="../03_markup_text_representations/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Problems with REST and GraphQL - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#topic-2-problems-with-rest-the-rise-of-graphql" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Problems with REST and GraphQL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-limitations-and-friction-points-in-rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Limitations and Friction Points in REST
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Limitations and Friction Points in REST">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rest-as-a-style-not-a-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REST as a Style, Not a Spec
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-chatty-network-problem-cascading-round-trips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "Chatty Network" Problem (Cascading Round Trips)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#over-fetching-getting-too-much-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Over-Fetching: Getting Too Much Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#under-fetching-not-getting-enough-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Under-Fetching: Not Getting Enough Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rigid-endpoint-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rigid Endpoint Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inability-to-express-arbitrary-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inability to Express Arbitrary Queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-motivation-behind-graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Motivation Behind GraphQL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Motivation Behind GraphQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-problem-facebook-faced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Problem Facebook Faced
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-solution-a-query-language-for-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Solution: A Query Language for APIs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declarative-programming-applied-to-data-fetching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Declarative Programming Applied to Data Fetching
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-architecture-fundamentals-of-graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Architecture &amp; Fundamentals of GraphQL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Architecture &amp; Fundamentals of GraphQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graphql-as-a-specification-not-an-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GraphQL as a Specification, Not an Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-single-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Single Endpoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-a-graphql-request-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How a GraphQL Request Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-server-side-translation-engine-resolvers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Server-Side Translation Engine (Resolvers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-type-system-schema-relations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Type System &amp; Schema Relations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Type System &amp; Schema Relations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strongly-typed-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strongly Typed Schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scalar-types-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scalar Types (Primitives)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-null-and-list-modifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-Null and List Modifiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compile-time-query-time-static-error-checking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compile-Time / Query-Time Static Error Checking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explicit-entity-relations-in-the-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explicit Entity Relations in the Schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-versionless-api-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Versionless API Evolution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Versionless API Evolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-rest-versioning-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The REST Versioning Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphqls-additive-evolution-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GraphQL's Additive Evolution Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-modifying-data-with-mutations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Modifying Data with Mutations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 Modifying Data with Mutations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mutation-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutation Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutation-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutation Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-separate-query-and-mutation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Separate Query and Mutation?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-tooling-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Tooling &amp; Ecosystem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7 Tooling &amp; Ecosystem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apollo-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apollo Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-resolvers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Resolvers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interactive-graphql-explorers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive GraphQL Explorers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#28-server-complexity-trade-off-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8 Server Complexity &amp; Trade-off Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8 Server Complexity &amp; Trade-off Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-n1-query-problem-server-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The N+1 Query Problem (Server-Side)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caching-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching Challenges
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-complexity-depth-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query Complexity &amp; Depth Limiting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rest-vs-graphql-when-to-use-which" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REST vs. GraphQL: When to Use Which
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-limitations-and-friction-points-in-rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Limitations and Friction Points in REST
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Limitations and Friction Points in REST">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rest-as-a-style-not-a-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REST as a Style, Not a Spec
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-chatty-network-problem-cascading-round-trips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "Chatty Network" Problem (Cascading Round Trips)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#over-fetching-getting-too-much-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Over-Fetching: Getting Too Much Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#under-fetching-not-getting-enough-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Under-Fetching: Not Getting Enough Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rigid-endpoint-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rigid Endpoint Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inability-to-express-arbitrary-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inability to Express Arbitrary Queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-motivation-behind-graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Motivation Behind GraphQL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Motivation Behind GraphQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-problem-facebook-faced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Problem Facebook Faced
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-solution-a-query-language-for-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Solution: A Query Language for APIs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declarative-programming-applied-to-data-fetching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Declarative Programming Applied to Data Fetching
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-architecture-fundamentals-of-graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Architecture &amp; Fundamentals of GraphQL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Architecture &amp; Fundamentals of GraphQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graphql-as-a-specification-not-an-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GraphQL as a Specification, Not an Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-single-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Single Endpoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-a-graphql-request-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How a GraphQL Request Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-server-side-translation-engine-resolvers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Server-Side Translation Engine (Resolvers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-type-system-schema-relations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Type System &amp; Schema Relations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Type System &amp; Schema Relations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strongly-typed-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strongly Typed Schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scalar-types-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scalar Types (Primitives)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-null-and-list-modifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-Null and List Modifiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compile-time-query-time-static-error-checking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compile-Time / Query-Time Static Error Checking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explicit-entity-relations-in-the-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explicit Entity Relations in the Schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-versionless-api-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Versionless API Evolution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Versionless API Evolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-rest-versioning-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The REST Versioning Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphqls-additive-evolution-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GraphQL's Additive Evolution Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-modifying-data-with-mutations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Modifying Data with Mutations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 Modifying Data with Mutations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mutation-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutation Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutation-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutation Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-separate-query-and-mutation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Separate Query and Mutation?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-tooling-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Tooling &amp; Ecosystem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7 Tooling &amp; Ecosystem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apollo-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apollo Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-resolvers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Resolvers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interactive-graphql-explorers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive GraphQL Explorers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#28-server-complexity-trade-off-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8 Server Complexity &amp; Trade-off Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8 Server Complexity &amp; Trade-off Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-n1-query-problem-server-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The N+1 Query Problem (Server-Side)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caching-challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching Challenges
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-complexity-depth-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query Complexity &amp; Depth Limiting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rest-vs-graphql-when-to-use-which" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REST vs. GraphQL: When to Use Which
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="topic-2-problems-with-rest-the-rise-of-graphql">Topic 2: Problems with REST &amp; The Rise of GraphQL</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Topic 2: Problems with REST &amp; The Rise of GraphQL</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<hr />
+<h2 id="21-limitations-and-friction-points-in-rest">2.1 Limitations and Friction Points in REST</h2>
+<h3 id="rest-as-a-style-not-a-spec">REST as a Style, Not a Spec</h3>
+<p>REST (Representational State Transfer) was defined by Roy Fielding in his 2000 doctoral dissertation as a set of <strong>architectural constraints</strong> — not a protocol or a standard. This means:</p>
+<ul>
+<li>There is no official REST specification to validate against</li>
+<li>Different teams implement "REST" differently in practice</li>
+<li>What most people call REST is actually <strong>pragmatic HTTP APIs loosely inspired by REST principles</strong></li>
+</ul>
+<p>This gap between theoretical REST and real-world REST is the root source of its friction points.</p>
+<hr />
+<h3 id="the-chatty-network-problem-cascading-round-trips">The "Chatty Network" Problem (Cascading Round Trips)</h3>
+<p>One of the most painful real-world limitations of REST is the <strong>N+1 request problem</strong> — a single page view requiring many sequential API calls.</p>
+<p><strong>Scenario</strong>: Build a social media profile page that shows:
+- User's name and avatar
+- Their last 5 posts
+- Comments on each post
+- Likes count on each comment</p>
+<p><strong>REST approach:</strong></p>
+<div class="highlight"><pre><span></span><code>Round Trip 1:  GET /users/42
+               → { id: 42, name: "Jane", avatar_url: "...", post_ids: [1,2,3,4,5] }
+
+Round Trip 2:  GET /posts/1
+Round Trip 3:  GET /posts/2
+Round Trip 4:  GET /posts/3
+Round Trip 5:  GET /posts/4
+Round Trip 6:  GET /posts/5
+
+Round Trip 7:  GET /posts/1/comments
+Round Trip 8:  GET /posts/2/comments
+...and so on for each post
+</code></pre></div>
+<p><strong>Result</strong>: A single profile page might require <strong>10–20+ sequential HTTP round trips</strong>, each with:
+- DNS lookup + TCP handshake + TLS handshake overhead
+- Server processing time
+- Network latency (especially painful on mobile / high-latency connections)</p>
+<p>The sequential nature makes this even worse — you can't fetch comments until you have post IDs, which you can't get until you have the user.</p>
+<hr />
+<h3 id="over-fetching-getting-too-much-data">Over-Fetching: Getting Too Much Data</h3>
+<p>REST endpoints return <strong>fixed response shapes</strong> — the server decides what's in the response, not the client.</p>
+<p><strong>Example</strong>: Fetching a user to display only their name in a navigation bar</p>
+<div class="highlight"><pre><span></span><code><span class="err">GET /users/42</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane Doe"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jane@example.com"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"bio"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Software engineer..."</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://cdn.example.com/avatars/jane.jpg"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-03-15T10:00:00Z"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"last_login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-10T14:32:00Z"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"preferences"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"theme"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dark"</span><span class="p">,</span><span class="w"> </span><span class="nt">"notifications"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"social_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"twitter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w"> </span><span class="nt">"github"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"follower_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1240</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"following_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">389</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The client only needed <code>name</code>, but received a payload with 15+ fields. At scale:
+- <strong>Wasted bandwidth</strong> (mobile data costs, slow connections)
+- <strong>Larger payloads</strong> that take longer to serialize/deserialize
+- <strong>Increased memory usage</strong> on both client and server</p>
+<hr />
+<h3 id="under-fetching-not-getting-enough-data">Under-Fetching: Not Getting Enough Data</h3>
+<p>The opposite problem — a single endpoint doesn't return everything the client needs, forcing additional requests.</p>
+<p><strong>Example</strong>: Displaying a blog post with author info</p>
+<div class="highlight"><pre><span></span><code><span class="err">GET /posts/99</span>
+<span class="err">→ { id: 99, title: "...", body: "...", author_id: 42 }  ← Only has author_id!</span>
+
+<span class="err">GET /users/42</span>
+<span class="err">→ { ... }  ← Must make a second request just to get the author's name</span>
+</code></pre></div>
+<p>The client gets <code>author_id</code> but not the author's data — it has to <strong>make another round trip</strong> just because the endpoint doesn't include related data by default.</p>
+<hr />
+<h3 id="rigid-endpoint-structure">Rigid Endpoint Structure</h3>
+<p>REST APIs have <strong>fixed endpoints with fixed response shapes</strong>. Adding a new client with different data needs means:
+- Creating new endpoints (<code>/posts/summary</code>, <code>/posts/full</code>, <code>/posts/mobile</code>)
+- Adding query parameters to control fields (<code>?fields=id,title,author</code>)
+- Creating versioned APIs (<code>/v2/posts</code>)</p>
+<p>All of these are workarounds for the fundamental rigidity of REST endpoint design.</p>
+<hr />
+<h3 id="inability-to-express-arbitrary-queries">Inability to Express Arbitrary Queries</h3>
+<p>REST has no native way to express:
+- "Give me all users who joined in 2023 AND have posted at least 5 times AND follow more than 100 people"
+- Complex filtering across multiple related entities in a single request
+- Recursive relationships (e.g., comments on comments on comments)</p>
+<p>These require either custom endpoints, complex query strings, or multiple requests.</p>
+<hr />
+<h2 id="22-motivation-behind-graphql">2.2 Motivation Behind GraphQL</h2>
+<p>GraphQL was developed internally at <strong>Facebook (Meta) around 2012</strong> and open-sourced in <strong>2015</strong>. The team was rebuilding the Facebook mobile app and ran directly into REST's limitations at scale.</p>
+<h3 id="the-core-problem-facebook-faced">The Core Problem Facebook Faced</h3>
+<p>The Facebook News Feed is an extremely complex composite view:
+- Posts from friends, pages, groups
+- Each post: author info, media, like/comment counts, share counts
+- Comments: author, text, nested replies
+- Reactions: types, counts, user reactions</p>
+<p>Under REST, rendering the News Feed required <strong>dozens of round trips</strong> with massively over-fetched responses — catastrophic for mobile users on slow networks.</p>
+<h3 id="the-solution-a-query-language-for-apis">The Solution: A Query Language for APIs</h3>
+<p>GraphQL's core insight: <strong>flip the data-fetching model</strong></p>
+<div class="highlight"><pre><span></span><code>REST:  Server defines what data you get (fixed endpoints, fixed shapes)
+GraphQL:  Client declares exactly what data it needs (query language)
+</code></pre></div>
+<p>Instead of the server deciding the response shape, the <strong>client writes a query</strong> describing exactly what fields and relationships it needs — and the server returns exactly that, nothing more, nothing less.</p>
+<h3 id="declarative-programming-applied-to-data-fetching">Declarative Programming Applied to Data Fetching</h3>
+<p>GraphQL applies the same <strong>declarative programming</strong> paradigm that made React revolutionary for UIs:</p>
+<div class="highlight"><pre><span></span><code>Imperative (REST):
+  1. Fetch user
+  2. Extract post IDs
+  3. For each post ID, fetch post
+  4. For each post, fetch comments
+  5. Assemble the data
+  → You describe HOW to get the data
+
+Declarative (GraphQL):
+  "I need user 42 with their last 5 posts, each with their top 3 comments"
+  → You describe WHAT data you want; the server figures out HOW
+</code></pre></div>
+<p>This is the same shift as:
+- SQL vs. iterating over rows manually
+- React's JSX vs. manually manipulating the DOM</p>
+<hr />
+<h2 id="23-architecture-fundamentals-of-graphql">2.3 Architecture &amp; Fundamentals of GraphQL</h2>
+<h3 id="graphql-as-a-specification-not-an-implementation">GraphQL as a Specification, Not an Implementation</h3>
+<p>GraphQL is a <strong>specification</strong> (defined by the GraphQL Foundation) that describes:
+- The query language syntax
+- The type system
+- The execution semantics
+- The introspection system</p>
+<p>Implementations exist in every major language: <code>graphql-js</code>, <code>Apollo Server</code> (Node.js), <code>Strawberry</code> / <code>Graphene</code> (Python), <code>gql</code> (Python client), etc.</p>
+<h3 id="a-single-endpoint">A Single Endpoint</h3>
+<p>Unlike REST (many endpoints), GraphQL exposes <strong>one endpoint</strong>:</p>
+<div class="highlight"><pre><span></span><code>REST:
+  GET  /users/42
+  GET  /users/42/posts
+  GET  /posts/99/comments
+  POST /users
+  ...dozens more
+
+GraphQL:
+  POST /graphql   ← everything goes through one endpoint
+</code></pre></div>
+<p>All queries, mutations, and subscriptions are sent as HTTP <code>POST</code> requests to <code>/graphql</code> with the query in the request body.</p>
+<h3 id="how-a-graphql-request-works">How a GraphQL Request Works</h3>
+<div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/graphql</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{ user(id: 42) { name email posts { title } } }"</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Response:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane Doe"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jane@example.com"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"posts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"First Post"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Second Post"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The client asked for <code>name</code>, <code>email</code>, and each post's <code>title</code> — and that's <strong>exactly</strong> what came back. Nothing more.</p>
+<h3 id="the-server-side-translation-engine-resolvers">The Server-Side Translation Engine (Resolvers)</h3>
+<p>When the GraphQL server receives a query, it translates it into actual data-fetching logic via <strong>resolvers</strong> — functions that fetch data for each field:</p>
+<div class="highlight"><pre><span></span><code>Query: { user(id: 42) { name posts { title } } }
+
+GraphQL Engine
+  │
+  ├── resolver: user(id: 42) → SELECT * FROM users WHERE id = 42
+  └── resolver: user.posts   → SELECT * FROM posts WHERE user_id = 42
+      └── resolver: post.title → post.title (already in data)
+</code></pre></div>
+<p>Each field in the schema can have its own resolver — which can call a database, REST API, microservice, cache, or any other data source.</p>
+<hr />
+<h2 id="24-type-system-schema-relations">2.4 Type System &amp; Schema Relations</h2>
+<h3 id="strongly-typed-schema">Strongly Typed Schema</h3>
+<p>Every GraphQL API is described by a <strong>schema</strong> written in <strong>SDL (Schema Definition Language)</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="err">Student</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nl">id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">email</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">gpa</span><span class="p">:</span><span class="w"> </span><span class="n">Float</span>
+<span class="w">  </span><span class="nl">courses</span><span class="p">:</span><span class="w"> </span><span class="err">[</span><span class="n">Course</span><span class="err">!]!</span>
+<span class="p">}</span>
+
+<span class="k">type</span><span class="w"> </span><span class="err">Course</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nl">id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">title</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">code</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">students</span><span class="p">:</span><span class="w"> </span><span class="err">[</span><span class="n">Student</span><span class="err">!]!</span>
+<span class="w">  </span><span class="nl">professor</span><span class="p">:</span><span class="w"> </span><span class="n">Professor</span>
+<span class="p">}</span>
+
+<span class="k">type</span><span class="w"> </span><span class="err">Professor</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nl">id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">department</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="err">!</span>
+<span class="p">}</span>
+
+<span class="k">type</span><span class="w"> </span><span class="err">Query</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">student</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="no">ID</span><span class="err">!</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="n">Student</span>
+<span class="w">  </span><span class="nl">students</span><span class="p">:</span><span class="w"> </span><span class="err">[</span><span class="n">Student</span><span class="err">!]!</span>
+<span class="w">  </span><span class="n">course</span><span class="p">(</span><span class="n">code</span><span class="p">:</span><span class="w"> </span><span class="no">String</span><span class="err">!</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="n">Course</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="scalar-types-primitives">Scalar Types (Primitives)</h3>
+<table>
+<thead>
+<tr>
+<th>GraphQL Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>String</code></td>
+<td>UTF-8 text</td>
+</tr>
+<tr>
+<td><code>Int</code></td>
+<td>32-bit signed integer</td>
+</tr>
+<tr>
+<td><code>Float</code></td>
+<td>Double-precision floating point</td>
+</tr>
+<tr>
+<td><code>Boolean</code></td>
+<td><code>true</code> or <code>false</code></td>
+</tr>
+<tr>
+<td><code>ID</code></td>
+<td>Unique identifier (serialized as String)</td>
+</tr>
+</tbody>
+</table>
+<p>You can also define <strong>custom scalar types</strong> (e.g., <code>DateTime</code>, <code>URL</code>, <code>JSON</code>).</p>
+<h3 id="non-null-and-list-modifiers">Non-Null and List Modifiers</h3>
+<div class="highlight"><pre><span></span><code><span class="err">name:</span><span class="w"> </span><span class="err">String</span><span class="w">      </span><span class="c"># nullable String (can be null)</span>
+<span class="err">name:</span><span class="w"> </span><span class="err">String!</span><span class="w">     </span><span class="c"># non-null String (must have a value)</span>
+<span class="err">courses:</span><span class="w"> </span><span class="err">[Course]</span><span class="w"> </span><span class="c"># nullable list of nullable Courses</span>
+<span class="err">courses:</span><span class="w"> </span><span class="err">[Course!]!</span><span class="w"> </span><span class="c"># non-null list of non-null Courses</span>
+</code></pre></div>
+<h3 id="compile-time-query-time-static-error-checking">Compile-Time / Query-Time Static Error Checking</h3>
+<p>Because the schema is strongly typed, GraphQL can <strong>validate queries before execution</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="c"># This query will be REJECTED before hitting any database:</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">student</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="s">"42"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">fullName</span><span class="w">    </span><span class="c"># Error: field 'fullName' doesn't exist (it's 'name')</span>
+<span class="w">    </span><span class="n">gpa</span>
+<span class="w">    </span><span class="n">salary</span><span class="w">      </span><span class="c"># Error: field 'salary' doesn't exist on Student</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Errors are caught <strong>statically</strong> — a huge improvement over REST where you discover shape mismatches at runtime.</p>
+<h3 id="explicit-entity-relations-in-the-schema">Explicit Entity Relations in the Schema</h3>
+<p>Relations between types are first-class citizens:</p>
+<div class="highlight"><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="err">Student</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nl">courses</span><span class="p">:</span><span class="w"> </span><span class="err">[</span><span class="n">Course</span><span class="err">!]!</span><span class="w">   </span><span class="c"># Student has many Courses</span>
+<span class="p">}</span>
+
+<span class="k">type</span><span class="w"> </span><span class="err">Course</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nl">students</span><span class="p">:</span><span class="w"> </span><span class="err">[</span><span class="n">Student</span><span class="err">!]!</span><span class="w"> </span><span class="c"># Course has many Students</span>
+<span class="w">  </span><span class="nl">professor</span><span class="p">:</span><span class="w"> </span><span class="n">Professor</span><span class="w">  </span><span class="c"># Course has one Professor</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This means the client can traverse relationships in a single query:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="n">student</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">name</span>
+<span class="w">    </span><span class="n">courses</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">title</span>
+<span class="w">      </span><span class="n">professor</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">name</span>
+<span class="w">        </span><span class="n">department</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>This is a single request</strong> that would require 3–4 REST round trips.</p>
+<hr />
+<h2 id="25-versionless-api-evolution">2.5 Versionless API Evolution</h2>
+<h3 id="the-rest-versioning-problem">The REST Versioning Problem</h3>
+<p>When a REST API changes (new fields, renamed fields, removed fields), clients may break. The common solution is <strong>API versioning</strong>:</p>
+<div class="highlight"><pre><span></span><code>/v1/students   ← original clients continue using this
+/v2/students   ← new clients get new schema
+/v3/students   ← further changes...
+</code></pre></div>
+<p><strong>Problems with URL versioning:</strong>
+- Maintenance burden: support multiple versions simultaneously
+- Clients must explicitly migrate to new versions
+- Documentation fragmentation
+- Server complexity</p>
+<h3 id="graphqls-additive-evolution-model">GraphQL's Additive Evolution Model</h3>
+<p>GraphQL schemas are designed to <strong>evolve without breaking existing clients</strong>:</p>
+<p><strong>Adding fields</strong> — always safe, existing queries are unaffected:
+<div class="highlight"><pre><span></span><code><span class="c"># Before</span>
+<span class="k">type</span><span class="w"> </span><span class="err">Student</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nl">id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="err">!</span>
+<span class="p">}</span>
+
+<span class="c"># After (adding graduationYear — existing clients just don't request it)</span>
+<span class="k">type</span><span class="w"> </span><span class="err">Student</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nl">id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">graduationYear</span><span class="p">:</span><span class="w"> </span><span class="n">Int</span><span class="w">   </span><span class="c"># new field — completely safe to add</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Removing / renaming fields</strong> — use <code>@deprecated</code> instead of deleting:
+<div class="highlight"><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="err">Student</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nl">id</span><span class="p">:</span><span class="w"> </span><span class="n">ID</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="err">!</span>
+<span class="w">  </span><span class="nl">full_name</span><span class="p">:</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nd">@deprecated</span><span class="p">(</span><span class="n">reason</span><span class="p">:</span><span class="w"> </span><span class="s">"Use 'name' instead"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>The <code>@deprecated</code> annotation:
+- Flags the field in documentation and tooling
+- Still works for existing clients (no breakage)
+- Signals to clients they should migrate
+- Can be removed only after monitoring shows zero usage</p>
+<p>This means <strong>no <code>/v2</code>, no <code>/v3</code></strong> — the schema evolves continuously while maintaining backward compatibility.</p>
+<hr />
+<h2 id="26-modifying-data-with-mutations">2.6 Modifying Data with Mutations</h2>
+<p>In GraphQL, <strong>queries</strong> are read operations, while <strong>mutations</strong> are write operations (Create, Update, Delete).</p>
+<h3 id="mutation-syntax">Mutation Syntax</h3>
+<div class="highlight"><pre><span></span><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">createStudent</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"John Smith"</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">:</span><span class="w"> </span><span class="s">"john@uni.edu"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">id</span>
+<span class="w">    </span><span class="n">name</span>
+<span class="w">    </span><span class="n">email</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Response:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"createStudent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"43"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Smith"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john@uni.edu"</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>The mutation returns the <strong>newly created/updated resource</strong> — the client gets fresh, confirmed data immediately without a follow-up fetch.</p>
+<h3 id="mutation-examples">Mutation Examples</h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Create</span>
+<span class="k">mutation</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">createStudent</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"John"</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">:</span><span class="w"> </span><span class="s">"john@uni.edu"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="n">name</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c"># Update</span>
+<span class="k">mutation</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">updateStudent</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="s">"42"</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">:</span><span class="w"> </span><span class="s">"newemail@uni.edu"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="n">updatedAt</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c"># Delete</span>
+<span class="k">mutation</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">deleteStudent</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="s">"42"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">success</span>
+<span class="w">    </span><span class="n">message</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c"># Enroll in a course</span>
+<span class="k">mutation</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">enrollStudent</span><span class="p">(</span><span class="n">studentId</span><span class="p">:</span><span class="w"> </span><span class="s">"42"</span><span class="p">,</span><span class="w"> </span><span class="n">courseCode</span><span class="p">:</span><span class="w"> </span><span class="s">"CS101"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">student</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="n">course</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">title</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="n">enrolledAt</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="why-separate-query-and-mutation">Why Separate Query and Mutation?</h3>
+<p>The distinction is more than semantic — it maps to HTTP semantics:
+- <strong>Queries</strong> are like <code>GET</code> — safe, can be cached, can be executed in parallel
+- <strong>Mutations</strong> are like <code>POST/PATCH/DELETE</code> — have side effects, must be executed serially</p>
+<p>GraphQL enforces this: <strong>multiple mutations in one request execute sequentially</strong>, while multiple queries can be parallelized.</p>
+<hr />
+<h2 id="27-tooling-ecosystem">2.7 Tooling &amp; Ecosystem</h2>
+<h3 id="apollo-server">Apollo Server</h3>
+<p><strong>Apollo</strong> is the most widely-used GraphQL implementation ecosystem:</p>
+<p><strong>Apollo Server</strong> (backend):
+- Builds a production-ready GraphQL API on top of Node.js
+- Supports <strong>federated architecture</strong> — split a large schema across multiple services and stitch them together
+- Handles authentication, caching, error formatting, subscriptions
+- Works with any data source: SQL, NoSQL, REST APIs, microservices</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ApolloServer</span><span class="p">,</span><span class="w"> </span><span class="nx">gql</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'apollo-server'</span><span class="p">);</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">typeDefs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">gql</span><span class="sb">`</span>
+<span class="sb">  type Student {</span>
+<span class="sb">    id: ID!</span>
+<span class="sb">    name: String!</span>
+<span class="sb">    courses: [Course!]!</span>
+<span class="sb">  }</span>
+<span class="sb">  type Query {</span>
+<span class="sb">    student(id: ID!): Student</span>
+<span class="sb">  }</span>
+<span class="sb">`</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">resolvers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">Query</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">student</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">students</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="nx">id</span><span class="p">),</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">Student</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">courses</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">student</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">courses</span><span class="p">.</span><span class="nx">findByStudentId</span><span class="p">(</span><span class="nx">student</span><span class="p">.</span><span class="nx">id</span><span class="p">),</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">};</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ApolloServer</span><span class="p">({</span><span class="w"> </span><span class="nx">typeDefs</span><span class="p">,</span><span class="w"> </span><span class="nx">resolvers</span><span class="w"> </span><span class="p">});</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="custom-resolvers">Custom Resolvers</h3>
+<p>Resolvers are the <strong>bridge between the schema and the actual data</strong>. Each resolver can independently fetch from:
+- A PostgreSQL database
+- A MongoDB collection
+- A REST API (even a third-party one!)
+- An in-memory cache
+- Another microservice</p>
+<p>This is why GraphQL is often used as an <strong>API gateway</strong> — it aggregates data from multiple backend services into a unified graph.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">resolvers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">Student</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// This field fetches from a REST API, not the DB!</span>
+<span class="w">    </span><span class="nx">courses</span><span class="o">:</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">student</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="sb">`https://courses-service.internal/students/</span><span class="si">${</span><span class="nx">student</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb">/courses`</span><span class="p">);</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3 id="interactive-graphql-explorers">Interactive GraphQL Explorers</h3>
+<p>One of GraphQL's killer features is <strong>built-in introspection</strong> — the API can describe itself. This powers interactive tools:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GraphiQL</strong></td>
+<td>Browser-based IDE for writing &amp; testing queries, built-in autocomplete</td>
+</tr>
+<tr>
+<td><strong>Apollo Studio / Sandbox</strong></td>
+<td>Full-featured explorer with schema visualization, query history</td>
+</tr>
+<tr>
+<td><strong>GitHub GraphQL Explorer</strong></td>
+<td>GitHub's public GraphQL API explorer — live, authenticated</td>
+</tr>
+<tr>
+<td><strong>Postman</strong></td>
+<td>Also supports GraphQL queries natively</td>
+</tr>
+</tbody>
+</table>
+<p>Because the schema is introspectable, these tools provide <strong>autocomplete and inline documentation</strong> — the API is self-documenting.</p>
+<hr />
+<h2 id="28-server-complexity-trade-off-analysis">2.8 Server Complexity &amp; Trade-off Analysis</h2>
+<p>GraphQL is not a silver bullet. It shifts complexity from the client to the server.</p>
+<h3 id="the-n1-query-problem-server-side">The N+1 Query Problem (Server-Side)</h3>
+<p>GraphQL's flexible querying can cause a <strong>database N+1 problem</strong> on the server:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="n">students</span><span class="w"> </span><span class="p">{</span><span class="w">        </span><span class="c"># 1 query: SELECT * FROM students → returns 100 students</span>
+<span class="w">    </span><span class="n">courses</span><span class="w"> </span><span class="p">{</span><span class="w">       </span><span class="c"># 100 queries: SELECT * FROM courses WHERE student_id = ?</span>
+<span class="w">      </span><span class="n">title</span><span class="w">         </span><span class="c"># (one query per student!) = 101 total queries</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Solution</strong>: The <strong>DataLoader</strong> pattern — batch and cache DB queries:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">DataLoader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'dataloader'</span><span class="p">);</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">courseLoader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">DataLoader</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">studentIds</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Batch: SELECT * FROM courses WHERE student_id IN (1, 2, 3, ..., 100)</span>
+<span class="w">  </span><span class="c1">// Just 1 query instead of 100!</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">courses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">courses</span><span class="p">.</span><span class="nx">findByStudentIds</span><span class="p">(</span><span class="nx">studentIds</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">studentIds</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">courses</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">studentId</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">id</span><span class="p">));</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="caching-challenges">Caching Challenges</h3>
+<p>REST APIs benefit naturally from HTTP caching — <code>GET /students/42</code> can be cached by URL at CDN and browser level.</p>
+<p>GraphQL uses <code>POST</code> requests with query bodies — <strong>HTTP-level caching doesn't work</strong> out of the box. Solutions:
+- <strong>Persisted queries</strong>: Pre-register queries server-side, then reference by hash (GET-cacheable)
+- <strong>Apollo Client</strong> caches normalized data in the client
+- <strong>Server-side caching</strong>: Cache resolver results by field/argument combinations</p>
+<h3 id="query-complexity-depth-limiting">Query Complexity &amp; Depth Limiting</h3>
+<p>Malicious or accidental deeply nested queries can overload the server:</p>
+<div class="highlight"><pre><span></span><code><span class="c"># Potentially catastrophic query:</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">students</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">courses</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">students</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">courses</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="n">students</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="p">...</span>
+<span class="w">          </span><span class="err">}</span>
+<span class="w">        </span><span class="err">}</span>
+<span class="w">      </span><span class="err">}</span>
+<span class="w">    </span><span class="err">}</span>
+<span class="w">  </span><span class="err">}</span>
+<span class="err">}</span>
+</code></pre></div>
+<p>GraphQL servers should implement:
+- <strong>Depth limiting</strong>: Reject queries deeper than N levels
+- <strong>Query complexity scoring</strong>: Assign a cost to each field and reject queries above a threshold
+- <strong>Rate limiting</strong>: Cap queries per API key per time window</p>
+<h3 id="rest-vs-graphql-when-to-use-which">REST vs. GraphQL: When to Use Which</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>REST</th>
+<th>GraphQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Best for</strong></td>
+<td>Simple CRUD, public APIs, file uploads</td>
+<td>Complex data requirements, multiple clients with different needs</td>
+</tr>
+<tr>
+<td><strong>Caching</strong></td>
+<td>Excellent (HTTP-native)</td>
+<td>Requires extra effort (persisted queries, Apollo Client)</td>
+</tr>
+<tr>
+<td><strong>Learning curve</strong></td>
+<td>Low</td>
+<td>Higher (schema, resolvers, DataLoader, etc.)</td>
+</tr>
+<tr>
+<td><strong>Tooling</strong></td>
+<td>Mature, widespread</td>
+<td>Rapidly maturing (Apollo, Relay)</td>
+</tr>
+<tr>
+<td><strong>Over/Under-fetching</strong></td>
+<td>Common problem</td>
+<td>Solved by design</td>
+</tr>
+<tr>
+<td><strong>Versioning</strong></td>
+<td>Needs <code>/v1</code>, <code>/v2</code></td>
+<td>Versionless (additive schema changes)</td>
+</tr>
+<tr>
+<td><strong>Server complexity</strong></td>
+<td>Simple</td>
+<td>Higher (N+1, depth limiting, complexity analysis)</td>
+</tr>
+<tr>
+<td><strong>Introspection/Docs</strong></td>
+<td>OpenAPI/Swagger (external)</td>
+<td>Built-in, self-documenting</td>
+</tr>
+<tr>
+<td><strong>Mobile performance</strong></td>
+<td>Can be poor (chatty, over-fetch)</td>
+<td>Excellent (precise queries, minimal data)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../01_web_api_design_rest/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Web API design with REST">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Web API design with REST
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../03_markup_text_representations/" class="md-footer__link md-footer__link--next" aria-label="Next: Markup and text representations">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Markup and text representations
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

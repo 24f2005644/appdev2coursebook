@@ -1,0 +1,4677 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week11/notes_summary/">
+      
+      
+        <link rel="prev" href="../notes_caching/">
+      
+      
+        <link rel="next" href="../../week12/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Summary - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#summary-short-notes-quick-revision" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Summary
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ PERFORMANCE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ PERFORMANCE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Performance?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Speed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-experience-ux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Experience (UX)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools &amp; Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📈 SCALING
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📈 SCALING">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Scaling?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components-of-an-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components of an App
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-architecture-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Server Architecture Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring-and-measuring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring and Measuring
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗄️ CACHING
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🗄️ CACHING">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Caching?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-caching-headers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTP Caching Headers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analytics-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analytics Impact
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flask-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flask Caching
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memoization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memoization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jinja-template-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jinja Template Caching
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caching-backends" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching Backends
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#measure-then-optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 MEASURE, THEN OPTIMIZE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#developer-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👨‍💻 Developer Responsibilities
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Quick Reference Card
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ PERFORMANCE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ PERFORMANCE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Performance?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Speed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-experience-ux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Experience (UX)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools &amp; Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📈 SCALING
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📈 SCALING">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Scaling?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components-of-an-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components of an App
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-architecture-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Server Architecture Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring-and-measuring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring and Measuring
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗄️ CACHING
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🗄️ CACHING">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Caching?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-caching-headers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTP Caching Headers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analytics-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analytics Impact
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flask-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flask Caching
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memoization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memoization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jinja-template-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jinja Template Caching
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caching-backends" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching Backends
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#measure-then-optimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 MEASURE, THEN OPTIMIZE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#developer-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👨‍💻 Developer Responsibilities
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Quick Reference Card
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="summary-short-notes-quick-revision">Summary — Short Notes (Quick Revision)</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Summary — Short Notes (Quick Revision)</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<blockquote>
+<p>Complete revision cheat-sheet covering all topics: Performance, Scaling, and Caching.</p>
+</blockquote>
+<hr />
+<h2 id="performance">⚡ PERFORMANCE</h2>
+<h3 id="what-is-performance">What is Performance?</h3>
+<ul>
+<li>Two dimensions: <strong>Speed</strong> (single user) + <strong>Scaling</strong> (many users)</li>
+<li>Measure first → optimize second. Never guess.</li>
+</ul>
+<hr />
+<h3 id="speed">Speed</h3>
+<ul>
+<li>Time for one user to get a usable response</li>
+<li><strong>&lt; 100ms</strong> = instant | <strong>&gt; 3s</strong> = user leaves</li>
+<li><strong>Perceived performance</strong> (feels fast) ≠ <strong>Actual performance</strong> (is fast)</li>
+<li>Improve perception with: skeleton screens, optimistic UI, progressive rendering</li>
+</ul>
+<p><strong>5 Contributing Factors:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>What affects it</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Network</td>
+<td>Latency (RTT), bandwidth</td>
+<td>CDN, preconnect</td>
+</tr>
+<tr>
+<td># Requests</td>
+<td>More requests = more round trips</td>
+<td>Bundle, lazy-load</td>
+</tr>
+<tr>
+<td>Response size</td>
+<td>Large files = slow download</td>
+<td>Minify, compress, WebP</td>
+</tr>
+<tr>
+<td>HTTP version</td>
+<td>HTTP/1.1 = sequential</td>
+<td>Enable HTTP/2 (multiplexed)</td>
+</tr>
+<tr>
+<td>Compression</td>
+<td>Uncompressed = wasteful</td>
+<td>Enable Brotli/gzip</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>HTTP/2</strong> multiplexes all requests over one connection → biggest protocol win</li>
+<li><strong>Brotli</strong> compresses 10–25% better than gzip</li>
+</ul>
+<hr />
+<h3 id="user-experience-ux">User Experience (UX)</h3>
+<ul>
+<li><strong>UI</strong> = how it looks | <strong>UX</strong> = how it feels</li>
+<li>Performance IS a UX problem — slow = bad UX regardless of visuals</li>
+<li>53% of mobile users leave if load &gt; 3s</li>
+<li>Bounce rate doubles from 1s → 3s load time</li>
+<li>Performance = accessibility (slow = exclusion for low-end devices / rural users)</li>
+</ul>
+<hr />
+<h3 id="tools-measurement">Tools &amp; Measurement</h3>
+<p><strong>Lighthouse:</strong>
+- Chrome tool that audits a page under simulated Slow 4G + 4× CPU throttle
+- Runs 50+ audits → scores 0–100 for Performance, Accessibility, Best Practices, SEO
+- Run via: DevTools | CLI (<code>npx lighthouse &lt;url&gt;</code>) | CI/CD (<code>lighthouse-ci</code>)</p>
+<p><strong>6 Performance Metrics:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Measures</th>
+<th>Good</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FCP</strong></td>
+<td>First content appears</td>
+<td>&lt; 1.8s</td>
+<td>10%</td>
+</tr>
+<tr>
+<td><strong>Speed Index</strong></td>
+<td>Pace of visual loading</td>
+<td>&lt; 3.4s</td>
+<td>10%</td>
+</tr>
+<tr>
+<td><strong>LCP</strong> ✅ CWV</td>
+<td>Main content loaded</td>
+<td>&lt; 2.5s</td>
+<td>25%</td>
+</tr>
+<tr>
+<td><strong>TTI</strong></td>
+<td>Fully interactive</td>
+<td>&lt; 3.8s</td>
+<td>10%</td>
+</tr>
+<tr>
+<td><strong>TBT</strong> ✅ CWV proxy</td>
+<td>Main thread blocked</td>
+<td>&lt; 200ms</td>
+<td>30%</td>
+</tr>
+<tr>
+<td><strong>CLS</strong> ✅ CWV</td>
+<td>Layout stability</td>
+<td>&lt; 0.1</td>
+<td>15%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Other Lighthouse Categories:</strong>
+- <strong>Accessibility</strong> — WCAG checks (alt text, contrast, ARIA labels, keyboard nav) — catches ~30% of issues
+- <strong>Best Practices</strong> — HTTPS, no deprecated APIs, no console errors
+- <strong>SEO</strong> — <code>&lt;title&gt;</code>, meta description, crawlability, font sizes</p>
+<p><strong>Limitations of Automated Tools:</strong>
+- Lab ≠ Real world (simulated device/network)
+- Score varies ±10–15 points between runs
+- Doesn't test SPAs post-load, authenticated pages, or real user behaviour
+- A high score can be gamed without improving real UX
+- Fix: combine with Real User Monitoring (RUM)</p>
+<hr />
+<h2 id="scaling">📈 SCALING</h2>
+<h3 id="what-is-scaling">What is Scaling?</h3>
+<ul>
+<li>Handling <strong>increasing load</strong> (more users, more requests) without performance degradation</li>
+<li><strong>Vertical</strong> = bigger machine (ceiling exists) | <strong>Horizontal</strong> = more machines (unlimited)</li>
+</ul>
+<p><strong>Static vs Dynamic Content:</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Static</th>
+<th>Dynamic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content</td>
+<td>Same for all users</td>
+<td>Personalised per user</td>
+</tr>
+<tr>
+<td>Generated</td>
+<td>Build time</td>
+<td>Request time</td>
+</tr>
+<tr>
+<td>Caching</td>
+<td>Fully cacheable</td>
+<td>Partially cacheable</td>
+</tr>
+<tr>
+<td>Examples</td>
+<td>Wikipedia, MDN</td>
+<td>E-commerce, dashboards</td>
+</tr>
+<tr>
+<td>Scale difficulty</td>
+<td>Trivial (CDN)</td>
+<td>Complex</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Load Patterns:</strong>
+- <strong>Predictable</strong> → pre-scale (Diwali sale, exam results)
+- <strong>Unpredictable</strong> → auto-scale + circuit breakers (viral content, breaking news)</p>
+<p><strong>Response Under Load:</strong>
+- Stable zone → Degradation zone → Errors/Timeouts
+- Bottlenecks: CPU, Memory, DB connection pool, Network I/O, Disk I/O</p>
+<hr />
+<h3 id="components-of-an-app">Components of an App</h3>
+<div class="highlight"><pre><span></span><code>CDN/Proxy → Load Balancer → App Servers → Cache (Redis) → Database
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Frontend Server</strong></td>
+<td>Serve static files efficiently</td>
+<td>Nginx, Caddy, S3+CloudFront</td>
+</tr>
+<tr>
+<td><strong>Load Balancer</strong></td>
+<td>Distribute traffic across app servers</td>
+<td>AWS ALB, Nginx, HAProxy</td>
+</tr>
+<tr>
+<td><strong>Proxy</strong></td>
+<td>Cache, compress, secure, route</td>
+<td>Nginx, Varnish, Cloudflare</td>
+</tr>
+<tr>
+<td><strong>Database</strong></td>
+<td>Persist and retrieve data</td>
+<td>PostgreSQL, Redis, MongoDB</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Network: Mobile vs Broadband</strong>
+- Mobile: 30–500ms latency, often metered → minimize payload + requests
+- Broadband: 5–20ms latency, unlimited → less critical to optimize
+- Use <code>srcset</code>, Network Information API, lazy-load for mobile users</p>
+<p><strong>App Types → Bottleneck:</strong>
+- Data-intensive → DB | Image-intensive → CDN/bandwidth | Script-intensive → JS bundle size</p>
+<hr />
+<h3 id="server-architecture-details">Server Architecture Details</h3>
+<p><strong>Load Balancing Algorithms:</strong>
+- <strong>Round Robin</strong> — equal distribution, simple
+- <strong>Least Connections</strong> — send to server with fewest active connections (best for variable requests)
+- <strong>IP Hash</strong> — sticky sessions (same user → same server)
+- <strong>Weighted</strong> — proportional to server capacity</p>
+<p><strong>LB responsibilities:</strong> Health checks, SSL termination, connection draining, session persistence</p>
+<p><strong>AWS:</strong> ALB (L7, path-based routing) | NLB (L4, extreme performance)
+<strong>GCP:</strong> Cloud Load Balancing (global anycast — single IP, serves worldwide)
+<strong>Self-hosted:</strong> Nginx, HAProxy, Traefik</p>
+<hr />
+<p><strong>Proxy &amp; CDN:</strong>
+- Reverse proxy sits between client and server — caches, compresses, secures
+- <strong>Cache key</strong> = method + host + path + query string
+- <code>Cache-Control</code> headers control what proxies cache and for how long
+- <strong>CDN</strong> = geographically distributed cache nodes (PoPs) — serve from nearest location
+  - Reduces latency, reduces origin load, absorbs DDoS
+  - Major providers: Cloudflare, AWS CloudFront, GCP CDN, Fastly</p>
+<hr />
+<p><strong>Database Scaling:</strong></p>
+<table>
+<thead>
+<tr>
+<th>DB Type</th>
+<th>Examples</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQL/RDBMS</td>
+<td>PostgreSQL, MySQL</td>
+<td>Relational data, ACID, complex queries</td>
+</tr>
+<tr>
+<td>Document</td>
+<td>MongoDB</td>
+<td>Flexible schema, JSON</td>
+</tr>
+<tr>
+<td>Key-Value</td>
+<td>Redis</td>
+<td>Caching, sessions, pub/sub</td>
+</tr>
+<tr>
+<td>Wide-Column</td>
+<td>Cassandra</td>
+<td>Massive writes, time-series</td>
+</tr>
+<tr>
+<td>Graph</td>
+<td>Neo4j</td>
+<td>Social graphs, recommendations</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Reads vs Writes:</strong>
+- <strong>Reads</strong> → scale with read replicas (nearly unlimited)
+- <strong>Writes</strong> → hard — single primary, scale via: batching, sharding, CQRS
+- N+1 query problem: 1 query for list + N queries for each item → use JOIN or eager loading</p>
+<hr />
+<p><strong>Server Language:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Languages</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compiled</td>
+<td>Go, Rust, C</td>
+<td>Fastest — no interpreter overhead</td>
+</tr>
+<tr>
+<td>JIT</td>
+<td>Java, C#</td>
+<td>Near-native via JVM/CLR</td>
+</tr>
+<tr>
+<td>Interpreted</td>
+<td>Python, Ruby</td>
+<td>Slower but fast enough for I/O-bound</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Python has the <strong>GIL</strong> — only one thread runs Python bytecode at a time</li>
+<li>For I/O-bound apps: language speed barely matters (bottleneck is DB wait)</li>
+<li>For CPU-bound apps: use compiled language or offload to worker queue</li>
+</ul>
+<p><strong>Concurrency Models:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Examples</th>
+<th>Connections</th>
+<th>Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multi-process</td>
+<td>Gunicorn</td>
+<td>4–32 workers</td>
+<td>Very high</td>
+</tr>
+<tr>
+<td>Multi-threaded</td>
+<td>Java Servlet</td>
+<td>Moderate</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Async/Event loop</td>
+<td>asyncio, Node.js</td>
+<td>10,000+</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Goroutines</td>
+<td>Go</td>
+<td>100,000+</td>
+<td>Very low</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Programming Paradigms:</strong>
+- <strong>Imperative</strong> — explicit steps, mutable state → race condition risk
+- <strong>Declarative</strong> — describe what (SQL, HTML) → optimizer does the how
+- <strong>Functional</strong> — pure functions, immutable → parallelizable, no race conditions
+- <strong>OOP</strong> — objects bundle data + behaviour → dominant in web frameworks</p>
+<hr />
+<h3 id="monitoring-and-measuring">Monitoring and Measuring</h3>
+<p><strong>3 Pillars of Observability:</strong>
+- <strong>Logs</strong> — what happened (events) → ELK Stack
+- <strong>Metrics</strong> — how much / how fast (numbers) → Prometheus + Grafana
+- <strong>Traces</strong> — how a request travelled → Jaeger, Zipkin</p>
+<p><strong>Log Types:</strong>
+- <strong>Access log</strong> — every HTTP request (IP, method, path, status, size)
+- <strong>Error log</strong> — exceptions, server errors
+- <strong>Application log</strong> — custom app events (INFO/WARN/ERROR/CRITICAL)
+- <strong>Slow query log</strong> — DB queries exceeding threshold</p>
+<p><strong>Best practices:</strong>
+- Use <strong>structured logging (JSON)</strong> — machine-searchable by field
+- <strong>Centralize logs</strong> — aggregate from all servers into one store
+- <strong>Rotate logs</strong> — prevent disk exhaustion (logrotate)</p>
+<p><strong>ELK Stack:</strong>
+<div class="highlight"><pre><span></span><code>Filebeat (ship) → Logstash (parse/enrich) → Elasticsearch (store/index) → Kibana (visualize)
+</code></pre></div>
+- Elasticsearch: inverted index → search millions of logs in &lt;1s
+- Kibana: Discover (search), Visualize (charts), Dashboard, Alerts</p>
+<p><strong>Prometheus + Grafana:</strong>
+<div class="highlight"><pre><span></span><code>App /metrics endpoint ← Prometheus scrapes every 15s → stores time-series → Grafana visualizes
+</code></pre></div>
+- <strong>4 metric types</strong>: Counter (total), Gauge (current), Histogram (distribution), Summary (quantiles)
+- <strong>Alertmanager</strong> → routes alerts to Slack / PagerDuty / email</p>
+<p><strong>The 4 Golden Signals (Google SRE):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Example Metric</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Latency</strong></td>
+<td>p95 / p99 response time</td>
+</tr>
+<tr>
+<td><strong>Traffic</strong></td>
+<td>Requests per second</td>
+</tr>
+<tr>
+<td><strong>Errors</strong></td>
+<td>5xx rate</td>
+</tr>
+<tr>
+<td><strong>Saturation</strong></td>
+<td>CPU%, memory%, DB pool%</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="caching">🗄️ CACHING</h2>
+<h3 id="what-is-caching">What is Caching?</h3>
+<ul>
+<li>Store result of expensive operation → serve from cache on repeat requests</li>
+<li>Trade-off: <strong>freshness vs performance</strong></li>
+<li>Invalidation is the hard part: <em>"There are only two hard things in CS: cache invalidation and naming things"</em></li>
+</ul>
+<p><strong>Cache Hierarchy (fastest → slowest):</strong>
+<div class="highlight"><pre><span></span><code>Browser → CDN/ISP Proxy → Reverse Proxy → App Cache (Redis) → DB Cache → Disk
+</code></pre></div></p>
+<hr />
+<h3 id="http-caching-headers">HTTP Caching Headers</h3>
+<p><strong><code>Cache-Control</code> key directives:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Directive</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>max-age=N</code></td>
+<td>Cache for N seconds</td>
+</tr>
+<tr>
+<td><code>public</code></td>
+<td>Any cache (CDN + browser) can store</td>
+</tr>
+<tr>
+<td><code>private</code></td>
+<td>Browser only, not CDN</td>
+</tr>
+<tr>
+<td><code>no-store</code></td>
+<td>Never cache (payments, auth)</td>
+</tr>
+<tr>
+<td><code>no-cache</code></td>
+<td>Cache but must revalidate first</td>
+</tr>
+<tr>
+<td><code>immutable</code></td>
+<td>Never revalidate (hashed assets)</td>
+</tr>
+<tr>
+<td><code>stale-while-revalidate=N</code></td>
+<td>Serve stale, refresh in background</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ETag — Conditional Requests:</strong>
+- Server sends <code>ETag: "abc123"</code> (content hash) with response
+- Client sends <code>If-None-Match: "abc123"</code> on next request
+- Server replies <code>304 Not Modified</code> if unchanged → <strong>no body = bandwidth saved</strong></p>
+<p><strong>Freshness Checking:</strong>
+- Fresh → serve from cache (no network)
+- Stale + has ETag → send conditional request → 304 or new content
+- Stale + no ETag → fetch full response</p>
+<hr />
+<h3 id="analytics-impact">Analytics Impact</h3>
+<ul>
+<li>Cached requests never reach the server → access logs <strong>undercount</strong> real traffic</li>
+<li>Use <strong>JavaScript-based analytics</strong> (Google Analytics, Plausible) → fires in browser, unaffected by cache</li>
+<li><code>Vary: Cookie</code> on high-traffic pages breaks CDN caching (every cookie = unique cache entry) ⚠️</li>
+</ul>
+<hr />
+<h3 id="flask-caching">Flask Caching</h3>
+<p><strong>Setup:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">flask_caching</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cache</span>
+<span class="n">cache</span> <span class="o">=</span> <span class="n">Cache</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>  <span class="c1"># config: CACHE_TYPE, CACHE_REDIS_URL, CACHE_DEFAULT_TIMEOUT</span>
+</code></pre></div></p>
+<p><strong><code>@cache.cached()</code> — for view functions:</strong>
+<div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">'/api/products'</span><span class="p">)</span>
+<span class="nd">@cache</span><span class="o">.</span><span class="n">cached</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>          <span class="c1"># caches full HTTP response</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_products</span><span class="p">():</span> <span class="o">...</span>
+</code></pre></div>
+- Default key = URL path → breaks with query params → use <code>key_prefix</code> function</p>
+<p><strong><code>@cache.memoize()</code> — for any function:</strong>
+<div class="highlight"><pre><span></span><code><span class="nd">@cache</span><span class="o">.</span><span class="n">memoize</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">):</span> <span class="o">...</span>         <span class="c1"># key = function name + arguments</span>
+<span class="n">cache</span><span class="o">.</span><span class="n">delete_memoized</span><span class="p">(</span><span class="n">get_user</span><span class="p">,</span> <span class="n">user_id</span><span class="p">)</span>  <span class="c1"># invalidate on write</span>
+</code></pre></div></p>
+<hr />
+<h3 id="memoization">Memoization</h3>
+<ul>
+<li>Cache function return value keyed on arguments</li>
+<li>Function must be <strong>pure/deterministic</strong> (same input → same output always)</li>
+<li><code>functools.lru_cache(maxsize=128)</code> — in-process, LRU eviction, args must be hashable</li>
+<li><code>functools.cache</code> (Python 3.9+) — unlimited LRU</li>
+<li>Invalidate with <code>cache.delete_memoized(fn, *args)</code></li>
+</ul>
+<hr />
+<h3 id="jinja-template-caching">Jinja Template Caching</h3>
+<ul>
+<li>Jinja <strong>auto-caches</strong> compiled templates (bytecode) in memory → no re-parsing</li>
+<li>Cache entire view output: <code>@cache.cached()</code> on the route</li>
+<li>Cache partial template blocks with <code>{% cache 300, "key" %}...{% endcache %}</code></li>
+</ul>
+<hr />
+<h3 id="caching-backends">Caching Backends</h3>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Speed</th>
+<th>Shared?</th>
+<th>Persistent?</th>
+<th>Use When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NullCache</strong></td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>Testing / disable cache</td>
+</tr>
+<tr>
+<td><strong>SimpleCache</strong></td>
+<td>Fastest</td>
+<td>❌ Single process</td>
+<td>❌</td>
+<td>Dev, single worker</td>
+</tr>
+<tr>
+<td><strong>FileSystemCache</strong></td>
+<td>Medium</td>
+<td>✅ Same server</td>
+<td>✅</td>
+<td>Single server, survives restart</td>
+</tr>
+<tr>
+<td><strong>RedisCache</strong></td>
+<td>Very fast</td>
+<td>✅ All servers</td>
+<td>✅ configurable</td>
+<td><strong>All production deployments</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="measure-then-optimize">🎯 MEASURE, THEN OPTIMIZE</h2>
+<blockquote>
+<p>The overriding principle across all topics.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Measure</strong></td>
+<td>Lighthouse, Prometheus, ELK, access logs, RUM</td>
+</tr>
+<tr>
+<td><strong>2. Find the bottleneck</strong></td>
+<td>Is it DB? CPU? Network? JS? Images?</td>
+</tr>
+<tr>
+<td><strong>3. Fix the specific bottleneck</strong></td>
+<td>Don't optimize what isn't slow</td>
+</tr>
+<tr>
+<td><strong>4. Measure again</strong></td>
+<td>Verify the fix actually helped</td>
+</tr>
+<tr>
+<td><strong>5. Monitor in production</strong></td>
+<td>Set alerts so you know before users do</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="developer-responsibilities">👨‍💻 Developer Responsibilities</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Developer Controls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HTTP Headers</strong></td>
+<td><code>Cache-Control</code>, <code>ETag</code>, <code>Vary</code> — set correctly per resource type</td>
+</tr>
+<tr>
+<td><strong>Asset optimization</strong></td>
+<td>Minify, compress, use modern formats (WebP, Brotli)</td>
+</tr>
+<tr>
+<td><strong>Application caching</strong></td>
+<td><code>@cache.cached()</code>, <code>@cache.memoize()</code>, Redis backend</td>
+</tr>
+<tr>
+<td><strong>Database queries</strong></td>
+<td>Indexes, N+1 avoidance, query optimization, read replicas</td>
+</tr>
+<tr>
+<td><strong>Monitoring</strong></td>
+<td>Set up Prometheus metrics, structured logging, alerts</td>
+</tr>
+<tr>
+<td><strong>Cache invalidation</strong></td>
+<td>Delete stale cache on writes, set appropriate TTLs</td>
+</tr>
+<tr>
+<td><strong>Load testing</strong></td>
+<td>Test before launch, not after — know your capacity limits</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="quick-reference-card">📋 Quick Reference Card</h2>
+<div class="highlight"><pre><span></span><code>SPEED WINS:
+  ✅ Enable HTTP/2 on your server
+  ✅ Enable Brotli/gzip compression
+  ✅ Use a CDN for all static assets
+  ✅ Set long Cache-Control headers on hashed static files
+  ✅ Use WebP/AVIF for images with srcset
+  ✅ Lazy-load images below the fold
+  ✅ Code-split JavaScript — don't send it all at once
+  ✅ Inline critical CSS
+
+SCALING WINS:
+  ✅ Put a load balancer in front of multiple app servers
+  ✅ Separate DB server from app server
+  ✅ Add read replicas for read-heavy apps
+  ✅ Use Redis for session storage and app-level cache
+  ✅ Use async I/O (asyncio/Node.js) for I/O-bound Flask apps
+  ✅ Fix N+1 queries before they reach production
+
+CACHING WINS:
+  ✅ Cache DB query results with @cache.memoize()
+  ✅ Cache view responses with @cache.cached()
+  ✅ Use RedisCache backend in production
+  ✅ Invalidate cache on writes (delete_memoized)
+  ✅ Set correct Cache-Control headers on all responses
+  ✅ Use ETag for frequently-revalidated resources
+
+MONITORING WINS:
+  ✅ Centralize logs (ELK or similar)
+  ✅ Track the 4 Golden Signals (Latency/Traffic/Errors/Saturation)
+  ✅ Set up alerts BEFORE problems occur
+  ✅ Monitor p95/p99 latency — not just averages
+  ✅ Check slow query log regularly
+  ✅ Track cache hit rate — low hit rate = cache is ineffective
+</code></pre></div>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../notes_caching/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Caching">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Caching
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../week12/" class="md-footer__link md-footer__link--next" aria-label="Next: Overview">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Overview
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

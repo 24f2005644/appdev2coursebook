@@ -1,0 +1,4794 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week1/04_javascript_origins_standardization/">
+      
+      
+        <link rel="prev" href="../03_course_trajectory/">
+      
+      
+        <link rel="next" href="../05_architectural_implications/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>JavaScript origins and standardization - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#topic-4-javascript-evolution-origins-standardization" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              JavaScript origins and standardization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#41-origins-historical-context-1995" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Origins &amp; Historical Context (1995)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 Origins &amp; Historical Context (1995)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-creator-the-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Creator &amp; the Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-glue-language-design-goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "Glue Language" Design Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-name-why-javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Name: Why "JavaScript"?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-drawbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initial Drawbacks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#microsofts-response-the-browser-wars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Microsoft's Response: The Browser Wars
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-the-turning-point-ajax-dynamic-web-apps-2005" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 The Turning Point: Ajax &amp; Dynamic Web Apps (~2005)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 The Turning Point: Ajax &amp; Dynamic Web Apps (~2005)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-pre-ajax-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Pre-Ajax Web
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-birth-of-ajax-2005" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Birth of Ajax (2005)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-ajax-made-possible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Ajax Made Possible
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-break-out-applications-that-changed-everything" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Break-Out Applications That Changed Everything
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-broader-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Broader Impact
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-xml-to-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From XML to JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-standardization-ecmascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Standardization &amp; ECMAScript
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Standardization &amp; ECMAScript">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-standardization-was-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Standardization Was Needed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ecma-international-the-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ECMA International &amp; the Standard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-ecmascript-and-not-javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why "ECMAScript" and Not "JavaScript"?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-ecmascript-version-timeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The ECMAScript Version Timeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#es6-es2015-the-major-milestone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ES6 / ES2015 — The Major Milestone
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tc39-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The TC39 Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-target-environments-version-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Target Environments &amp; Version Compatibility
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 Target Environments &amp; Version Compatibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-compatibility-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Compatibility Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy-1-rely-on-user-browser-upgrades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategy 1: Rely on User Browser Upgrades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy-2-bundled-runtimes-electron-vs-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategy 2: Bundled Runtimes (Electron, VS Code)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy-3-polyfills" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategy 3: Polyfills
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy-4-transpilation-compilers-babeljs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategy 4: Transpilation / Compilers (BabelJS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-side-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Server-Side Environments
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-topic-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of Topic 4
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#41-origins-historical-context-1995" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Origins &amp; Historical Context (1995)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 Origins &amp; Historical Context (1995)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-creator-the-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Creator &amp; the Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-glue-language-design-goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "Glue Language" Design Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-name-why-javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Name: Why "JavaScript"?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-drawbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initial Drawbacks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#microsofts-response-the-browser-wars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Microsoft's Response: The Browser Wars
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-the-turning-point-ajax-dynamic-web-apps-2005" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 The Turning Point: Ajax &amp; Dynamic Web Apps (~2005)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 The Turning Point: Ajax &amp; Dynamic Web Apps (~2005)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-pre-ajax-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Pre-Ajax Web
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-birth-of-ajax-2005" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Birth of Ajax (2005)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-ajax-made-possible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Ajax Made Possible
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-break-out-applications-that-changed-everything" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Break-Out Applications That Changed Everything
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-broader-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Broader Impact
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-xml-to-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From XML to JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-standardization-ecmascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Standardization &amp; ECMAScript
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Standardization &amp; ECMAScript">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-standardization-was-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Standardization Was Needed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ecma-international-the-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ECMA International &amp; the Standard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-ecmascript-and-not-javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why "ECMAScript" and Not "JavaScript"?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-ecmascript-version-timeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The ECMAScript Version Timeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#es6-es2015-the-major-milestone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ES6 / ES2015 — The Major Milestone
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tc39-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The TC39 Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-target-environments-version-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Target Environments &amp; Version Compatibility
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 Target Environments &amp; Version Compatibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-compatibility-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Compatibility Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy-1-rely-on-user-browser-upgrades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategy 1: Rely on User Browser Upgrades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy-2-bundled-runtimes-electron-vs-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategy 2: Bundled Runtimes (Electron, VS Code)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy-3-polyfills" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategy 3: Polyfills
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy-4-transpilation-compilers-babeljs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategy 4: Transpilation / Compilers (BabelJS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-side-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Server-Side Environments
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-topic-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of Topic 4
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="topic-4-javascript-evolution-origins-standardization">Topic 4: JavaScript — Evolution, Origins &amp; Standardization</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Topic 4: JavaScript — Evolution, Origins &amp; Standardization</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<blockquote>
+<p><strong>MAD-II Week 1 | Detailed Notes</strong></p>
+</blockquote>
+<hr />
+<h2 id="overview">Overview</h2>
+<p>To write JavaScript well, you need to understand why it is the way it is. Many of JavaScript's quirks, design decisions, and seemingly strange behaviors make complete sense once you know the historical and organizational pressures under which it was built. This topic traces JavaScript from its rushed 1995 origin to its current status as the world's most widely used programming language.</p>
+<hr />
+<h2 id="41-origins-historical-context-1995">4.1 Origins &amp; Historical Context (1995)</h2>
+<h3 id="the-creator-the-context">The Creator &amp; the Context</h3>
+<ul>
+<li><strong>Creator</strong>: <strong>Brendan Eich</strong>, at <strong>Netscape Communications Corporation</strong></li>
+<li><strong>Year</strong>: <strong>1995</strong></li>
+<li><strong>Time to create</strong>: Famously written in <strong>10 days</strong> — a fact that explains many of its quirks</li>
+</ul>
+<h4 id="the-web-in-1995">The Web in 1995</h4>
+<ul>
+<li>The web was young — HTML and HTTP were only a few years old</li>
+<li>Browsers were essentially <strong>static document viewers</strong> — they could display text, images, and links, but had no interactivity</li>
+<li><strong>Netscape Navigator</strong> was the dominant browser (~80% market share)</li>
+<li>Netscape wanted to add <strong>client-side interactivity</strong> to web pages</li>
+</ul>
+<h3 id="the-glue-language-design-goal">The "Glue Language" Design Goal</h3>
+<p>JavaScript was conceived with a very specific, <strong>limited purpose</strong> in mind:</p>
+<blockquote>
+<p>A lightweight <strong>"glue" language</strong> for web designers and non-professional programmers to <strong>assemble components</strong> (like Java applets) and add simple interactivity to web pages.</p>
+</blockquote>
+<p>This is a crucial point: JavaScript was <strong>not</strong> designed to be a general-purpose programming language. It was designed to be easy enough for non-programmers to use, running alongside Java applets in the browser.</p>
+<div class="highlight"><pre><span></span><code>1995 Browser Architecture (Netscape's Vision):
+┌─────────────────────────────────────────────┐
+│            Netscape Navigator               │
+│                                             │
+│  ┌─────────────┐    ┌─────────────────────┐ │
+│  │  Java Applet │    │   HTML Page         │ │
+│  │  (heavy,     │    │   (structure)       │ │
+│  │   complex)   │◄───│                     │ │
+│  └─────────────┘    │   + JavaScript      │ │
+│                      │   ("glue" between   │ │
+│                      │    HTML &amp; Java)     │ │
+│                      └─────────────────────┘ │
+└─────────────────────────────────────────────┘
+</code></pre></div>
+<h3 id="the-name-why-javascript">The Name: Why "JavaScript"?</h3>
+<p>The language went through name iterations:
+1. <strong>Mocha</strong> (internal codename during development)
+2. <strong>LiveScript</strong> (name when first shipped in Netscape Navigator 2.0 beta, September 1995)
+3. <strong>JavaScript</strong> (renamed in December 1995)</p>
+<p>The rename to <strong>JavaScript</strong> was a <strong>marketing decision</strong>, not a technical one:
+- Netscape had a partnership with <strong>Sun Microsystems</strong> (creators of Java)
+- Java was the hottest technology of 1995
+- The name was chosen to <strong>ride Java's popularity</strong> and suggest a connection
+- Despite the name, JavaScript and Java are <strong>fundamentally different languages</strong> — similar in name only</p>
+<blockquote>
+<p><strong>Famous quote often attributed to this relationship</strong>: "Java is to JavaScript what Car is to Carpet."</p>
+</blockquote>
+<h3 id="initial-drawbacks">Initial Drawbacks</h3>
+<p>The rushed development and "glue language" design philosophy had real consequences:</p>
+<table>
+<thead>
+<tr>
+<th>Drawback</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Slow execution</strong></td>
+<td>Early JS engines were interpreters; no JIT compilation; performance was poor</td>
+</tr>
+<tr>
+<td><strong>Limited capabilities</strong></td>
+<td>Designed only for simple scripting — no file access, no native networking</td>
+</tr>
+<tr>
+<td><strong>Erratic implementations</strong></td>
+<td>Netscape's JavaScript and Microsoft's JScript (for IE) diverged wildly</td>
+</tr>
+<tr>
+<td><strong>No error handling culture</strong></td>
+<td>Designed to silently tolerate errors rather than crash (to protect non-programmers)</td>
+</tr>
+<tr>
+<td><strong>Rushed design</strong></td>
+<td>The 10-day timeline left conceptual inconsistencies baked into the language</td>
+</tr>
+</tbody>
+</table>
+<h3 id="microsofts-response-the-browser-wars">Microsoft's Response: The Browser Wars</h3>
+<ul>
+<li>Netscape's success prompted <strong>Microsoft</strong> to build <strong>Internet Explorer</strong></li>
+<li>Microsoft reverse-engineered JavaScript → created <strong>JScript</strong> (to avoid licensing issues with Sun/Netscape)</li>
+<li>JScript and JavaScript were <em>mostly</em> compatible but had <strong>key differences</strong></li>
+<li>Developers had to write browser-specific code: <code>if (document.all) { /* IE */ } else { /* Netscape */ }</code></li>
+<li>This fragmentation was a <strong>major pain point</strong> that persisted for over a decade (known as the <strong>Browser Wars</strong>)</li>
+</ul>
+<hr />
+<h2 id="42-the-turning-point-ajax-dynamic-web-apps-2005">4.2 The Turning Point: Ajax &amp; Dynamic Web Apps (~2005)</h2>
+<h3 id="the-pre-ajax-web">The Pre-Ajax Web</h3>
+<p>Before Ajax, every user interaction that required new data meant:
+1. Browser sends a full HTTP request to the server
+2. Server generates a <strong>completely new HTML page</strong>
+3. Browser <strong>discards the current page entirely</strong> and renders the new one
+4. Result: Full page flicker, lost scroll position, slow experience</p>
+<p>This was acceptable for document browsing but terrible for <strong>interactive applications</strong>.</p>
+<h3 id="the-birth-of-ajax-2005">The Birth of Ajax (2005)</h3>
+<p><strong>Ajax</strong> was not a new technology — it was a <strong>new name for a new pattern</strong> of using existing technologies.</p>
+<ul>
+<li><strong>AJAX</strong> = <strong>A</strong>synchronous <strong>J</strong>avaScript <strong>A</strong>nd <strong>X</strong>ML (coined by Jesse James Garrett in his February 2005 article <em>"Ajax: A New Approach to Web Applications"</em>)</li>
+<li>The key technology was <strong><code>XMLHttpRequest</code> (XHR)</strong> — a browser API that had existed since 1999 (introduced by Microsoft for Outlook Web Access!) but had gone largely unnoticed</li>
+</ul>
+<h3 id="what-ajax-made-possible">What Ajax Made Possible</h3>
+<div class="highlight"><pre><span></span><code>Before Ajax (Synchronous, Full-Page):
+  User types in search box
+        │
+        ▼
+  Entire page reloads
+        │
+        ▼
+  New page renders with results
+  (user sees blank white flash, loses focus, scroll position resets)
+
+After Ajax (Asynchronous, Partial-Page):
+  User types in search box
+        │
+        ▼
+  JS sends XHR request to server (IN THE BACKGROUND)
+        │
+        ▼
+  Server responds with just the data (not a full HTML page)
+        │
+        ▼
+  JS updates ONLY the search results section of the page
+  (page never reloads — seamless, instant-feeling experience)
+</code></pre></div>
+<h3 id="the-break-out-applications-that-changed-everything">The Break-Out Applications That Changed Everything</h3>
+<h4 id="google-maps-february-2005">Google Maps (February 2005)</h4>
+<ul>
+<li>Before Google Maps: Online maps were static image tiles; clicking to pan meant reloading the entire page</li>
+<li>Google Maps used Ajax to:</li>
+<li><strong>Pan and zoom seamlessly</strong> — new map tiles loaded in the background as you dragged</li>
+<li>Overlay data dynamically without page reloads</li>
+<li>Feel like a <strong>desktop application</strong> running in the browser</li>
+</ul>
+<h4 id="google-suggest-google-autocomplete-20042005">Google Suggest / Google Autocomplete (2004–2005)</h4>
+<ul>
+<li>As you typed in the search box, suggestions appeared <strong>instantly</strong></li>
+<li>Each keystroke triggered a background XHR request to Google's servers</li>
+<li>Results were returned as data and rendered into the DOM — without reloading</li>
+<li>This was <strong>revolutionary</strong> — no desktop app had been so seamlessly ported to the web</li>
+</ul>
+<h3 id="the-broader-impact">The Broader Impact</h3>
+<p>Ajax's success triggered a fundamental rethinking of what the web could be:</p>
+<table>
+<thead>
+<tr>
+<th>Before Ajax (Web 1.0)</th>
+<th>After Ajax (Web 2.0)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Static documents</td>
+<td>Dynamic applications</td>
+</tr>
+<tr>
+<td>Full page reloads</td>
+<td>Partial page updates</td>
+</tr>
+<tr>
+<td>Server-rendered everything</td>
+<td>Client-side rendering</td>
+</tr>
+<tr>
+<td>Thin clients</td>
+<td>Rich clients</td>
+</tr>
+<tr>
+<td>Read-only web</td>
+<td>Read-write web (user-generated content)</td>
+</tr>
+<tr>
+<td>HTML as document format</td>
+<td>HTML as application UI</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Ajax was the <strong>moment JavaScript became important</strong>. Suddenly, the "glue language" was the backbone of a new kind of application. This drove massive investment in JavaScript performance, tooling, and standardization.</p>
+</blockquote>
+<h3 id="from-xml-to-json">From XML to JSON</h3>
+<p>"Ajax" originally implied XML as the data format (the <strong>X</strong> in Ajax). In practice, the community quickly moved to <strong>JSON (JavaScript Object Notation)</strong> as the preferred format:</p>
+<table>
+<thead>
+<tr>
+<th>XML</th>
+<th>JSON</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Verbose, tag-based</td>
+<td>Compact, key-value based</td>
+</tr>
+<tr>
+<td>Hard to parse in JS</td>
+<td>Natively parsed by <code>JSON.parse()</code></td>
+</tr>
+<tr>
+<td>Designed for documents</td>
+<td>Designed for data interchange</td>
+</tr>
+<tr>
+<td><code>&lt;user&gt;&lt;name&gt;Vinay&lt;/name&gt;&lt;/user&gt;</code></td>
+<td><code>{"name": "Vinay"}</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>The "X" in Ajax became a misnomer — modern Ajax is almost entirely JSON-based. The name stuck for historical reasons.</p>
+</blockquote>
+<hr />
+<h2 id="43-standardization-ecmascript">4.3 Standardization &amp; ECMAScript</h2>
+<h3 id="why-standardization-was-needed">Why Standardization Was Needed</h3>
+<p>By the mid-1990s, the browser wars had created a crisis:
+- Netscape's <strong>JavaScript</strong> and Microsoft's <strong>JScript</strong> were diverging
+- Developers had to maintain separate codebases for each browser
+- No single authoritative specification existed for what the language should do</p>
+<h3 id="ecma-international-the-standard">ECMA International &amp; the Standard</h3>
+<ul>
+<li><strong>1996</strong>: Netscape submitted JavaScript to <strong>ECMA International</strong> (European Computer Manufacturers Association — now just "Ecma") for standardization</li>
+<li><strong>ECMA</strong> is a neutral, non-profit standards organization (also standardizes JSON, C#, Dart, etc.)</li>
+<li>The standard was named <strong>ECMA-262</strong></li>
+</ul>
+<h3 id="why-ecmascript-and-not-javascript">Why "ECMAScript" and Not "JavaScript"?</h3>
+<p>The naming was diplomatic:
+1. <strong>Sun Microsystems</strong> held the trademark on "Java" (and by extension "JavaScript")
+2. <strong>Microsoft</strong> refused to use the name "JavaScript" (branding dispute)
+3. The neutral name <strong>"ECMAScript"</strong> was agreed upon as a compromise</p>
+<blockquote>
+<p><strong>ECMAScript</strong> = The <strong>specification/standard</strong> (the rulebook)
+<strong>JavaScript</strong> = The <strong>implementation</strong> (the actual runtime that browsers and Node.js ship)</p>
+</blockquote>
+<p>Other ECMAScript implementations:
+- <strong>V8</strong> (Google Chrome, Node.js)
+- <strong>SpiderMonkey</strong> (Firefox)
+- <strong>JavaScriptCore / Nitro</strong> (Safari/WebKit)
+- <strong>Chakra</strong> (Microsoft Edge — legacy)</p>
+<p>All of these implement the ECMAScript spec, but are separate engines written independently.</p>
+<div class="highlight"><pre><span></span><code>ECMAScript Specification (ECMA-262)
+           │
+           │  (Implemented by)
+    ┌──────┼──────────────────────────┐
+    ▼      ▼                          ▼
+   V8   SpiderMonkey           JavaScriptCore
+(Chrome,  (Firefox)              (Safari)
+ Node.js)
+    │
+    ▼
+JavaScript (as you use it in the browser or Node.js)
+</code></pre></div>
+<h3 id="the-ecmascript-version-timeline">The ECMAScript Version Timeline</h3>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Year</th>
+<th>Key Contributions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ES1</strong></td>
+<td>1997</td>
+<td>First standardized specification</td>
+</tr>
+<tr>
+<td><strong>ES2</strong></td>
+<td>1998</td>
+<td>Minor editorial changes</td>
+</tr>
+<tr>
+<td><strong>ES3</strong></td>
+<td>1999</td>
+<td><code>try/catch</code>, regex, <code>do-while</code> — widely implemented</td>
+</tr>
+<tr>
+<td><strong>ES4</strong></td>
+<td>Abandoned</td>
+<td>Too ambitious; never released (political disagreements)</td>
+</tr>
+<tr>
+<td><strong>ES5</strong></td>
+<td>2009</td>
+<td><code>"use strict"</code>, <code>Array.forEach/map/filter</code>, <code>JSON.parse</code>, getter/setters</td>
+</tr>
+<tr>
+<td><strong>ES6 / ES2015</strong></td>
+<td>2015</td>
+<td>🚀 <strong>Major milestone</strong> — see below</td>
+</tr>
+<tr>
+<td><strong>ES2016+</strong></td>
+<td>Annual</td>
+<td>Yearly incremental releases</td>
+</tr>
+</tbody>
+</table>
+<h3 id="es6-es2015-the-major-milestone">ES6 / ES2015 — The Major Milestone</h3>
+<p>ES6 (officially <strong>ES2015</strong>) was the most transformative update in JavaScript's history. It was released <strong>6 years after ES5</strong> and completely modernized the language:</p>
+<table>
+<thead>
+<tr>
+<th>ES6 Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>let</code> / <code>const</code></td>
+<td>Block-scoped variable declarations (replaces <code>var</code>)</td>
+</tr>
+<tr>
+<td>Arrow functions <code>=&gt;</code></td>
+<td>Concise function syntax with lexical <code>this</code></td>
+</tr>
+<tr>
+<td>Classes</td>
+<td>Syntactic sugar over prototype-based inheritance</td>
+</tr>
+<tr>
+<td>Template literals <code>`</code></td>
+<td>String interpolation with <code>${expression}</code></td>
+</tr>
+<tr>
+<td>Destructuring</td>
+<td><code>const { name, age } = user;</code></td>
+</tr>
+<tr>
+<td>Default parameters</td>
+<td><code>function greet(name = 'World') {}</code></td>
+</tr>
+<tr>
+<td>Rest/Spread <code>...</code></td>
+<td><code>function sum(...args)</code> / <code>[...arr1, ...arr2]</code></td>
+</tr>
+<tr>
+<td>Modules (<code>import</code>/<code>export</code>)</td>
+<td>Native module system for code organization</td>
+</tr>
+<tr>
+<td>Promises</td>
+<td>Structured async handling (replaces callback hell)</td>
+</tr>
+<tr>
+<td><code>Map</code> / <code>Set</code></td>
+<td>New collection data structures</td>
+</tr>
+<tr>
+<td><code>Symbol</code></td>
+<td>New primitive type for unique identifiers</td>
+</tr>
+<tr>
+<td>Generators</td>
+<td>Functions that can pause and resume execution</td>
+</tr>
+<tr>
+<td><code>for...of</code></td>
+<td>Iterate over iterables (arrays, strings, Maps, Sets)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>ES6 was so large that the committee decided to switch to <strong>annual releases</strong> going forward, with smaller, incremental improvements each year (ES2016, ES2017, ... ES2026). This prevents another 6-year gap.</p>
+</blockquote>
+<h3 id="the-tc39-process">The TC39 Process</h3>
+<p>The ECMAScript specification is governed by <strong>TC39</strong> (Technical Committee 39) — a committee of browser vendors, companies (Google, Apple, Microsoft, Mozilla, Facebook, Airbnb, etc.) and community members.</p>
+<p>New JavaScript features go through a <strong>5-stage proposal process</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><strong>Strawperson</strong></td>
+<td>Initial idea — anyone can submit</td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>Proposal</strong></td>
+<td>Committee accepts it for consideration; champion assigned</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Draft</strong></td>
+<td>Formal spec text written; experimental implementations</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Candidate</strong></td>
+<td>Spec complete; waiting for real-world implementation feedback</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Finished</strong></td>
+<td>Included in the next ECMAScript version</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="44-target-environments-version-compatibility">4.4 Target Environments &amp; Version Compatibility</h2>
+<h3 id="the-compatibility-problem">The Compatibility Problem</h3>
+<p>Modern JavaScript (ES6+) has powerful features, but <strong>not all environments support all features</strong>:
+- A user on an old Android phone with Chrome 50 (2016) doesn't have ES2023 features
+- Some corporate environments mandate specific IE versions (legacy support)
+- Some features (like <code>import/export</code> modules) behave differently in Node.js vs. browsers</p>
+<h3 id="strategy-1-rely-on-user-browser-upgrades">Strategy 1: Rely on User Browser Upgrades</h3>
+<p><strong>Approach</strong>: Write modern JS and tell users to upgrade their browsers.</p>
+<p><strong>Works when</strong>:
+- You control who uses your app (internal enterprise tool)
+- Your user base reliably uses modern browsers (young tech-savvy audience)
+- You check browser support tables (caniuse.com) and accept the risk</p>
+<p><strong>Limitation</strong>: You can't always control your users.</p>
+<hr />
+<h3 id="strategy-2-bundled-runtimes-electron-vs-code">Strategy 2: Bundled Runtimes (Electron, VS Code)</h3>
+<p><strong>Approach</strong>: Ship the browser runtime <strong>with</strong> your application so the JS environment is always known.</p>
+<ul>
+<li><strong>Electron</strong>: Bundles Chromium + Node.js into a desktop application package</li>
+<li><strong>VS Code</strong> is built with Electron — it ships its own version of Chromium internally</li>
+<li>Result: You always know exactly which JS features are available — no compatibility concerns</li>
+</ul>
+<p><strong>Trade-off</strong>: Large application size (Chromium alone is ~150MB).</p>
+<hr />
+<h3 id="strategy-3-polyfills">Strategy 3: Polyfills</h3>
+<p>A <strong>polyfill</strong> is JavaScript code that <strong>implements a newer feature using older JavaScript</strong> — filling in the gap for environments that don't natively support it.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Example: Array.prototype.includes() was added in ES2016</span>
+<span class="c1">// A polyfill provides it for older browsers:</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">includes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">includes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">searchElement</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">searchElement</span><span class="p">)</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span>
+<span class="c1">// Now older browsers can use .includes() as if they supported ES2016</span>
+</code></pre></div>
+<p><strong>Key points</strong>:
+- Polyfills work for <strong>APIs and built-in methods</strong> (like <code>Array.includes</code>, <code>Promise</code>, <code>fetch</code>)
+- They <strong>cannot</strong> polyfill new syntax (like arrow functions, <code>const</code>) — syntax must be transpiled
+- Common polyfill libraries: <strong>core-js</strong>, <strong>regenerator-runtime</strong></p>
+<hr />
+<h3 id="strategy-4-transpilation-compilers-babeljs">Strategy 4: Transpilation / Compilers (BabelJS)</h3>
+<p><strong>Transpilation</strong> = Source-to-source compilation. Transform modern JS code into equivalent older JS code that runs everywhere.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Input: Modern ES6+ code (what you write)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">greet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'World'</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="sb">`Hello, </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+
+<span class="c1">// Output: Transpiled ES5 code (what Babel produces for old browsers)</span>
+<span class="s2">"use strict"</span><span class="p">;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">greet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">greet</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">arguments</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">arguments</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">undefined</span>
+<span class="w">    </span><span class="o">?</span><span class="w"> </span><span class="nb">arguments</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s1">'World'</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="s2">"Hello, "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">"!"</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<h4 id="babeljs">BabelJS</h4>
+<ul>
+<li><strong>Babel</strong> is the most widely used JavaScript transpiler</li>
+<li>You write modern JS (ES2023) → Babel converts it → Old browsers run it</li>
+<li>Configured via <code>.babelrc</code> or <code>babel.config.json</code> with presets that target specific browser/env combinations</li>
+<li>Integrated into build tools: Webpack, Vite, Create React App, Vue CLI all use Babel internally</li>
+</ul>
+<p><strong>BabelJS Workflow:</strong>
+<div class="highlight"><pre><span></span><code>Developer writes          Build Tool runs Babel         Browser executes
+modern ES2023+ code  ──►  (transpiles to ES5)      ──►  old-compatible code
+      │                          │
+  index.js                  dist/bundle.js
+  (readable)                (compatible, often minified)
+</code></pre></div></p>
+<h4 id="typescript-bonus-related-concept">TypeScript (Bonus — Related Concept)</h4>
+<ul>
+<li><strong>TypeScript</strong> is a superset of JavaScript that adds <strong>static typing</strong></li>
+<li>TypeScript code must be <strong>compiled</strong> to JavaScript before execution</li>
+<li>The TypeScript compiler (<code>tsc</code>) is another form of transpilation</li>
+<li>Increasingly common in large codebases (Angular, Vue 3, many enterprise projects use TypeScript)</li>
+</ul>
+<hr />
+<h3 id="server-side-environments">Server-Side Environments</h3>
+<p>JavaScript is no longer a browser-only language:</p>
+<h4 id="nodejs">Node.js</h4>
+<ul>
+<li><strong>Created</strong>: 2009 by Ryan Dahl</li>
+<li><strong>Engine</strong>: Built on Google's <strong>V8 engine</strong> (the same engine in Chrome)</li>
+<li><strong>Purpose</strong>: Run JavaScript on the server, outside the browser</li>
+<li><strong>What it adds</strong>: File system access, networking (TCP/HTTP servers), OS interaction — things the browser sandbox restricts</li>
+<li><strong>Impact</strong>: Enabled "full-stack JavaScript" — use the same language on both frontend and backend</li>
+<li><strong>Package ecosystem</strong>: <strong>npm (Node Package Manager)</strong> — the largest software package registry in the world</li>
+<li><strong>Use cases</strong>: REST API servers (Express.js), CLI tools, build systems, serverless functions</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Without Node.js:
+  Frontend: JavaScript
+  Backend:  Python / Java / PHP / Ruby (completely different language)
+
+With Node.js:
+  Frontend: JavaScript
+  Backend:  JavaScript (Node.js)
+  ──► One language across the entire stack
+</code></pre></div>
+<h4 id="deno">Deno</h4>
+<ul>
+<li><strong>Created</strong>: 2018 by Ryan Dahl (same creator as Node.js)</li>
+<li>Dahl's attempt to <strong>fix Node.js's design mistakes</strong> (acknowledged in his famous "10 Things I Regret About Node.js" talk)</li>
+<li>Key differences from Node.js:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Node.js</th>
+<th>Deno</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Module system</strong></td>
+<td>CommonJS (<code>require</code>) + ESM</td>
+<td>Native ES Modules only</td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>All permissions by default</td>
+<td>Deny-by-default; explicit permission flags</td>
+</tr>
+<tr>
+<td><strong>Package management</strong></td>
+<td>npm + <code>node_modules</code></td>
+<td>URL-based imports (no <code>node_modules</code>)</td>
+</tr>
+<tr>
+<td><strong>TypeScript</strong></td>
+<td>Requires compilation step</td>
+<td>Runs TypeScript natively</td>
+</tr>
+<tr>
+<td><strong>Standard library</strong></td>
+<td>Minimal</td>
+<td>Rich, built-in</td>
+</tr>
+<tr>
+<td><strong>Runtime</strong></td>
+<td>V8</td>
+<td>V8</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="summary-of-topic-4">Summary of Topic 4</h2>
+<div class="highlight"><pre><span></span><code>JAVASCRIPT: EVOLUTION, ORIGINS &amp; STANDARDIZATION
+
+4.1 ORIGINS (1995)
+  Creator: Brendan Eich @ Netscape
+  Purpose: Lightweight "glue" language for Java applets &amp; HTML pages
+  Built in: 10 days (explains many quirks)
+  Name history: Mocha → LiveScript → JavaScript (marketing, not technical)
+  Initial issues: Slow, limited, browser-incompatible implementations
+
+4.2 THE TURNING POINT: AJAX (~2005)
+  Ajax coined by Jesse James Garrett (Feb 2005)
+  Core tech: XMLHttpRequest (XHR) — existed since 1999, unused
+  Break-out apps: Google Maps (pan/zoom without reload)
+               Google Suggest (live autocomplete)
+  Impact: Transformed web from documents → rich applications
+  Data format: XML → JSON (pragmatic shift)
+
+4.3 STANDARDIZATION &amp; ECMASCRIPT
+  Submitted to ECMA International (1996) → ECMA-262 standard
+  Name: "ECMAScript" = neutral trademark compromise
+  ECMAScript (spec) ≠ JavaScript (implementation/engine)
+  Engines: V8 (Chrome/Node), SpiderMonkey (Firefox), JavaScriptCore (Safari)
+  ES6 / ES2015: Biggest update — let/const, arrow functions, classes,
+               modules, promises, destructuring, template literals
+  Post-ES6: Annual releases, TC39 5-stage proposal process
+
+4.4 TARGET ENVIRONMENTS &amp; COMPATIBILITY
+  Problem: Not all environments support all features
+  Solutions:
+    1. Rely on user browser upgrades (simple, limited)
+    2. Bundled runtimes — Electron/VS Code (bundle Chromium with app)
+    3. Polyfills — JS code that implements newer APIs in older engines
+    4. Transpilation — BabelJS converts modern JS → ES5 compatible code
+  Server-side:
+    Node.js (2009): V8 + OS access, npm ecosystem, full-stack JS
+    Deno (2018): Node.js successor, native TS, secure by default
+</code></pre></div>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../03_course_trajectory/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Course trajectory">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Course trajectory
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../05_architectural_implications/" class="md-footer__link md-footer__link--next" aria-label="Next: Architectural implications">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Architectural implications
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

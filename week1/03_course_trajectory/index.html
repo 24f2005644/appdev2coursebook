@@ -1,0 +1,4431 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week1/03_course_trajectory/">
+      
+      
+        <link rel="prev" href="../02_web_app_development_model/">
+      
+      
+        <link rel="next" href="../04_javascript_origins_standardization/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Course trajectory - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#topic-3-course-trajectory-moving-forward" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Course trajectory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-advanced-frontend-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Advanced Frontend Development
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 Advanced Frontend Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#in-depth-javascript-fundamentals-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In-Depth JavaScript Fundamentals &amp; Ecosystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modern-jamstack-paradigm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modern JAMStack Paradigm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontend-component-frameworks-vuejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frontend Component Frameworks: Vue.js
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-additional-core-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Additional Core Topics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Additional Core Topics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous-messaging-background-task-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asynchronous Messaging &amp; Background Task Processing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-page-applications-spa-progressive-web-applications-pwa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single Page Applications (SPA) &amp; Progressive Web Applications (PWA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mobile-standalone-app-deployments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mobile &amp; Standalone App Deployments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-measurement-profiling-benchmarking-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance: Measurement, Profiling, Benchmarking &amp; Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternatives-to-traditional-rest-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternatives to Traditional REST Architectures
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-topic-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of Topic 3
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-advanced-frontend-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Advanced Frontend Development
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 Advanced Frontend Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#in-depth-javascript-fundamentals-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In-Depth JavaScript Fundamentals &amp; Ecosystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modern-jamstack-paradigm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modern JAMStack Paradigm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontend-component-frameworks-vuejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frontend Component Frameworks: Vue.js
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-additional-core-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Additional Core Topics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Additional Core Topics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous-messaging-background-task-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asynchronous Messaging &amp; Background Task Processing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-page-applications-spa-progressive-web-applications-pwa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single Page Applications (SPA) &amp; Progressive Web Applications (PWA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mobile-standalone-app-deployments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mobile &amp; Standalone App Deployments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-measurement-profiling-benchmarking-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance: Measurement, Profiling, Benchmarking &amp; Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternatives-to-traditional-rest-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternatives to Traditional REST Architectures
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-topic-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of Topic 3
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="topic-3-course-trajectory-moving-forward">Topic 3: Course Trajectory — Moving Forward</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Topic 3: Course Trajectory — Moving Forward</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<blockquote>
+<p><strong>MAD-II Week 1 | Detailed Notes</strong></p>
+</blockquote>
+<hr />
+<h2 id="overview">Overview</h2>
+<p>MAD-II builds directly on top of MAD-I. While MAD-I established the <strong>foundations</strong> of web application development (Flask, HTML, CSS, basic REST APIs, MVC), MAD-II shifts focus toward:
+- <strong>Deeper frontend engineering</strong> with modern JavaScript and component frameworks
+- <strong>Advanced system design</strong> concerns like async messaging, performance, and alternative architectures
+- <strong>Production-grade applications</strong> — Progressive Web Apps, mobile deployments, and standalone apps</p>
+<p>Think of MAD-I as learning to build a car, and MAD-II as learning to tune its engine, optimize the aerodynamics, and take it on the highway.</p>
+<hr />
+<h2 id="31-advanced-frontend-development">3.1 Advanced Frontend Development</h2>
+<h3 id="in-depth-javascript-fundamentals-ecosystem">In-Depth JavaScript Fundamentals &amp; Ecosystem</h3>
+<p>MAD-I treated JavaScript as a basic scripting tool. MAD-II treats it as a <strong>first-class programming language</strong> with a rich ecosystem.</p>
+<p>The course will cover:
+- <strong>Core language mechanics</strong>: types, scoping, closures, prototypes, the event loop
+- <strong>Modern ES6+ features</strong>: arrow functions, destructuring, modules, promises, async/await
+- <strong>The JavaScript ecosystem</strong>: package managers (npm), bundlers, transpilers, build tools</p>
+<blockquote>
+<p>JavaScript has evolved from a simple scripting language in 1995 to the <strong>most widely used programming language in the world</strong> (Stack Overflow surveys, 2016–present). Understanding it deeply is non-negotiable for a modern developer.</p>
+</blockquote>
+<h4 id="why-go-deep-on-javascript">Why Go Deep on JavaScript?</h4>
+<p>Without a solid JS foundation, working with any modern frontend framework becomes a process of copying patterns without understanding them — leading to bugs that are difficult to diagnose and code that's hard to maintain.</p>
+<table>
+<thead>
+<tr>
+<th>MAD-I JS Usage</th>
+<th>MAD-II JS Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Basic DOM manipulation</td>
+<td>Deep language internals</td>
+</tr>
+<tr>
+<td>Simple event handlers</td>
+<td>Closures, prototypes, <code>this</code> binding</td>
+</tr>
+<tr>
+<td>Inline <code>&lt;script&gt;</code> tags</td>
+<td>Modules, imports, build tools</td>
+</tr>
+<tr>
+<td>Synchronous code</td>
+<td>Async/await, Promises, Event loop</td>
+</tr>
+<tr>
+<td>Little to no tooling</td>
+<td>npm, bundlers, transpilers (Babel)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="modern-jamstack-paradigm">Modern JAMStack Paradigm</h3>
+<p><strong>JAMStack</strong> stands for <strong>JavaScript, APIs, Markup</strong> — a modern approach to building web applications.</p>
+<h4 id="what-is-jamstack">What is JAMStack?</h4>
+<div class="highlight"><pre><span></span><code>J — JavaScript    →  Client-side logic, interactivity, dynamic behavior
+A — APIs          →  Backend services accessed via HTTP (REST, GraphQL)
+M — Markup        →  Pre-built HTML (generated at build time, not request time)
+</code></pre></div>
+<h4 id="traditional-vs-jamstack-architecture">Traditional vs. JAMStack Architecture</h4>
+<p><strong>Traditional (Server-Side Rendered):</strong>
+<div class="highlight"><pre><span></span><code>User Request
+    │
+    ▼
+Web Server (Flask)
+    │  Queries DB
+    │  Renders HTML template
+    │
+    ▼
+Complete HTML page sent to browser
+(This happens on EVERY page request)
+</code></pre></div></p>
+<p><strong>JAMStack:</strong>
+<div class="highlight"><pre><span></span><code>Build Time (once):
+  Source files → Static Site Generator → Pre-built HTML/CSS/JS files
+                                               │
+                                        Deployed to CDN
+
+Runtime (every user request):
+  User → CDN (nearest server) → Static files served instantly
+              │
+              │  (Dynamic needs handled by)
+              └──► API calls to backend services (decoupled)
+</code></pre></div></p>
+<h4 id="benefits-of-jamstack">Benefits of JAMStack</h4>
+<table>
+<thead>
+<tr>
+<th>Benefit</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Performance</strong></td>
+<td>Pre-built static files served from CDN — no server-side rendering on each request</td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>Smaller attack surface — no database or server exposed to direct requests</td>
+</tr>
+<tr>
+<td><strong>Scalability</strong></td>
+<td>CDNs scale effortlessly; no server provisioning needed</td>
+</tr>
+<tr>
+<td><strong>Developer Experience</strong></td>
+<td>Clear separation of frontend and backend concerns</td>
+</tr>
+<tr>
+<td><strong>Reliability</strong></td>
+<td>No server = no server downtime; CDN has built-in redundancy</td>
+</tr>
+</tbody>
+</table>
+<h4 id="jamstack-in-practice">JAMStack in Practice</h4>
+<ul>
+<li><strong>Static Site Generators</strong>: Next.js, Gatsby, Hugo, Eleventy</li>
+<li><strong>Headless CMS</strong>: Contentful, Sanity, Strapi (content as API)</li>
+<li><strong>Serverless Functions</strong>: AWS Lambda, Netlify Functions (for dynamic API logic)</li>
+<li><strong>CDN Providers</strong>: Vercel, Netlify, Cloudflare Pages</li>
+</ul>
+<hr />
+<h3 id="frontend-component-frameworks-vuejs">Frontend Component Frameworks: Vue.js</h3>
+<p>The course focuses on <strong>Vue.js</strong> as the representative modern frontend framework.</p>
+<h4 id="what-is-a-component-framework">What is a Component Framework?</h4>
+<p>Traditional web development separates by <strong>file type</strong> (HTML in one file, CSS in another, JS in another). Component frameworks separate by <strong>feature/UI element</strong>:</p>
+<div class="highlight"><pre><span></span><code>Traditional separation:          Component-based separation:
+├── index.html                   ├── UserCard.vue     (HTML + CSS + JS for user card)
+├── styles.css                   ├── NavBar.vue       (HTML + CSS + JS for nav)
+└── app.js                       ├── PostList.vue     (HTML + CSS + JS for post list)
+                                 └── App.vue          (root component, composes others)
+</code></pre></div>
+<p>Each <code>.vue</code> file is a <strong>Self-Contained Component</strong> — it packages the template (HTML), style (CSS), and logic (JS) for one UI element together.</p>
+<h4 id="vuejs-single-file-component-sfc-structure">Vue.js Single File Component (SFC) Structure</h4>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="cm">&lt;!-- HTML structure for this component --&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"user-card"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span><span class="cp">{{</span><span class="w"> </span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="cp">}}</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="cp">{{</span><span class="w"> </span><span class="nx">user</span><span class="p">.</span><span class="nx">email</span><span class="w"> </span><span class="cp">}}</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="p">@</span><span class="na">click</span><span class="o">=</span><span class="s">"</span><span class="nx">followUser</span><span class="s">"</span><span class="p">&gt;</span>Follow<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="c1">// JavaScript logic for this component</span>
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">props</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'user'</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">methods</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">followUser</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// handle follow action</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p">&gt;</span>
+<span class="c">/* CSS scoped to this component only */</span>
+<span class="p">.</span><span class="nc">user-card</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#ccc</span><span class="p">;</span>
+<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</code></pre></div>
+<h4 id="why-vuejs">Why Vue.js?</h4>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Approachable</strong></td>
+<td>Gentle learning curve; familiar HTML/CSS/JS structure</td>
+</tr>
+<tr>
+<td><strong>Reactive Data Binding</strong></td>
+<td>UI automatically updates when underlying data changes</td>
+</tr>
+<tr>
+<td><strong>Component System</strong></td>
+<td>Build complex UIs from small, reusable pieces</td>
+</tr>
+<tr>
+<td><strong>Progressive Adoption</strong></td>
+<td>Can be added to existing projects incrementally</td>
+</tr>
+<tr>
+<td><strong>Ecosystem</strong></td>
+<td>Vue Router (routing), Pinia (state management), Vite (build tool)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="reactivity-the-core-concept">Reactivity: The Core Concept</h4>
+<div class="highlight"><pre><span></span><code>Without Vue (manual DOM updates):
+  Data changes → Developer writes code to find DOM element → Update it manually
+
+With Vue (reactive):
+  Data changes → Vue automatically detects change → DOM updates instantly
+</code></pre></div>
+<blockquote>
+<p>This is the fundamental shift that component frameworks bring: <strong>declarative UI</strong> (you describe what the UI should look like) vs. <strong>imperative UI</strong> (you write step-by-step instructions to update the UI).</p>
+</blockquote>
+<hr />
+<h2 id="32-additional-core-topics">3.2 Additional Core Topics</h2>
+<h3 id="asynchronous-messaging-background-task-processing">Asynchronous Messaging &amp; Background Task Processing</h3>
+<h4 id="the-problem-blocking-operations">The Problem: Blocking Operations</h4>
+<p>Some tasks take too long to complete within a single HTTP request-response cycle:
+- Sending emails (SMTP server latency)
+- Generating reports or PDFs
+- Processing uploaded images/videos
+- Calling slow third-party APIs
+- Sending bulk notifications</p>
+<p>If these run synchronously in a request handler, the user waits — leading to <strong>timeouts</strong> and poor UX.</p>
+<h4 id="the-solution-asynchronous-task-queues">The Solution: Asynchronous Task Queues</h4>
+<div class="highlight"><pre><span></span><code>User Request → Flask Route Handler
+                    │
+                    │  (Instead of doing the work directly...)
+                    ▼
+             Task Queue (e.g., Celery + Redis)
+                    │
+                    │  (Task is queued and handler returns immediately)
+                    ▼
+              [Immediate Response] → "Your report is being generated..."
+                    │
+                    │  (Meanwhile, in the background...)
+                    ▼
+             Worker Process picks up task → Does the work → Stores result
+                    │
+                    ▼
+              User gets notified / can poll for result
+</code></pre></div>
+<h4 id="key-technologies">Key Technologies</h4>
+<table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Celery</strong></td>
+<td>Python distributed task queue</td>
+</tr>
+<tr>
+<td><strong>Redis</strong></td>
+<td>Message broker (stores the queue of tasks)</td>
+</tr>
+<tr>
+<td><strong>RabbitMQ</strong></td>
+<td>Alternative message broker</td>
+</tr>
+<tr>
+<td><strong>Email Triggers</strong></td>
+<td>Tasks that send emails on events (user signup, order confirmation, etc.)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="email-triggers">Email Triggers</h4>
+<ul>
+<li>Events in the application trigger automated emails</li>
+<li>Examples: welcome email on signup, password reset link, order confirmation, weekly digest</li>
+<li>Handled via background tasks to avoid blocking the main request</li>
+</ul>
+<hr />
+<h3 id="single-page-applications-spa-progressive-web-applications-pwa">Single Page Applications (SPA) &amp; Progressive Web Applications (PWA)</h3>
+<h4 id="single-page-applications-spa">Single Page Applications (SPA)</h4>
+<p><strong>Traditional Multi-Page Application (MPA):</strong>
+<div class="highlight"><pre><span></span><code>User clicks link → Browser sends request → Server renders full new HTML page → Browser re-renders entire page
+</code></pre></div></p>
+<p><strong>Single Page Application (SPA):</strong>
+<div class="highlight"><pre><span></span><code>User clicks link → JavaScript intercepts → JS fetches only the needed data (JSON) → JS updates only the changed part of the page
+         (URL still changes, back button still works — all handled by JS routing)
+</code></pre></div></p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>MPA</th>
+<th>SPA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Page Loads</strong></td>
+<td>Full reload on every navigation</td>
+<td>Initial load only; subsequent navigations are instant</td>
+</tr>
+<tr>
+<td><strong>Server Role</strong></td>
+<td>Renders HTML pages</td>
+<td>Serves static JS bundle + API endpoints</td>
+</tr>
+<tr>
+<td><strong>UX</strong></td>
+<td>Standard web feel</td>
+<td>App-like, instant transitions</td>
+</tr>
+<tr>
+<td><strong>SEO</strong></td>
+<td>Naturally good</td>
+<td>Requires extra effort (SSR or prerendering)</td>
+</tr>
+<tr>
+<td><strong>First Load</strong></td>
+<td>Fast (small HTML)</td>
+<td>Slower (must download entire JS bundle)</td>
+</tr>
+<tr>
+<td><strong>Examples</strong></td>
+<td>Traditional Flask apps</td>
+<td>Gmail, Google Maps, Trello</td>
+</tr>
+</tbody>
+</table>
+<h4 id="progressive-web-applications-pwa">Progressive Web Applications (PWA)</h4>
+<p>PWAs are web applications that use modern browser capabilities to deliver <strong>app-like experiences</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>PWA Feature</th>
+<th>What it Enables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Service Workers</strong></td>
+<td>Background scripts that cache assets, enabling offline use</td>
+</tr>
+<tr>
+<td><strong>Web App Manifest</strong></td>
+<td>JSON file that allows "Add to Home Screen" on mobile</td>
+</tr>
+<tr>
+<td><strong>Push Notifications</strong></td>
+<td>Send notifications to users even when the app is closed</td>
+</tr>
+<tr>
+<td><strong>Background Sync</strong></td>
+<td>Queue actions taken offline and sync when connection restores</td>
+</tr>
+<tr>
+<td><strong>HTTPS Required</strong></td>
+<td>PWAs require secure connections (security by design)</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>PWA = Web App + Service Worker + Web App Manifest
+                     │                    │
+               (Offline support,    (Installable,
+                caching, push        looks native)
+                notifications)
+</code></pre></div>
+<blockquote>
+<p><strong>PWAs bridge the gap between web apps and native mobile apps</strong> — without requiring App Store distribution, separate codebases, or native development knowledge.</p>
+</blockquote>
+<hr />
+<h3 id="mobile-standalone-app-deployments">Mobile &amp; Standalone App Deployments</h3>
+<p>Web technologies are no longer limited to the browser. Several approaches exist to deploy web-based apps as native or standalone applications:</p>
+<h4 id="approaches">Approaches</h4>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Technology</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PWA (Installable)</strong></td>
+<td>Web APIs</td>
+<td>Browser-based install, works offline, no app store needed</td>
+</tr>
+<tr>
+<td><strong>Hybrid Apps</strong></td>
+<td>Capacitor, Cordova</td>
+<td>Wrap a web app in a native shell; access device APIs</td>
+</tr>
+<tr>
+<td><strong>Desktop Apps</strong></td>
+<td>Electron, Tauri</td>
+<td>Web app in a desktop window (VS Code, Slack, Discord use Electron)</td>
+</tr>
+<tr>
+<td><strong>React Native</strong></td>
+<td>JS (not web)</td>
+<td>Native UI components, JS logic — not a web view</td>
+</tr>
+</tbody>
+</table>
+<h4 id="electron-architecture-example">Electron Architecture (Example)</h4>
+<p><div class="highlight"><pre><span></span><code>┌────────────────────────────────┐
+│       Desktop Window           │
+│  ┌──────────────────────────┐  │
+│  │   Chromium Browser       │  │
+│  │   (renders your web app) │  │
+│  └──────────────────────────┘  │
+│  ┌──────────────────────────┐  │
+│  │   Node.js Runtime        │  │
+│  │   (accesses OS: files,   │  │
+│  │    notifications, etc.)  │  │
+│  └──────────────────────────┘  │
+└────────────────────────────────┘
+</code></pre></div>
+Examples: VS Code, GitHub Desktop, Slack, Discord — all built with Electron.</p>
+<hr />
+<h3 id="performance-measurement-profiling-benchmarking-optimization">Performance: Measurement, Profiling, Benchmarking &amp; Optimization</h3>
+<h4 id="why-performance-matters">Why Performance Matters</h4>
+<ul>
+<li><strong>53% of mobile users</strong> abandon a site that takes more than 3 seconds to load (Google research)</li>
+<li>Performance directly impacts SEO rankings (Google's Core Web Vitals)</li>
+<li>Poor performance = poor user experience = lost revenue</li>
+</ul>
+<h4 id="key-performance-metrics-core-web-vitals">Key Performance Metrics (Core Web Vitals)</h4>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Full Name</th>
+<th>Measures</th>
+<th>Good Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LCP</strong></td>
+<td>Largest Contentful Paint</td>
+<td>Loading performance</td>
+<td>&lt; 2.5 seconds</td>
+</tr>
+<tr>
+<td><strong>FID</strong></td>
+<td>First Input Delay</td>
+<td>Interactivity / responsiveness</td>
+<td>&lt; 100 ms</td>
+</tr>
+<tr>
+<td><strong>CLS</strong></td>
+<td>Cumulative Layout Shift</td>
+<td>Visual stability</td>
+<td>&lt; 0.1</td>
+</tr>
+<tr>
+<td><strong>TTFB</strong></td>
+<td>Time to First Byte</td>
+<td>Server response speed</td>
+<td>&lt; 800 ms</td>
+</tr>
+</tbody>
+</table>
+<h4 id="performance-workflow">Performance Workflow</h4>
+<div class="highlight"><pre><span></span><code>MEASURE → PROFILE → IDENTIFY BOTTLENECK → OPTIMIZE → MEASURE AGAIN
+   │           │
+   │       (Find the slow part,
+   │        not guess at it)
+   │
+Tools: Chrome DevTools, Lighthouse, WebPageTest
+</code></pre></div>
+<h4 id="common-optimization-techniques">Common Optimization Techniques</h4>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Technique</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Network</strong></td>
+<td>CDN, compression (gzip/brotli), HTTP/2, caching headers</td>
+</tr>
+<tr>
+<td><strong>Assets</strong></td>
+<td>Image optimization (WebP, lazy loading), minification, code splitting</td>
+</tr>
+<tr>
+<td><strong>JavaScript</strong></td>
+<td>Tree shaking, bundle splitting, async loading, avoiding render-blocking JS</td>
+</tr>
+<tr>
+<td><strong>Backend</strong></td>
+<td>Database query optimization, caching (Redis), connection pooling</td>
+</tr>
+<tr>
+<td><strong>Rendering</strong></td>
+<td>Server-Side Rendering (SSR), Static Site Generation (SSG)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="alternatives-to-traditional-rest-architectures">Alternatives to Traditional REST Architectures</h3>
+<p>REST is not the only way to design APIs. As applications grow in complexity, limitations of REST become apparent.</p>
+<h4 id="graphql">GraphQL</h4>
+<p>Developed by Facebook (2012, open-sourced 2015) as a response to REST's limitations at scale.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>REST</th>
+<th>GraphQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Endpoints</strong></td>
+<td>Many endpoints (<code>/users</code>, <code>/posts</code>, <code>/comments</code>)</td>
+<td>Single endpoint (<code>/graphql</code>)</td>
+</tr>
+<tr>
+<td><strong>Data fetching</strong></td>
+<td>Fixed response shape per endpoint</td>
+<td>Client specifies exactly what fields it needs</td>
+</tr>
+<tr>
+<td><strong>Over-fetching</strong></td>
+<td>Common (server sends more data than needed)</td>
+<td>Eliminated</td>
+</tr>
+<tr>
+<td><strong>Under-fetching</strong></td>
+<td>Common (multiple requests for related data)</td>
+<td>Eliminated (one query gets all needed data)</td>
+</tr>
+<tr>
+<td><strong>Versioning</strong></td>
+<td>Requires <code>/v1/</code>, <code>/v2/</code> endpoints</td>
+<td>Schema evolution without versioning</td>
+</tr>
+<tr>
+<td><strong>Documentation</strong></td>
+<td>Manual (Swagger/OpenAPI)</td>
+<td>Introspective (schema is self-documenting)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>GraphQL Query Example:</strong>
+<div class="highlight"><pre><span></span><code><span class="k">query</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">user</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">name</span>
+<span class="w">    </span><span class="n">email</span>
+<span class="w">    </span><span class="n">posts</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">title</span>
+<span class="w">      </span><span class="n">createdAt</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+Returns exactly the fields requested — no more, no less.</p>
+<h4 id="grpc-google-remote-procedure-call">gRPC (Google Remote Procedure Call)</h4>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>gRPC</th>
+<th>REST</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Protocol</strong></td>
+<td>HTTP/2 (binary)</td>
+<td>HTTP/1.1 (text)</td>
+</tr>
+<tr>
+<td><strong>Format</strong></td>
+<td>Protocol Buffers (binary, typed)</td>
+<td>JSON (text, untyped)</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>Very high (binary serialization, multiplexing)</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td><strong>Best for</strong></td>
+<td>Microservice-to-microservice communication</td>
+<td>Public APIs, browser clients</td>
+</tr>
+<tr>
+<td><strong>Browser support</strong></td>
+<td>Limited (requires gRPC-Web)</td>
+<td>Universal</td>
+</tr>
+</tbody>
+</table>
+<h4 id="websockets">WebSockets</h4>
+<p>For <strong>real-time, bi-directional communication</strong> (REST is request-response only):</p>
+<div class="highlight"><pre><span></span><code>REST:       Client ──request──► Server ──response──► Client
+            (Client must ask for every update)
+
+WebSocket:  Client ◄──────────────────────────────► Server
+            (Both can send messages at any time — persistent connection)
+</code></pre></div>
+<p><strong>Use cases</strong>: Live chat, real-time dashboards, collaborative editing, gaming, stock tickers.</p>
+<hr />
+<h2 id="summary-of-topic-3">Summary of Topic 3</h2>
+<div class="highlight"><pre><span></span><code>MAD-II TRAJECTORY
+│
+├── 3.1 ADVANCED FRONTEND DEVELOPMENT
+│     ├── JavaScript (deep dive: ES6+, async, modules, ecosystem)
+│     ├── JAMStack (JS + APIs + Markup — CDN-first architecture)
+│     └── Vue.js (Component-based UI: reactive, declarative, reusable)
+│
+└── 3.2 ADDITIONAL CORE TOPICS
+      ├── Async Messaging &amp; Background Tasks
+      │     └── Celery + Redis: offload slow work from request handlers
+      │
+      ├── SPA (Single Page Apps)
+      │     └── JS intercepts navigation, no full page reloads
+      │
+      ├── PWA (Progressive Web Apps)
+      │     └── Service Workers + Manifest = offline + installable
+      │
+      ├── Mobile &amp; Standalone Deployments
+      │     └── PWA, Capacitor, Electron — web tech beyond the browser
+      │
+      ├── Performance
+      │     └── Measure → Profile → Optimize → (Core Web Vitals)
+      │
+      └── Alternatives to REST
+            ├── GraphQL: Flexible queries, single endpoint, no over/under-fetching
+            ├── gRPC: High-performance binary protocol for microservices
+            └── WebSockets: Real-time bi-directional persistent connections
+</code></pre></div>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../02_web_app_development_model/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Web application development model">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Web application development model
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../04_javascript_origins_standardization/" class="md-footer__link md-footer__link--next" aria-label="Next: JavaScript origins and standardization">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                JavaScript origins and standardization
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

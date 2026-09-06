@@ -1,0 +1,4607 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week9/04_task_queue_mechanics/">
+      
+      
+        <link rel="prev" href="../03_distributed_messaging/">
+      
+      
+        <link rel="next" href="../05_celery/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Task queue mechanics - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#topic-4-task-queue-mechanics-asynchronous-execution" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Task queue mechanics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#41-task-queue-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Task Queue Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 Task Queue Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-full-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Full Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fifo-ordering-vs-priority-queueing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FIFO Ordering vs. Priority Queueing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous-sla-no-strict-real-time-guarantees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asynchronous SLA: No Strict Real-Time Guarantees
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-execution-models-reliability-guarantees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Execution Models &amp; Reliability Guarantees
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Execution Models &amp; Reliability Guarantees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#language-level-concurrency-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Language-Level Concurrency Mechanisms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reliability-guarantees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reliability Guarantees
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-foundational-principles-of-task-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Foundational Principles of Task Queues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Foundational Principles of Task Queues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#principle-1-enqueue-latency-must-be-much-less-than-execution-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 1: Enqueue Latency Must Be Much Less Than Execution Latency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-2-worker-capacity-equilibrium" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 2: Worker Capacity Equilibrium
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-common-distributed-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Common Distributed Pitfalls
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 Common Distributed Pitfalls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pitfall-1-deadlocks-broker-unavailability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pitfall 1: Deadlocks &amp; Broker Unavailability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pitfall-2-buffer-sizing-memory-limits-and-queue-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pitfall 2: Buffer Sizing, Memory Limits, and Queue Overflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-task-queue-delivery-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Task Queue Delivery Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5 Task Queue Delivery Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#push-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Push Queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pull Queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-mechanisms-short-polling-vs-long-polling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pull Mechanisms: Short Polling vs. Long Polling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#46-industry-implementations-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Industry Implementations &amp; Ecosystem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.6 Industry Implementations &amp; Ecosystem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cloud-managed-high-end-fully-managed-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud Managed / High-End (Fully Managed Services)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-general-open-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python / General Open Source
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#41-task-queue-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Task Queue Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 Task Queue Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-full-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Full Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fifo-ordering-vs-priority-queueing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FIFO Ordering vs. Priority Queueing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous-sla-no-strict-real-time-guarantees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asynchronous SLA: No Strict Real-Time Guarantees
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-execution-models-reliability-guarantees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Execution Models &amp; Reliability Guarantees
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Execution Models &amp; Reliability Guarantees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#language-level-concurrency-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Language-Level Concurrency Mechanisms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reliability-guarantees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reliability Guarantees
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-foundational-principles-of-task-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Foundational Principles of Task Queues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Foundational Principles of Task Queues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#principle-1-enqueue-latency-must-be-much-less-than-execution-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 1: Enqueue Latency Must Be Much Less Than Execution Latency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principle-2-worker-capacity-equilibrium" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principle 2: Worker Capacity Equilibrium
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-common-distributed-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Common Distributed Pitfalls
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 Common Distributed Pitfalls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pitfall-1-deadlocks-broker-unavailability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pitfall 1: Deadlocks &amp; Broker Unavailability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pitfall-2-buffer-sizing-memory-limits-and-queue-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pitfall 2: Buffer Sizing, Memory Limits, and Queue Overflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-task-queue-delivery-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Task Queue Delivery Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5 Task Queue Delivery Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#push-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Push Queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pull Queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-mechanisms-short-polling-vs-long-polling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pull Mechanisms: Short Polling vs. Long Polling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#46-industry-implementations-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Industry Implementations &amp; Ecosystem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.6 Industry Implementations &amp; Ecosystem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cloud-managed-high-end-fully-managed-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud Managed / High-End (Fully Managed Services)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-general-open-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python / General Open Source
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="topic-4-task-queue-mechanics-asynchronous-execution">Topic 4: Task Queue Mechanics &amp; Asynchronous Execution</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Topic 4: Task Queue Mechanics &amp; Asynchronous Execution</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<hr />
+<h2 id="41-task-queue-architecture">4.1 Task Queue Architecture</h2>
+<h3 id="the-full-pipeline">The Full Pipeline</h3>
+<p>A task queue system has a well-defined flow from the moment a task is dispatched to the moment its result is stored:</p>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────────────────┐
+│                        TASK QUEUE PIPELINE                                  │
+│                                                                             │
+│  HTTP Request                                                               │
+│      │                                                                      │
+│      ▼                                                                      │
+│  [Request Handler]  ──enqueue task──►  [Queue Manager / Broker]            │
+│      │                                         │                           │
+│      ▼                                         ▼                           │
+│  HTTP 202 Accepted             [Worker pulls task from queue]               │
+│  (returns immediately)                         │                           │
+│                                                ▼                           │
+│                                     [Worker executes task]                 │
+│                                                │                           │
+│                                                ▼                           │
+│                                     [Result Backend / Storage]             │
+│                                                │                           │
+│                                                ▼                           │
+│                                  [Notify user / poll endpoint]             │
+└─────────────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<p><strong>Step-by-step breakdown:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Actor</th>
+<th>Action</th>
+<th>Latency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Request Handler</td>
+<td>Receives HTTP request, validates input</td>
+<td>~ms</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Request Handler</td>
+<td>Serializes task + args → sends to broker</td>
+<td>~1–5ms</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Request Handler</td>
+<td>Returns <code>HTTP 202 Accepted</code> to client</td>
+<td>~ms</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Queue Manager</td>
+<td>Stores message in queue (durably)</td>
+<td>~ms</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Worker</td>
+<td>Polls or receives task from broker</td>
+<td>~ms to seconds</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Worker</td>
+<td>Deserializes task payload, executes function</td>
+<td>seconds to minutes</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Worker</td>
+<td>Writes result / status to Result Backend</td>
+<td>~ms</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Client</td>
+<td>Polls status endpoint OR receives push notification</td>
+<td>as needed</td>
+</tr>
+</tbody>
+</table>
+<p>The key insight: <strong>Steps 1–3 are in the critical path of the HTTP response</strong> — they must be fast. Steps 5–8 happen entirely off the critical path, decoupled from the client.</p>
+<h3 id="fifo-ordering-vs-priority-queueing">FIFO Ordering vs. Priority Queueing</h3>
+<p><strong>Default: FIFO (First In, First Out)</strong>
+<div class="highlight"><pre><span></span><code>Enqueue order:  Task A → Task B → Task C → Task D
+Dequeue order:  Task A → Task B → Task C → Task D
+                (same order, strictly sequential per queue)
+</code></pre></div>
+- Simple, fair, predictable.
+- Most task queues default to FIFO.
+- Tasks are processed in submission order.</p>
+<p><strong>Priority Queueing</strong>
+<div class="highlight"><pre><span></span><code>Enqueue:  Task A (priority=1) → Task B (priority=5) → Task C (priority=3)
+Dequeue:  Task B (priority=5) → Task C (priority=3) → Task A (priority=1)
+                (highest priority processed first)
+</code></pre></div>
+- Use when some tasks are more urgent than others.
+- Example: Premium user's task vs. free-tier user's task.
+- Implemented via: multiple queues (high/medium/low), or broker-level priority (RabbitMQ priority queues, Redis sorted sets).</p>
+<p><strong>Common pattern — Multiple Queues by Priority:</strong>
+<div class="highlight"><pre><span></span><code>[high_priority_queue]   ──► Worker (checks this first)
+[normal_queue]          ──► Worker (checks if high is empty)
+[low_priority_queue]    ──► Worker (checks if others are empty)
+</code></pre></div></p>
+<h3 id="asynchronous-sla-no-strict-real-time-guarantees">Asynchronous SLA: No Strict Real-Time Guarantees</h3>
+<p>A fundamental property of async task queues is that they provide <strong>no strict real-time latency guarantees</strong>:</p>
+<ul>
+<li>Tasks are executed when a worker is <strong>available</strong> — not necessarily immediately.</li>
+<li>If workers are saturated, tasks wait in the queue. Queue depth grows.</li>
+<li>The system guarantees <strong>eventual completion</strong> (assuming workers are running), not <strong>immediate</strong> completion.</li>
+<li>This is an intentional trade-off: you accept variable latency in exchange for reliability and decoupling.</li>
+</ul>
+<blockquote>
+<p><strong>SLA (Service Level Agreement) for async tasks</strong> is typically expressed as:
+"Tasks will be completed within X minutes under normal load conditions"
+— NOT "Tasks will complete within 500ms" (that's a synchronous SLA).</p>
+</blockquote>
+<hr />
+<h2 id="42-execution-models-reliability-guarantees">4.2 Execution Models &amp; Reliability Guarantees</h2>
+<h3 id="language-level-concurrency-mechanisms">Language-Level Concurrency Mechanisms</h3>
+<p>Workers can use different concurrency primitives depending on the language and task type:</p>
+<p><strong>Python <code>asyncio</code> (Coroutines)</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">process_task</span><span class="p">(</span><span class="n">task_id</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">fetch_from_db</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span>   <span class="c1"># non-blocking I/O wait</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">run_ml_model</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>      <span class="c1"># non-blocking compute</span>
+    <span class="k">await</span> <span class="n">store_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">process_task</span><span class="p">(</span><span class="mi">42</span><span class="p">))</span>
+</code></pre></div>
+- Single-threaded, event-loop-based cooperative multitasking.
+- Excellent for <strong>I/O-bound tasks</strong> (database calls, API calls, file I/O).
+- <code>await</code> yields control back to the event loop while waiting — other coroutines run.
+- <strong>Not suitable</strong> for CPU-bound tasks (blocks the event loop).</p>
+<p><strong>JavaScript <code>async</code>/<code>await</code> (Promises)</strong>
+<div class="highlight"><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">processTask</span><span class="p">(</span><span class="nx">taskId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetchFromDB</span><span class="p">(</span><span class="nx">taskId</span><span class="p">);</span><span class="w">     </span><span class="c1">// non-blocking</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">runModel</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span><span class="w">         </span><span class="c1">// non-blocking</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">storeResult</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+- JavaScript's single-threaded model with an event loop (Node.js).
+- Same pattern as Python asyncio — cooperative, I/O-optimized.
+- CPU-bound work must be offloaded to Worker Threads or child processes.</p>
+<p><strong>Python <code>threading</code> (OS Threads)</strong>
+- Multiple threads in the same process — good for I/O-bound parallel tasks.
+- Limited by the GIL for CPU-bound work (see Topic 1).</p>
+<p><strong>Python <code>multiprocessing</code> (OS Processes)</strong>
+- Separate Python processes — true CPU parallelism (no GIL).
+- Each process has its own memory space — no shared state (communicate via IPC/queues).
+- Best for: CPU-intensive tasks (ML inference, image processing, data crunching).</p>
+<p><strong>Celery Worker Concurrency Models:</strong>
+<div class="highlight"><pre><span></span><code>celery worker --concurrency=4 --pool=prefork      # 4 child processes (CPU-bound)
+celery worker --concurrency=100 --pool=gevent     # 100 greenlets (I/O-bound)
+celery worker --concurrency=100 --pool=eventlet   # 100 coroutines (I/O-bound)
+celery worker --concurrency=4 --pool=threads      # 4 OS threads
+</code></pre></div></p>
+<h3 id="reliability-guarantees">Reliability Guarantees</h3>
+<p>A task queue framework must answer: <strong>"What happens if something goes wrong?"</strong></p>
+<p><strong>Guarantee 1: At-Least-Once Delivery</strong>
+- Every message is delivered to a consumer <strong>at least once</strong>.
+- If a worker crashes mid-task, the message is <strong>re-queued</strong> and delivered to another worker.
+- Implication: <strong>tasks may execute more than once</strong> — tasks should be <strong>idempotent</strong> (safe to run twice).</p>
+<div class="highlight"><pre><span></span><code>Worker picks task ──► starts executing ──► worker crashes
+                                                  │
+Broker: "ack not received" ──► re-queues task ──► another worker picks it up
+</code></pre></div>
+<p><strong>Guarantee 2: At-Most-Once Delivery</strong>
+- Message is delivered at most once — if the worker crashes, the task is <strong>lost</strong> (not retried).
+- Simpler, but risks data loss.
+- Use when duplicate execution is worse than missed execution (e.g., financial debits).</p>
+<p><strong>Guarantee 3: Exactly-Once Delivery</strong>
+- The holy grail — delivered exactly once, even in failure scenarios.
+- Very hard to achieve in distributed systems; requires distributed transactions or idempotency keys.
+- Most practical systems achieve this through <strong>idempotent tasks + at-least-once delivery</strong>.</p>
+<p><strong>Automatic Retries</strong></p>
+<p>Frameworks like Celery provide built-in retry logic:
+<div class="highlight"><pre><span></span><code><span class="nd">@celery</span><span class="o">.</span><span class="n">task</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">default_retry_delay</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">send_email</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">actually_send_email</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">EmailServiceDown</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exc</span><span class="o">=</span><span class="n">exc</span><span class="p">,</span> <span class="n">countdown</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>  <span class="c1"># retry in 60 seconds</span>
+</code></pre></div></p>
+<p>Retry strategies:
+- <strong>Fixed delay</strong>: Retry every N seconds.
+- <strong>Exponential backoff</strong>: Retry after 1s, 2s, 4s, 8s, 16s... (reduces thundering herd).
+- <strong>Max retries</strong>: Give up after N attempts → move to <strong>Dead Letter Queue (DLQ)</strong>.</p>
+<hr />
+<h2 id="43-foundational-principles-of-task-queues">4.3 Foundational Principles of Task Queues</h2>
+<h3 id="principle-1-enqueue-latency-must-be-much-less-than-execution-latency">Principle 1: Enqueue Latency Must Be Much Less Than Execution Latency</h3>
+<p><strong>The fundamental invariant:</strong></p>
+<p>$$T_{\text{push}} \ll T_{\text{exec}}$$</p>
+<p>Where:
+- $T_{\text{push}}$ = time to enqueue a task (send message to broker)
+- $T_{\text{exec}}$ = time to execute the task (run on worker)</p>
+<p><strong>Why this must hold:</strong></p>
+<p>The entire value proposition of a task queue is that the web server can respond to the client <strong>before</strong> the task completes. If enqueueing itself is slow, the web server blocks on the enqueue step — defeating the purpose.</p>
+<div class="highlight"><pre><span></span><code>Good (T_push &lt;&lt; T_exec):
+Web server: [validate input][enqueue: 2ms][return 202]  ← fast!
+Worker:     [========= execute task: 5 minutes =========]
+
+Bad (T_push ≈ T_exec):
+Web server: [validate input][enqueue: 30s...][return 202]  ← defeats the purpose!
+</code></pre></div>
+<p><strong>Practical implications:</strong>
+- Broker must be <strong>low-latency</strong> and <strong>co-located</strong> (same datacenter, ideally same network).
+- Message payloads must be <strong>small</strong> — don't send large files through the queue; send a reference (file path, S3 URL, DB ID) and let the worker fetch it.
+- The broker should <strong>never be the bottleneck</strong> in the enqueue path.</p>
+<div class="highlight"><pre><span></span><code>❌ Bad: enqueue(image_binary_data)   # large payload, slow
+✅ Good: enqueue(image_id=42)        # tiny payload, worker fetches from storage
+</code></pre></div>
+<h3 id="principle-2-worker-capacity-equilibrium">Principle 2: Worker Capacity Equilibrium</h3>
+<p><strong>The fundamental stability condition:</strong></p>
+<p>$$\text{Consumption Rate} \geq \text{Arrival Rate} \quad \text{(long-term average)}$$</p>
+<p>Where:
+- <strong>Arrival Rate</strong> = tasks enqueued per unit time (driven by user traffic)
+- <strong>Consumption Rate</strong> = tasks completed per unit time (driven by worker count × task speed)</p>
+<p><strong>What happens when the rates diverge:</strong></p>
+<div class="highlight"><pre><span></span><code>Case A: Consumption ≥ Arrival (Stable ✅)
+Queue depth: [■■■■] → [■■■] → [■■] → [■] → [] ← drains over time
+
+Case B: Consumption &lt; Arrival (Unstable ❌)
+Queue depth: [■■] → [■■■■] → [■■■■■■■■] → [■■■■■■■■■■■■■■■■■] → OVERFLOW
+</code></pre></div>
+<p><strong>Consequences of queue overflow:</strong>
+- New tasks are <strong>rejected</strong> (broker returns error to producer).
+- Tasks are <strong>dropped</strong> (lost messages).
+- Broker runs <strong>out of memory</strong> (RAM exhaustion).
+- System eventually crashes or becomes unresponsive.</p>
+<p><strong>How to maintain equilibrium:</strong>
+1. <strong>Add more workers</strong> (horizontal scaling) — increase consumption rate.
+2. <strong>Optimize task execution</strong> — make individual tasks faster.
+3. <strong>Rate-limit producers</strong> — slow down enqueue rate (shed load at the source).
+4. <strong>Use multiple queues</strong> — priority queues ensure critical tasks are processed first.
+5. <strong>Auto-scale workers</strong> based on queue depth metrics (e.g., AWS Auto Scaling + SQS depth).</p>
+<hr />
+<h2 id="44-common-distributed-pitfalls">4.4 Common Distributed Pitfalls</h2>
+<h3 id="pitfall-1-deadlocks-broker-unavailability">Pitfall 1: Deadlocks &amp; Broker Unavailability</h3>
+<p><strong>Scenario:</strong> The message broker itself goes down (crash, network partition, maintenance).</p>
+<p><strong>Impact:</strong>
+- Producers cannot enqueue — task dispatch calls <strong>block</strong> (waiting for broker reconnection) or <strong>fail</strong> (throw exceptions).
+- Workers cannot dequeue — idle, no work being processed.
+- Entire async task system is offline until broker recovers.</p>
+<p><strong>Block vs. Drop Decision:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Behaviour</th>
+<th>Use When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Block</strong></td>
+<td>Producer waits (with timeout) for broker to come back</td>
+<td>Task must not be lost; brief outages expected</td>
+</tr>
+<tr>
+<td><strong>Drop</strong></td>
+<td>Producer discards task, logs error, returns error response</td>
+<td>Low-value tasks where loss is acceptable</td>
+</tr>
+<tr>
+<td><strong>Circuit Breaker</strong></td>
+<td>After N failures, stop attempting (fail fast) for T seconds</td>
+<td>Protect producer from cascading failures</td>
+</tr>
+<tr>
+<td><strong>Local Fallback Queue</strong></td>
+<td>Buffer tasks locally (in memory or DB) while broker is down</td>
+<td>High-reliability systems; complex to implement</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Deadlock scenario in Celery:</strong>
+<div class="highlight"><pre><span></span><code>Task A enqueues Task B (child task) and waits for result.
+But the worker pool is full processing Task A's siblings.
+Task B can never start → Task A waits forever → DEADLOCK.
+</code></pre></div>
+Solution: Use <code>task.apply_async()</code> with <code>link</code> callbacks instead of <code>.get()</code> inside tasks. Never call <code>.get()</code> from within a task!</p>
+<h3 id="pitfall-2-buffer-sizing-memory-limits-and-queue-overflow">Pitfall 2: Buffer Sizing, Memory Limits, and Queue Overflow</h3>
+<p><strong>In-Memory Brokers (Redis default):</strong>
+- Redis stores all queue data in RAM.
+- Queue can grow unboundedly until Redis hits its <code>maxmemory</code> limit.
+- When limit is hit, Redis may <strong>evict messages</strong> (data loss!) depending on <code>maxmemory-policy</code>.</p>
+<div class="highlight"><pre><span></span><code>Dangerous Redis config for queues:
+maxmemory 512mb
+maxmemory-policy allkeys-lru   ← will evict queue messages to free RAM!
+
+Safe config:
+maxmemory 512mb
+maxmemory-policy noeviction    ← broker returns error instead of losing messages
+</code></pre></div>
+<p><strong>RabbitMQ:</strong>
+- Queues have configurable <code>max-length</code> and <code>max-length-bytes</code>.
+- When limits are hit: either <strong>reject new messages</strong> (producer gets error) or <strong>drop oldest messages</strong> (head-of-queue drop).</p>
+<p><strong>Best practices:</strong>
+- Set <strong>explicit queue length limits</strong> — never allow unbounded growth.
+- Monitor queue depth continuously — alert when depth exceeds thresholds.
+- Configure <strong>Dead Letter Exchanges (DLX)</strong> — overflow messages go to a DLQ instead of being silently dropped.
+- Size your worker fleet so queue depth stays near zero under normal load (reserve capacity for spikes).</p>
+<hr />
+<h2 id="45-task-queue-delivery-models">4.5 Task Queue Delivery Models</h2>
+<h3 id="push-queue">Push Queue</h3>
+<p>The <strong>broker actively delivers</strong> tasks to workers as soon as they are enqueued.</p>
+<div class="highlight"><pre><span></span><code>Producer ──enqueue──► [Broker]
+                          │ immediately pushes
+                          ▼
+                       Worker (receives task via active connection / callback)
+</code></pre></div>
+<p><strong>Characteristics:</strong>
+- Near real-time delivery — task reaches a worker in milliseconds.
+- Worker maintains a <strong>persistent connection</strong> to the broker (TCP connection, AMQP channel).
+- Broker knows which workers are connected and available.
+- Worker registers with the broker as a consumer — broker <strong>pushes</strong> tasks when available.</p>
+<p><strong>Use cases:</strong>
+- Transactional emails (send immediately after user action)
+- Real-time feed updates
+- Live notification dispatch
+- Any task where low latency between enqueue and execution matters</p>
+<p><strong>Examples:</strong> RabbitMQ (AMQP consumer), Celery with RabbitMQ backend.</p>
+<hr />
+<h3 id="pull-queue">Pull Queue</h3>
+<p>Workers <strong>actively poll</strong> the broker at regular intervals to check for and claim tasks.</p>
+<div class="highlight"><pre><span></span><code>Producer ──enqueue──► [Broker Queue]
+
+                           ↑↑↑ (workers periodically check)
+
+Worker 1 ──poll──► "any tasks?" ──► picks up task1
+Worker 2 ──poll──► "any tasks?" ──► picks up task2
+Worker 3 ──poll──► "any tasks?" ──► "queue empty, wait"
+</code></pre></div>
+<p><strong>Characteristics:</strong>
+- Workers are <strong>stateless</strong> with respect to the broker — no persistent connection needed.
+- Workers control the <strong>rate</strong> at which they consume tasks.
+- Natural <strong>backpressure</strong>: workers only request tasks when they're ready for more work.
+- Slight latency between enqueue and execution (depends on poll interval).</p>
+<p><strong>Use cases:</strong>
+- Batch job processing (leaderboard recalculations, report generation)
+- Log aggregation and batch writes
+- ETL pipelines
+- Any workload where slight delay is acceptable, and batch collection is beneficial</p>
+<p><strong>Examples:</strong> AWS SQS (workers poll SQS API), Google AppEngine Task Queue.</p>
+<hr />
+<h3 id="pull-mechanisms-short-polling-vs-long-polling">Pull Mechanisms: Short Polling vs. Long Polling</h3>
+<p>Since pull queues require workers to actively check for work, <strong>how</strong> they poll matters:</p>
+<h4 id="short-polling-naive">Short Polling (Naive)</h4>
+<div class="highlight"><pre><span></span><code>while True:
+    tasks = queue.get_tasks()   # check immediately
+    if tasks:
+        process(tasks)
+    else:
+        time.sleep(poll_interval)  # wait, then check again
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Timeline:
+Worker: poll ──► empty │ poll ──► empty │ poll ──► TASK! │ poll ──► empty │ ...
+         T=0           T=1             T=2              T=3
+</code></pre></div>
+<p><strong>Characteristics:</strong>
+- Simple to implement.
+- Creates constant traffic to the broker even when queue is empty.
+- <strong>Wasted CPU and network</strong> — most polls return empty during low-traffic periods.
+- <strong>Latency</strong> = up to <code>poll_interval</code> (e.g., if polling every 5s, task waits up to 5s before pickup).
+- Higher poll frequency = lower latency but more wasted requests.</p>
+<h4 id="long-polling">Long Polling</h4>
+<div class="highlight"><pre><span></span><code>while True:
+    # Server HOLDS the connection open for up to 20 seconds
+    # Returns immediately IF a task arrives during that window
+    tasks = queue.get_tasks(wait_seconds=20)
+    if tasks:
+        process(tasks)
+    # Loop immediately — no sleep needed, server already waited
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Timeline:
+Worker: long-poll ────────── (server holds 20s) ──── TASK ARRIVES! ──► Process
+         T=0                                    T=7  (immediate response)
+</code></pre></div>
+<p><strong>Characteristics:</strong>
+- The broker <strong>holds the HTTP/TCP connection open</strong> until a task arrives or timeout expires.
+- When a task is enqueued, the waiting worker receives it <strong>immediately</strong>.
+- Far <strong>fewer wasted requests</strong> — one long-poll per worker per idle period vs. constant polling.
+- Effectively combines the simplicity of pull with near-real-time delivery of push.
+- <strong>Latency</strong> ≈ milliseconds (task arrives → connection unblocks immediately).</p>
+<p><strong>Comparison:</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Short Polling</th>
+<th>Long Polling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Implementation</td>
+<td>Simple</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td>Broker connections</td>
+<td>Many (frequent, short)</td>
+<td>Few (infrequent, long-lived)</td>
+</tr>
+<tr>
+<td>Network overhead</td>
+<td>High (empty responses)</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Idle latency</td>
+<td>Up to <code>poll_interval</code></td>
+<td>Near-zero (immediate on arrival)</td>
+</tr>
+<tr>
+<td>CPU overhead</td>
+<td>High</td>
+<td>Low</td>
+</tr>
+<tr>
+<td><strong>Best for</strong></td>
+<td>Very low-traffic, simple setup</td>
+<td>Medium-to-high scale, efficiency matters</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="46-industry-implementations-ecosystem">4.6 Industry Implementations &amp; Ecosystem</h2>
+<h3 id="cloud-managed-high-end-fully-managed-services">Cloud Managed / High-End (Fully Managed Services)</h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Provider</th>
+<th>Key Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Google AppEngine Task Queue</strong></td>
+<td>Google Cloud</td>
+<td>Push/Pull queues, built-in scaling, tight GAE integration</td>
+</tr>
+<tr>
+<td><strong>AWS SQS (Simple Queue Service)</strong></td>
+<td>Amazon</td>
+<td>Managed FIFO &amp; standard queues, long polling, dead letter queues, auto-scales to any volume</td>
+</tr>
+<tr>
+<td><strong>AWS SQS + Lambda</strong></td>
+<td>Amazon</td>
+<td>Serverless workers — SQS event triggers Lambda functions (zero server management)</td>
+</tr>
+<tr>
+<td><strong>Tencent Cloud CMQ</strong></td>
+<td>Tencent</td>
+<td>Message Queue service, similar to SQS, Asia-Pacific optimized</td>
+</tr>
+<tr>
+<td><strong>Azure Service Bus</strong></td>
+<td>Microsoft</td>
+<td>Enterprise messaging, topics/subscriptions (pub/sub), AMQP support</td>
+</tr>
+<tr>
+<td><strong>Google Cloud Pub/Sub</strong></td>
+<td>Google</td>
+<td>Global pub/sub, push/pull, at-least-once delivery, very high throughput</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Trade-offs of managed services:</strong>
+- ✅ Zero infrastructure management (no broker servers to maintain)
+- ✅ Automatic scaling to any volume
+- ✅ Built-in HA, replication, durability
+- ❌ Vendor lock-in
+- ❌ Cost at scale (per-message pricing)
+- ❌ Less flexibility in routing/configuration vs. self-hosted RabbitMQ</p>
+<hr />
+<h3 id="python-general-open-source">Python / General Open Source</h3>
+<table>
+<thead>
+<tr>
+<th>Library</th>
+<th>Broker Support</th>
+<th>Concurrency</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Celery</strong></td>
+<td>RabbitMQ, Redis, SQS, others</td>
+<td>Prefork, Gevent, Eventlet, Threads</td>
+<td>Full-featured production task queues; Flask/Django</td>
+</tr>
+<tr>
+<td><strong>RQ (Redis Queue)</strong></td>
+<td>Redis only</td>
+<td>Forked processes</td>
+<td>Simplicity; Redis already in stack; small-to-medium scale</td>
+</tr>
+<tr>
+<td><strong>Huey</strong></td>
+<td>Redis, SQLite, in-memory</td>
+<td>Threads, Greenlets</td>
+<td>Lightweight Celery alternative; simpler config</td>
+</tr>
+<tr>
+<td><strong>Django-Carrot</strong></td>
+<td>RabbitMQ (AMQP)</td>
+<td>Threads</td>
+<td>Django-native, simpler than Celery for Django projects</td>
+</tr>
+<tr>
+<td><strong>Dramatiq</strong></td>
+<td>Redis, RabbitMQ</td>
+<td>Threads, Processes</td>
+<td>Modern Celery alternative; simpler API, better defaults</td>
+</tr>
+<tr>
+<td><strong>arq</strong></td>
+<td>Redis</td>
+<td>asyncio coroutines</td>
+<td>Async-first worker; best for async Python apps</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Quick comparison — Celery vs. RQ:</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Celery</th>
+<th>RQ (Redis Queue)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Broker support</td>
+<td>RabbitMQ, Redis, SQS, many more</td>
+<td>Redis only</td>
+</tr>
+<tr>
+<td>Setup complexity</td>
+<td>⭐⭐⭐ Complex</td>
+<td>⭐ Simple</td>
+</tr>
+<tr>
+<td>Features</td>
+<td>Full-featured (chains, chords, groups, eta, rate-limiting)</td>
+<td>Basic (enqueue, retry)</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>High</td>
+<td>High (simpler overhead)</td>
+</tr>
+<tr>
+<td>Monitoring</td>
+<td>Flower (web UI)</td>
+<td>RQ Dashboard</td>
+</tr>
+<tr>
+<td>Production readiness</td>
+<td>Battle-tested at scale</td>
+<td>Good for small-medium scale</td>
+</tr>
+<tr>
+<td><strong>Best for</strong></td>
+<td>Large projects needing full control</td>
+<td>Quick setup, Redis-only stacks</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Celery</strong> is the de facto standard for Python async tasks and is covered in detail in <strong>Topic 5</strong>.</p>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../03_distributed_messaging/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Distributed messaging">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Distributed messaging
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../05_celery/" class="md-footer__link md-footer__link--next" aria-label="Next: Celery">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Celery
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

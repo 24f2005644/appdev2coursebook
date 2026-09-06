@@ -1,0 +1,5144 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week11/notes_scaling/">
+      
+      
+        <link rel="prev" href="../notes_tools_and_measurement/">
+      
+      
+        <link rel="next" href="../notes_components_of_an_app/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Scaling - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#scaling-detailed-notes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Scaling
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is Scaling?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. What is Scaling?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-types-of-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two Types of Scaling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-static-vs-dynamic-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Static vs Dynamic Content
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Static vs Dynamic Content">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-static-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Static Content
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-dynamic-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Dynamic Content
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-vs-dynamic-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static vs Dynamic: Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-response-under-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Response Under Load
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Response Under Load">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-requests-per-second-rps-throughput" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Requests Per Second (RPS) / Throughput
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-bottlenecks-under-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Bottlenecks Under Load
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-response-under-sudden-changes-in-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Response Under Sudden Changes in Load
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Response Under Sudden Changes in Load">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-world-spike-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Spike Scenarios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problems-caused-by-spikes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problems Caused by Spikes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategies-for-handling-spikes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategies for Handling Spikes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-predictability-of-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Predictability of Load
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Predictability of Load">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types-of-load-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of Load Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-predictability-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Predictability Matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-components-of-an-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Components of an App
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Components of an App">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Application
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-server-architecture-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Server Architecture Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Server Architecture Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-load-balancing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Load Balancing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-proxy-cdn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Proxy &amp; CDN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-database-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Database (DB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-server-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Server Language
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-monitoring-and-measuring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Monitoring and Measuring
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Monitoring and Measuring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-server-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Server Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-live-monitoring-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Live Monitoring Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is Scaling?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. What is Scaling?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-types-of-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two Types of Scaling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-static-vs-dynamic-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Static vs Dynamic Content
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Static vs Dynamic Content">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-static-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Static Content
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-dynamic-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Dynamic Content
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-vs-dynamic-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static vs Dynamic: Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-response-under-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Response Under Load
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Response Under Load">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-requests-per-second-rps-throughput" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Requests Per Second (RPS) / Throughput
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-bottlenecks-under-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Bottlenecks Under Load
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-response-under-sudden-changes-in-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Response Under Sudden Changes in Load
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Response Under Sudden Changes in Load">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-world-spike-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Spike Scenarios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problems-caused-by-spikes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problems Caused by Spikes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategies-for-handling-spikes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategies for Handling Spikes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-predictability-of-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Predictability of Load
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Predictability of Load">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types-of-load-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of Load Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-predictability-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Predictability Matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-components-of-an-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Components of an App
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Components of an App">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Application
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-server-architecture-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Server Architecture Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Server Architecture Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-load-balancing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Load Balancing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-proxy-cdn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Proxy &amp; CDN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-database-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Database (DB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-server-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Server Language
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-monitoring-and-measuring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Monitoring and Measuring
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Monitoring and Measuring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-server-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Server Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-live-monitoring-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Live Monitoring Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="scaling-detailed-notes">Scaling — Detailed Notes</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Scaling — Detailed Notes</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<blockquote>
+<p><strong>Parent Topic:</strong> Performance
+<strong>Scope:</strong> Multi-user performance — how a web application behaves when many users access it simultaneously.</p>
+</blockquote>
+<hr />
+<h2 id="1-what-is-scaling">1. What is Scaling?</h2>
+<p><strong>Scaling</strong> is the ability of a system to <strong>handle increasing amounts of work</strong> — more users, more requests, more data — without degrading in performance or availability.</p>
+<p>Unlike <strong>speed</strong> (a single-user concern), scaling is about <strong>many users at once</strong>:</p>
+<div class="highlight"><pre><span></span><code>Speed:    1 user  ──▶ Server ──▶ Response in 200ms
+                                ✅ Fast
+
+Scaling:  1,000 users ──▶ Server ──▶ Response in 200ms each
+                                     ✅ Scaled well
+
+          10,000 users ──▶ Server ──▶ Response in 8,000ms or crash
+                                      ❌ Not scaled
+</code></pre></div>
+<h3 id="two-types-of-scaling">Two Types of Scaling</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vertical Scaling</strong> (Scale Up)</td>
+<td>Add more power to the existing server — more CPU, more RAM</td>
+<td>Upgrade the machine</td>
+</tr>
+<tr>
+<td><strong>Horizontal Scaling</strong> (Scale Out)</td>
+<td>Add more servers and distribute load across them</td>
+<td>Add more machines + load balancer</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>Vertical Scaling:              Horizontal Scaling:
+┌──────────────┐               ┌────┐ ┌────┐ ┌────┐
+│  Server      │               │ S1 │ │ S2 │ │ S3 │
+│  4 CPU → 16  │               └────┘ └────┘ └────┘
+│  16GB → 64GB │                    ↑
+└──────────────┘               Load Balancer distributes requests
+
+Simple but has a ceiling         Complex but nearly unlimited capacity
+</code></pre></div>
+<hr />
+<h2 id="2-static-vs-dynamic-content">2. Static vs Dynamic Content</h2>
+<p>The nature of your content fundamentally determines how hard it is to scale.</p>
+<h3 id="21-static-content">2.1 Static Content</h3>
+<p><strong>Definition:</strong> Content that is the <strong>same for every user</strong> and does not change based on user input or database state. Generated at build time, not request time.</p>
+<p><strong>Examples:</strong>
+- <strong>Wikipedia</strong> — Articles are mostly pre-rendered HTML. The same page is served to every visitor.
+- <strong>MDN (Mozilla Developer Network)</strong> — Documentation pages are static HTML files.
+- Personal blogs, marketing sites, documentation sites.</p>
+<p><strong>Scaling characteristics:</strong>
+- Extremely easy to scale — files can be cached infinitely at every level (CDN, proxy, browser).
+- No server-side computation per request.
+- A single CDN can serve millions of static pages globally with minimal infrastructure.
+- Cost is very low.</p>
+<div class="highlight"><pre><span></span><code>User in India ──▶ CDN Node (Mumbai) ──▶ cached HTML ──▶ Response &lt; 10ms
+User in USA   ──▶ CDN Node (Virginia) ──▶ cached HTML ──▶ Response &lt; 10ms
+(No origin server involved at all)
+</code></pre></div>
+<h3 id="22-dynamic-content">2.2 Dynamic Content</h3>
+<p><strong>Definition:</strong> Content that is <strong>generated per request</strong>, tailored to the specific user, their session, or the current state of the database.</p>
+<p><strong>Examples:</strong>
+- <strong>E-commerce</strong> (Amazon, Flipkart) — Product pages show personalised recommendations, live inventory, user-specific prices.
+- <strong>Learning platforms</strong> (Coursera, Udemy) — Dashboard shows a user's enrolled courses, progress, certificates.
+- Social feeds, banking dashboards, booking systems.</p>
+<p><strong>Scaling characteristics:</strong>
+- Hard to scale — every request requires computation (database query, business logic, template rendering).
+- Cannot be fully cached (user-specific data must be fresh).
+- More servers, smarter architecture, and caching strategies all required.
+- Cost is significantly higher.</p>
+<div class="highlight"><pre><span></span><code>User request ──▶ Load Balancer ──▶ App Server ──▶ Database Query
+                                                        │
+                                               Personalised response
+                                               assembled &amp; returned
+</code></pre></div>
+<h3 id="static-vs-dynamic-comparison">Static vs Dynamic: Comparison</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Static</th>
+<th>Dynamic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Content</strong></td>
+<td>Same for everyone</td>
+<td>Personalised per user</td>
+</tr>
+<tr>
+<td><strong>Generated</strong></td>
+<td>At build time</td>
+<td>At request time</td>
+</tr>
+<tr>
+<td><strong>Caching</strong></td>
+<td>Fully cacheable</td>
+<td>Partially cacheable at best</td>
+</tr>
+<tr>
+<td><strong>Scaling ease</strong></td>
+<td>Trivial (CDN)</td>
+<td>Complex (servers, DB, cache layers)</td>
+</tr>
+<tr>
+<td><strong>Examples</strong></td>
+<td>Wikipedia, MDN, blogs</td>
+<td>E-commerce, dashboards, social feeds</td>
+</tr>
+<tr>
+<td><strong>Cost</strong></td>
+<td>Very low</td>
+<td>High</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-response-under-load">3. Response Under Load</h2>
+<h3 id="31-requests-per-second-rps-throughput">3.1 Requests Per Second (RPS) / Throughput</h3>
+<p><strong>Throughput</strong> is the number of requests a system can handle per unit of time.</p>
+<ul>
+<li>Also expressed as <strong>RPS</strong> (Requests Per Second) or <strong>TPS</strong> (Transactions Per Second).</li>
+<li>A server has a maximum throughput — beyond that, responses slow down or requests are dropped.</li>
+</ul>
+<p><strong>What happens as load increases:</strong></p>
+<div class="highlight"><pre><span></span><code>Response Time
+     │
+     │                                          ╭──── Requests dropped / errors
+     │                              ╭──────────╯
+     │                   ╭─────────╯  ← Degradation zone
+     │─────────────────╮╯
+     │  Stable zone     │
+     └──────────────────────────────────────────────────────▶ Requests/Second
+     0       100       200       300       400       500
+             ↑                   ↑
+         Normal load          Capacity limit
+</code></pre></div>
+<ul>
+<li>In the <strong>stable zone</strong>: response time is consistent regardless of load.</li>
+<li>In the <strong>degradation zone</strong>: response time increases as resources become saturated.</li>
+<li>Beyond capacity: requests queue up, timeouts occur, errors increase, server may crash.</li>
+</ul>
+<h3 id="32-bottlenecks-under-load">3.2 Bottlenecks Under Load</h3>
+<p>When a system struggles under load, the bottleneck is usually one of:</p>
+<table>
+<thead>
+<tr>
+<th>Bottleneck</th>
+<th>Symptom</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CPU</strong></td>
+<td>100% CPU, slow processing</td>
+<td>Scale horizontally, optimize code</td>
+</tr>
+<tr>
+<td><strong>Memory</strong></td>
+<td>OOM errors, swapping to disk</td>
+<td>Add RAM, fix memory leaks, limit cache size</td>
+</tr>
+<tr>
+<td><strong>Database</strong></td>
+<td>Slow queries, DB connection pool exhausted</td>
+<td>Query optimization, DB replicas, caching</td>
+</tr>
+<tr>
+<td><strong>Network I/O</strong></td>
+<td>High network latency, timeouts</td>
+<td>CDN, HTTP/2, compression</td>
+</tr>
+<tr>
+<td><strong>Disk I/O</strong></td>
+<td>Slow file reads/writes</td>
+<td>SSD, in-memory storage (Redis), caching</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-response-under-sudden-changes-in-load">4. Response Under Sudden Changes in Load</h2>
+<p>Gradual load increase is manageable. <strong>Sudden spikes</strong> are far more dangerous.</p>
+<h3 id="real-world-spike-scenarios">Real-World Spike Scenarios</h3>
+<ul>
+<li><strong>Flash sale</strong> — Thousands of users simultaneously hit "Buy Now" at 12:00:00.</li>
+<li><strong>Viral content</strong> — A post goes viral; site traffic multiplies 50× in minutes.</li>
+<li><strong>News event</strong> — A breaking news site suddenly gets 100× its usual traffic.</li>
+<li><strong>DDoS attack</strong> — Malicious flood of requests intended to overwhelm the server.</li>
+</ul>
+<h3 id="problems-caused-by-spikes">Problems Caused by Spikes</h3>
+<div class="highlight"><pre><span></span><code>Normal traffic:     ──────────────────────────────────
+Spike:              ──────────────────╭──╮────────────
+                                       │  │
+                                 Spike arrives
+                                       │
+                    ┌──────────────────▼──────────────┐
+                    │  Server overwhelmed              │
+                    │  ├── Queue fills up             │
+                    │  ├── Response times spike       │
+                    │  ├── Errors / 503s              │
+                    │  └── Possible crash             │
+                    └─────────────────────────────────┘
+</code></pre></div>
+<h3 id="strategies-for-handling-spikes">Strategies for Handling Spikes</h3>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Auto-scaling</strong></td>
+<td>Cloud infrastructure automatically adds servers when load rises (AWS Auto Scaling, GCP Managed Instance Groups)</td>
+</tr>
+<tr>
+<td><strong>Rate limiting</strong></td>
+<td>Cap requests per user/IP to prevent any single source from overwhelming the server</td>
+</tr>
+<tr>
+<td><strong>Queue-based architecture</strong></td>
+<td>Put requests into a queue (e.g., RabbitMQ, Kafka); workers process at a controlled rate</td>
+</tr>
+<tr>
+<td><strong>Circuit breaker</strong></td>
+<td>Automatically reject or return cached responses when system is under stress, to prevent total collapse</td>
+</tr>
+<tr>
+<td><strong>CDN offloading</strong></td>
+<td>Serve as much as possible from CDN — takes a huge proportion of load off the origin server</td>
+</tr>
+<tr>
+<td><strong>Graceful degradation</strong></td>
+<td>Return a simplified version of the page under extreme load (e.g., disable recommendations, show cached data)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-predictability-of-load">5. Predictability of Load</h2>
+<p>Knowing <em>when</em> load will come is as important as being able to handle it.</p>
+<h3 id="types-of-load-patterns">Types of Load Patterns</h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Predictable cyclical</strong></td>
+<td>Regular peaks at known times</td>
+<td>News site peaks in morning; e-commerce peaks weekday evenings</td>
+</tr>
+<tr>
+<td><strong>Predictable spikes</strong></td>
+<td>Known events with predictable high load</td>
+<td>Black Friday, IPL match streaming, exam results</td>
+</tr>
+<tr>
+<td><strong>Unpredictable spikes</strong></td>
+<td>Sudden, unforeseeable events</td>
+<td>Viral content, breaking news, server going down causing retry storms</td>
+</tr>
+<tr>
+<td><strong>Steady / flat</strong></td>
+<td>Consistent load, little variation</td>
+<td>Internal enterprise tools, B2B SaaS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="why-predictability-matters">Why Predictability Matters</h3>
+<ul>
+<li><strong>Predictable:</strong> You can pre-scale — provision extra servers <em>before</em> the event, not after.</li>
+<li><strong>Unpredictable:</strong> You need <strong>auto-scaling</strong> and <strong>resilience</strong> built in from day one.</li>
+</ul>
+<p><strong>Example:</strong>
+A Diwali sale announcement is sent at 10am for a 12pm sale start — the dev team can manually scale up the fleet at 11:30am. A news story going viral at 3am gives no such warning.</p>
+<hr />
+<h2 id="6-components-of-an-app">6. Components of an App</h2>
+<p>A production web application is made up of multiple components, each of which can be a scaling bottleneck.</p>
+<div class="highlight"><pre><span></span><code>                        ┌────────────────┐
+  User ────────────────▶│  Load Balancer │
+                        └───────┬────────┘
+                                │  distributes to
+              ┌─────────────────┼─────────────────┐
+              ▼                 ▼                 ▼
+       ┌────────────┐   ┌────────────┐   ┌────────────┐
+       │ App Server │   │ App Server │   │ App Server │
+       │  (Flask /  │   │  (Flask /  │   │  (Flask /  │
+       │  Node.js)  │   │  Node.js)  │   │  Node.js)  │
+       └─────┬──────┘   └─────┬──────┘   └─────┬──────┘
+             │                │                │
+             └────────────────┼────────────────┘
+                              ▼
+                     ┌────────────────┐
+                     │   Database     │
+                     │  (PostgreSQL)  │
+                     └────────────────┘
+                              ▲
+                     ┌────────────────┐
+                     │  Cache Layer   │
+                     │    (Redis)     │
+                     └────────────────┘
+</code></pre></div>
+<h3 id="61-server">6.1 Server</h3>
+<h4 id="frontend-server">Frontend Server</h4>
+<ul>
+<li>Serves <strong>static assets</strong> (HTML, CSS, JS, images) directly.</li>
+<li>Common choices: <strong>Nginx</strong>, <strong>Apache</strong>, <strong>Caddy</strong>.</li>
+<li>Should be configured to serve static files efficiently without involving the application layer.</li>
+<li>Handles SSL termination, HTTP/2, compression, and static file caching headers.</li>
+</ul>
+<h4 id="database-server">Database Server</h4>
+<ul>
+<li>Stores and retrieves <strong>persistent data</strong>.</li>
+<li>Typically the <strong>first bottleneck</strong> in a scaling scenario.</li>
+<li>Runs separately from the app server to allow independent scaling.</li>
+</ul>
+<h4 id="load-balancer">Load Balancer</h4>
+<ul>
+<li>Sits in front of multiple app servers and distributes incoming requests.</li>
+<li>Ensures no single server is overwhelmed.</li>
+<li>Also handles health checking — removes unhealthy servers from rotation automatically.</li>
+</ul>
+<h4 id="proxy">Proxy</h4>
+<ul>
+<li>An intermediary between the client and the server.</li>
+<li>Can cache responses, compress content, handle SSL, and provide security filtering.</li>
+<li>Examples: Nginx as reverse proxy, HAProxy, Cloudflare.</li>
+</ul>
+<hr />
+<h3 id="62-network">6.2 Network</h3>
+<h4 id="mobile-vs-broadband">Mobile vs Broadband</h4>
+<table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>Mobile (4G/5G)</th>
+<th>Broadband (Fiber)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bandwidth</strong></td>
+<td>10–100 Mbps</td>
+<td>100–1000 Mbps</td>
+</tr>
+<tr>
+<td><strong>Latency</strong></td>
+<td>30–100ms</td>
+<td>5–20ms</td>
+</tr>
+<tr>
+<td><strong>Variability</strong></td>
+<td>High (signal strength)</td>
+<td>Low (stable)</td>
+</tr>
+<tr>
+<td><strong>Data cost</strong></td>
+<td>Often metered</td>
+<td>Usually unlimited</td>
+</tr>
+<tr>
+<td><strong>Impact</strong></td>
+<td>Crucial to minimize payload size</td>
+<td>Less critical</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Developer implications for mobile:</strong>
+- Compress all assets aggressively (Brotli/gzip).
+- Use adaptive images (<code>srcset</code>) — don't serve 4K images to a 375px screen.
+- Minimize number of requests (HTTP/2 helps, but mobile networks still suffer from latency).
+- Consider offline support (Service Workers) for unreliable connections.</p>
+<hr />
+<h3 id="63-application">6.3 Application</h3>
+<h4 id="data-intensive-vs-imagescript-intensive">Data Intensive vs Image/Script Intensive</h4>
+<p>Different apps have different bottlenecks:</p>
+<table>
+<thead>
+<tr>
+<th>App Type</th>
+<th>Primary Bottleneck</th>
+<th>Scaling Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Data-intensive</strong> (dashboards, analytics, feeds)</td>
+<td>Database reads/writes</td>
+<td>DB optimization, read replicas, caching query results</td>
+</tr>
+<tr>
+<td><strong>Image-intensive</strong> (photo sharing, e-commerce)</td>
+<td>Bandwidth, storage</td>
+<td>CDN for images, image optimization pipeline, object storage (S3)</td>
+</tr>
+<tr>
+<td><strong>Script-intensive</strong> (SPAs, complex UIs)</td>
+<td>Browser CPU, JS parsing time</td>
+<td>Code splitting, lazy loading, tree shaking, SSR</td>
+</tr>
+<tr>
+<td><strong>Compute-intensive</strong> (ML inference, video encoding)</td>
+<td>CPU/GPU</td>
+<td>Async job queues, dedicated compute workers</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-server-architecture-details">7. Server Architecture Details</h2>
+<h3 id="71-load-balancing">7.1 Load Balancing</h3>
+<p><strong>Basic Functionality:</strong>
+A load balancer distributes incoming HTTP requests across a pool of backend servers.</p>
+<p><strong>Algorithms:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Description</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Round Robin</strong></td>
+<td>Requests distributed sequentially to each server</td>
+<td>Servers of equal capacity</td>
+</tr>
+<tr>
+<td><strong>Least Connections</strong></td>
+<td>New request goes to server with fewest active connections</td>
+<td>Long-lived connections (WebSockets)</td>
+</tr>
+<tr>
+<td><strong>IP Hash</strong></td>
+<td>Same IP always goes to same server (sticky sessions)</td>
+<td>Session-based apps without shared session store</td>
+</tr>
+<tr>
+<td><strong>Weighted Round Robin</strong></td>
+<td>Servers with more capacity get more requests</td>
+<td>Mixed server capacities</td>
+</tr>
+<tr>
+<td><strong>Random</strong></td>
+<td>Random server selection</td>
+<td>Simple, equal-capacity pools</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Additional responsibilities of a Load Balancer:</strong>
+- <strong>Health checks</strong> — Periodically ping servers; remove failed ones from rotation automatically.
+- <strong>SSL termination</strong> — Decrypt HTTPS at the load balancer; servers communicate over HTTP internally (saves CPU on app servers).
+- <strong>Connection draining</strong> — When a server is removed, allow existing connections to finish before stopping traffic.</p>
+<p><strong>Commercial Offerings:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Product</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AWS</strong></td>
+<td>Elastic Load Balancer (ELB)</td>
+<td>ALB (L7/HTTP), NLB (L4/TCP), CLB (legacy)</td>
+</tr>
+<tr>
+<td><strong>GCP</strong></td>
+<td>Cloud Load Balancing</td>
+<td>Global anycast, HTTP(S) LB</td>
+</tr>
+<tr>
+<td><strong>Azure</strong></td>
+<td>Azure Load Balancer / Application Gateway</td>
+<td>L4 and L7 options</td>
+</tr>
+<tr>
+<td><strong>Cloudflare</strong></td>
+<td>Load Balancing</td>
+<td>Built into CDN layer</td>
+</tr>
+<tr>
+<td><strong>Self-hosted</strong></td>
+<td>Nginx, HAProxy</td>
+<td>Full control, free, more ops overhead</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="72-proxy-cdn">7.2 Proxy &amp; CDN</h3>
+<h4 id="caching-proxy-reverse-proxy">Caching Proxy (Reverse Proxy)</h4>
+<ul>
+<li>Sits between clients and the origin server.</li>
+<li><strong>Caches responses</strong> — identical requests are served from cache without hitting the origin.</li>
+<li>Example: Nginx configured as a reverse proxy will cache the response to <code>GET /api/products</code> for 60 seconds — the 1,000th request in that minute never reaches the app server.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Request 1 ──▶ Proxy (cache MISS) ──▶ App Server ──▶ Response
+                     │ stores response
+Request 2 ──▶ Proxy (cache HIT)  ──▶ Cached response returned immediately
+Request 3 ──▶ Proxy (cache HIT)  ──▶ Cached response returned immediately
+   ...
+Request 1000 ──▶ Proxy (cache HIT) ──▶ Cached response returned immediately
+</code></pre></div>
+<h4 id="content-delivery-networks-cdn">Content Delivery Networks (CDN)</h4>
+<p>A <strong>CDN</strong> is a geographically distributed network of servers (called <strong>edge nodes</strong> or <strong>PoPs — Points of Presence</strong>) that cache and serve content from locations close to the user.</p>
+<p><strong>How a CDN works:</strong>
+<div class="highlight"><pre><span></span><code>Without CDN:
+  User (Mumbai) ──── 150ms ────▶ Origin Server (US East)
+
+With CDN:
+  User (Mumbai) ─── 5ms ──▶ CDN Edge (Mumbai) ──▶ Cached response
+                                    │ (if cache miss, fetches from origin once)
+                                    └── 150ms ──▶ Origin Server (US East)
+</code></pre></div></p>
+<p><strong>What CDNs cache:</strong>
+- Static assets: images, CSS, JS, fonts, videos.
+- Whole HTML pages (for static sites or cached dynamic pages).
+- API responses (with appropriate <code>Cache-Control</code> headers).</p>
+<p><strong>Benefits:</strong>
+- <strong>Reduced latency</strong> — Serve from the nearest edge node.
+- <strong>Reduced origin load</strong> — Most traffic never reaches your server.
+- <strong>DDoS protection</strong> — Edge nodes absorb attack traffic.
+- <strong>Automatic scaling</strong> — CDN handles billions of requests globally.</p>
+<p><strong>Major CDN providers:</strong> Cloudflare, AWS CloudFront, GCP Cloud CDN, Fastly, Akamai.</p>
+<hr />
+<h3 id="73-database-db">7.3 Database (DB)</h3>
+<h4 id="choice-of-database">Choice of Database</h4>
+<table>
+<thead>
+<tr>
+<th>Database</th>
+<th>Type</th>
+<th>Best For</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SQLite</strong></td>
+<td>SQL / Embedded</td>
+<td>Development, small apps, single-server</td>
+<td>Not suitable for concurrent writes; no network server</td>
+</tr>
+<tr>
+<td><strong>PostgreSQL</strong></td>
+<td>SQL / RDBMS</td>
+<td>Most production apps, complex queries</td>
+<td>Open source, feature-rich, scales well</td>
+</tr>
+<tr>
+<td><strong>MySQL / MariaDB</strong></td>
+<td>SQL / RDBMS</td>
+<td>Web apps (LAMP stack), high read loads</td>
+<td>Slightly simpler than PostgreSQL</td>
+</tr>
+<tr>
+<td><strong>MongoDB</strong></td>
+<td>NoSQL / Document</td>
+<td>Flexible schemas, JSON-like data, rapid iteration</td>
+<td>Horizontal scaling built-in (sharding)</td>
+</tr>
+<tr>
+<td><strong>Redis</strong></td>
+<td>NoSQL / In-memory</td>
+<td>Caching, sessions, pub/sub, queues</td>
+<td>Blazing fast, data must fit in RAM</td>
+</tr>
+<tr>
+<td><strong>Cassandra</strong></td>
+<td>NoSQL / Column-family</td>
+<td>Massive write loads, time-series data</td>
+<td>Eventually consistent, very scalable</td>
+</tr>
+<tr>
+<td><strong>Elasticsearch</strong></td>
+<td>Search Engine</td>
+<td>Full-text search, log analytics</td>
+<td>Part of ELK stack</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Choosing a database for scaling:</strong>
+- If data is relational and consistency is critical → <strong>PostgreSQL</strong>
+- If you need extreme write throughput → <strong>Cassandra</strong> or <strong>MongoDB</strong>
+- If you need fast reads of frequently accessed data → <strong>Redis</strong> (as cache layer on top of primary DB)</p>
+<h4 id="scaling-issues-reading-vs-writing">Scaling Issues: Reading vs Writing</h4>
+<p>Databases have <strong>asymmetric scaling challenges</strong>:</p>
+<p><strong>Reads</strong> are easy to scale:
+<div class="highlight"><pre><span></span><code>App Server ──▶ Primary DB (writes)
+           ──▶ Read Replica 1 (reads)
+           ──▶ Read Replica 2 (reads)
+           ──▶ Read Replica 3 (reads)
+</code></pre></div>
+- Add <strong>read replicas</strong> — copies of the database that serve SELECT queries.
+- Most web apps are <strong>read-heavy</strong> (80–95% reads) → replicas dramatically reduce primary DB load.</p>
+<p><strong>Writes</strong> are hard to scale:
+- All writes must go to the primary (to maintain consistency).
+- Only one primary can accept writes (in traditional RDBMS setups).
+- <strong>Sharding</strong> (partitioning data across multiple DB servers) is complex and expensive.
+- This is why write-heavy systems often use NoSQL databases or event sourcing architectures.</p>
+<p><strong>The N+1 Query Problem:</strong>
+A common anti-pattern that destroys DB performance:
+<div class="highlight"><pre><span></span><code><span class="c1"># Bad: N+1 queries</span>
+<span class="n">posts</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"SELECT * FROM posts"</span><span class="p">)</span>  <span class="c1"># 1 query</span>
+<span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SELECT * FROM users WHERE id=</span><span class="si">{</span><span class="n">post</span><span class="o">.</span><span class="n">user_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># N queries</span>
+<span class="c1"># 101 posts = 102 queries!</span>
+
+<span class="c1"># Good: JOIN or eager loading</span>
+<span class="n">posts</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"""</span>
+<span class="s2">    SELECT posts.*, users.name </span>
+<span class="s2">    FROM posts JOIN users ON posts.user_id = users.id</span>
+<span class="s2">"""</span><span class="p">)</span>  <span class="c1"># 1 query</span>
+</code></pre></div></p>
+<hr />
+<h3 id="74-server-language">7.4 Server Language</h3>
+<p>The programming language powering your backend significantly affects raw performance and scalability.</p>
+<h4 id="interpreted-vs-compiled">Interpreted vs Compiled</h4>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Examples</th>
+<th>Performance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Compiled</strong></td>
+<td>Source code compiled to machine code ahead of time</td>
+<td>Go, Rust, C, C++</td>
+<td>Fastest — no runtime overhead</td>
+</tr>
+<tr>
+<td><strong>JIT Compiled</strong></td>
+<td>Compiled to bytecode, JIT-compiled at runtime</td>
+<td>Java, C#, Kotlin</td>
+<td>Near-native speed</td>
+</tr>
+<tr>
+<td><strong>Interpreted</strong></td>
+<td>Code read and executed line by line at runtime</td>
+<td>Python, Ruby, PHP</td>
+<td>Slowest, but often fast enough</td>
+</tr>
+<tr>
+<td><strong>Transpiled/VM</strong></td>
+<td>Compiled to intermediate bytecode</td>
+<td>JavaScript (V8), Python (CPython)</td>
+<td>Middle ground</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Python (Flask/Django) context:</strong>
+- Python is interpreted — slower raw throughput than Go or Java.
+- <strong>CPython has the GIL (Global Interpreter Lock)</strong> — only one thread executes Python bytecode at a time.
+- Mitigated by: running multiple worker processes (Gunicorn workers), async I/O (FastAPI + asyncio), or offloading heavy work to compiled extensions (NumPy).</p>
+<h4 id="threading-and-asynchronous-capabilities">Threading and Asynchronous Capabilities</h4>
+<p>How a server handles <strong>concurrency</strong> (many requests at the same time) is critical for scaling:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Description</th>
+<th>Example</th>
+<th>Scaling Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Multi-process</strong></td>
+<td>Each request gets its own process</td>
+<td>Gunicorn (pre-fork)</td>
+<td>Safe, isolated, high memory use</td>
+</tr>
+<tr>
+<td><strong>Multi-threaded</strong></td>
+<td>Multiple threads share one process</td>
+<td>Java Servlet, Django threads</td>
+<td>Efficient memory, beware race conditions</td>
+</tr>
+<tr>
+<td><strong>Async / Event loop</strong></td>
+<td>Single thread handles many requests via non-blocking I/O</td>
+<td>Node.js, Python asyncio, Go goroutines</td>
+<td>Extremely efficient for I/O-bound workloads</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The I/O-bound vs CPU-bound distinction:</strong>
+<div class="highlight"><pre><span></span><code>I/O-bound request (waiting for DB, HTTP calls):
+  Thread/coroutine can be paused while waiting → async handles this perfectly
+
+CPU-bound request (image processing, ML inference):
+  CPU is busy the entire time → needs actual threads or processes, or offload to a worker queue
+</code></pre></div></p>
+<h4 id="programming-paradigms">Programming Paradigms</h4>
+<table>
+<thead>
+<tr>
+<th>Paradigm</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Imperative</strong></td>
+<td>Step-by-step instructions; tell the computer <em>how</em> to do it</td>
+<td>Most procedural code</td>
+</tr>
+<tr>
+<td><strong>Declarative</strong></td>
+<td>Describe <em>what</em> you want; the engine figures out how</td>
+<td>SQL, HTML, React JSX</td>
+</tr>
+<tr>
+<td><strong>Functional</strong></td>
+<td>Pure functions, immutability, no side effects</td>
+<td>Haskell, parts of Python/JS</td>
+</tr>
+<tr>
+<td><strong>Object-Oriented</strong></td>
+<td>Organize code around objects with state and behaviour</td>
+<td>Java, Python classes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Relevance to scaling:</strong>
+- <strong>Pure functions</strong> are trivially parallelizable (no shared state, no race conditions).
+- <strong>Immutability</strong> eliminates a whole class of concurrency bugs.
+- <strong>Declarative SQL</strong> lets the query optimizer choose the most efficient execution plan.</p>
+<hr />
+<h2 id="8-monitoring-and-measuring">8. Monitoring and Measuring</h2>
+<p>You cannot scale what you cannot measure. Production monitoring is essential.</p>
+<h3 id="81-server-logs">8.1 Server Logs</h3>
+<p>Every web server and application generates logs. Logs are the most basic form of observability.</p>
+<p><strong>Types of logs:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Log Type</th>
+<th>Contents</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Access log</strong></td>
+<td>Every HTTP request</td>
+<td><code>127.0.0.1 - "GET /api/products HTTP/1.1" 200 1234</code></td>
+</tr>
+<tr>
+<td><strong>Error log</strong></td>
+<td>Errors, exceptions, warnings</td>
+<td><code>[ERROR] 500 Internal Server Error - database timeout</code></td>
+</tr>
+<tr>
+<td><strong>Application log</strong></td>
+<td>Custom events from app code</td>
+<td><code>[INFO] User 4521 completed checkout for order #89234</code></td>
+</tr>
+<tr>
+<td><strong>Slow query log</strong></td>
+<td>DB queries taking longer than threshold</td>
+<td><code>Query took 4.2s: SELECT * FROM products WHERE ...</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nginx access log format:</strong>
+<div class="highlight"><pre><span></span><code>$remote_addr - [$time_local] "$request" $status $body_bytes_sent "$http_referer"
+192.168.1.1   - [03/Sep/2026:10:30:00 +0530] "GET /api/users HTTP/2.0" 200 512 "-"
+</code></pre></div></p>
+<p><strong>Log analysis tools:</strong>
+- <code>grep</code>, <code>awk</code>, <code>cut</code> — basic command-line analysis
+- GoAccess — real-time terminal web log analyzer
+- ELK Stack — powerful analysis and visualization (see below)</p>
+<hr />
+<h3 id="82-live-monitoring-tools">8.2 Live Monitoring Tools</h3>
+<p>Logs are reactive (you analyze what already happened). Live monitoring tools give you <strong>real-time visibility</strong> into system health.</p>
+<h4 id="elk-stack-elasticsearch-logstash-kibana">ELK Stack (Elasticsearch, Logstash, Kibana)</h4>
+<p>A powerful open-source logging and analytics pipeline:</p>
+<div class="highlight"><pre><span></span><code>Application / Servers
+        │ logs
+        ▼
+┌──────────────┐     ┌──────────────────┐     ┌───────────────┐
+│  Logstash    │────▶│  Elasticsearch   │────▶│    Kibana     │
+│  (or Beats)  │     │  (storage +      │     │  (dashboard + │
+│  Collect,    │     │   search index)  │     │   visualization│
+│  Parse, Ship │     └──────────────────┘     └───────────────┘
+└──────────────┘
+</code></pre></div>
+<ul>
+<li><strong>Logstash / Filebeat:</strong> Collects logs from servers, parses them, and ships to Elasticsearch.</li>
+<li><strong>Elasticsearch:</strong> Indexes and stores logs; enables fast full-text search across billions of log lines.</li>
+<li><strong>Kibana:</strong> Web UI for visualizing logs, building dashboards, setting alerts.</li>
+</ul>
+<p><strong>Use cases:</strong> Centralized logging, error rate tracking, latency percentile analysis, audit trails.</p>
+<hr />
+<h4 id="prometheus-grafana">Prometheus + Grafana</h4>
+<p>The most popular open-source <strong>metrics monitoring</strong> stack:</p>
+<div class="highlight"><pre><span></span><code>App Servers (expose /metrics endpoint)
+        │
+        ▼
+┌──────────────────┐
+│   Prometheus     │  ← Scrapes metrics every 15s
+│   (time-series   │     Stores: CPU%, request rate, error rate,
+│    database)     │             DB connection pool usage, etc.
+└────────┬─────────┘
+         │
+         ▼
+┌──────────────────┐
+│    Grafana       │  ← Visualises metrics as dashboards
+│   (dashboards +  │     Sends alerts (Slack, PagerDuty, email)
+│    alerts)       │     when thresholds are breached
+└──────────────────┘
+</code></pre></div>
+<p><strong>Prometheus metrics types:</strong>
+| Type | Description | Example |
+|---|---|---|
+| <strong>Counter</strong> | Monotonically increasing count | Total HTTP requests served |
+| <strong>Gauge</strong> | Current value, can go up or down | Current memory usage |
+| <strong>Histogram</strong> | Distribution of values (latency buckets) | Request duration in 0–100ms, 100–500ms, 500ms+ |
+| <strong>Summary</strong> | Pre-calculated quantiles | p50, p95, p99 latency |</p>
+<p><strong>Key metrics to monitor for scaling:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Why It Matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Request rate (RPS)</strong></td>
+<td>Know your current load vs capacity</td>
+</tr>
+<tr>
+<td><strong>Error rate (4xx/5xx)</strong></td>
+<td>Rising errors signal a scaling problem</td>
+</tr>
+<tr>
+<td><strong>p95 / p99 latency</strong></td>
+<td>Tail latency reveals user experience at scale</td>
+</tr>
+<tr>
+<td><strong>CPU utilization</strong></td>
+<td>Identify compute bottlenecks</td>
+</tr>
+<tr>
+<td><strong>Memory utilization</strong></td>
+<td>Detect memory leaks</td>
+</tr>
+<tr>
+<td><strong>DB connection pool</strong></td>
+<td>Pool exhaustion = requests queuing / failing</td>
+</tr>
+<tr>
+<td><strong>DB query duration</strong></td>
+<td>Slow queries show up here before users complain</td>
+</tr>
+<tr>
+<td><strong>Cache hit rate</strong></td>
+<td>Low hit rate = more load on DB</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-key-takeaways">9. Key Takeaways</h2>
+<ul>
+<li><strong>Scaling = multi-user performance.</strong> Speed is for one user; scaling is for thousands.</li>
+<li><strong>Vertical scaling</strong> (bigger machine) is simple but has a ceiling. <strong>Horizontal scaling</strong> (more machines) is complex but unlimited.</li>
+<li><strong>Static content scales trivially</strong> (CDN); <strong>dynamic content</strong> is where the real scaling challenges live.</li>
+<li>Know your load patterns — <strong>predictable spikes</strong> can be pre-scaled; <strong>unpredictable spikes</strong> require auto-scaling and resilience.</li>
+<li>Every component — <strong>load balancer, proxy/CDN, app server, database, language/runtime</strong> — is a potential bottleneck.</li>
+<li><strong>Reads scale easily</strong> (replicas); <strong>writes are the hard part</strong> in database scaling.</li>
+<li><strong>Language choice matters:</strong> interpreted languages (Python) are slower and have concurrency limitations (GIL); async I/O (asyncio, Node.js) is key for I/O-bound scaling.</li>
+<li><strong>You cannot scale what you cannot see</strong> — implement server logs and live monitoring (ELK + Prometheus/Grafana) from day one.</li>
+<li><strong>Measure first, then scale</strong> — find your actual bottleneck before throwing more hardware at the problem.</li>
+</ul>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../notes_tools_and_measurement/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Tools and measurement">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Tools and measurement
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../notes_components_of_an_app/" class="md-footer__link md-footer__link--next" aria-label="Next: Components of an application">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Components of an application
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

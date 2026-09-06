@@ -1,0 +1,5378 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week8/01_web_api_design_rest/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../02_rest_problems_graphql/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Web API design with REST - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#topic-1-web-api-design-rest-conventions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Web API design with REST
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-purpose-of-an-api-developer-centric-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Purpose of an API &amp; Developer-Centric Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 Purpose of an API &amp; Developer-Centric Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-web-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is a Web API?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-blocks-for-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building Blocks for Applications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#designing-for-developers-not-end-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Designing for Developers, Not End Users
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-procedure-call-rpc-vs-web-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Procedure Call (RPC) vs. Web APIs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-apigees-web-api-design-the-missing-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference: Apigee's "Web API Design: The Missing Link"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-data-oriented-api-modeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Data-Oriented API Modeling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Data-Oriented API Modeling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-identify-core-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Identify Core Entities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-define-core-crud-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Define Core CRUD Actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-define-summaries-aggregations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Define Summaries &amp; Aggregations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-complex-exotic-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Complex / "Exotic" Queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-rpc-style-vs-resource-oriented-rest-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 RPC-Style vs. Resource-Oriented REST Conventions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 RPC-Style vs. Resource-Oriented REST Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-rpc-anti-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The RPC Anti-Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-rest-convention-transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The REST Convention Transition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-url-naming-conventions-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 URL Naming Conventions &amp; Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 URL Naming Conventions &amp; Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nouns-in-urls-verbs-in-http-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nouns in URLs, Verbs in HTTP Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-discoverability-from-root" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Discoverability from Root (/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permalinks-stable-unique-identifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permalinks: Stable, Unique Identifiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-hierarchical-vs-query-urls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Hierarchical vs. Query URLs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5 Hierarchical vs. Query URLs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hierarchical-routes-path-segments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hierarchical Routes (Path Segments)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-string-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query String Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#developer-experience-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Developer Experience Considerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-http-verbs-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 HTTP Verbs &amp; Semantics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.6 HTTP Verbs &amp; Semantics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET — Read
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-create-complex-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST — Create / Complex Actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-full-replacement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PUT — Full Replacement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patch-partial-update-preferred-for-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PATCH — Partial Update (Preferred for Updates)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-remove" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DELETE — Remove
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conventions-vs-strict-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conventions vs. Strict Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-data-serialization-output-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7 Data Serialization &amp; Output Formats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.7 Data Serialization &amp; Output Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xml-extensible-markup-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XML (eXtensible Markup Language)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-javascript-object-notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON (JavaScript Object Notation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsons-type-system-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON's Type System Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-extensions-as-the-modern-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON + Extensions as the Modern Standard
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-hypermedia-included-links-hateoas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8 Hypermedia &amp; Included Links (HATEOAS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.8 Hypermedia &amp; Included Links (HATEOAS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem-with-isolated-json-payloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem with Isolated JSON Payloads
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hateoas-hypermedia-as-the-engine-of-application-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HATEOAS — Hypermedia as the Engine of Application State
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-case-study-github-rest-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Case Study: GitHub REST API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-api-authentication-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.9 API Authentication &amp; Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.9 API Authentication &amp; Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#token-based-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Token-Based Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oauth2-delegated-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OAuth2 — Delegated Authorization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jwt-json-web-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JWT — JSON Web Tokens
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-use-industry-standard-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Use Industry-Standard Protocols?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#110-principles-philosophy-of-good-api-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.10 Principles &amp; Philosophy of Good API Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.10 Principles &amp; Philosophy of Good API Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-design-as-an-experience-driven-craft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Design as an Experience-Driven Craft
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balancing-conventions-with-practical-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balancing Conventions with Practical Trade-offs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-reference-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick-Reference Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-purpose-of-an-api-developer-centric-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Purpose of an API &amp; Developer-Centric Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 Purpose of an API &amp; Developer-Centric Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-web-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is a Web API?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-blocks-for-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building Blocks for Applications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#designing-for-developers-not-end-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Designing for Developers, Not End Users
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-procedure-call-rpc-vs-web-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Procedure Call (RPC) vs. Web APIs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-apigees-web-api-design-the-missing-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference: Apigee's "Web API Design: The Missing Link"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-data-oriented-api-modeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Data-Oriented API Modeling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Data-Oriented API Modeling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-identify-core-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Identify Core Entities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-define-core-crud-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Define Core CRUD Actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-define-summaries-aggregations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Define Summaries &amp; Aggregations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-complex-exotic-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Complex / "Exotic" Queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-rpc-style-vs-resource-oriented-rest-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 RPC-Style vs. Resource-Oriented REST Conventions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 RPC-Style vs. Resource-Oriented REST Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-rpc-anti-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The RPC Anti-Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-rest-convention-transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The REST Convention Transition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-url-naming-conventions-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 URL Naming Conventions &amp; Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 URL Naming Conventions &amp; Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nouns-in-urls-verbs-in-http-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nouns in URLs, Verbs in HTTP Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-discoverability-from-root" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Discoverability from Root (/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permalinks-stable-unique-identifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permalinks: Stable, Unique Identifiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-hierarchical-vs-query-urls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Hierarchical vs. Query URLs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5 Hierarchical vs. Query URLs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hierarchical-routes-path-segments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hierarchical Routes (Path Segments)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-string-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query String Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#developer-experience-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Developer Experience Considerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-http-verbs-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 HTTP Verbs &amp; Semantics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.6 HTTP Verbs &amp; Semantics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET — Read
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-create-complex-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST — Create / Complex Actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-full-replacement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PUT — Full Replacement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patch-partial-update-preferred-for-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PATCH — Partial Update (Preferred for Updates)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-remove" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DELETE — Remove
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conventions-vs-strict-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conventions vs. Strict Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-data-serialization-output-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7 Data Serialization &amp; Output Formats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.7 Data Serialization &amp; Output Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xml-extensible-markup-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XML (eXtensible Markup Language)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-javascript-object-notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON (JavaScript Object Notation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsons-type-system-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON's Type System Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-extensions-as-the-modern-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON + Extensions as the Modern Standard
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-hypermedia-included-links-hateoas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8 Hypermedia &amp; Included Links (HATEOAS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.8 Hypermedia &amp; Included Links (HATEOAS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem-with-isolated-json-payloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem with Isolated JSON Payloads
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hateoas-hypermedia-as-the-engine-of-application-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HATEOAS — Hypermedia as the Engine of Application State
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-case-study-github-rest-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Case Study: GitHub REST API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-api-authentication-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.9 API Authentication &amp; Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.9 API Authentication &amp; Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#token-based-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Token-Based Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oauth2-delegated-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OAuth2 — Delegated Authorization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jwt-json-web-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JWT — JSON Web Tokens
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-use-industry-standard-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Use Industry-Standard Protocols?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#110-principles-philosophy-of-good-api-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.10 Principles &amp; Philosophy of Good API Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.10 Principles &amp; Philosophy of Good API Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-design-as-an-experience-driven-craft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Design as an Experience-Driven Craft
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balancing-conventions-with-practical-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balancing Conventions with Practical Trade-offs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-reference-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick-Reference Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="topic-1-web-api-design-rest-conventions">Topic 1: Web API Design &amp; REST Conventions</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Topic 1: Web API Design &amp; REST Conventions</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<hr />
+<h2 id="11-purpose-of-an-api-developer-centric-design">1.1 Purpose of an API &amp; Developer-Centric Design</h2>
+<h3 id="what-is-a-web-api">What is a Web API?</h3>
+<p>An <strong>API (Application Programming Interface)</strong> is a set of rules and contracts that allows different software systems to communicate with each other. A <strong>Web API</strong> exposes these contracts over the internet using standard web protocols (primarily HTTP).</p>
+<blockquote>
+<p>Think of an API as a <strong>restaurant menu</strong> — it tells you exactly what you can order (endpoints), what ingredients you must provide (parameters), and what you'll get back (response format). You don't need to know how the kitchen works.</p>
+</blockquote>
+<h3 id="building-blocks-for-applications">Building Blocks for Applications</h3>
+<p>Modern applications are rarely monolithic. A Web API acts as:
+- The <strong>glue</strong> between a frontend (web/mobile) and a backend database/service
+- A <strong>contract</strong> enabling third parties to build products on top of your platform (e.g., Twitter's API, GitHub API, Stripe API)
+- An <strong>interoperability layer</strong> connecting microservices to each other</p>
+<div class="highlight"><pre><span></span><code>Mobile App ──┐
+Web App    ──┼──▶ REST API ──▶ Database / Services / Logic
+3rd Party  ──┘
+</code></pre></div>
+<h3 id="designing-for-developers-not-end-users">Designing for Developers, Not End Users</h3>
+<p>Unlike a user interface (UI) designed for human visual interaction, an API is a <strong>developer interface (DX — Developer Experience)</strong>. Your consumers are engineers writing code, not people clicking buttons.</p>
+<table>
+<thead>
+<tr>
+<th>UI Design</th>
+<th>API Design</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intuitive visual navigation</td>
+<td>Consistent, predictable endpoint structure</td>
+</tr>
+<tr>
+<td>Helpful error messages in plain language</td>
+<td>Machine-readable error codes + structured error payloads</td>
+</tr>
+<tr>
+<td>Forgiving input (autocomplete, validation hints)</td>
+<td>Strict, documented input contracts</td>
+</tr>
+<tr>
+<td>Fast for humans to discover</td>
+<td>Fast for developers to discover &amp; integrate</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key implication</strong>: A well-designed API should allow a developer to understand what it does just by reading the URL and HTTP method — without needing documentation for every call.</p>
+<h3 id="remote-procedure-call-rpc-vs-web-apis">Remote Procedure Call (RPC) vs. Web APIs</h3>
+<p><strong>RPC (Remote Procedure Call)</strong> is an older paradigm where the client calls a named function on a remote server — as if calling a local function.</p>
+<div class="highlight"><pre><span></span><code># RPC thinking: "I want to call a function on the server"
+POST /getStudentById?id=42
+POST /createNewStudent
+POST /enrollStudentInCourse
+</code></pre></div>
+<p><strong>Web API (REST) thinking</strong>: "I want to operate on a resource using a standardized action"</p>
+<div class="highlight"><pre><span></span><code>GET    /students/42          ← Read student 42
+POST   /students             ← Create new student
+POST   /courses/101/students ← Enroll student in course
+</code></pre></div>
+<p>The distinction matters because RPC leads to verb-heavy, inconsistent, and unpredictable endpoint structures that are hard to document and maintain.</p>
+<h3 id="reference-apigees-web-api-design-the-missing-link">Reference: Apigee's <em>"Web API Design: The Missing Link"</em></h3>
+<p>This influential guide (now published by Google Cloud) formalizes best practices for pragmatic REST API design. Key takeaways:
+- APIs should be <strong>developer-centric</strong>
+- Prefer <strong>simplicity</strong> over theoretical purity
+- <strong>Conventions over configurations</strong> — follow what developers already expect</p>
+<hr />
+<h2 id="12-data-oriented-api-modeling">1.2 Data-Oriented API Modeling</h2>
+<p>Before writing a single endpoint, good API design starts with <strong>modeling the domain</strong>.</p>
+<h3 id="step-1-identify-core-entities">Step 1: Identify Core Entities</h3>
+<p>Think of every significant "thing" (noun) in your domain:</p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Core Entities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>University System</td>
+<td>Students, Courses, Grades, Professors, Departments</td>
+</tr>
+<tr>
+<td>E-commerce</td>
+<td>Products, Orders, Customers, Reviews, Payments</td>
+</tr>
+<tr>
+<td>Social Network</td>
+<td>Users, Posts, Comments, Likes, Follows</td>
+</tr>
+</tbody>
+</table>
+<p>Each entity will typically map to one or more API resources.</p>
+<h3 id="step-2-define-core-crud-actions">Step 2: Define Core CRUD Actions</h3>
+<p>For each entity, identify which standard operations apply:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>HTTP Method</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create</td>
+<td><code>POST</code></td>
+<td>Add a new student</td>
+</tr>
+<tr>
+<td>Read (one)</td>
+<td><code>GET</code></td>
+<td>Get student by ID</td>
+</tr>
+<tr>
+<td>Read (many)</td>
+<td><code>GET</code></td>
+<td>List all students</td>
+</tr>
+<tr>
+<td>Update (full)</td>
+<td><code>PUT</code></td>
+<td>Replace student record</td>
+</tr>
+<tr>
+<td>Update (partial)</td>
+<td><code>PATCH</code></td>
+<td>Change student's email only</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td><code>DELETE</code></td>
+<td>Remove a student</td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-3-define-summaries-aggregations">Step 3: Define Summaries &amp; Aggregations</h3>
+<p>Beyond raw CRUD, real APIs need to surface higher-level computed views:</p>
+<ul>
+<li><code>GET /students</code> — paginated list of students</li>
+<li><code>GET /students/top?limit=10</code> — top 10 students by GPA</li>
+<li><code>GET /courses/123/gpa</code> — average GPA for a specific course</li>
+<li><code>GET /departments/cs/stats</code> — enrollment and grade distribution</li>
+</ul>
+<h3 id="step-4-complex-exotic-queries">Step 4: Complex / "Exotic" Queries</h3>
+<p>Some queries span multiple entities or require multi-attribute filtering:</p>
+<ul>
+<li>"Find all students enrolled in CS101 with GPA &gt; 3.5 who haven't submitted assignment 3"</li>
+<li>These cannot be cleanly expressed as a single hierarchical URL</li>
+<li>Solution: Use <strong>query string parameters</strong> for filtering, sorting, pagination</li>
+</ul>
+<div class="highlight"><pre><span></span><code>GET /students?course=CS101&amp;min_gpa=3.5&amp;missing_assignment=3&amp;page=2&amp;limit=20
+</code></pre></div>
+<hr />
+<h2 id="13-rpc-style-vs-resource-oriented-rest-conventions">1.3 RPC-Style vs. Resource-Oriented REST Conventions</h2>
+<h3 id="the-rpc-anti-pattern">The RPC Anti-Pattern</h3>
+<p>Without intentional design, APIs tend to grow into <strong>RPC-style endpoint sprawl</strong>:</p>
+<div class="highlight"><pre><span></span><code>/getListOfStudents
+/getStudentById
+/createNewStudent
+/updateStudentEmail
+/deleteStudent
+/createStudentAndAddToCourse
+/getCoursesForStudent
+/getStudentsByDepartment
+/getStudentsByGPARange
+</code></pre></div>
+<p><strong>Problems with this approach:</strong></p>
+<ol>
+<li><strong>Cognitive overhead</strong> — No discernible pattern; every endpoint must be memorized</li>
+<li><strong>Documentation burden</strong> — Every unique endpoint needs separate documentation</li>
+<li><strong>Endpoint explosion</strong> — Each new requirement spawns a new endpoint name</li>
+<li><strong>Inconsistency</strong> — Different developers name things differently (<code>getStudent</code> vs <code>fetchStudent</code> vs <code>retrieveStudent</code>)</li>
+<li><strong>Not cacheable</strong> — Verb-heavy POST-based endpoints cannot be cached by HTTP intermediaries</li>
+</ol>
+<h3 id="the-rest-convention-transition">The REST Convention Transition</h3>
+<p>REST maps <strong>HTTP verbs</strong> (GET, POST, PUT, PATCH, DELETE) onto <strong>resource nouns</strong> (URLs).</p>
+<table>
+<thead>
+<tr>
+<th>RPC Style</th>
+<th>REST Style</th>
+<th>What Changed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET /getListOfStudents</code></td>
+<td><code>GET /students</code></td>
+<td>URL is a noun; GET implies read</td>
+</tr>
+<tr>
+<td><code>POST /createNewStudent</code></td>
+<td><code>POST /students</code></td>
+<td>POST on collection = create</td>
+</tr>
+<tr>
+<td><code>GET /getStudentById?id=42</code></td>
+<td><code>GET /students/42</code></td>
+<td>ID in path, not query string</td>
+</tr>
+<tr>
+<td><code>POST /updateStudentEmail</code></td>
+<td><code>PATCH /students/42</code></td>
+<td>PATCH on resource = partial update</td>
+</tr>
+<tr>
+<td><code>POST /deleteStudent?id=42</code></td>
+<td><code>DELETE /students/42</code></td>
+<td>DELETE method is explicit</td>
+</tr>
+<tr>
+<td><code>POST /createStudentAndAddToCourse</code></td>
+<td><code>POST /courses/101/students</code></td>
+<td>Relationship expressed in URL hierarchy</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>The mental model shift</strong>: You don't call functions anymore. You <strong>operate on resources</strong> using a small, fixed vocabulary of verbs (HTTP methods).</p>
+</blockquote>
+<hr />
+<h2 id="14-url-naming-conventions-structure">1.4 URL Naming Conventions &amp; Structure</h2>
+<h3 id="nouns-in-urls-verbs-in-http-methods">Nouns in URLs, Verbs in HTTP Methods</h3>
+<p>The HTTP method <em>is</em> the verb. The URL should only contain nouns (resources).</p>
+<div class="highlight"><pre><span></span><code>Bad:
+GET  /getAllStudents
+POST /createStudent
+POST /deleteStudent/42
+
+Good:
+GET    /students
+POST   /students
+DELETE /students/42
+</code></pre></div>
+<p><strong>Collections vs. Individual Resources:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>URL Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Collection of all students</td>
+<td><code>/students</code></td>
+</tr>
+<tr>
+<td>A single student</td>
+<td><code>/students/42</code></td>
+</tr>
+<tr>
+<td>A student's courses</td>
+<td><code>/students/42/courses</code></td>
+</tr>
+<tr>
+<td>A specific course enrollment</td>
+<td><code>/students/42/courses/CS101</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="api-discoverability-from-root">API Discoverability from Root (<code>/</code>)</h3>
+<p>A well-designed API should be <strong>crawlable</strong> — a developer hitting <code>GET /</code> should receive a response that lists the top-level resources available:</p>
+<div class="highlight"><pre><span></span><code><span class="err">GET</span><span class="w"> </span><span class="err">/</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">"students_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/students"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"courses_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/courses"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"departments_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/departments"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"docs_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.university.edu/docs"</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This mirrors how browsing the web works — following links from a root. This property is part of the <strong>HATEOAS</strong> principle (covered in 1.8).</p>
+<h3 id="permalinks-stable-unique-identifiers">Permalinks: Stable, Unique Identifiers</h3>
+<p>Every individual resource must have a <strong>stable, unique URL</strong> called a <strong>permalink</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>ID Type</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Integer ID</strong> (<code>42</code>)</td>
+<td>Simple, fast DB lookup</td>
+<td>Exposes internal IDs, enumerable (security risk)</td>
+</tr>
+<tr>
+<td><strong>UUID</strong> (<code>a1b2-...</code>)</td>
+<td>Non-guessable, globally unique</td>
+<td>Long, ugly in URLs</td>
+</tr>
+<tr>
+<td><strong>Slug</strong> (<code>john-doe</code>)</td>
+<td>Human-readable, SEO-friendly</td>
+<td>May change (name updates break permalinks)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Best practice</strong>: Use database-assigned IDs or UUIDs for stability. If you need human-readable, support <em>both</em> (<code>/students/42</code> and <code>/students/john-doe</code> mapping to the same resource).</p>
+<hr />
+<h2 id="15-hierarchical-vs-query-urls">1.5 Hierarchical vs. Query URLs</h2>
+<h3 id="hierarchical-routes-path-segments">Hierarchical Routes (Path Segments)</h3>
+<p>Used when there is a <strong>clear parent-child relationship</strong> between resources:</p>
+<div class="highlight"><pre><span></span><code>/students/42/courses           ← Courses enrolled by student 42
+/courses/CS101/students        ← Students enrolled in CS101
+/departments/cs/courses        ← Courses in the CS department
+/courses/CS101/assignments/3   ← Assignment 3 of course CS101
+</code></pre></div>
+<p><strong>Use when</strong>: The relationship is fixed, structural, and meaningful in isolation.</p>
+<h3 id="query-string-parameters">Query String Parameters</h3>
+<p>Used for <strong>filtering, sorting, pagination, and complex lookups</strong> that don't imply a resource hierarchy:</p>
+<div class="highlight"><pre><span></span><code>/students?department=cs&amp;min_gpa=3.5&amp;sort=gpa_desc&amp;page=2&amp;limit=20
+/courses?semester=fall2024&amp;level=graduate&amp;open=true
+/students?search=john&amp;enrolled_after=2023-01-01
+</code></pre></div>
+<p><strong>Use when</strong>: You need flexible, multi-dimensional filtering on a collection.</p>
+<h3 id="developer-experience-considerations">Developer Experience Considerations</h3>
+<p>Avoid creating "fake" hierarchical paths from query parameters:</p>
+<div class="highlight"><pre><span></span><code>Avoid:
+/course-123-students         ← Hyphenated compound (not crawlable, ugly)
+/students-in-cs101           ← Baked-in filter (creates endpoint proliferation)
+
+Prefer:
+/courses/123/students        ← True hierarchy (crawlable, meaningful)
+/students?course=123         ← Query filter (flexible, composable)
+</code></pre></div>
+<hr />
+<h2 id="16-http-verbs-semantics">1.6 HTTP Verbs &amp; Semantics</h2>
+<p>HTTP defines a fixed vocabulary of methods, each with precise semantics. Using them correctly unlocks HTTP-level benefits like caching and idempotency.</p>
+<h3 id="get-read">GET — Read</h3>
+<ul>
+<li><strong>Safe</strong>: Reading never modifies server state</li>
+<li><strong>Idempotent</strong>: Calling it 1x or 100x has the same effect</li>
+<li><strong>Cacheable</strong>: HTTP proxies, CDNs, and browsers cache GET responses by URL</li>
+<li>Never include a body in a GET request</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/students/42</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">api.university.edu</span>
+</code></pre></div>
+<h3 id="post-create-complex-actions">POST — Create / Complex Actions</h3>
+<ul>
+<li><strong>Not safe</strong>: Creates or modifies state</li>
+<li><strong>Not idempotent</strong>: Calling it twice creates two resources</li>
+<li><strong>Not cacheable</strong> by default</li>
+<li>Also used for <strong>complex queries</strong> where GET's URL length limit is a problem</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/students</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane Doe"</span><span class="p">,</span><span class="w"> </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jane@uni.edu"</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<h3 id="put-full-replacement">PUT — Full Replacement</h3>
+<ul>
+<li><strong>Idempotent</strong>: Calling it multiple times always results in the same state</li>
+<li><strong>Replaces the entire resource</strong> — missing fields are treated as deleted/null</li>
+<li>Use when the client is sending the <strong>complete</strong> new state of a resource</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nf">PUT</span> <span class="nn">/students/42</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane Doe"</span><span class="p">,</span><span class="w"> </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jane@uni.edu"</span><span class="p">,</span><span class="w"> </span><span class="nt">"gpa"</span><span class="p">:</span><span class="w"> </span><span class="mf">3.8</span><span class="p">,</span><span class="w"> </span><span class="nt">"department"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CS"</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<h3 id="patch-partial-update-preferred-for-updates">PATCH — Partial Update (Preferred for Updates)</h3>
+<ul>
+<li><strong>Partially updates</strong> a resource — only the fields sent are changed</li>
+<li>More network-efficient (smaller payloads)</li>
+<li><strong>Preferred over PUT</strong> for most update operations in practice</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nf">PATCH</span> <span class="nn">/students/42</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span><span class="w"> </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"newemail@uni.edu"</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p>Only <code>email</code> is updated; all other fields remain unchanged.</p>
+</blockquote>
+<h3 id="delete-remove">DELETE — Remove</h3>
+<ul>
+<li><strong>Idempotent</strong>: Deleting a resource that's already gone still returns success (or 404)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nf">DELETE</span> <span class="nn">/students/42</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</code></pre></div>
+<h3 id="comparison-table">Comparison Table</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Safe</th>
+<th>Idempotent</th>
+<th>Cacheable</th>
+<th>Body</th>
+<th>Use For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET</code></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Read resource(s)</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+<td>Create, complex queries</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td>No</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+<td>Full replacement</td>
+</tr>
+<tr>
+<td><code>PATCH</code></td>
+<td>No</td>
+<td>Usually</td>
+<td>No</td>
+<td>Yes</td>
+<td>Partial update</td>
+</tr>
+<tr>
+<td><code>DELETE</code></td>
+<td>No</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>Remove resource</td>
+</tr>
+</tbody>
+</table>
+<h3 id="conventions-vs-strict-rules">Conventions vs. Strict Rules</h3>
+<p>REST is an <strong>architectural style</strong>, not a strict protocol. Pragmatic deviations are acceptable:
+- Some APIs use <code>POST</code> for all updates (legacy systems, simplicity)
+- What matters most: <strong>be consistent within your own API</strong></p>
+<hr />
+<h2 id="17-data-serialization-output-formats">1.7 Data Serialization &amp; Output Formats</h2>
+<h3 id="xml-extensible-markup-language">XML (eXtensible Markup Language)</h3>
+<p>An older, more verbose format dominant in the SOAP/enterprise era:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;student&gt;</span>
+<span class="w">  </span><span class="nt">&lt;id&gt;</span>42<span class="nt">&lt;/id&gt;</span>
+<span class="w">  </span><span class="nt">&lt;name&gt;</span>Jane<span class="w"> </span>Doe<span class="nt">&lt;/name&gt;</span>
+<span class="w">  </span><span class="nt">&lt;courses&gt;</span>
+<span class="w">    </span><span class="nt">&lt;course&gt;</span>CS101<span class="nt">&lt;/course&gt;</span>
+<span class="w">    </span><span class="nt">&lt;course&gt;</span>MATH201<span class="nt">&lt;/course&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/courses&gt;</span>
+<span class="nt">&lt;/student&gt;</span>
+</code></pre></div>
+<p><strong>Pros</strong>: Rich type system, schemas (XSD), namespaces, excellent for documents
+<strong>Cons</strong>: Verbose, harder to parse in JS, larger payload sizes, overkill for most APIs</p>
+<h3 id="json-javascript-object-notation">JSON (JavaScript Object Notation)</h3>
+<p>The modern standard for web APIs:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane Doe"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"courses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"CS101"</span><span class="p">,</span><span class="w"> </span><span class="s2">"MATH201"</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Pros</strong>: Concise, native to JavaScript, human-readable, easy to parse in virtually every language
+<strong>Cons</strong>: Limited primitive types (no Date, no distinction between int/float), no native schema enforcement</p>
+<h3 id="jsons-type-system-limitations">JSON's Type System Limitations</h3>
+<p>JSON only supports: <code>string</code>, <code>number</code>, <code>boolean</code>, <code>null</code>, <code>array</code>, <code>object</code></p>
+<p>It does <strong>not</strong> natively support:
+- Dates → use ISO 8601 strings: <code>"2024-01-15T09:00:00Z"</code>
+- Integers vs. floats → both are just <code>number</code>
+- Binary data → use Base64 encoding</p>
+<h3 id="json-extensions-as-the-modern-standard">JSON + Extensions as the Modern Standard</h3>
+<table>
+<thead>
+<tr>
+<th>Extension</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JSON:API</strong></td>
+<td>Specification for structuring resources, relationships, and errors</td>
+</tr>
+<tr>
+<td><strong>JSON Schema</strong></td>
+<td>Vocabulary for validating JSON structure (like XSD for JSON)</td>
+</tr>
+<tr>
+<td>Media type: <code>application/json</code></td>
+<td>Standard MIME type for JSON payloads</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="18-hypermedia-included-links-hateoas">1.8 Hypermedia &amp; Included Links (HATEOAS)</h2>
+<h3 id="the-problem-with-isolated-json-payloads">The Problem with Isolated JSON Payloads</h3>
+<p>A basic API response gives you the data, but nothing else:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane Doe"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"department_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>To find the department's details, a developer must separately consult documentation to know the URL is <code>/departments/5</code>. The API response itself provides no navigation.</p>
+<h3 id="hateoas-hypermedia-as-the-engine-of-application-state">HATEOAS — Hypermedia as the Engine of Application State</h3>
+<p>HATEOAS is a REST principle: responses should include <strong>links to related resources and available actions</strong>, enabling clients to navigate the API like browsing the web.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane Doe"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"department_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"self"</span><span class="p">:</span><span class="w">       </span><span class="p">{</span><span class="w"> </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/students/42"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"department"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/departments/5"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"courses"</span><span class="p">:</span><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/students/42/courses"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"update"</span><span class="p">:</span><span class="w">     </span><span class="p">{</span><span class="w"> </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/students/42"</span><span class="p">,</span><span class="w"> </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PATCH"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"delete"</span><span class="p">:</span><span class="w">     </span><span class="p">{</span><span class="w"> </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/students/42"</span><span class="p">,</span><span class="w"> </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DELETE"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="real-world-case-study-github-rest-api">Real-World Case Study: GitHub REST API</h3>
+<p>GitHub's API includes links to all related endpoints in every response:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1296269</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello-World"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"octocat/Hello-World"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/repos/octocat/Hello-World"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"forks_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/repos/octocat/Hello-World/forks"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"commits_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/repos/octocat/Hello-World/commits{/sha}"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"issues_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/repos/octocat/Hello-World/issues{/number}"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"pulls_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/repos/octocat/Hello-World/pulls{/number}"</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The client receives the data <em>and</em> the URLs for every related action — no external documentation needed to discover next steps.</p>
+<hr />
+<h2 id="19-api-authentication-security">1.9 API Authentication &amp; Security</h2>
+<h3 id="token-based-authentication">Token-Based Authentication</h3>
+<p>The most common pattern for stateless API authentication:</p>
+<ol>
+<li>Client sends credentials to an auth endpoint</li>
+<li>Server verifies credentials and returns a <strong>token</strong></li>
+<li>Client stores the token and sends it with every request (<code>Authorization</code> header)</li>
+<li>Server validates the token on each request — no session state needed</li>
+</ol>
+<div class="highlight"><pre><span></span><code>Client                          Server
+  │  POST /auth/login              │
+  │  { email, password }  ────────▶│
+  │◀──────────────── 200 OK        │
+  │  { token: "eyJhbGc..." }       │
+  │                                │
+  │  GET /students                 │
+  │  Authorization: Bearer eyJ... ─▶│  Verify token → allow
+  │◀──────────────── 200 OK        │
+  │  { students: [...] }           │
+</code></pre></div>
+<h3 id="oauth2-delegated-authorization">OAuth2 — Delegated Authorization</h3>
+<p><strong>OAuth2</strong> is an industry-standard protocol for allowing a third party to access resources <strong>on behalf of a user — without sharing the user's password</strong>.</p>
+<p><strong>Classic use case</strong>: "Login with Google", "Connect with GitHub"</p>
+<p><strong>Key roles in OAuth2</strong>:
+- <strong>Resource Owner</strong>: The user
+- <strong>Client</strong>: Your application
+- <strong>Authorization Server</strong>: Issues tokens (e.g., Google Auth)
+- <strong>Resource Server</strong>: Holds the protected data (e.g., Google Drive API)</p>
+<div class="highlight"><pre><span></span><code>User  ──▶  Your App  ──▶  Google Auth Server
+                │              │
+                │  Auth Code   │
+                ◀──────────────│
+                │  Exchange code for Access Token
+                ──────────────▶│
+                ◀── Access Token ─│
+                │
+                │  Request with Access Token
+                ──────────────────────────────▶  Google API (Resource Server)
+</code></pre></div>
+<h3 id="jwt-json-web-tokens">JWT — JSON Web Tokens</h3>
+<p>A <strong>JWT (JSON Web Token)</strong> is a compact, self-contained token. Structure: <code>header.payload.signature</code></p>
+<p><strong>Decoded Payload (Claims)</strong>:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"42"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane Doe"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jane@uni.edu"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"student"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1600000000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"exp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1600086400</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Why JWTs are useful</strong>:
+- <strong>Stateless</strong>: Server verifies the signature cryptographically — no session DB lookup
+- <strong>Self-describing</strong>: Payload carries user info, so no extra DB lookup needed per request
+- <strong>Expiry built-in</strong>: <code>exp</code> claim enforces token lifetime</p>
+<blockquote>
+<p>Standard JWT is <strong>signed</strong> (tamper-proof) but <strong>not encrypted</strong> — payload is Base64-readable. Never store secrets in JWT payload.</p>
+</blockquote>
+<h3 id="why-use-industry-standard-protocols">Why Use Industry-Standard Protocols?</h3>
+<ul>
+<li><strong>Security is hard</strong>: Rolling your own auth is a common source of critical vulnerabilities</li>
+<li><strong>Ecosystem support</strong>: JWTs and OAuth2 have battle-tested libraries in every language</li>
+<li><strong>Interoperability</strong>: Standard tokens work across services and enable SSO (Single Sign-On)</li>
+</ul>
+<hr />
+<h2 id="110-principles-philosophy-of-good-api-design">1.10 Principles &amp; Philosophy of Good API Design</h2>
+<h3 id="api-design-as-an-experience-driven-craft">API Design as an Experience-Driven Craft</h3>
+<p>A great API is not just technically correct — it is a <strong>pleasurable developer experience</strong>. The quality of an API directly determines how quickly and correctly developers can build on top of it.</p>
+<p><strong>Signs of a well-designed API:</strong>
+- A developer can guess the URL of a new resource without reading docs
+- Error messages clearly explain what went wrong and how to fix it
+- The API behaves consistently — no surprises between endpoints
+- Common tasks require minimal lines of code to accomplish</p>
+<h3 id="balancing-conventions-with-practical-trade-offs">Balancing Conventions with Practical Trade-offs</h3>
+<p>Strict theoretical REST purity is rarely the right goal:</p>
+<table>
+<thead>
+<tr>
+<th>Theoretical REST Purist</th>
+<th>Pragmatic Real-World API Designer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Every resource must have a unique URL</td>
+<td>Use query params for complex searches</td>
+</tr>
+<tr>
+<td>Only use HTTP methods per spec</td>
+<td>Use POST for GraphQL queries (body too long for GET)</td>
+</tr>
+<tr>
+<td>HATEOAS links on every response</td>
+<td>Include links on complex resources; skip on trivial ones</td>
+</tr>
+<tr>
+<td>No verbs in URLs ever</td>
+<td><code>/search</code>, <code>/login</code>, <code>/logout</code> are acceptable</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>The <strong>goal</strong> is an API that is <strong>consistent, predictable, and pleasant to use</strong> — not one that slavishly follows a theoretical model at the cost of developer experience.</p>
+</blockquote>
+<h3 id="quick-reference-summary">Quick-Reference Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Rule of Thumb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Use nouns in URLs</td>
+<td><code>/students</code>, not <code>/getStudents</code></td>
+</tr>
+<tr>
+<td>Use HTTP verbs correctly</td>
+<td><code>GET</code>=read, <code>POST</code>=create, <code>PATCH</code>=partial update, <code>DELETE</code>=remove</td>
+</tr>
+<tr>
+<td>Hierarchical URLs for relationships</td>
+<td><code>/students/42/courses</code></td>
+</tr>
+<tr>
+<td>Query params for filtering</td>
+<td><code>?min_gpa=3.5&amp;sort=name</code></td>
+</tr>
+<tr>
+<td>Return JSON by default</td>
+<td><code>Content-Type: application/json</code></td>
+</tr>
+<tr>
+<td>Include navigational links</td>
+<td><code>_links.self</code>, <code>_links.related</code></td>
+</tr>
+<tr>
+<td>Use standard auth protocols</td>
+<td>OAuth2 + JWT</td>
+</tr>
+<tr>
+<td>Be consistent</td>
+<td>Same conventions across all endpoints</td>
+</tr>
+<tr>
+<td>Design for developers</td>
+<td>Optimize for DX, not theoretical purity</td>
+</tr>
+</tbody>
+</table>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Overview
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../02_rest_problems_graphql/" class="md-footer__link md-footer__link--next" aria-label="Next: Problems with REST and GraphQL">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Problems with REST and GraphQL
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

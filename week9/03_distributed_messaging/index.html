@@ -1,0 +1,4679 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week9/03_distributed_messaging/">
+      
+      
+        <link rel="prev" href="../02_async_task_architecture/">
+      
+      
+        <link rel="next" href="../04_task_queue_mechanics/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Distributed messaging - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#topic-3-distributed-messaging-message-queues" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Distributed messaging
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-server-to-server-communication-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Server-to-Server Communication Topology
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 Server-to-Server Communication Topology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-server-vs-server-server-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Client-Server vs. Server-Server Communication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations-of-point-to-point-mesh-direct-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations of Point-to-Point Mesh (Direct Connections)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asymmetric-communication-producers-vs-consumers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asymmetric Communication: Producers vs. Consumers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaling-failure-tolerance-in-direct-p2p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaling &amp; Failure Tolerance in Direct P2P
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-the-role-of-message-brokers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 The Role of Message Brokers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 The Role of Message Brokers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decoupling-dispatch-from-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decoupling: Dispatch from Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous-communication-delayed-responses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asynchronous Communication &amp; Delayed Responses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataflow-processing-automatic-rate-matching-backpressure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataflow Processing &amp; Automatic Rate Matching / Backpressure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ordered-transactions-fifo-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordered Transactions (FIFO Processing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-potential-benefits-of-message-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Potential Benefits of Message Queues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 Potential Benefits of Message Queues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-scalability-horizontal-scaling-of-consumers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Scalability — Horizontal Scaling of Consumers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-absorbing-traffic-spikes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Absorbing Traffic Spikes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-system-monitoring-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. System Monitoring &amp; Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-batch-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Batch Processing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34-messaging-paradigms-alternatives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Messaging Paradigms &amp; Alternatives
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 Messaging Paradigms &amp; Alternatives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-message-queue-point-to-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Message Queue (Point-to-Point)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pubsub-publishsubscribe-fanout-broadcast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Pub/Sub — Publish/Subscribe (Fanout / Broadcast)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-message-bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Message Bus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-apis-web-services-direct-synchronous-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. APIs / Web Services (Direct Synchronous Calls)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-databases-as-queues-anti-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Databases as Queues (Anti-Pattern)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#35-protocols-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Protocols &amp; Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.5 Protocols &amp; Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#amqp-advanced-message-queuing-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AMQP — Advanced Message Queuing Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rabbitmq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RabbitMQ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis-as-a-message-broker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redis (as a Message Broker)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-server-to-server-communication-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Server-to-Server Communication Topology
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 Server-to-Server Communication Topology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-server-vs-server-server-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Client-Server vs. Server-Server Communication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations-of-point-to-point-mesh-direct-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations of Point-to-Point Mesh (Direct Connections)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asymmetric-communication-producers-vs-consumers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asymmetric Communication: Producers vs. Consumers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scaling-failure-tolerance-in-direct-p2p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaling &amp; Failure Tolerance in Direct P2P
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-the-role-of-message-brokers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 The Role of Message Brokers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 The Role of Message Brokers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decoupling-dispatch-from-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decoupling: Dispatch from Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous-communication-delayed-responses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asynchronous Communication &amp; Delayed Responses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataflow-processing-automatic-rate-matching-backpressure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataflow Processing &amp; Automatic Rate Matching / Backpressure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ordered-transactions-fifo-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordered Transactions (FIFO Processing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-potential-benefits-of-message-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Potential Benefits of Message Queues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 Potential Benefits of Message Queues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-scalability-horizontal-scaling-of-consumers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Scalability — Horizontal Scaling of Consumers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-absorbing-traffic-spikes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Absorbing Traffic Spikes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-system-monitoring-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. System Monitoring &amp; Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-batch-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Batch Processing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34-messaging-paradigms-alternatives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Messaging Paradigms &amp; Alternatives
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 Messaging Paradigms &amp; Alternatives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-message-queue-point-to-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Message Queue (Point-to-Point)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pubsub-publishsubscribe-fanout-broadcast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Pub/Sub — Publish/Subscribe (Fanout / Broadcast)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-message-bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Message Bus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-apis-web-services-direct-synchronous-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. APIs / Web Services (Direct Synchronous Calls)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-databases-as-queues-anti-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Databases as Queues (Anti-Pattern)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#35-protocols-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Protocols &amp; Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.5 Protocols &amp; Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#amqp-advanced-message-queuing-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AMQP — Advanced Message Queuing Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rabbitmq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RabbitMQ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis-as-a-message-broker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redis (as a Message Broker)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="topic-3-distributed-messaging-message-queues">Topic 3: Distributed Messaging &amp; Message Queues</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Topic 3: Distributed Messaging &amp; Message Queues</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<hr />
+<h2 id="31-server-to-server-communication-topology">3.1 Server-to-Server Communication Topology</h2>
+<h3 id="client-server-vs-server-server-communication">Client-Server vs. Server-Server Communication</h3>
+<p>So far we've thought of communication as <strong>Client ↔ Server</strong> — a browser talks to a web server. But in modern distributed systems, <strong>servers also need to talk to each other</strong>:</p>
+<ul>
+<li>Web server → Database server</li>
+<li>Web server → Worker/compute server</li>
+<li>Worker → Notification service</li>
+<li>Service A → Service B (microservices)</li>
+</ul>
+<div class="highlight"><pre><span></span><code>CLIENT-SERVER (simple)          SERVER-SERVER (distributed system)
+
+  Browser                         Web      Worker    DB      Notif.
+    │                            Server    Server   Server   Service
+    ▼                              │         │        │         │
+ Web Server                        ├─────────┤        │         │
+                                   ├─────────────────┤         │
+                                   ├─────────────────────────┤
+                                             ├────────┤
+                                             ├──────────────────┤
+</code></pre></div>
+<h3 id="limitations-of-point-to-point-mesh-direct-connections">Limitations of Point-to-Point Mesh (Direct Connections)</h3>
+<p>If every server talks <strong>directly</strong> to every other server that needs to communicate, you get a <strong>full mesh topology</strong>:</p>
+<div class="highlight"><pre><span></span><code>         S1
+        /|\ \
+       / | \ \
+      S2-+--S3-S4
+       \ | / /
+        \|/ /
+         S5
+</code></pre></div>
+<p><strong>The O(N²) connection problem:</strong>
+- With <strong>N</strong> servers that all need to talk to each other, you need up to <strong>N × (N-1) / 2</strong> connections.
+- 5 servers → 10 connections
+- 10 servers → 45 connections
+- 100 servers → 4,950 connections
+- 1,000 servers → <strong>499,500 connections</strong> 🔥</p>
+<p>Each connection must be:
+- Established and maintained (TCP keepalives, reconnects)
+- Authenticated and secured (TLS handshakes)
+- Handled for failure (what if the other server is down? retry logic?)
+- Versioned (what if the other server's API changes?)</p>
+<p>This becomes <strong>operationally unmanageable</strong> very quickly.</p>
+<h3 id="asymmetric-communication-producers-vs-consumers">Asymmetric Communication: Producers vs. Consumers</h3>
+<p>In practice, communication between servers is rarely symmetric (everyone talking to everyone equally). Instead, servers fall into roles:</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Producer</strong></td>
+<td>Generates/dispatches messages/tasks</td>
+<td>Web server (after user action)</td>
+</tr>
+<tr>
+<td><strong>Consumer / Worker</strong></td>
+<td>Receives and processes messages/tasks</td>
+<td>Background worker processes</td>
+</tr>
+</tbody>
+</table>
+<p>Often many producers send to <strong>few consumers</strong>, or few producers send to <strong>many consumers</strong>. The communication pattern is <strong>directional and asymmetric</strong>.</p>
+<h3 id="scaling-failure-tolerance-in-direct-p2p">Scaling &amp; Failure Tolerance in Direct P2P</h3>
+<p>In a direct server-to-server model, failures and scale changes are painful:</p>
+<p><strong>Failure tolerance:</strong>
+- If the target server (Worker B) is <strong>offline</strong>, the sending server (Web A) must:
+  - Detect the failure (timeout or connection refused)
+  - Decide: retry immediately? retry later? give up? log the failure?
+  - Implement retry logic with backoff — <strong>in your application code</strong>
+  - Risk losing the message entirely if all retries fail</p>
+<p><strong>Busy server / rate mismatch:</strong>
+- If Worker B is <strong>busy</strong> processing and can't keep up with incoming messages from Web A:
+  - Web A has no buffer — it must either wait (blocking) or drop the message
+  - No natural mechanism for <strong>backpressure</strong> (telling producers to slow down)
+  - Spikes in load cause immediate data loss or blocking</p>
+<p><strong>Solution → Introduce a Message Broker as intermediary.</strong></p>
+<hr />
+<h2 id="32-the-role-of-message-brokers">3.2 The Role of Message Brokers</h2>
+<p>A <strong>Message Broker</strong> is a dedicated intermediary server that sits between producers and consumers and manages message routing, storage, and delivery.</p>
+<div class="highlight"><pre><span></span><code>WITHOUT broker (direct):                  WITH broker:
+
+Web Server ──────────────► Worker         Web Server ──► [Broker] ──► Worker
+           (direct connection)                       (enqueue)  (dequeue)
+           (what if worker is down?)
+           (what if worker is busy?)
+</code></pre></div>
+<h3 id="decoupling-dispatch-from-execution">Decoupling: Dispatch from Execution</h3>
+<p>The broker <strong>decouples who sends a message from who processes it</strong>:</p>
+<ul>
+<li>The <strong>producer</strong> (web server) does not need to know:</li>
+<li>How many workers exist</li>
+<li>Which specific worker will handle the task</li>
+<li>Whether any worker is currently available</li>
+<li>
+<p>How long the task will take</p>
+</li>
+<li>
+<p>The <strong>consumer</strong> (worker) does not need to know:</p>
+</li>
+<li>Which web server sent the task</li>
+<li>How many web servers exist</li>
+<li>When exactly the task was submitted</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Producer                   Broker                    Consumer
+────────                   ──────                    ────────
+"Do this task"   ────────► [msg1]  ◄──────────────  Worker pulls when ready
+                           [msg2]
+                           [msg3]
+                           ...
+
+Producer doesn't care when it's processed.
+Consumer doesn't care who sent it.
+</code></pre></div>
+<p>This is called <strong>temporal decoupling</strong> — producer and consumer don't need to be active at the same time.</p>
+<h3 id="asynchronous-communication-delayed-responses">Asynchronous Communication &amp; Delayed Responses</h3>
+<p>With a broker:
+- The producer sends a message and <strong>immediately continues</strong> its own work.
+- The message sits in the broker until a consumer is ready to process it.
+- The consumer processes it at <strong>its own pace</strong>.
+- There is <strong>no blocking</strong> on either side.</p>
+<p>This enables true <strong>fire-and-forget</strong> semantics:
+<div class="highlight"><pre><span></span><code>Web server: POST /upload
+    │
+    ▼ enqueue("process_image", image_id=42)  ← ~1ms
+    │
+    ▼ return HTTP 202 Accepted               ← client gets response immediately
+
+[5 minutes later, on worker]
+    Worker: picks up "process_image" task, runs it, stores result
+</code></pre></div></p>
+<h3 id="dataflow-processing-automatic-rate-matching-backpressure">Dataflow Processing &amp; Automatic Rate Matching / Backpressure</h3>
+<p>The broker acts as a <strong>buffer</strong> between producers and consumers:</p>
+<div class="highlight"><pre><span></span><code>Producers (fast)          Broker Queue           Consumers (slow)
+──────────────────        ────────────           ────────────────
+Web S1 → task ────────► [■■■■■■■■■■■■] ──────► Worker 1 (busy)
+Web S2 → task ────────► [■■■■■■■■■■■■] ──────► Worker 2 (busy)
+Web S3 → task ────────► [■■■■■■■■■■■■]
+                         Queue depth ↑
+                         (natural backpressure signal)
+</code></pre></div>
+<ul>
+<li>If producers are <strong>faster</strong> than consumers, the queue <strong>grows</strong> — it absorbs the excess instead of dropping messages or blocking producers.</li>
+<li>Queue depth is a real-time signal: <strong>"consumers cannot keep up"</strong> → add more workers.</li>
+<li>This is called <strong>backpressure</strong> — the queue's fill level implicitly signals the production-consumption rate mismatch.</li>
+<li>Rate matching: consumers pull at <strong>their own rate</strong>, producers push at <strong>their own rate</strong> — the queue bridges the mismatch.</li>
+</ul>
+<h3 id="ordered-transactions-fifo-processing">Ordered Transactions (FIFO Processing)</h3>
+<p>Message queues typically guarantee <strong>FIFO (First In, First Out)</strong> ordering within a queue:
+- Task submitted at T=0 is processed before task submitted at T=1.
+- Critical for scenarios where <strong>order matters</strong>: e.g., process "account created" before "send welcome email".
+- Some brokers support <strong>priority queues</strong> (higher-priority messages jump the queue).
+- Some brokers guarantee <strong>exactly-once</strong> or <strong>at-least-once</strong> delivery semantics.</p>
+<hr />
+<h2 id="33-potential-benefits-of-message-queues">3.3 Potential Benefits of Message Queues</h2>
+<h3 id="1-scalability-horizontal-scaling-of-consumers">1. Scalability — Horizontal Scaling of Consumers</h3>
+<p>Because consumers are <strong>decoupled</strong> from producers, you can add or remove worker instances without any changes to the producer code:</p>
+<div class="highlight"><pre><span></span><code>Low traffic:             High traffic:
+
+[Queue] → Worker 1       [Queue] → Worker 1
+                                 → Worker 2
+                                 → Worker 3
+                                 → Worker 4
+
+→ All workers pull from the same queue
+→ Work is automatically distributed
+→ Adding workers = linear throughput increase
+</code></pre></div>
+<p><strong>No coordination needed between workers</strong> — the queue is the single source of truth. Each task is claimed by exactly one worker (guaranteed by the broker's acknowledge mechanism).</p>
+<h3 id="2-absorbing-traffic-spikes">2. Absorbing Traffic Spikes</h3>
+<p>Without a queue, a traffic spike overwhelms consumers immediately:</p>
+<div class="highlight"><pre><span></span><code>WITHOUT queue:
+Spike: 1000 requests/sec ──────────────────────────────► Workers (capacity: 100 req/sec)
+                                                          → 900 req/sec DROPPED or ERRORS
+
+WITH queue:
+Spike: 1000 requests/sec ──────────────► [■■■■■■■■■■■■■■■■■■■■■]
+                                         (queue absorbs spike)
+                                                │ 100 tasks/sec (sustained)
+                                                ▼
+                                          Workers process at capacity
+                                          Queue drains over time → delayed but NEVER LOST
+</code></pre></div>
+<ul>
+<li>Tasks are <strong>delayed</strong> during a spike, but <strong>never lost</strong>.</li>
+<li>Users get an immediate acknowledgement ("Your request is queued") even during peak load.</li>
+<li>This is the key trade-off: <strong>latency increases</strong> during spikes, but <strong>reliability is maintained</strong>.</li>
+</ul>
+<h3 id="3-system-monitoring-metrics">3. System Monitoring &amp; Metrics</h3>
+<p>Queue depth (number of unprocessed messages) is a <strong>first-class health and load metric</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Queue Depth</th>
+<th>Meaning</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>~0</td>
+<td>Workers keeping up, healthy</td>
+<td>No action needed</td>
+</tr>
+<tr>
+<td>Growing slowly</td>
+<td>Workers slightly under-capacity</td>
+<td>Consider adding a worker</td>
+</tr>
+<tr>
+<td>Growing rapidly</td>
+<td>Workers severely under-capacity</td>
+<td>Urgent: scale up workers</td>
+</tr>
+<tr>
+<td>Plateaued high</td>
+<td>Sustained overload</td>
+<td>Scale workers + investigate</td>
+</tr>
+<tr>
+<td>Suddenly drops to 0</td>
+<td>Workers stopped consuming (crash?)</td>
+<td>Alert &amp; investigate</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Queue depth can trigger <strong>auto-scaling</strong> (e.g., AWS SQS → CloudWatch alarm → add EC2 instances).</li>
+<li><strong>Dead letter queues (DLQ)</strong>: Messages that fail repeatedly are moved to a DLQ for inspection — a clear signal of bugs or infrastructure issues.</li>
+</ul>
+<h3 id="4-batch-processing">4. Batch Processing</h3>
+<p>Instead of processing each task individually as it arrives, consumers can <strong>accumulate messages</strong> and process them together in batches:</p>
+<div class="highlight"><pre><span></span><code>Individual processing:             Batch processing:
+Task 1 → Process → DB write        Tasks 1-100 →
+Task 2 → Process → DB write             Process together →
+Task 3 → Process → DB write             Single bulk DB INSERT
+...                                     (100x fewer DB round-trips)
+Task 100 → Process → DB write
+</code></pre></div>
+<p><strong>Use cases:</strong>
+- Bulk database inserts (100 writes → 1 batch write)
+- Aggregating analytics events before writing to a data warehouse
+- Sending digest emails (accumulate events, send once daily/hourly)
+- Log aggregation (buffer log lines, write to S3 in chunks)</p>
+<hr />
+<h2 id="34-messaging-paradigms-alternatives">3.4 Messaging Paradigms &amp; Alternatives</h2>
+<h3 id="1-message-queue-point-to-point">1. Message Queue (Point-to-Point)</h3>
+<p>The classic model: <strong>one producer sends to one queue, one consumer receives each message</strong>.</p>
+<div class="highlight"><pre><span></span><code>Producer A ──► [Queue] ──► Consumer 1 (gets msg1)
+Producer B ──►            ──► Consumer 2 (gets msg2)
+                          ──► Consumer 1 (gets msg3)
+</code></pre></div>
+<ul>
+<li>Each message is delivered to <strong>exactly one consumer</strong> (competing consumers model).</li>
+<li>Work is <strong>distributed</strong> across consumers — load balanced automatically.</li>
+<li><strong>Best for:</strong> Task queues, job processing, command dispatch.</li>
+<li>Examples: RabbitMQ (work queues), AWS SQS, Celery tasks.</li>
+</ul>
+<h3 id="2-pubsub-publishsubscribe-fanout-broadcast">2. Pub/Sub — Publish/Subscribe (Fanout / Broadcast)</h3>
+<p>Producers <strong>publish</strong> to a <strong>topic</strong> without knowing who the subscribers are. Every subscriber receives every message.</p>
+<div class="highlight"><pre><span></span><code>Publisher ──► [Topic: "user.created"]
+                    │
+                    ├──► Subscriber 1: Email service   (receives event)
+                    ├──► Subscriber 2: Analytics        (receives event)
+                    └──► Subscriber 3: CRM system       (receives event)
+</code></pre></div>
+<ul>
+<li>One message → <strong>delivered to ALL subscribers</strong> (fanout).</li>
+<li>Publishers and subscribers are <strong>completely decoupled</strong> — they don't know each other exist.</li>
+<li>Adding a new subscriber requires <strong>zero changes</strong> to the publisher.</li>
+<li><strong>Best for:</strong> Event broadcasting, notifications, event-driven architectures.</li>
+<li>Examples: Redis Pub/Sub, Google Cloud Pub/Sub, Apache Kafka topics, RabbitMQ fanout exchanges.</li>
+</ul>
+<p><strong>Key difference from Message Queue:</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Message Queue</th>
+<th>Pub/Sub</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Delivery</td>
+<td>One consumer gets each message</td>
+<td>All subscribers get each message</td>
+</tr>
+<tr>
+<td>Purpose</td>
+<td>Distribute work</td>
+<td>Broadcast events</td>
+</tr>
+<tr>
+<td>Consumers</td>
+<td>Competing (one wins)</td>
+<td>Parallel (all receive)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-message-bus">3. Message Bus</h3>
+<p>A <strong>shared communication channel</strong> (bus) that multiple services can both publish to and subscribe from, based on <strong>message routing rules</strong>.</p>
+<div class="highlight"><pre><span></span><code>         ┌─────────── MESSAGE BUS ───────────┐
+         │                                   │
+Service A ──publish──►  [Bus]  ──subscribe──► Service B
+Service C ──publish──►         ──subscribe──► Service D
+                               ──subscribe──► Service A (can subscribe too)
+</code></pre></div>
+<ul>
+<li>More flexible than a simple queue — services can be both producers and consumers.</li>
+<li>Routing logic lives in the bus (content-based routing, address-based routing).</li>
+<li><strong>Best for:</strong> Enterprise integration patterns, microservice event mesh.</li>
+<li>Examples: RabbitMQ topic exchanges, Apache ActiveMQ, Azure Service Bus.</li>
+</ul>
+<h3 id="4-apis-web-services-direct-synchronous-calls">4. APIs / Web Services (Direct Synchronous Calls)</h3>
+<p>Instead of a queue, servers call each other's <strong>REST or RPC APIs</strong> directly:</p>
+<div class="highlight"><pre><span></span><code>Web Server ──HTTP POST──► Worker API ──► Process ──► HTTP Response
+</code></pre></div>
+<p><strong>Advantages:</strong>
+- Simple to implement — just an HTTP call.
+- Immediate response — synchronous confirmation.</p>
+<p><strong>Disadvantages:</strong>
+- <strong>Zero buffering</strong> — if the worker is down or busy, the call fails immediately.
+- <strong>No durability</strong> — if the call fails, the task is lost (unless caller implements retry).
+- <strong>Tight coupling</strong> — caller must know worker's address, API contract, and availability.
+- <strong>Retry logic</strong> is the caller's responsibility — complex to implement correctly.
+- <strong>No natural backpressure</strong> — caller must handle <code>503 Service Unavailable</code> and retry.</p>
+<blockquote>
+<p>APIs are appropriate when the caller <strong>needs an immediate result</strong> and can tolerate failure. They are <strong>not</strong> appropriate for fire-and-forget background task dispatch.</p>
+</blockquote>
+<h3 id="5-databases-as-queues-anti-pattern">5. Databases as Queues (Anti-Pattern)</h3>
+<p>A common improvisation: use a database table as a task queue — insert rows to "enqueue", update rows to "mark as done".</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- "Queue" table</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">tasks</span><span class="w"> </span><span class="p">(</span><span class="k">type</span><span class="p">,</span><span class="w"> </span><span class="n">payload</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'email'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{"to": "..."}'</span><span class="p">,</span><span class="w"> </span><span class="s1">'pending'</span><span class="p">);</span>
+
+<span class="c1">-- Worker polls</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">tasks</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'pending'</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">;</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">tasks</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'processing'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>Why this is problematic:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Polling overhead</strong></td>
+<td>Workers must constantly query the DB even when no tasks exist — wasted CPU &amp; DB load</td>
+</tr>
+<tr>
+<td><strong>Locking contention</strong></td>
+<td>Multiple workers racing to claim the same row causes DB lock contention</td>
+</tr>
+<tr>
+<td><strong>No push notification</strong></td>
+<td>Database cannot proactively notify workers — only polling works</td>
+</tr>
+<tr>
+<td><strong>Scalability ceiling</strong></td>
+<td>General-purpose databases are not optimized for high-throughput queue patterns</td>
+</tr>
+<tr>
+<td><strong>No routing or fanout</strong></td>
+<td>No native concept of topics, exchanges, or pub/sub</td>
+</tr>
+<tr>
+<td><strong>DB becomes a bottleneck</strong></td>
+<td>Mixes transactional business data workload with queue workload on same DB</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Use a proper message broker.</strong> Databases-as-queues work for very low throughput systems but fail under any real load. This pattern is sometimes called the <strong>"transactional outbox"</strong> when done carefully, but even then a real broker is preferred.</p>
+</blockquote>
+<hr />
+<h2 id="35-protocols-implementations">3.5 Protocols &amp; Implementations</h2>
+<h3 id="amqp-advanced-message-queuing-protocol">AMQP — Advanced Message Queuing Protocol</h3>
+<p><strong>AMQP</strong> is an open standard wire-level protocol for message brokers — it defines exactly how bytes are transmitted between producers, brokers, and consumers.</p>
+<p><strong>Key concepts in AMQP:</strong></p>
+<div class="highlight"><pre><span></span><code>Producer
+   │
+   │ publish(exchange="tasks", routing_key="email")
+   ▼
+[Exchange]  ──binding──►  [Queue: email_tasks]  ──►  Consumer 1
+            ──binding──►  [Queue: sms_tasks]    ──►  Consumer 2
+            ──binding──►  [Queue: push_tasks]   ──►  Consumer 3
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>AMQP Concept</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Producer</strong></td>
+<td>Publishes messages to an Exchange</td>
+</tr>
+<tr>
+<td><strong>Exchange</strong></td>
+<td>Receives messages and routes them to queues based on rules</td>
+</tr>
+<tr>
+<td><strong>Binding</strong></td>
+<td>Rule that connects an Exchange to a Queue (routing key / pattern)</td>
+</tr>
+<tr>
+<td><strong>Queue</strong></td>
+<td>Buffer that holds messages until consumed</td>
+</tr>
+<tr>
+<td><strong>Consumer</strong></td>
+<td>Subscribes to a Queue and processes messages</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exchange types:</strong>
+- <strong>Direct</strong>: Routes to queue whose binding key exactly matches the routing key.
+- <strong>Fanout</strong>: Routes to ALL bound queues (broadcast/pub-sub).
+- <strong>Topic</strong>: Routes based on wildcard pattern matching (<code>logs.#</code>, <code>*.error</code>).
+- <strong>Headers</strong>: Routes based on message header attributes.</p>
+<p><strong>Notable implementations:</strong> RabbitMQ, Apache ActiveMQ, Azure Service Bus.</p>
+<hr />
+<h3 id="rabbitmq">RabbitMQ</h3>
+<p><strong>RabbitMQ</strong> is the most popular open-source AMQP-compliant message broker.</p>
+<p><strong>Key characteristics:</strong>
+- Implements the full AMQP protocol — supports all exchange types, complex routing.
+- Written in <strong>Erlang</strong> — extremely reliable, battle-tested for high-availability systems.
+- <strong>Persistent queues</strong> — messages can be written to disk, surviving broker restarts.
+- <strong>Acknowledgements</strong> — consumers explicitly ack messages; unacked messages are redelivered if worker crashes.
+- <strong>Management UI</strong> — built-in web dashboard for monitoring queues, exchanges, connections.
+- <strong>Clustering &amp; HA</strong> — supports mirrored queues across nodes for fault tolerance.</p>
+<div class="highlight"><pre><span></span><code>RabbitMQ Architecture:
+                    ┌──────────────────────────────────┐
+                    │          RabbitMQ Broker          │
+Producer ──────────►│  Exchange ──routing──► Queue(s)  │──────────► Consumer(s)
+                    │                                  │
+                    └──────────────────────────────────┘
+                           (AMQP over TCP)
+</code></pre></div>
+<p><strong>Best for:</strong> Complex routing scenarios, enterprise-grade reliability, when you need AMQP semantics, Celery's recommended broker for production.</p>
+<p><strong>Trade-offs:</strong>
+- More complex to set up and operate than Redis.
+- Requires its own server process (Erlang runtime).
+- Heavier resource footprint.</p>
+<hr />
+<h3 id="redis-as-a-message-broker">Redis (as a Message Broker)</h3>
+<p><strong>Redis</strong> is primarily an <strong>in-memory key-value data store</strong>, but it has built-in features that make it suitable as a lightweight message broker.</p>
+<p><strong>Redis features for messaging:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lists</strong> (<code>LPUSH</code>/<code>BRPOP</code>)</td>
+<td>Atomic list operations for simple queues</td>
+<td>Basic task queue (Celery with Redis broker)</td>
+</tr>
+<tr>
+<td><strong>Pub/Sub</strong></td>
+<td>Native publish/subscribe channels</td>
+<td>Real-time event broadcasting</td>
+</tr>
+<tr>
+<td><strong>Streams</strong> (<code>XADD</code>/<code>XREAD</code>)</td>
+<td>Persistent, consumer-group-aware log</td>
+<td>Kafka-like event streaming (Redis 5.0+)</td>
+</tr>
+<tr>
+<td><strong>Sorted Sets</strong></td>
+<td>Priority queue by score</td>
+<td>Priority task queues</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key characteristics:</strong>
+- <strong>In-memory</strong> — extremely fast (sub-millisecond operations), but data lives in RAM.
+- <strong>Simple to set up</strong> — single binary, minimal configuration vs. RabbitMQ.
+- <strong>High performance</strong> — handles hundreds of thousands of operations/second.
+- <strong>Pub/Sub support</strong> — built-in publish/subscribe for event broadcasting.</p>
+<p><strong>Persistence considerations:</strong>
+- By default, Redis is <strong>purely in-memory</strong> — a crash loses all data in the queue.
+- <strong>RDB snapshots</strong> — periodic dumps to disk (risk: lose last N minutes of messages).
+- <strong>AOF (Append Only File)</strong> — log every write to disk (near-zero data loss, higher disk I/O).
+- For task queues where message loss is unacceptable, configure <strong>AOF + fsync always</strong> or use RabbitMQ.</p>
+<div class="highlight"><pre><span></span><code>Redis as Celery Broker:
+
+Celery App: task.delay()
+     │ LPUSH celery_queue "task_body"
+     ▼
+  [Redis List: celery_queue]
+     │ BRPOP (blocking pop, worker waits for tasks)
+     ▼
+  Celery Worker processes task
+</code></pre></div>
+<p><strong>Best for:</strong> Development/testing (easy setup), low-to-medium throughput production, when Redis is already in the stack (as cache/session store), when persistence requirements are flexible.</p>
+<p><strong>Trade-offs vs. RabbitMQ:</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Redis</th>
+<th>RabbitMQ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Setup complexity</td>
+<td>⭐ Simple</td>
+<td>⭐⭐⭐ Complex</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>⭐⭐⭐ Extremely fast</td>
+<td>⭐⭐ Fast</td>
+</tr>
+<tr>
+<td>Durability by default</td>
+<td>❌ In-memory (configurable)</td>
+<td>✅ Persistent</td>
+</tr>
+<tr>
+<td>Routing capabilities</td>
+<td>❌ Basic</td>
+<td>✅ Complex (AMQP)</td>
+</tr>
+<tr>
+<td>Pub/Sub</td>
+<td>✅ Native</td>
+<td>✅ Via fanout exchange</td>
+</tr>
+<tr>
+<td>Monitoring</td>
+<td>⭐ Redis-CLI / RedisInsight</td>
+<td>⭐⭐⭐ Built-in Management UI</td>
+</tr>
+<tr>
+<td>Production recommendation</td>
+<td>Medium-scale</td>
+<td>Large-scale / critical</td>
+</tr>
+</tbody>
+</table>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../02_async_task_architecture/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Asynchronous task architecture">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Asynchronous task architecture
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../04_task_queue_mechanics/" class="md-footer__link md-footer__link--next" aria-label="Next: Task queue mechanics">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Task queue mechanics
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

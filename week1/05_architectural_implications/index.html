@@ -1,0 +1,4359 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week1/05_architectural_implications/">
+      
+      
+        <link rel="prev" href="../04_javascript_origins_standardization/">
+      
+      
+        <link rel="next" href="../06_program_structure_execution/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Architectural implications - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#topic-5-architectural-implications-of-javascripts-origins" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architectural implications
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51-design-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Design Trade-offs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 Design Trade-offs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trade-off-1-ease-of-use-prioritized-over-execution-speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trade-off 1: Ease-of-Use Prioritized Over Execution Speed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trade-off-2-high-error-tolerance-silent-failures-vs-fatal-crashes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trade-off 2: High Error Tolerance — Silent Failures vs. Fatal Crashes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-solution-use-strict-strict-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Solution: "use strict" — Strict Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-syntactic-ambiguities-quirks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Syntactic Ambiguities &amp; Quirks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 Syntactic Ambiguities &amp; Quirks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quirk-1-automatic-semicolon-insertion-asi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quirk 1: Automatic Semicolon Insertion (ASI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quirk-2-grammar-collisions-as-object-literal-vs-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quirk 2: Grammar Collisions — {} as Object Literal vs. Block
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quirk-3-function-declarations-vs-function-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quirk 3: Function Declarations vs. Function Expressions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53-execution-model-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Execution Model &amp; I/O
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Execution Model &amp; I/O">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restricted-native-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restricted Native I/O
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-dom-the-real-io-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The DOM: The Real I/O Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concurrency-model-the-event-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concurrency Model: The Event Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-topic-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of Topic 5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51-design-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Design Trade-offs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 Design Trade-offs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trade-off-1-ease-of-use-prioritized-over-execution-speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trade-off 1: Ease-of-Use Prioritized Over Execution Speed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trade-off-2-high-error-tolerance-silent-failures-vs-fatal-crashes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trade-off 2: High Error Tolerance — Silent Failures vs. Fatal Crashes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-solution-use-strict-strict-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Solution: "use strict" — Strict Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-syntactic-ambiguities-quirks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Syntactic Ambiguities &amp; Quirks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 Syntactic Ambiguities &amp; Quirks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quirk-1-automatic-semicolon-insertion-asi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quirk 1: Automatic Semicolon Insertion (ASI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quirk-2-grammar-collisions-as-object-literal-vs-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quirk 2: Grammar Collisions — {} as Object Literal vs. Block
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quirk-3-function-declarations-vs-function-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quirk 3: Function Declarations vs. Function Expressions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53-execution-model-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Execution Model &amp; I/O
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Execution Model &amp; I/O">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restricted-native-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restricted Native I/O
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-dom-the-real-io-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The DOM: The Real I/O Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concurrency-model-the-event-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concurrency Model: The Event Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-topic-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of Topic 5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="topic-5-architectural-implications-of-javascripts-origins">Topic 5: Architectural Implications of JavaScript's Origins</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Topic 5: Architectural Implications of JavaScript's Origins</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<blockquote>
+<p><strong>MAD-II Week 1 | Detailed Notes</strong></p>
+</blockquote>
+<hr />
+<h2 id="overview">Overview</h2>
+<p>JavaScript was designed in 10 days for non-professional programmers to write simple glue scripts. This origin story has <strong>permanent consequences</strong> baked into the language's architecture. Many of JavaScript's most confusing behaviors aren't bugs — they are deliberate (if sometimes regrettable) design decisions made under specific constraints.</p>
+<p>Understanding these implications is not just academic trivia. It makes you a better JavaScript developer — you'll recognize patterns that look like bugs, understand why strict mode exists, and write safer, more predictable code.</p>
+<hr />
+<h2 id="51-design-trade-offs">5.1 Design Trade-offs</h2>
+<h3 id="trade-off-1-ease-of-use-prioritized-over-execution-speed">Trade-off 1: Ease-of-Use Prioritized Over Execution Speed</h3>
+<h4 id="the-original-goal">The Original Goal</h4>
+<p>JavaScript's target audience in 1995 was <strong>web designers and non-programmers</strong> — people who understood HTML and CSS but were not software engineers. The language had to be:
+- Easy to learn (minimal syntax ceremony)
+- Forgiving of mistakes (don't crash the whole browser tab over a typo)
+- Quick to write (no build steps, no type declarations, no compilation)</p>
+<h4 id="the-consequence-an-interpreted-dynamically-typed-language">The Consequence: An Interpreted, Dynamically Typed Language</h4>
+<p>To achieve ease-of-use, JavaScript made decisions that hurt initial performance:</p>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Ease Benefit</th>
+<th>Performance Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dynamic typing</strong></td>
+<td>No type declarations needed</td>
+<td>Runtime type checks on every operation</td>
+</tr>
+<tr>
+<td><strong>Interpreted execution</strong></td>
+<td>No compile step</td>
+<td>No compile-time optimizations</td>
+</tr>
+<tr>
+<td><strong>Garbage collection</strong></td>
+<td>No manual memory management</td>
+<td>Unpredictable GC pauses</td>
+</tr>
+<tr>
+<td><strong>Prototype chain lookups</strong></td>
+<td>Flexible object system</td>
+<td>Property lookup traverses the chain</td>
+</tr>
+</tbody>
+</table>
+<h4 id="how-javascript-recovered-performance-jit-compilation">How JavaScript Recovered Performance: JIT Compilation</h4>
+<p>The performance gap closed dramatically with the <strong>V8 engine (2008)</strong>, which introduced <strong>JIT (Just-In-Time) compilation</strong>:</p>
+<div class="highlight"><pre><span></span><code>Traditional Interpretation:          JIT Compilation:
+Source code                          Source code
+    │                                    │
+    ▼                                    ▼
+Execute line-by-line                Parse to AST (Abstract Syntax Tree)
+(slow — no optimization)                │
+                                        ▼
+                                   Identify "hot" code paths
+                                   (code run repeatedly)
+                                        │
+                                        ▼
+                                   Compile hot paths to
+                                   native machine code
+                                        │
+                                        ▼
+                                   Execute at near-native speed
+</code></pre></div>
+<blockquote>
+<p>The V8 engine's JIT compilation was the key technical breakthrough that enabled <strong>Node.js</strong> and made JavaScript viable for server-side use. Today, JS performance is within 2–3x of C++ for many workloads.</p>
+</blockquote>
+<hr />
+<h3 id="trade-off-2-high-error-tolerance-silent-failures-vs-fatal-crashes">Trade-off 2: High Error Tolerance — Silent Failures vs. Fatal Crashes</h3>
+<h4 id="the-design-intent">The Design Intent</h4>
+<p>A JavaScript error on a web page should <strong>not crash the entire browser tab</strong>. In 1995, the web was mostly browsing documents — an error in an optional interactive widget shouldn't prevent the user from reading the page.</p>
+<p>JavaScript was therefore designed to be <strong>maximally permissive</strong>:
+- Operations that would throw exceptions in other languages silently return special values
+- Type mismatches trigger coercion rather than errors
+- Accessing non-existent properties returns <code>undefined</code> instead of crashing</p>
+<h4 id="examples-of-silent-permissiveness">Examples of Silent Permissiveness</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Dividing by zero — Python throws ZeroDivisionError, JS silently returns Infinity</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">10</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w">          </span><span class="c1">// Infinity (not an error!)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="o">-</span><span class="mf">10</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w">         </span><span class="c1">// -Infinity</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w">           </span><span class="c1">// NaN (Not a Number — still not an error!)</span>
+
+<span class="c1">// Accessing a property that doesn't exist — returns undefined, not an error</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"Vinay"</span><span class="w"> </span><span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span><span class="w">        </span><span class="c1">// undefined (no crash)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">bar</span><span class="p">);</span><span class="w">    </span><span class="c1">// TypeError: Cannot read property 'bar' of undefined</span>
+<span class="w">                              </span><span class="c1">// (only crashes when you try to go TWO levels deep!)</span>
+
+<span class="c1">// Adding incompatible types — coercion instead of error</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"5"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3</span><span class="p">);</span><span class="w">         </span><span class="c1">// "53"  (number coerced to string, then concatenated!)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"5"</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">3</span><span class="p">);</span><span class="w">         </span><span class="c1">// 2     (string coerced to number, then subtracted)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">([]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">[]);</span><span class="w">         </span><span class="c1">// ""    (two empty arrays added = empty string!)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">({}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">[]);</span><span class="w">         </span><span class="c1">// "[object Object]" (object + array = ???)</span>
+</code></pre></div>
+<h4 id="the-problem-this-creates">The Problem This Creates</h4>
+<p>Silent failures are <strong>catastrophic in complex applications</strong>:
+- A bug can propagate silently through many layers before causing an observable symptom
+- The symptom is usually far removed from the actual bug — extremely hard to debug
+- Code that "works" may be doing completely wrong things silently</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Real-world silent failure example:</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">calculateTotal</span><span class="p">(</span><span class="nx">price</span><span class="p">,</span><span class="w"> </span><span class="nx">quantity</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">price</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">quantity</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Bug: quantity comes from a form input as a string "5" instead of number 5</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">calculateTotal</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="s2">"5"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">total</span><span class="p">);</span><span class="w">  </span><span class="c1">// 50 — Works! JavaScript coerced "5" to 5 for multiplication</span>
+<span class="w">                     </span><span class="c1">// But now try:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">discounted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">calculateTotal</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="s2">"5"</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w">  </span><span class="c1">// "5" - 1 = 4 (coercion)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">broken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">calculateTotal</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="s2">"5"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w">       </span><span class="c1">// "5" + 1 = "51" (concatenation!)</span>
+<span class="w">                                                  </span><span class="c1">// total = 1051 — WRONG! No error thrown.</span>
+</code></pre></div>
+<hr />
+<h3 id="the-solution-use-strict-strict-mode">The Solution: <code>"use strict"</code> — Strict Mode</h3>
+<p><strong>Strict Mode</strong> was introduced in <strong>ES5 (2009)</strong> as an opt-in mechanism to make JavaScript throw errors instead of silently tolerating common mistakes.</p>
+<h4 id="how-to-enable-strict-mode">How to Enable Strict Mode</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// 1. File-level: Add as the FIRST statement in a .js file</span>
+<span class="s2">"use strict"</span><span class="p">;</span>
+
+<span class="c1">// All code in this file now runs in strict mode</span>
+
+<span class="c1">// 2. Function-level: Add as the first statement inside a function</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">myFunction</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="s2">"use strict"</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// Only this function runs in strict mode</span>
+<span class="p">}</span>
+
+<span class="c1">// 3. ES6 Modules: Automatically in strict mode (no directive needed!)</span>
+<span class="c1">// import/export files are always strict</span>
+</code></pre></div>
+<h4 id="what-strict-mode-changes-fixes">What Strict Mode Changes / Fixes</h4>
+<table>
+<thead>
+<tr>
+<th>Non-strict Behavior (Sloppy Mode)</th>
+<th>Strict Mode Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Using undeclared variables creates global variables</td>
+<td><code>ReferenceError: x is not defined</code></td>
+</tr>
+<tr>
+<td>Deleting non-deletable properties silently fails</td>
+<td><code>TypeError</code> thrown</td>
+</tr>
+<tr>
+<td>Duplicate parameter names allowed</td>
+<td><code>SyntaxError</code></td>
+</tr>
+<tr>
+<td><code>this</code> in functions without a caller = <code>window</code> (global)</td>
+<td><code>this</code> is <code>undefined</code></td>
+</tr>
+<tr>
+<td><code>with</code> statement allowed</td>
+<td><code>SyntaxError</code> (banned entirely)</td>
+</tr>
+<tr>
+<td>Writing to read-only properties silently fails</td>
+<td><code>TypeError</code> thrown</td>
+</tr>
+<tr>
+<td>Octal literals (<code>0755</code>) allowed</td>
+<td><code>SyntaxError</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1">// WITHOUT strict mode:</span>
+<span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span><span class="w">           </span><span class="c1">// Creates a global variable silently — DANGEROUS</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span><span class="w">   </span><span class="c1">// 10 — works, but x pollutes global scope</span>
+
+<span class="c1">// WITH strict mode:</span>
+<span class="s2">"use strict"</span><span class="p">;</span>
+<span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span><span class="w">           </span><span class="c1">// ReferenceError: x is not defined</span>
+<span class="w">                  </span><span class="c1">// Forces you to write: let x = 10; — CORRECT</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Best practice</strong>: Always use <code>"use strict"</code> in legacy JS files. In modern development, use ES6 modules — they're automatically in strict mode, so no directive is needed.</p>
+</blockquote>
+<hr />
+<h2 id="52-syntactic-ambiguities-quirks">5.2 Syntactic Ambiguities &amp; Quirks</h2>
+<p>JavaScript's grammar has several points of <strong>deliberate ambiguity</strong> — places where the same syntax can be parsed in two different ways, and the parser must choose one. These are a direct result of the rushed 10-day design.</p>
+<h3 id="quirk-1-automatic-semicolon-insertion-asi">Quirk 1: Automatic Semicolon Insertion (ASI)</h3>
+<h4 id="the-mechanism">The Mechanism</h4>
+<p>JavaScript allows you to <strong>omit semicolons</strong> at the end of statements. The parser will <strong>automatically insert them</strong> according to a set of rules — this is called <strong>Automatic Semicolon Insertion (ASI)</strong>.</p>
+<p>This was a usability feature for beginners: "Don't worry about semicolons!" But it creates subtle, dangerous bugs.</p>
+<h4 id="the-core-asi-rule">The Core ASI Rule</h4>
+<p>A semicolon is automatically inserted before a newline when the parser determines that the newline <strong>cannot be part of the current statement</strong>.</p>
+<h4 id="asi-working-correctly-most-cases">ASI Working Correctly (Most Cases)</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// These are all valid without semicolons:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span><span class="w">    </span><span class="c1">// 3 — works fine, ASI inserts semicolons at line ends</span>
+</code></pre></div>
+<h4 id="asi-causing-dangerous-bugs">ASI Causing Dangerous Bugs</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Bug 1: Return statement with value on next line</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">getUser</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w">        </span><span class="c1">// ← ASI inserts semicolon HERE!</span>
+<span class="w">  </span><span class="p">{</span><span class="w">             </span><span class="c1">// This object literal is now DEAD CODE — never reached</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"Vinay"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">age</span><span class="o">:</span><span class="w"> </span><span class="mf">25</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getUser</span><span class="p">());</span><span class="w">  </span><span class="c1">// undefined — NOT the object you expected!</span>
+
+<span class="c1">// Fix: Keep the opening brace on the SAME line as return</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">getUser</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w">      </span><span class="c1">// ← No newline between return and {</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"Vinay"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">age</span><span class="o">:</span><span class="w"> </span><span class="mf">25</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Bug 2: Lines starting with ( or [ can be misread</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span>
+
+<span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="p">).</span><span class="nx">toString</span><span class="p">()</span><span class="w">    </span><span class="c1">// JavaScript reads this as: const b = 2(a + b).toString()</span>
+<span class="w">                      </span><span class="c1">// → TypeError: 2 is not a function!</span>
+
+<span class="c1">// Fix 1: Add a semicolon before the problematic line</span>
+<span class="p">;(</span><span class="nx">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="p">).</span><span class="nx">toString</span><span class="p">()</span><span class="w">   </span><span class="c1">// Defensive semicolons (used in minified code / libraries)</span>
+
+<span class="c1">// Fix 2: Use semicolons consistently everywhere</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span>
+<span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="p">).</span><span class="nx">toString</span><span class="p">();</span><span class="w">   </span><span class="c1">// Now unambiguous</span>
+</code></pre></div>
+<h4 id="asi-hazard-characters">ASI Hazard Characters</h4>
+<p>Lines beginning with these characters can combine with the previous line unexpectedly:
+- <code>(</code> — looks like a function call
+- <code>[</code> — looks like array subscript / property access
+- <code>`</code> — looks like a tagged template literal
+- <code>/</code> — looks like a regex literal OR division (context-dependent)
+- <code>+</code> — looks like addition continuation
+- <code>-</code> — looks like subtraction continuation</p>
+<blockquote>
+<p><strong>Community split</strong>: Some JS style guides (Standard JS, Prettier default) omit semicolons and rely on ASI. Others (Airbnb style guide) mandate explicit semicolons everywhere. Either is valid — <strong>be consistent within a project</strong>.</p>
+</blockquote>
+<hr />
+<h3 id="quirk-2-grammar-collisions-as-object-literal-vs-block">Quirk 2: Grammar Collisions — <code>{}</code> as Object Literal vs. Block</h3>
+<p>The curly brace <code>{</code> is <strong>overloaded in JavaScript</strong> — it can mean two completely different things depending on context:</p>
+<h4 id="as-a-code-block-statement-context">As a Code Block (Statement context)</h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// Here, {} is a block statement — a scope for let/const</span>
+</code></pre></div>
+<h4 id="as-an-object-literal-expression-context">As an Object Literal (Expression context)</h4>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"Vinay"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">age</span><span class="o">:</span><span class="w"> </span><span class="mf">25</span>
+<span class="p">};</span>
+<span class="c1">// Here, {} is an object literal — creates a new object</span>
+</code></pre></div>
+<h4 id="the-collision-when-is-ambiguous">The Collision: When <code>{}</code> is Ambiguous</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Try evaluating this in the browser console:</span>
+<span class="p">{}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">[]</span>
+
+<span class="c1">// What do you expect? An empty object + empty array?</span>
+<span class="c1">// Actual result: 0</span>
+
+<span class="c1">// Why? The parser sees {} as a BLOCK STATEMENT (empty block), not an object!</span>
+<span class="c1">// It then evaluates: + []  (unary + on empty array)</span>
+<span class="c1">// + [] coerces [] to a number → + "" → 0</span>
+
+<span class="c1">// Compare:</span>
+<span class="p">({}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">[])</span><span class="w">    </span><span class="c1">// "[object Object]"  (now {} is forced into EXPRESSION context by the ()</span>
+<span class="w">             </span><span class="c1">// so it IS an object literal, then + [] concatenates to string)</span>
+</code></pre></div>
+<p>This collision causes real confusion in:
+- <strong>Destructuring</strong> vs. <strong>block</strong> at the start of a statement
+- <strong>Arrow functions</strong> returning objects (must wrap in parentheses)</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Arrow function returning an object — WRONG:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">getUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"Vinay"</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// {} parsed as FUNCTION BODY, not object!</span>
+<span class="nx">getUser</span><span class="p">();</span><span class="w">  </span><span class="c1">// returns undefined</span>
+
+<span class="c1">// Arrow function returning an object — CORRECT:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">getUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"Vinay"</span><span class="w"> </span><span class="p">});</span><span class="w">  </span><span class="c1">// () forces expression context</span>
+<span class="nx">getUser</span><span class="p">();</span><span class="w">  </span><span class="c1">// returns { name: "Vinay" }</span>
+</code></pre></div>
+<hr />
+<h3 id="quirk-3-function-declarations-vs-function-expressions">Quirk 3: Function Declarations vs. Function Expressions</h3>
+<p>Functions in JavaScript can be written in two fundamentally different ways that <strong>look nearly identical</strong> but behave very differently:</p>
+<h4 id="function-declaration-statement">Function Declaration (Statement)</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// A function DECLARATION — this is a statement</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">greet</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="sb">`Hello, </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="function-expression">Function Expression</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// A function EXPRESSION — this is an expression assigned to a variable</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">greet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="sb">`Hello, </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<h4 id="the-critical-difference-hoisting">The Critical Difference: Hoisting</h4>
+<p><strong>Hoisting</strong> is JavaScript's behavior of moving declarations to the top of their scope before execution. The two function forms hoist very differently:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Function DECLARATION: Fully hoisted — can be called BEFORE it's defined</span>
+<span class="nx">sayHello</span><span class="p">();</span><span class="w">         </span><span class="c1">// "Hello!" — Works! The declaration is hoisted</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">sayHello</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Hello!"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// ─────────────────────────────────────────────</span>
+
+<span class="c1">// Function EXPRESSION: Not hoisted — cannot be called before assignment</span>
+<span class="nx">sayGoodbye</span><span class="p">();</span><span class="w">       </span><span class="c1">// ReferenceError: Cannot access 'sayGoodbye' before initialization</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">sayGoodbye</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Goodbye!"</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div>
+<h4 id="why-this-matters">Why This Matters</h4>
+<p>The parser needs to know which form it's dealing with <strong>before reading the full statement</strong> — leading to the context-dependence described above (a <code>{</code> at the start of a statement is a block, not an object).</p>
+<hr />
+<h2 id="53-execution-model-io">5.3 Execution Model &amp; I/O</h2>
+<h3 id="restricted-native-io">Restricted Native I/O</h3>
+<p>Unlike Python (<code>input()</code>, <code>print()</code>), C (<code>scanf()</code>, <code>printf()</code>), or Java (<code>Scanner</code>, <code>System.out</code>), JavaScript was designed to run <strong>inside a browser sandbox</strong> — a security boundary that prevents arbitrary access to the system.</p>
+<h4 id="why-the-restriction">Why the Restriction?</h4>
+<p>If any website's JavaScript could read your files, send arbitrary network requests, or access your OS — the web would be catastrophically insecure.</p>
+<p>JavaScript intentionally has <strong>no built-in I/O primitives for</strong>:
+- Reading/writing files from the file system
+- Accessing hardware directly (camera, microphone, GPS — only via explicit browser APIs)
+- Creating arbitrary network sockets
+- Accessing the OS or other processes</p>
+<h4 id="the-primary-output-consolelog">The Primary Output: <code>console.log</code></h4>
+<p>The closest equivalent to <code>print()</code> is <code>console.log()</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Hello, World!"</span><span class="p">);</span><span class="w">          </span><span class="c1">// Basic output</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"User:"</span><span class="p">,</span><span class="w"> </span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span><span class="w">       </span><span class="c1">// Multiple values (comma-separated)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">({</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"Vinay"</span><span class="p">,</span><span class="w"> </span><span class="nx">age</span><span class="o">:</span><span class="w"> </span><span class="mf">25</span><span class="w"> </span><span class="p">});</span><span class="w"> </span><span class="c1">// Objects are pretty-printed</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">"This is a warning"</span><span class="p">);</span><span class="w">     </span><span class="c1">// Yellow warning in browser console</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">"Something went wrong"</span><span class="p">);</span><span class="w"> </span><span class="c1">// Red error in browser console</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">table</span><span class="p">([{</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"A"</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"B"</span><span class="p">}]);</span><span class="w"> </span><span class="c1">// Tabular display</span>
+</code></pre></div>
+<p><strong>Limitation</strong>: <code>console.log</code> outputs to the <strong>browser DevTools console</strong> — not visible to regular users. It's a debugging tool, not a user-facing output mechanism.</p>
+<hr />
+<h3 id="the-dom-the-real-io-layer">The DOM: The Real I/O Layer</h3>
+<p>The actual way JavaScript interacts with users is through the <strong>DOM (Document Object Model)</strong> — a browser-provided API that represents the HTML page as a live, manipulable tree of objects.</p>
+<div class="highlight"><pre><span></span><code>HTML Source:                    DOM Tree in Memory:
+&lt;html&gt;                          Document
+  &lt;body&gt;                           └── html
+    &lt;h1&gt;Hello&lt;/h1&gt;                      └── body
+    &lt;p&gt;World&lt;/p&gt;                              ├── h1 ("Hello")
+  &lt;/body&gt;                                     └── p ("World")
+&lt;/html&gt;
+
+JavaScript can read and modify this tree at any time.
+Changes to the tree are instantly reflected in what the user sees.
+</code></pre></div>
+<p>The DOM is the <strong>tight coupling</strong> between JavaScript and the browser's presentation layer — manipulating the DOM is how JavaScript produces visual output and reads user input.</p>
+<hr />
+<h3 id="concurrency-model-the-event-loop">Concurrency Model: The Event Loop</h3>
+<p>This is one of the most important and unique aspects of JavaScript's architecture.</p>
+<h4 id="javascript-is-single-threaded">JavaScript is Single-Threaded</h4>
+<p>JavaScript has <strong>one call stack</strong> — it can only execute one thing at a time. There is no true parallelism in the language itself (Web Workers exist but are separate contexts).</p>
+<div class="highlight"><pre><span></span><code>Other languages (Python with threads, Java):
+  Thread 1: [task A running] ──────────────────────────►
+  Thread 2:         [task B running simultaneously] ────►
+  (True parallelism)
+
+JavaScript:
+  Single thread: [task A] → [task B] → [task C] → ...
+  (Sequential — only one thing at a time)
+</code></pre></div>
+<h4 id="the-problem-what-about-slow-operations">The Problem: What About Slow Operations?</h4>
+<p>If JavaScript is single-threaded, how can it:
+- Wait for a network response (could take 5+ seconds)?
+- Wait for a user to click something?
+- Set a 3-second timer?</p>
+<p>If these operations <strong>blocked</strong> the single thread, the entire browser tab would freeze — no animations, no button responses, nothing.</p>
+<h4 id="the-solution-the-event-loop-asynchronous-model">The Solution: The Event Loop + Asynchronous Model</h4>
+<p>JavaScript's runtime environment (browser or Node.js) uses an <strong>Event Loop</strong> to handle this:</p>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────┐
+│                  JavaScript Runtime                  │
+│                                                     │
+│  ┌─────────────┐      ┌───────────────────────────┐ │
+│  │  Call Stack │      │      Web APIs / C++ APIs  │ │
+│  │             │      │  (browser/Node.js handles) │ │
+│  │ [main()]    │──────│  - setTimeout timer        │ │
+│  │ [greet()]   │      │  - fetch() network request │ │
+│  │             │      │  - addEventListener        │ │
+│  └──────┬──────┘      └───────────────┬───────────┘ │
+│         │                             │             │
+│         │         (When async work    │             │
+│         │          completes, its     │             │
+│         │          callback goes to)  │             │
+│         │                             ▼             │
+│         │             ┌──────────────────────────┐  │
+│         │             │     Callback Queue /     │  │
+│         │             │     Task Queue           │  │
+│         │             │  [callback1, callback2]  │  │
+│         │             └──────────────┬───────────┘  │
+│         │                            │              │
+│         │           ┌────────────────▼──────────┐   │
+│         └───────────│       Event Loop           │   │
+│                     │  "Is the call stack empty? │   │
+│                     │   If yes, take the next    │   │
+│                     │   callback from the queue" │   │
+│                     └───────────────────────────┘   │
+└─────────────────────────────────────────────────────┘
+</code></pre></div>
+<h4 id="step-by-step-event-loop-example">Step-by-Step Event Loop Example</h4>
+<div class="highlight"><pre><span></span><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"1: Start"</span><span class="p">);</span>
+
+<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"3: Timeout callback"</span><span class="p">);</span><span class="w">  </span><span class="c1">// Scheduled for "later"</span>
+<span class="p">},</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w">  </span><span class="c1">// Even 0ms delay is async!</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"2: End"</span><span class="p">);</span>
+
+<span class="c1">// Output order:</span>
+<span class="c1">// 1: Start</span>
+<span class="c1">// 2: End</span>
+<span class="c1">// 3: Timeout callback   ← Runs AFTER the main code, even with 0ms delay!</span>
+</code></pre></div>
+<p><strong>Why?</strong> Even with <code>0</code> ms delay:
+1. <code>console.log("1: Start")</code> → Call Stack → executes → pops off
+2. <code>setTimeout(callback, 0)</code> → Web APIs handle the timer (immediately resolves)
+3. <code>console.log("2: End")</code> → Call Stack → executes → pops off
+4. Call stack is now <strong>empty</strong> → Event Loop checks the queue
+5. Finds the timeout callback → pushes to Call Stack → executes → "3: Timeout callback"</p>
+<h4 id="non-blocking-asynchronous-processing">Non-Blocking Asynchronous Processing</h4>
+<p>This model means JavaScript achieves <strong>concurrency without threads</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// A network request in Python (blocking — thread freezes until response)</span>
+<span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">requests</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"https://api.example.com/data"</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="nx">Entire</span><span class="w"> </span><span class="nx">thread</span><span class="w"> </span><span class="nx">waits</span><span class="w"> </span><span class="nx">here</span>
+<span class="nx">print</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+
+<span class="c1">// Same in JavaScript (non-blocking — event loop continues)</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://api.example.com/data"</span><span class="p">)</span><span class="w">       </span><span class="c1">// Dispatched to Web API — returns immediately</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span><span class="w">        </span><span class="c1">// Callback registered for when it completes</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span><span class="w">         </span><span class="c1">// Chained callback</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"This runs BEFORE the fetch completes!"</span><span class="p">);</span><span class="w">  </span><span class="c1">// Executes immediately</span>
+</code></pre></div>
+<h4 id="real-consequences-of-single-threaded-execution">Real Consequences of Single-Threaded Execution</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// DON'T block the event loop with heavy computation:</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">heavyComputation</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">10</span><span class="nx">_000_000_000</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// 10 billion iterations</span>
+<span class="w">    </span><span class="nx">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">i</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">sum</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// While this runs, the ENTIRE tab freezes — no animations, no button clicks respond</span>
+<span class="c1">// This is why heavy work is offloaded to Web Workers or background tasks</span>
+</code></pre></div>
+<hr />
+<h2 id="summary-of-topic-5">Summary of Topic 5</h2>
+<div class="highlight"><pre><span></span><code>ARCHITECTURAL IMPLICATIONS OF JAVASCRIPT'S ORIGINS
+
+5.1 DESIGN TRADE-OFFS
+  ├── Ease-of-Use &gt; Speed (originally)
+  │     └── Dynamic typing, no compile step, GC
+  │     └── Recovered by V8 JIT compilation (2008)
+  │
+  └── High Error Tolerance (silent failures)
+        ├── 10/0 = Infinity (not an error)
+        ├── "5" + 3 = "53" (coercion, not error)
+        ├── undefined.foo = TypeError only at chain depth 2+
+        └── FIX: "use strict" — converts silent failures to thrown errors
+              (or use ES6 modules — automatically strict)
+
+5.2 SYNTACTIC AMBIGUITIES
+  ├── ASI (Automatic Semicolon Insertion)
+  │     ├── Inserts ; at newlines when parser thinks statement is done
+  │     ├── DANGER: return\n{...} → returns undefined (ASI after return!)
+  │     └── DANGER: Lines starting with (, [, ` can merge with previous line
+  │
+  ├── {} Ambiguity: Block Statement vs. Object Literal
+  │     ├── {} at statement start = block
+  │     ├── {} in expression context = object
+  │     └── FIX: Wrap in () to force expression: () =&gt; ({key: val})
+  │
+  └── Function Declaration vs. Function Expression
+        ├── Declarations: HOISTED — callable before definition
+        ├── Expressions: NOT hoisted — ReferenceError if called before assignment
+        └── Parser must determine which form before reading the full syntax
+
+5.3 EXECUTION MODEL &amp; I/O
+  ├── Restricted I/O (browser sandbox)
+  │     ├── No file system, no OS access, no raw network sockets
+  │     └── Output: console.log (DevTools only), DOM manipulation (user-visible)
+  │
+  ├── DOM: Real I/O layer — live HTML tree manipulable by JS
+  │
+  └── Concurrency: Single-threaded Event Loop
+        ├── One call stack — only one thing at a time
+        ├── Async work (fetch, setTimeout) delegated to Web APIs / Node C++ APIs
+        ├── Callbacks queued when async work completes
+        ├── Event Loop: "Is stack empty? → Run next callback from queue"
+        └── Result: Non-blocking concurrency WITHOUT threads
+</code></pre></div>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../04_javascript_origins_standardization/" class="md-footer__link md-footer__link--prev" aria-label="Previous: JavaScript origins and standardization">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                JavaScript origins and standardization
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../06_program_structure_execution/" class="md-footer__link md-footer__link--next" aria-label="Next: Program structure and execution">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Program structure and execution
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

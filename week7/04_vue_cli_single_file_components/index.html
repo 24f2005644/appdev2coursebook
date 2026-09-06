@@ -1,0 +1,5206 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week7/04_vue_cli_single_file_components/">
+      
+      
+        <link rel="prev" href="../03_spa_modern_web_architecture/">
+      
+      
+        <link rel="next" href="../../week8/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Vue CLI and Single File Components - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-4-vue-cli-single-file-components-sfcs" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Vue CLI and Single File Components
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-motivation-why-not-just-use-cdn-script-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Motivation — Why Not Just Use CDN / Script Tags?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Motivation — Why Not Just Use CDN / Script Tags?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-how-vue-is-used-without-a-build-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 How Vue Is Used Without a Build Tool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-specific-limitations-of-the-cdn-string-template-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Specific Limitations of the CDN / String-Template Approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-the-modern-tooling-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 The Modern Tooling Ecosystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-vue-cli-overview-project-scaffolding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Vue CLI — Overview &amp; Project Scaffolding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Vue CLI — Overview &amp; Project Scaffolding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-what-is-vue-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 What Is Vue CLI?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-installing-and-creating-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Installing and Creating a Project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-the-packagejson-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 The package.json Scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-canonical-vue-cli-project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Canonical Vue CLI Project Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Canonical Vue CLI Project Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#role-of-each-key-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Role of Each Key File
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-structure-syntax-of-a-single-file-component-vue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Structure &amp; Syntax of a Single File Component (.vue)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Structure &amp; Syntax of a Single File Component (.vue)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-the-three-block-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 The Three-Block Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-complete-annotated-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Complete Annotated Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-the-data-function-rule-critical-gotcha" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 The data() Function Rule — Critical Gotcha
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-scoped-css-style-encapsulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Scoped CSS &amp; Style Encapsulation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Scoped CSS &amp; Style Encapsulation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-the-global-css-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 The Global CSS Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-the-style-scoped-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 The &lt;style scoped&gt; Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-how-scoped-css-works-under-the-hood-postcss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 How Scoped CSS Works Under the Hood (PostCSS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-deep-selectors-reaching-into-child-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Deep Selectors — Reaching Into Child Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-global-styles-alongside-scoped-styles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Global Styles Alongside Scoped Styles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-under-the-hood-the-compilation-pipeline-vue-loader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Under the Hood: The Compilation Pipeline &amp; vue-loader
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Under the Hood: The Compilation Pipeline &amp; vue-loader">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-what-does-vue-loader-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 What Does vue-loader Do?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-ahead-of-time-aot-template-compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Ahead-of-Time (AOT) Template Compilation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-hot-module-replacement-hmr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Hot Module Replacement (HMR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-component-composition-modular-workflow-in-sfcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Component Composition &amp; Modular Workflow in SFCs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Component Composition &amp; Modular Workflow in SFCs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-importing-and-registering-child-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Importing and Registering Child Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-local-vs-global-component-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Local vs. Global Component Registration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-inter-component-data-flow-in-sfcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Inter-Component Data Flow in SFCs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-full-project-integration-appvue-router-vuex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Full Project Integration: App.vue, Router &amp; Vuex
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Full Project Integration: App.vue, Router &amp; Vuex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-the-application-entry-point-srcmainjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 The Application Entry Point: src/main.js
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-the-root-layout-srcappvue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 The Root Layout: src/App.vue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-route-configuration-srcrouterindexjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Route Configuration: src/router/index.js
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-route-level-code-splitting-lazy-loading-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 Route-Level Code Splitting (Lazy Loading) — Explained
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85-vuex-store-srcstoreindexjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5 Vuex Store: src/store/index.js
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-key-exam-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary &amp; Key Exam Concepts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-motivation-why-not-just-use-cdn-script-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Motivation — Why Not Just Use CDN / Script Tags?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Motivation — Why Not Just Use CDN / Script Tags?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-how-vue-is-used-without-a-build-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 How Vue Is Used Without a Build Tool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-specific-limitations-of-the-cdn-string-template-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Specific Limitations of the CDN / String-Template Approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-the-modern-tooling-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 The Modern Tooling Ecosystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-vue-cli-overview-project-scaffolding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Vue CLI — Overview &amp; Project Scaffolding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Vue CLI — Overview &amp; Project Scaffolding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-what-is-vue-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 What Is Vue CLI?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-installing-and-creating-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Installing and Creating a Project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-the-packagejson-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 The package.json Scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-canonical-vue-cli-project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Canonical Vue CLI Project Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Canonical Vue CLI Project Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#role-of-each-key-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Role of Each Key File
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-structure-syntax-of-a-single-file-component-vue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Structure &amp; Syntax of a Single File Component (.vue)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Structure &amp; Syntax of a Single File Component (.vue)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-the-three-block-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 The Three-Block Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-complete-annotated-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Complete Annotated Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-the-data-function-rule-critical-gotcha" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 The data() Function Rule — Critical Gotcha
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-scoped-css-style-encapsulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Scoped CSS &amp; Style Encapsulation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Scoped CSS &amp; Style Encapsulation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-the-global-css-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 The Global CSS Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-the-style-scoped-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 The &lt;style scoped&gt; Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-how-scoped-css-works-under-the-hood-postcss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 How Scoped CSS Works Under the Hood (PostCSS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-deep-selectors-reaching-into-child-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Deep Selectors — Reaching Into Child Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-global-styles-alongside-scoped-styles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Global Styles Alongside Scoped Styles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-under-the-hood-the-compilation-pipeline-vue-loader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Under the Hood: The Compilation Pipeline &amp; vue-loader
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Under the Hood: The Compilation Pipeline &amp; vue-loader">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-what-does-vue-loader-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 What Does vue-loader Do?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-ahead-of-time-aot-template-compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Ahead-of-Time (AOT) Template Compilation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-hot-module-replacement-hmr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Hot Module Replacement (HMR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-component-composition-modular-workflow-in-sfcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Component Composition &amp; Modular Workflow in SFCs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Component Composition &amp; Modular Workflow in SFCs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-importing-and-registering-child-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Importing and Registering Child Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-local-vs-global-component-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Local vs. Global Component Registration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-inter-component-data-flow-in-sfcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Inter-Component Data Flow in SFCs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-full-project-integration-appvue-router-vuex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Full Project Integration: App.vue, Router &amp; Vuex
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Full Project Integration: App.vue, Router &amp; Vuex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-the-application-entry-point-srcmainjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 The Application Entry Point: src/main.js
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-the-root-layout-srcappvue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 The Root Layout: src/App.vue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-route-configuration-srcrouterindexjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Route Configuration: src/router/index.js
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-route-level-code-splitting-lazy-loading-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 Route-Level Code Splitting (Lazy Loading) — Explained
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85-vuex-store-srcstoreindexjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5 Vuex Store: src/store/index.js
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-key-exam-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary &amp; Key Exam Concepts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="module-4-vue-cli-single-file-components-sfcs">Module 4: Vue CLI &amp; Single File Components (SFCs)</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Module 4: Vue CLI &amp; Single File Components (SFCs)</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<hr />
+<h2 id="1-motivation-why-not-just-use-cdn-script-tags">1. Motivation — Why Not Just Use CDN / Script Tags?</h2>
+<h3 id="11-how-vue-is-used-without-a-build-tool">1.1 How Vue Is Used Without a Build Tool</h3>
+<p>In its simplest form, Vue can be loaded as a plain CDN script tag in an HTML file:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- CDN / In-browser setup --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Vue</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">el</span><span class="o">:</span><span class="w"> </span><span class="s1">'#app'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">template</span><span class="o">:</span><span class="w"> </span><span class="sb">`&lt;div&gt;{{ message }}&lt;/div&gt;`</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">'Hello, World!'</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>This approach is perfectly valid for quick prototypes, demos, or tiny widgets. But it breaks down immediately at any real application scale.</p>
+<h3 id="12-specific-limitations-of-the-cdn-string-template-approach">1.2 Specific Limitations of the CDN / String-Template Approach</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Problem</th>
+<th style="text-align: left;">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Runtime compilation overhead</strong></td>
+<td style="text-align: left;">When templates are written as strings, Vue must ship its full compiler to the browser (<code>vue.js</code> vs <code>vue.runtime.js</code>). The compiler is ~30% of Vue's total bundle weight. It runs in the user's browser on every page load, consuming CPU time.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>No editor intelligence</strong></td>
+<td style="text-align: left;">String templates are just JavaScript strings. IDEs cannot provide syntax highlighting, autocompletion, or error detection inside them. A typo in a directive is invisible until runtime.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>No CSS encapsulation</strong></td>
+<td style="text-align: left;">CSS written inside <code>&lt;style&gt;</code> tags or separate files is globally scoped. <code>.button { }</code> in one component unintentionally affects <code>.button</code> elements in every other component — causing unpredictable style leakage.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>No preprocessor support</strong></td>
+<td style="text-align: left;">Cannot use TypeScript, SASS, LESS, or PostCSS without a build step.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>No module system</strong></td>
+<td style="text-align: left;">Without a bundler, you cannot use <code>import</code> / <code>export</code> ES modules natively across files in a manageable way. Code must be split across multiple <code>&lt;script&gt;</code> tags with carefully ordered loading.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>No code splitting or tree-shaking</strong></td>
+<td style="text-align: left;">The entire Vue library and all component code is downloaded on initial load, even if 80% of it is for pages the user will never visit.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-the-modern-tooling-ecosystem">1.3 The Modern Tooling Ecosystem</h3>
+<p>A production Vue application relies on the following tools:</p>
+<div class="highlight"><pre><span></span><code>Developer writes .vue files
+          │
+          ▼
+    Node.js Runtime         ← Provides JS execution environment outside browser
+          │
+          ▼
+  npm / yarn / pnpm         ← Package managers (install Vue, vue-loader, Webpack, etc.)
+          │
+          ▼
+  Webpack / Vite            ← Module bundler that processes all assets
+    ├── vue-loader          ← Parses .vue files → template, script, style blocks
+    ├── babel-loader        ← Transpiles ES6+ → ES5 for older browsers
+    ├── css-loader          ← Processes CSS imports
+    └── postcss-loader      ← Applies scoped CSS attribute hashing, autoprefixing
+          │
+          ▼
+  /dist/                    ← Optimized production output
+    ├── index.html
+    ├── app.bundle.js       ← Minified, tree-shaken JavaScript
+    └── app.css             ← Extracted, purged CSS
+</code></pre></div>
+<hr />
+<h2 id="2-vue-cli-overview-project-scaffolding">2. Vue CLI — Overview &amp; Project Scaffolding</h2>
+<h3 id="21-what-is-vue-cli">2.1 What Is Vue CLI?</h3>
+<p><strong>Vue CLI</strong> (<code>@vue/cli</code>) is the official command-line interface for Vue.js. It provides:
+- <strong>Instant scaffolding</strong> of fully-configured projects with zero manual Webpack/Babel configuration.
+- <strong>Interactive preset selection</strong> to pick features relevant to your project.
+- <strong>Plugin architecture</strong> allowing features to be added/removed cleanly at any time.
+- <strong>GUI dashboard</strong> (<code>vue ui</code>) for a browser-based project management interface.</p>
+<p>The CLI has two main packages:
+- <strong><code>@vue/cli</code></strong>: The global CLI tool you install once.
+- <strong><code>@vue/cli-service</code></strong>: Installed per-project; wraps Webpack and provides <code>serve</code>, <code>build</code>, and <code>lint</code> commands.</p>
+<h3 id="22-installing-and-creating-a-project">2.2 Installing and Creating a Project</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install Vue CLI globally (once per machine)</span>
+npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>@vue/cli
+
+<span class="c1"># Verify installation</span>
+vue<span class="w"> </span>--version
+
+<span class="c1"># Create a new project</span>
+vue<span class="w"> </span>create<span class="w"> </span>my-app
+</code></pre></div>
+<p>The interactive wizard prompts you to select features:</p>
+<div class="highlight"><pre><span></span><code>? Please pick a preset:
+  ❯ Default ([Vue 2] babel, eslint)
+    Default (Vue 3) ([Vue 3] babel, eslint)
+    Manually select features
+
+# Manually selecting features gives you:
+? Check the features needed for your project:
+  ◉ Babel
+  ◉ TypeScript
+  ◉ Progressive Web App (PWA) Support
+  ◉ Router
+  ◉ Vuex
+  ◉ CSS Pre-processors
+  ◉ Linter / Formatter
+  ◉ Unit Testing
+  ◉ E2E Testing
+</code></pre></div>
+<h3 id="23-the-packagejson-scripts">2.3 The <code>package.json</code> Scripts</h3>
+<p>Once created, your project's <code>package.json</code> provides these npm scripts:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"serve"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vue-cli-service serve"</span><span class="p">,</span><span class="w">   </span><span class="c1">// Starts dev server with HMR at localhost:8080</span>
+<span class="w">    </span><span class="nt">"build"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vue-cli-service build"</span><span class="p">,</span><span class="w">   </span><span class="c1">// Produces optimised /dist bundle for production</span>
+<span class="w">    </span><span class="nt">"lint"</span><span class="p">:</span><span class="w">  </span><span class="s2">"vue-cli-service lint"</span><span class="w">     </span><span class="c1">// Runs ESLint across all source files</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>serve<span class="w">    </span><span class="c1"># Start development server</span>
+npm<span class="w"> </span>run<span class="w"> </span>build<span class="w">    </span><span class="c1"># Build for production</span>
+npm<span class="w"> </span>run<span class="w"> </span>lint<span class="w">     </span><span class="c1"># Fix linting errors</span>
+</code></pre></div>
+<hr />
+<h2 id="3-canonical-vue-cli-project-structure">3. Canonical Vue CLI Project Structure</h2>
+<p>After running <code>vue create my-app</code>, the following directory structure is generated:</p>
+<div class="highlight"><pre><span></span><code>my-app/
+├── public/
+│   ├── index.html          ← Shell HTML: &lt;div id="app"&gt;&lt;/div&gt; is the mount target
+│   └── favicon.ico
+│
+├── src/
+│   ├── main.js             ← App entry: imports Vue, App.vue, router, store → mounts
+│   ├── App.vue             ← Root SFC: houses &lt;router-view&gt;, global nav, layout
+│   │
+│   ├── components/         ← Reusable, generic, atomic UI components
+│   │   └── BaseButton.vue
+│   │   └── AppNavbar.vue
+│   │
+│   ├── views/              ← Route-level page components (one per route)
+│   │   ├── Home.vue
+│   │   ├── About.vue
+│   │   └── UserProfile.vue
+│   │
+│   ├── router/
+│   │   └── index.js        ← VueRouter instance: route definitions &amp; config
+│   │
+│   ├── store/
+│   │   └── index.js        ← Vuex Store instance: state, getters, mutations, actions
+│   │
+│   └── assets/             ← Static resources processed by Webpack (images, fonts)
+│       └── logo.png
+│
+├── .eslintrc.js            ← Linter configuration
+├── babel.config.js         ← Babel transpiler configuration
+├── vue.config.js           ← Optional: Webpack/devServer overrides
+└── package.json            ← Dependencies, scripts, metadata
+</code></pre></div>
+<h3 id="role-of-each-key-file">Role of Each Key File</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">File / Directory</th>
+<th style="text-align: left;">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>public/index.html</code></td>
+<td style="text-align: left;">The HTML shell. Contains <code>&lt;div id="app"&gt;&lt;/div&gt;</code> — the mount point for the entire Vue application. Never put content here directly.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>src/main.js</code></td>
+<td style="text-align: left;">Entry point. Imports Vue, App.vue, router, and store; creates the root Vue instance and mounts it to <code>#app</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>src/App.vue</code></td>
+<td style="text-align: left;">The root SFC. Defines the top-level layout: persistent navigation, footer, and the <code>&lt;router-view/&gt;</code> viewport where page components render.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>src/components/</code></td>
+<td style="text-align: left;">Small, reusable components that are not directly tied to routes (e.g., <code>BaseInput.vue</code>, <code>AppModal.vue</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>src/views/</code></td>
+<td style="text-align: left;">Larger page-level components, each corresponding to a URL route (e.g., <code>/home</code> → <code>Home.vue</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>src/router/index.js</code></td>
+<td style="text-align: left;">Configures and exports the VueRouter instance with all route definitions.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>src/store/index.js</code></td>
+<td style="text-align: left;">Configures and exports the Vuex store with state, getters, mutations, and actions.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-structure-syntax-of-a-single-file-component-vue">4. Structure &amp; Syntax of a Single File Component (<code>.vue</code>)</h2>
+<p>A <strong>Single File Component</strong> is a custom file format (<code>.vue</code>) that co-locates the template, logic, and styles of a component into one cohesive, self-contained unit.</p>
+<h3 id="41-the-three-block-architecture">4.1 The Three-Block Architecture</h3>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────┐
+│                                             │
+│   &lt;template&gt;                                │
+│     HTML markup + Vue directives            │
+│   &lt;/template&gt;                               │
+│                                             │
+│   &lt;script&gt;                                  │
+│     export default {                        │
+│       name, props, data, computed,          │
+│       methods, watch, lifecycle hooks       │
+│     }                                       │
+│   &lt;/script&gt;                                 │
+│                                             │
+│   &lt;style scoped&gt;                            │
+│     /* CSS scoped to this component only */ │
+│   &lt;/style&gt;                                  │
+│                                             │
+└─────────────────────────────────────────────┘
+</code></pre></div>
+<h3 id="42-complete-annotated-example">4.2 Complete Annotated Example</h3>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- src/components/UserCard.vue --&gt;</span>
+
+<span class="cm">&lt;!-- ════════════ TEMPLATE BLOCK ════════════ --&gt;</span>
+<span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="cm">&lt;!-- Vue 2: Must have exactly ONE root element --&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"user-card"</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">img</span> <span class="na">:src</span><span class="o">=</span><span class="s">"avatarUrl"</span> <span class="na">:alt</span><span class="o">=</span><span class="s">"user.name"</span> <span class="na">class</span><span class="o">=</span><span class="s">"avatar"</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"user-info"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>{{ user.name }}<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{ user.email }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">"badge"</span> <span class="na">:class</span><span class="o">=</span><span class="s">"{ active: user.isActive }"</span><span class="p">&gt;</span>
+        {{ user.isActive ? 'Active' : 'Inactive' }}
+      <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">"follow-btn"</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">"handleFollow"</span><span class="p">&gt;</span>
+      {{ isFollowing ? 'Unfollow' : 'Follow' }}
+    <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- ════════════ SCRIPT BLOCK ════════════ --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Component identity (shows in Vue Devtools)</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'UserCard'</span><span class="p">,</span>
+
+<span class="w">  </span><span class="c1">// Data received from parent component</span>
+<span class="w">  </span><span class="nx">props</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">user</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="nb">Object</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">required</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+
+<span class="w">  </span><span class="c1">// Local reactive state — MUST be a function returning a fresh object</span>
+<span class="w">  </span><span class="nx">data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">isFollowing</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">},</span>
+
+<span class="w">  </span><span class="c1">// Derived, cached values computed from state/props</span>
+<span class="w">  </span><span class="nx">computed</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">avatarUrl</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">avatar</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="sb">`https://ui-avatars.com/api/?name=</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+
+<span class="w">  </span><span class="c1">// Methods triggered by events or called programmatically</span>
+<span class="w">  </span><span class="nx">methods</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">handleFollow</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">isFollowing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isFollowing</span><span class="p">;</span>
+<span class="w">      </span><span class="c1">// Notify parent component of the change</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">'follow-toggled'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">userId</span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">isFollowing</span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">isFollowing</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+
+<span class="w">  </span><span class="c1">// Lifecycle hooks</span>
+<span class="w">  </span><span class="nx">created</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'UserCard created for:'</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">mounted</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'UserCard mounted to DOM for:'</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">beforeDestroy</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'UserCard about to be removed from DOM'</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- ════════════ STYLE BLOCK ════════════ --&gt;</span>
+<span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p">&gt;</span>
+<span class="c">/* Styles here ONLY apply to elements in THIS component's template */</span>
+<span class="p">.</span><span class="nc">user-card</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">flex</span><span class="p">;</span>
+<span class="w">  </span><span class="k">align-items</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#e0e0e0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">gap</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">avatar</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">64</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">64</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">  </span><span class="k">object-fit</span><span class="p">:</span><span class="w"> </span><span class="kc">cover</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">badge</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">0.75</span><span class="kt">rem</span><span class="p">;</span>
+<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">px</span><span class="w"> </span><span class="mi">8</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="mh">#f5f5f5</span><span class="p">;</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#888</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">badge</span><span class="p">.</span><span class="nc">active</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="mh">#e8f5e9</span><span class="p">;</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#2e7d32</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">follow-btn</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">margin-left</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="kt">px</span><span class="w"> </span><span class="mi">16</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#1976d2</span><span class="p">;</span>
+<span class="w">  </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">transparent</span><span class="p">;</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#1976d2</span><span class="p">;</span>
+<span class="w">  </span><span class="k">cursor</span><span class="p">:</span><span class="w"> </span><span class="kc">pointer</span><span class="p">;</span>
+<span class="w">  </span><span class="k">transition</span><span class="p">:</span><span class="w"> </span><span class="kc">all</span><span class="w"> </span><span class="mf">0.2</span><span class="kt">s</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">follow-btn</span><span class="p">:</span><span class="nd">hover</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="mh">#1976d2</span><span class="p">;</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="43-the-data-function-rule-critical-gotcha">4.3 The <code>data()</code> Function Rule — Critical Gotcha</h3>
+<blockquote>
+<p>[!WARNING]
+In a component (as opposed to the root Vue instance), <code>data</code> <strong>must always be a function</strong> that returns a <strong>new object</strong>, never a plain object literal.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="c1">// ❌ WRONG — plain object (only valid for the root Vue instance)</span>
+<span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">count</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span>
+<span class="p">}</span>
+
+<span class="c1">// ✅ CORRECT — function returning new object</span>
+<span class="nx">data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">count</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Why?</strong> When a component is reused multiple times, Vue creates separate instances of it. If <code>data</code> were a shared object reference, all instances would share the same state — mutating one would corrupt all others.</p>
+<div class="highlight"><pre><span></span><code>          SharedObject ← (WRONG: all 3 cards point to same data)
+         /     |      \
+  Card1      Card2    Card3
+
+  FreshObject1    ← (CORRECT: each card gets its own isolated data)
+  FreshObject2
+  FreshObject3
+</code></pre></div>
+<hr />
+<h2 id="5-scoped-css-style-encapsulation">5. Scoped CSS &amp; Style Encapsulation</h2>
+<h3 id="51-the-global-css-problem">5.1 The Global CSS Problem</h3>
+<p>Without scoping, CSS written for one component bleeds into all others:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- ComponentA.vue --&gt;</span>
+<span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">button</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">blue</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- ComponentB.vue — its buttons are ALSO blue, unintentionally! --&gt;</span>
+<span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">"button"</span><span class="p">&gt;</span>Click Me<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="52-the-style-scoped-solution">5.2 The <code>&lt;style scoped&gt;</code> Solution</h3>
+<p>Adding the <code>scoped</code> attribute to the <code>&lt;style&gt;</code> block restricts all CSS rules to <strong>only the elements rendered by that component's template</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">button</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">blue</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="53-how-scoped-css-works-under-the-hood-postcss">5.3 How Scoped CSS Works Under the Hood (PostCSS)</h3>
+<p><code>vue-loader</code> uses PostCSS to transform scoped styles at build time via a two-step process:</p>
+<p><strong>Step 1</strong>: Every HTML element in the template gets a unique auto-generated attribute:
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Compiled template output (you never see this directly): --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"user-card"</span> <span class="na">data-v-7ba5bd90</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">"follow-btn"</span> <span class="na">data-v-7ba5bd90</span><span class="p">&gt;</span>Follow<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div></p>
+<p><strong>Step 2</strong>: Every CSS selector in the <code>&lt;style scoped&gt;</code> block gets the attribute appended as an attribute selector:
+<div class="highlight"><pre><span></span><code><span class="c">/* What you write: */</span>
+<span class="p">.</span><span class="nc">follow-btn</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="mh">#1976d2</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c">/* What PostCSS compiles it to: */</span>
+<span class="p">.</span><span class="nc">follow-btn</span><span class="o">[</span><span class="nt">data-v-7ba5bd90</span><span class="o">]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="mh">#1976d2</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></p>
+<p>The result: <code>.follow-btn</code> from <code>ComponentA</code> targets <code>.follow-btn[data-v-7ba5bd90]</code>, which will <strong>never match</strong> a <code>.follow-btn</code> element in <code>ComponentB</code> (which would carry a different hash like <code>data-v-3c45f1ab</code>).</p>
+<h3 id="54-deep-selectors-reaching-into-child-components">5.4 Deep Selectors — Reaching Into Child Components</h3>
+<p>Because scoped styles don't penetrate child component boundaries, you sometimes need to style elements inside a child component (e.g., third-party UI library elements). Use the <strong>deep selector</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="c">/* Target .el-input__inner inside a child component (e.g., ElementUI) */</span>
+
+<span class="w">  </span><span class="c">/* Vue 2 — three syntaxes, all equivalent: */</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">parent-wrapper</span><span class="w"> </span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="p">.</span><span class="nc">child-element</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">parent-wrapper</span><span class="w"> </span><span class="o">/</span><span class="nt">deep</span><span class="o">/</span><span class="w"> </span><span class="p">.</span><span class="nc">child-element</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">parent-wrapper</span><span class="w"> </span><span class="p">::</span><span class="nd">v-deep</span><span class="w"> </span><span class="p">.</span><span class="nc">child-element</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c">/* Vue 3 — modern syntax: */</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">parent-wrapper</span><span class="w"> </span><span class="p">:</span><span class="nd">deep</span><span class="o">(</span><span class="p">.</span><span class="nc">child-element</span><span class="o">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="55-global-styles-alongside-scoped-styles">5.5 Global Styles Alongside Scoped Styles</h3>
+<p>You can have both a global <code>&lt;style&gt;</code> block and a scoped one in the same component:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Global rules go in unscoped block --&gt;</span>
+<span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="s1">'Inter'</span><span class="p">,</span><span class="w"> </span><span class="kc">sans-serif</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">box-sizing</span><span class="p">:</span><span class="w"> </span><span class="kc">border-box</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Component-specific rules in scoped block --&gt;</span>
+<span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">user-card</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</code></pre></div>
+<hr />
+<h2 id="6-under-the-hood-the-compilation-pipeline-vue-loader">6. Under the Hood: The Compilation Pipeline &amp; <code>vue-loader</code></h2>
+<h3 id="61-what-does-vue-loader-do">6.1 What Does <code>vue-loader</code> Do?</h3>
+<p><code>vue-loader</code> is a Webpack loader that allows Webpack to understand <code>.vue</code> files. Webpack natively only understands <code>.js</code>. When Webpack encounters an <code>import</code> of a <code>.vue</code> file, <code>vue-loader</code> takes over:</p>
+<pre class="mermaid"><code>flowchart TD
+    VueFile[".vue File"] --&gt; VueLoader["vue-loader"]
+
+    VueLoader --&gt;|"Extract"| Template["&amp;lt;template&amp;gt; block"]
+    VueLoader --&gt;|"Extract"| Script["&amp;lt;script&amp;gt; block"]
+    VueLoader --&gt;|"Extract"| Style["&amp;lt;style&amp;gt; block"]
+
+    Template --&gt;|"vue-template-compiler"| RenderFn["render() function (JS)"]
+    Script --&gt;|"babel-loader"| TranspiledJS["ES5 JavaScript"]
+    Style --&gt;|"css-loader + postcss-loader"| ProcessedCSS["Scoped &amp; Prefixed CSS"]
+
+    RenderFn --&gt; Bundle["Final JS Bundle"]
+    TranspiledJS --&gt; Bundle
+    ProcessedCSS --&gt; ExtractedCSS["app.css"]</code></pre>
+<h3 id="62-ahead-of-time-aot-template-compilation">6.2 Ahead-of-Time (AOT) Template Compilation</h3>
+<p>Vue has two builds:
+- <strong>Full Build</strong> (<code>vue.js</code>): Includes both the <strong>runtime</strong> and the <strong>template compiler</strong>. Templates (strings) are compiled in the browser. ≈ 30% larger.
+- <strong>Runtime-Only Build</strong> (<code>vue.runtime.js</code>): Only includes the runtime renderer. Templates must already be compiled to render functions before reaching the browser.</p>
+<p>When you use <code>.vue</code> files with <code>vue-loader</code>, templates are <strong>compiled at build time</strong> (AOT) into optimized <code>render()</code> functions. This means:</p>
+<ol>
+<li><strong>No compiler shipped to the browser</strong>: Production bundles use the smaller runtime-only build.</li>
+<li><strong>Better performance</strong>: Template compilation is a one-time build-time cost, not a per-user runtime cost.</li>
+<li><strong>CSP compliance</strong>: The runtime-only build avoids <code>eval()</code> and <code>new Function()</code>, which are forbidden by strict Content Security Policies.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1">// What you write in &lt;template&gt;:</span>
+<span class="c1">// &lt;div class="card"&gt;{{ title }}&lt;/div&gt;</span>
+
+<span class="c1">// What vue-template-compiler generates (simplified):</span>
+<span class="nx">render</span><span class="p">(</span><span class="nx">h</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">h</span><span class="p">(</span><span class="s1">'div'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kd">class</span><span class="o">:</span><span class="w"> </span><span class="s1">'card'</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">title</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="63-hot-module-replacement-hmr">6.3 Hot Module Replacement (HMR)</h3>
+<p>When you run <code>npm run serve</code>, Vue CLI starts a Webpack Dev Server with <strong>Hot Module Replacement</strong> enabled. When you save a <code>.vue</code> file:</p>
+<div class="highlight"><pre><span></span><code>Developer saves UserCard.vue
+           │
+           ▼
+Webpack detects file change (via file watcher)
+           │
+           ▼
+vue-loader recompiles only the changed .vue file
+           │
+           ▼
+Webpack pushes only the new module patch over WebSocket to browser
+           │
+           ▼
+Vue's HMR runtime swaps the updated component in-place
+           │
+           ▼
+UI updates instantly — without full page reload
+           └── Vuex state, form inputs, scroll position: ALL PRESERVED
+</code></pre></div>
+<blockquote>
+<p>[!TIP]
+HMR is one of the biggest developer productivity wins of the Vue CLI toolchain. You see code changes reflected on screen within milliseconds, without losing any application state.</p>
+</blockquote>
+<hr />
+<h2 id="7-component-composition-modular-workflow-in-sfcs">7. Component Composition &amp; Modular Workflow in SFCs</h2>
+<h3 id="71-importing-and-registering-child-components">7.1 Importing and Registering Child Components</h3>
+<p>In a Vue CLI project, child SFCs are imported as ES modules and registered locally:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- src/views/UserList.vue --&gt;</span>
+<span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"user-list"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Team Members<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="cm">&lt;!-- Use the registered component as a custom HTML element --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">UserCard</span>
+      <span class="na">v-for</span><span class="o">=</span><span class="s">"user in users"</span>
+      <span class="na">:key</span><span class="o">=</span><span class="s">"user.id"</span>
+      <span class="na">:user</span><span class="o">=</span><span class="s">"user"</span>
+      <span class="err">@</span><span class="na">follow-toggled</span><span class="o">=</span><span class="s">"onFollowToggled"</span>
+    <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="c1">// Step 1: Import the child SFC</span>
+<span class="c1">// @ is an alias for /src/ configured by Vue CLI</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">UserCard</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@/components/UserCard.vue'</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'UserList'</span><span class="p">,</span>
+
+<span class="w">  </span><span class="c1">// Step 2: Register locally — only available in this component's template</span>
+<span class="w">  </span><span class="nx">components</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">UserCard</span><span class="w">   </span><span class="c1">// shorthand for UserCard: UserCard</span>
+<span class="w">  </span><span class="p">},</span>
+
+<span class="w">  </span><span class="nx">data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">users</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'Alice'</span><span class="p">,</span><span class="w"> </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="s1">'alice@example.com'</span><span class="p">,</span><span class="w"> </span><span class="nx">isActive</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'Bob'</span><span class="p">,</span><span class="w">   </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="s1">'bob@example.com'</span><span class="p">,</span><span class="w">   </span><span class="nx">isActive</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">},</span>
+
+<span class="w">  </span><span class="nx">methods</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">onFollowToggled</span><span class="p">({</span><span class="w"> </span><span class="nx">userId</span><span class="p">,</span><span class="w"> </span><span class="nx">isFollowing</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`User </span><span class="si">${</span><span class="nx">userId</span><span class="si">}</span><span class="sb"> follow state: </span><span class="si">${</span><span class="nx">isFollowing</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="72-local-vs-global-component-registration">7.2 Local vs. Global Component Registration</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Registration Type</th>
+<th style="text-align: left;">How</th>
+<th style="text-align: left;">Scope</th>
+<th style="text-align: left;">Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Local</strong></td>
+<td style="text-align: left;"><code>components: { ... }</code> inside each SFC</td>
+<td style="text-align: left;">Only available in that SFC's template</td>
+<td style="text-align: left;">Most components (preferred — enables tree-shaking)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Global</strong></td>
+<td style="text-align: left;"><code>Vue.component('Name', Component)</code> in <code>main.js</code></td>
+<td style="text-align: left;">Available in every component's template everywhere</td>
+<td style="text-align: left;">Truly universal base components (e.g., <code>BaseButton</code>, <code>BaseIcon</code>)</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1">// main.js — Global registration</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">BaseButton</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@/components/BaseButton.vue'</span><span class="p">;</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">'BaseButton'</span><span class="p">,</span><span class="w"> </span><span class="nx">BaseButton</span><span class="p">);</span>
+<span class="c1">// Now &lt;BaseButton&gt; works in every .vue template without importing</span>
+</code></pre></div>
+<h3 id="73-inter-component-data-flow-in-sfcs">7.3 Inter-Component Data Flow in SFCs</h3>
+<pre class="mermaid"><code>flowchart TD
+    Parent["Parent (UserList.vue)"]
+    Child["Child (UserCard.vue)"]
+    GrandChild["Grandchild (AvatarImage.vue)"]
+
+    Parent --&gt;|"Props: :user='user'"| Child
+    Child --&gt;|"Props: :src='avatarUrl'"| GrandChild
+    Child --&gt;|"$emit('follow-toggled', payload)"| Parent
+    GrandChild --&gt;|"$emit('image-error')"| Child</code></pre>
+<p><strong>Slot-based Content Distribution:</strong>
+Slots allow parent components to inject arbitrary template content into designated placeholder regions inside a child component:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- BaseCard.vue — defines a reusable card shell with slots --&gt;</span>
+<span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"base-card"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"card-header"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">slot</span> <span class="na">name</span><span class="o">=</span><span class="s">"header"</span><span class="p">&gt;</span>Default Header<span class="p">&lt;/</span><span class="nt">slot</span><span class="p">&gt;</span>  <span class="cm">&lt;!-- Named slot --&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"card-body"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">slot</span><span class="p">&gt;&lt;/</span><span class="nt">slot</span><span class="p">&gt;</span>  <span class="cm">&lt;!-- Default slot --&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"card-footer"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">slot</span> <span class="na">name</span><span class="o">=</span><span class="s">"footer"</span><span class="p">&gt;&lt;/</span><span class="nt">slot</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Parent using BaseCard with slot content --&gt;</span>
+<span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">BaseCard</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">template</span> <span class="err">#</span><span class="na">header</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>User Details<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Main content goes here in the default slot.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">template</span> <span class="err">#</span><span class="na">footer</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>Save<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">BaseCard</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</code></pre></div>
+<hr />
+<h2 id="8-full-project-integration-appvue-router-vuex">8. Full Project Integration: <code>App.vue</code>, Router &amp; Vuex</h2>
+<h3 id="81-the-application-entry-point-srcmainjs">8.1 The Application Entry Point: <code>src/main.js</code></h3>
+<p><code>main.js</code> is the single file that bootstraps the entire application. It imports and assembles every top-level piece:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// src/main.js</span>
+
+<span class="k">import</span><span class="w"> </span><span class="nx">Vue</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'vue'</span><span class="w">               </span><span class="c1">// Vue core</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">App</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./App.vue'</span><span class="w">         </span><span class="c1">// Root component</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">router</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./router'</span><span class="w">       </span><span class="c1">// Vue Router instance</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">store</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./store'</span><span class="w">         </span><span class="c1">// Vuex store instance</span>
+
+<span class="c1">// Disable the "You are running Vue in development mode" tip in the console</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">productionTip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+
+<span class="c1">// Create the root Vue instance:</span>
+<span class="c1">// - router: injects $router and $route into every component</span>
+<span class="c1">// - store:  injects $store into every component</span>
+<span class="c1">// - render: uses runtime-only build (no template compiler needed in browser)</span>
+<span class="ow">new</span><span class="w"> </span><span class="nx">Vue</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">router</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">store</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">render</span><span class="o">:</span><span class="w"> </span><span class="nx">h</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">h</span><span class="p">(</span><span class="nx">App</span><span class="p">)</span><span class="w">   </span><span class="c1">// h is createElement — renders App.vue as root component</span>
+<span class="p">}).</span><span class="nx">$mount</span><span class="p">(</span><span class="s1">'#app'</span><span class="p">)</span><span class="w">        </span><span class="c1">// Mounts the Vue app onto &lt;div id="app"&gt; in public/index.html</span>
+</code></pre></div>
+<h3 id="82-the-root-layout-srcappvue">8.2 The Root Layout: <code>src/App.vue</code></h3>
+<p><code>App.vue</code> is the top-level SFC that defines the persistent application shell — elements that remain on screen during all route navigation:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- src/App.vue --&gt;</span>
+<span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">"app"</span><span class="p">&gt;</span>
+
+    <span class="cm">&lt;!-- Persistent Navigation: stays mounted across all routes --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">nav</span> <span class="na">class</span><span class="o">=</span><span class="s">"app-navbar"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">router-link</span> <span class="na">to</span><span class="o">=</span><span class="s">"/"</span><span class="p">&gt;</span>Home<span class="p">&lt;/</span><span class="nt">router-link</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">router-link</span> <span class="na">to</span><span class="o">=</span><span class="s">"/about"</span><span class="p">&gt;</span>About<span class="p">&lt;/</span><span class="nt">router-link</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">router-link</span> <span class="na">to</span><span class="o">=</span><span class="s">"/profile"</span><span class="p">&gt;</span>Profile<span class="p">&lt;/</span><span class="nt">router-link</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+
+    <span class="cm">&lt;!-- Route Outlet: swaps between Home.vue, About.vue, Profile.vue --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">main</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">router-view</span><span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">main</span><span class="p">&gt;</span>
+
+    <span class="cm">&lt;!-- Persistent Footer --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">footer</span> <span class="na">class</span><span class="o">=</span><span class="s">"app-footer"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>© 2024 My Vue App<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'App'</span>
+<span class="p">};</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="c">/* Global styles — NOT scoped — apply to entire app */</span>
+<span class="o">*</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="k">box-sizing</span><span class="p">:</span><span class="w"> </span><span class="kc">border-box</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="nt">body</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="s1">'Inter'</span><span class="p">,</span><span class="w"> </span><span class="kc">sans-serif</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="p">.</span><span class="nc">app-navbar</span><span class="w"> </span><span class="nt">a</span><span class="p">.</span><span class="nc">router-link-exact-active</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">bold</span><span class="p">;</span>
+<span class="w">  </span><span class="k">border-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#42b983</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="83-route-configuration-srcrouterindexjs">8.3 Route Configuration: <code>src/router/index.js</code></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// src/router/index.js</span>
+
+<span class="k">import</span><span class="w"> </span><span class="nx">Vue</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'vue'</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">VueRouter</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'vue-router'</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">Home</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'../views/Home.vue'</span><span class="w">   </span><span class="c1">// Eagerly loaded (part of main chunk)</span>
+
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">VueRouter</span><span class="p">)</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">routes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s1">'/'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'home'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">Home</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s1">'/about'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'about'</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// ✅ Lazy-loaded: About.vue is NOT in the main bundle.</span>
+<span class="w">    </span><span class="c1">// It downloads as a separate chunk only when user navigates to /about.</span>
+<span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="k">import</span><span class="p">(</span><span class="cm">/* webpackChunkName: "about" */</span><span class="w"> </span><span class="s1">'../views/About.vue'</span><span class="p">)</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s1">'/user/:id'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'user-profile'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="k">import</span><span class="p">(</span><span class="s1">'../views/UserProfile.vue'</span><span class="p">),</span>
+<span class="w">    </span><span class="c1">// Route-level guard: redirect to /login if not authenticated</span>
+<span class="w">    </span><span class="nx">beforeEnter</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">to</span><span class="p">,</span><span class="w"> </span><span class="kr">from</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">store</span><span class="p">.</span><span class="nx">getters</span><span class="p">.</span><span class="nx">isAuthenticated</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">next</span><span class="p">({</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'login'</span><span class="w"> </span><span class="p">});</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">next</span><span class="p">();</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s1">'*'</span><span class="p">,</span><span class="w">   </span><span class="c1">// Catch-all: handles 404 Not Found</span>
+<span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="k">import</span><span class="p">(</span><span class="s1">'../views/NotFound.vue'</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">router</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">VueRouter</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">mode</span><span class="o">:</span><span class="w"> </span><span class="s1">'history'</span><span class="p">,</span><span class="w">  </span><span class="c1">// Clean URLs (requires server fallback)</span>
+<span class="w">  </span><span class="nx">base</span><span class="o">:</span><span class="w"> </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BASE_URL</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">routes</span>
+<span class="p">})</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">router</span>
+</code></pre></div>
+<h3 id="84-route-level-code-splitting-lazy-loading-explained">8.4 Route-Level Code Splitting (Lazy Loading) — Explained</h3>
+<p>Dynamic <code>import()</code> is a JavaScript feature that tells Webpack to <strong>split the component into a separate chunk file</strong> that is only downloaded when that route is first visited:</p>
+<div class="highlight"><pre><span></span><code>Without lazy loading (eager):
+  main.bundle.js → 2.5 MB (Home + About + Profile + Settings + Dashboard all bundled together)
+  Initial load: always downloads 2.5 MB
+
+With lazy loading:
+  main.bundle.js  →  400 KB  (only Home + framework loaded initially)
+  about.chunk.js  →   85 KB  (downloaded only when /about is visited)
+  profile.chunk.js → 120 KB  (downloaded only when /user/:id is visited)
+  Initial load: only 400 KB → significantly faster Time-to-Interactive
+</code></pre></div>
+<h3 id="85-vuex-store-srcstoreindexjs">8.5 Vuex Store: <code>src/store/index.js</code></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// src/store/index.js</span>
+
+<span class="k">import</span><span class="w"> </span><span class="nx">Vue</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'vue'</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">Vuex</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'vuex'</span>
+
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">Vuex</span><span class="p">)</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Vuex</span><span class="p">.</span><span class="nx">Store</span><span class="p">({</span>
+<span class="w">  </span><span class="c1">// Application-wide state</span>
+<span class="w">  </span><span class="nx">state</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">currentUser</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">isLoading</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">notifications</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+
+<span class="w">  </span><span class="c1">// Derived computed values from state</span>
+<span class="w">  </span><span class="nx">getters</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">isAuthenticated</span><span class="o">:</span><span class="w"> </span><span class="nx">state</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">state</span><span class="p">.</span><span class="nx">currentUser</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">unreadCount</span><span class="o">:</span><span class="w"> </span><span class="nx">state</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">state</span><span class="p">.</span><span class="nx">notifications</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="o">!</span><span class="nx">n</span><span class="p">.</span><span class="nx">read</span><span class="p">).</span><span class="nx">length</span>
+<span class="w">  </span><span class="p">},</span>
+
+<span class="w">  </span><span class="c1">// Synchronous state mutations</span>
+<span class="w">  </span><span class="nx">mutations</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">SET_USER</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">user</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">state</span><span class="p">.</span><span class="nx">currentUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">user</span><span class="p">;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">SET_LOADING</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">status</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">state</span><span class="p">.</span><span class="nx">isLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">status</span><span class="p">;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">ADD_NOTIFICATION</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">notification</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">state</span><span class="p">.</span><span class="nx">notifications</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">notification</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+
+<span class="w">  </span><span class="c1">// Asynchronous operations — commit mutations when done</span>
+<span class="w">  </span><span class="nx">actions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">async</span><span class="w"> </span><span class="nx">login</span><span class="p">({</span><span class="w"> </span><span class="nx">commit</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nx">credentials</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">commit</span><span class="p">(</span><span class="s1">'SET_LOADING'</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+<span class="w">      </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">'/api/auth/login'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">'POST'</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">credentials</span><span class="p">),</span>
+<span class="w">          </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">'Content-Type'</span><span class="o">:</span><span class="w"> </span><span class="s1">'application/json'</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="w">        </span><span class="nx">commit</span><span class="p">(</span><span class="s1">'SET_USER'</span><span class="p">,</span><span class="w"> </span><span class="nx">user</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">commit</span><span class="p">(</span><span class="s1">'ADD_NOTIFICATION'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">'Login failed'</span><span class="p">,</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'error'</span><span class="w"> </span><span class="p">});</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">commit</span><span class="p">(</span><span class="s1">'SET_LOADING'</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nx">logout</span><span class="p">({</span><span class="w"> </span><span class="nx">commit</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">commit</span><span class="p">(</span><span class="s1">'SET_USER'</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+
+<span class="w">  </span><span class="c1">// Namespaced modules for large apps</span>
+<span class="w">  </span><span class="nx">modules</span><span class="o">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">})</span>
+</code></pre></div>
+<hr />
+<h2 id="summary-key-exam-concepts">Summary &amp; Key Exam Concepts</h2>
+<ol>
+<li><strong>Why SFCs over CDN</strong>: Runtime compiler overhead, no scoped CSS, no editor tooling, no tree-shaking.</li>
+<li><strong><code>vue create</code></strong>: Scaffolds a fully configured Webpack + Babel + ESLint project; <code>serve</code>, <code>build</code>, <code>lint</code> scripts.</li>
+<li><strong>Three-Block SFC structure</strong>: <code>&lt;template&gt;</code> (HTML + directives) + <code>&lt;script&gt;</code> (options object) + <code>&lt;style scoped&gt;</code> (encapsulated CSS).</li>
+<li><strong><code>data()</code> must be a function</strong>: Ensures each component instance gets its own isolated state object, not a shared reference.</li>
+<li><strong><code>&lt;style scoped&gt;</code></strong>: PostCSS injects unique <code>data-v-XXXXXXXX</code> attributes on elements and rewrites CSS selectors to match only those elements.</li>
+<li><strong>Deep selectors</strong>: <code>::v-deep</code> / <code>:deep()</code> pierce component boundaries to style child component elements.</li>
+<li><strong><code>vue-loader</code></strong>: Webpack loader that splits <code>.vue</code> files and routes each block (template → vue-template-compiler, script → babel-loader, style → css-loader).</li>
+<li><strong>AOT compilation</strong>: Templates compiled to <code>render()</code> functions at build time → ships runtime-only Vue (≈30% smaller bundle, CSP compliant).</li>
+<li><strong>HMR</strong>: Saves file → Webpack patches only that module → UI updates in milliseconds without losing state.</li>
+<li><strong><code>main.js</code> bootstrapping</strong>: <code>new Vue({ router, store, render: h =&gt; h(App) }).$mount('#app')</code>.</li>
+<li><strong>Lazy loading routes</strong>: Dynamic <code>import()</code> → Webpack splits component into separate chunk → only downloaded when route is first visited → smaller initial bundle.</li>
+</ol>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../03_spa_modern_web_architecture/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Single-page application architecture">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Single-page application architecture
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../week8/" class="md-footer__link md-footer__link--next" aria-label="Next: Overview">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Overview
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

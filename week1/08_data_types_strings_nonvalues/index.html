@@ -1,0 +1,4608 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week1/08_data_types_strings_nonvalues/">
+      
+      
+        <link rel="prev" href="../07_identifiers_statements_expressions/">
+      
+      
+        <link rel="next" href="../09_operators_comparisons_coercion/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Data types, strings, and non-values - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#topic-8-data-types-strings-non-values" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data types, strings, and non-values
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#81-primitive-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Primitive Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.1 Primitive Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-7-primitive-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 7 Primitive Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-typeof-operator-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The typeof Operator — Quick Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82-objects-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Objects &amp; Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 Objects &amp; Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objects-as-keyed-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objects as Keyed Collections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-class-citizen-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First-Class Citizen Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83-strings-unicode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Strings &amp; Unicode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.3 Strings &amp; Unicode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#utf-16-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UTF-16 Encoding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string-methods-essential-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String Methods — Essential Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84-non-values-undefined-vs-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 Non-Values: undefined vs. null
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.4 Non-Values: undefined vs. null">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#undefined-system-assigned-absence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        undefined — System-Assigned Absence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#null-developer-assigned-absence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        null — Developer-Assigned Absence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-famous-typeof-null-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Famous typeof null Bug
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-behaviors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison Behaviors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nullish-coalescing-and-optional-chaining-es2020" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nullish Coalescing ?? and Optional Chaining ?. (ES2020)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stylistic-best-practices-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stylistic Best Practices Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-topic-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of Topic 8
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#81-primitive-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Primitive Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.1 Primitive Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-7-primitive-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 7 Primitive Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-typeof-operator-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The typeof Operator — Quick Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82-objects-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Objects &amp; Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 Objects &amp; Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objects-as-keyed-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objects as Keyed Collections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-class-citizen-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First-Class Citizen Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83-strings-unicode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Strings &amp; Unicode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.3 Strings &amp; Unicode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#utf-16-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UTF-16 Encoding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string-methods-essential-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String Methods — Essential Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84-non-values-undefined-vs-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 Non-Values: undefined vs. null
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.4 Non-Values: undefined vs. null">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#undefined-system-assigned-absence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        undefined — System-Assigned Absence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#null-developer-assigned-absence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        null — Developer-Assigned Absence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-famous-typeof-null-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Famous typeof null Bug
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-behaviors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison Behaviors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nullish-coalescing-and-optional-chaining-es2020" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nullish Coalescing ?? and Optional Chaining ?. (ES2020)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stylistic-best-practices-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stylistic Best Practices Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-topic-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of Topic 8
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="topic-8-data-types-strings-non-values">Topic 8: Data Types, Strings &amp; Non-Values</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Topic 8: Data Types, Strings &amp; Non-Values</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<blockquote>
+<p><strong>MAD-II Week 1 | Detailed Notes</strong></p>
+</blockquote>
+<hr />
+<h2 id="overview">Overview</h2>
+<p>Every value in JavaScript has a <strong>type</strong> — a classification that determines what operations can be performed on it and how it behaves in expressions. JavaScript's type system is <strong>dynamic</strong> (types are associated with values, not variables) and has some genuinely unusual characteristics that distinguish it from most other languages.</p>
+<p>The type system divides into two fundamental categories:
+- <strong>Primitives</strong> — simple, immutable values
+- <strong>Objects</strong> — complex, mutable compound structures (including functions)</p>
+<p>Understanding this division — and its implications — is essential for writing correct JavaScript.</p>
+<hr />
+<h2 id="81-primitive-types">8.1 Primitive Types</h2>
+<p>JavaScript has <strong>7 primitive types</strong>. Primitives are:
+- <strong>Immutable</strong> — the value itself cannot be changed (though a variable holding it can be reassigned)
+- <strong>Compared by value</strong> — two primitives are equal if their values are equal
+- <strong>Stored by value</strong> — when assigned to a variable or passed to a function, a copy is made</p>
+<h3 id="the-7-primitive-types">The 7 Primitive Types</h3>
+<hr />
+<h4 id="1-number">1. Number</h4>
+<p>JavaScript has only <strong>one numeric type</strong> — it handles both integers and floating-point numbers using the <strong>IEEE 754 double-precision 64-bit floating-point format</strong>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Both integers and floats are the same type:</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="mf">42</span><span class="w">        </span><span class="c1">// "number"</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="mf">3.14</span><span class="w">      </span><span class="c1">// "number"</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="o">-</span><span class="mf">100</span><span class="w">      </span><span class="c1">// "number"</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">42</span><span class="p">;</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14</span><span class="p">;</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mf">100</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>Safe integer range:</strong>
+- JavaScript can represent integers exactly in the range: <strong>-(2⁵³ - 1) to (2⁵³ - 1)</strong>
+- <code>Number.MAX_SAFE_INTEGER</code> = 9,007,199,254,740,991 (about 9 quadrillion)
+- <code>Number.MIN_SAFE_INTEGER</code> = -9,007,199,254,740,991
+- Integers outside this range lose precision (use <code>BigInt</code> instead)</p>
+<p><strong>Special numeric values:</strong>
+<div class="highlight"><pre><span></span><code><span class="kc">Infinity</span><span class="w">           </span><span class="c1">// 1 / 0 → positive infinity</span>
+<span class="o">-</span><span class="kc">Infinity</span><span class="w">          </span><span class="c1">// -1 / 0 → negative infinity</span>
+<span class="kc">NaN</span><span class="w">                </span><span class="c1">// "Not a Number" — result of invalid numeric operations</span>
+
+<span class="c1">// NaN is the only value that is not equal to itself:</span>
+<span class="kc">NaN</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">NaN</span><span class="w">        </span><span class="c1">// false (!)</span>
+<span class="nb">Number</span><span class="p">.</span><span class="nb">isNaN</span><span class="p">(</span><span class="kc">NaN</span><span class="p">)</span><span class="w">  </span><span class="c1">// true  ← correct way to check for NaN</span>
+
+<span class="c1">// Checking for NaN (common gotcha):</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"hello"</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span><span class="w">   </span><span class="c1">// NaN</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span><span class="w">    </span><span class="c1">// Old trick — NaN !== NaN</span>
+<span class="nb">Number</span><span class="p">.</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span><span class="w">         </span><span class="c1">// Modern, correct approach ✅</span>
+<span class="nb">isNaN</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">);</span><span class="w">               </span><span class="c1">// true — but isNaN() coerces! Avoid</span>
+<span class="nb">Number</span><span class="p">.</span><span class="nb">isNaN</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">);</span><span class="w">        </span><span class="c1">// false — doesn't coerce ✅</span>
+</code></pre></div></p>
+<p><strong>Floating-point precision gotcha:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1">// Classic IEEE 754 floating-point issue:</span>
+<span class="mf">0.1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.2</span><span class="w">             </span><span class="c1">// 0.30000000000000004 (NOT 0.3!)</span>
+<span class="mf">0.1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.2</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0.3</span><span class="w">     </span><span class="c1">// false (!)</span>
+
+<span class="c1">// Fix: Use toFixed() for display, or work in integers for money:</span>
+<span class="p">(</span><span class="mf">0.1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.2</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span><span class="w">    </span><span class="c1">// "0.30" (string)</span>
+<span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">((</span><span class="mf">0.1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">100</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">100</span><span class="w">  </span><span class="c1">// 0.3 (number)</span>
+<span class="c1">// For financial apps, work in cents: 10 + 20 = 30 cents, display as $0.30</span>
+</code></pre></div></p>
+<hr />
+<h4 id="2-string">2. String</h4>
+<p>Represents <strong>textual data</strong> — a sequence of characters.</p>
+<div class="highlight"><pre><span></span><code><span class="ow">typeof</span><span class="w"> </span><span class="s2">"hello"</span><span class="w">    </span><span class="c1">// "string"</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="s1">'world'</span><span class="w">    </span><span class="c1">// "string"</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="sb">`template`</span><span class="w"> </span><span class="c1">// "string"</span>
+
+<span class="c1">// Three ways to delimit strings (all equivalent for basic use):</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"double quotes"</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'single quotes'</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`backtick template literal`</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>Template literals (ES6):</strong> The preferred modern form — supports multi-line and interpolation:
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Vinay"</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">25</span><span class="p">;</span>
+
+<span class="c1">// Old way:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">msg1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Hello, "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">"! You are "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">" years old."</span><span class="p">;</span>
+
+<span class="c1">// Template literal (modern):</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">msg2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`Hello, </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">! You are </span><span class="si">${</span><span class="nx">age</span><span class="si">}</span><span class="sb"> years old.`</span><span class="p">;</span>
+<span class="c1">// Any expression works inside ${}:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">msg3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`2 + 2 = </span><span class="si">${</span><span class="mf">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">2</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span><span class="w">               </span><span class="c1">// "2 + 2 = 4"</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">msg4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`UPPER: </span><span class="si">${</span><span class="nx">name</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span><span class="w">    </span><span class="c1">// "UPPER: VINAY"</span>
+
+<span class="c1">// Multi-line (no \n needed):</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">multiLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`Line 1</span>
+<span class="sb">Line 2</span>
+<span class="sb">Line 3`</span><span class="p">;</span>
+</code></pre></div></p>
+<p><strong>Strings are immutable:</strong>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"hello"</span><span class="p">;</span>
+<span class="nx">str</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"H"</span><span class="p">;</span><span class="w">        </span><span class="c1">// Silently fails! Strings are immutable</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span><span class="w">    </span><span class="c1">// "hello" — unchanged</span>
+
+<span class="c1">// To "modify" a string, you create a NEW string:</span>
+<span class="nx">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"H"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span><span class="w">   </span><span class="c1">// "Hello"</span>
+</code></pre></div></p>
+<hr />
+<h4 id="3-boolean">3. Boolean</h4>
+<p>Represents a <strong>logical true or false</strong> value.</p>
+<div class="highlight"><pre><span></span><code><span class="ow">typeof</span><span class="w"> </span><span class="kc">true</span><span class="w">    </span><span class="c1">// "boolean"</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="kc">false</span><span class="w">   </span><span class="c1">// "boolean"</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">isLoggedIn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">hasPremium</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</code></pre></div>
+<p>Booleans are the result of comparison and logical expressions:
+<div class="highlight"><pre><span></span><code><span class="mf">10</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">5</span><span class="w">          </span><span class="c1">// true</span>
+<span class="s2">"a"</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">"b"</span><span class="w">     </span><span class="c1">// false</span>
+<span class="o">!</span><span class="kc">true</span><span class="w">           </span><span class="c1">// false</span>
+<span class="kc">true</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="kc">false</span><span class="w">   </span><span class="c1">// false</span>
+<span class="kc">true</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="kc">false</span><span class="w">   </span><span class="c1">// true</span>
+</code></pre></div></p>
+<hr />
+<h4 id="4-undefined">4. Undefined</h4>
+<p>Represents the <strong>absence of a value that hasn't been set yet</strong> — the default state of uninitialized things.</p>
+<div class="highlight"><pre><span></span><code><span class="ow">typeof</span><span class="w"> </span><span class="kc">undefined</span><span class="w">    </span><span class="c1">// "undefined"</span>
+
+<span class="c1">// When does undefined appear?</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">x</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span><span class="w">              </span><span class="c1">// undefined — declared but not assigned</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">greet</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">greet</span><span class="p">();</span><span class="w">                     </span><span class="c1">// undefined — parameter not provided</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">missingProp</span><span class="p">);</span><span class="w"> </span><span class="c1">// undefined — property doesn't exist</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">noReturn</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">noReturn</span><span class="p">());</span><span class="w">     </span><span class="c1">// undefined — function has no return statement</span>
+</code></pre></div>
+<hr />
+<h4 id="5-null">5. Null</h4>
+<p>Represents the <strong>intentional absence of a value</strong> — a deliberate "empty" assignment.</p>
+<div class="highlight"><pre><span></span><code><span class="ow">typeof</span><span class="w"> </span><span class="kc">null</span><span class="w">    </span><span class="c1">// "object" ← Famous JavaScript bug! (see 8.4)</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">    </span><span class="c1">// Explicitly set to "no user yet"</span>
+</code></pre></div>
+<hr />
+<h4 id="6-symbol-es6">6. Symbol (ES6)</h4>
+<p>Represents a <strong>guaranteed unique identifier</strong> — every Symbol is unique, even if created with the same description.</p>
+<div class="highlight"><pre><span></span><code><span class="ow">typeof</span><span class="w"> </span><span class="nb">Symbol</span><span class="p">()</span><span class="w">    </span><span class="c1">// "symbol"</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">id1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Symbol</span><span class="p">(</span><span class="s2">"id"</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">id2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Symbol</span><span class="p">(</span><span class="s2">"id"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">id1</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">id2</span><span class="p">);</span><span class="w">    </span><span class="c1">// false — every Symbol is unique!</span>
+
+<span class="c1">// Primary use: Unique object property keys (avoid naming collisions)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">MY_KEY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Symbol</span><span class="p">(</span><span class="s2">"myKey"</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="nx">obj</span><span class="p">[</span><span class="nx">MY_KEY</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"secret value"</span><span class="p">;</span>
+
+<span class="c1">// Symbol keys don't show up in normal iteration:</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">obj</span><span class="p">));</span><span class="w">    </span><span class="c1">// [] — Symbol keys are hidden</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">MY_KEY</span><span class="p">]);</span><span class="w">         </span><span class="c1">// "secret value" — accessible if you have the Symbol</span>
+</code></pre></div>
+<p><strong>Practical use cases:</strong>
+- <strong>Well-known Symbols</strong>: <code>Symbol.iterator</code>, <code>Symbol.hasInstance</code>, etc. — let you customize built-in JS behaviors
+- <strong>Private-ish object keys</strong>: Keys that won't accidentally collide with user-defined or library-defined keys</p>
+<hr />
+<h4 id="7-bigint-es2020">7. BigInt (ES2020)</h4>
+<p>Represents <strong>integers of arbitrary precision</strong> — for numbers beyond <code>Number.MAX_SAFE_INTEGER</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="ow">typeof</span><span class="w"> </span><span class="mi">42n</span><span class="w">      </span><span class="c1">// "bigint" — note the 'n' suffix</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">huge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9007199254740991n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1n</span><span class="p">;</span><span class="w">   </span><span class="c1">// Works perfectly!</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">safe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">9007199254740991</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w">     </span><span class="c1">// 9007199254740992 — may lose precision</span>
+
+<span class="c1">// Cannot mix BigInt and Number directly:</span>
+<span class="mi">42n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="w">       </span><span class="c1">// TypeError: Cannot mix BigInt and other types</span>
+<span class="mi">42n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1n</span><span class="w">      </span><span class="c1">// 43n ✅</span>
+<span class="nb">Number</span><span class="p">(</span><span class="mi">42n</span><span class="p">)</span><span class="w">   </span><span class="c1">// 42 — explicit conversion needed</span>
+</code></pre></div>
+<p><strong>Use cases</strong>: Cryptography, financial calculations with very large integers, working with 64-bit integer IDs from databases.</p>
+<hr />
+<h3 id="the-typeof-operator-quick-reference">The <code>typeof</code> Operator — Quick Reference</h3>
+<div class="highlight"><pre><span></span><code><span class="ow">typeof</span><span class="w"> </span><span class="mf">42</span><span class="w">              </span><span class="c1">// "number"</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="mf">3.14</span><span class="w">            </span><span class="c1">// "number"</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="kc">NaN</span><span class="w">             </span><span class="c1">// "number"  (!)</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="s2">"hello"</span><span class="w">         </span><span class="c1">// "string"</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="kc">true</span><span class="w">            </span><span class="c1">// "boolean"</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="kc">undefined</span><span class="w">       </span><span class="c1">// "undefined"</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="kc">null</span><span class="w">            </span><span class="c1">// "object"  ← famous bug</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="nb">Symbol</span><span class="p">()</span><span class="w">        </span><span class="c1">// "symbol"</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="mi">42n</span><span class="w">             </span><span class="c1">// "bigint"</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="p">{}</span><span class="w">              </span><span class="c1">// "object"</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="p">[]</span><span class="w">              </span><span class="c1">// "object"  (arrays are objects!)</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="kd">function</span><span class="p">(){}</span><span class="w">    </span><span class="c1">// "function" (special case — functions are objects too)</span>
+</code></pre></div>
+<hr />
+<h2 id="82-objects-functions">8.2 Objects &amp; Functions</h2>
+<p>Everything that is <strong>not a primitive</strong> in JavaScript is an <strong>object</strong>.</p>
+<h3 id="objects-as-keyed-collections">Objects as Keyed Collections</h3>
+<p>An <strong>object</strong> is a collection of <strong>key-value pairs</strong> (also called <strong>properties</strong>). Keys are strings (or Symbols), values can be anything.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Object literal syntax:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"Vinay"</span><span class="p">,</span><span class="w">          </span><span class="c1">// string key: string value</span>
+<span class="w">  </span><span class="nx">age</span><span class="o">:</span><span class="w"> </span><span class="mf">25</span><span class="p">,</span><span class="w">                </span><span class="c1">// string key: number value</span>
+<span class="w">  </span><span class="nx">isActive</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">         </span><span class="c1">// string key: boolean value</span>
+<span class="w">  </span><span class="nx">address</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w">              </span><span class="c1">// string key: nested object value</span>
+<span class="w">    </span><span class="nx">city</span><span class="o">:</span><span class="w"> </span><span class="s2">"Mumbai"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">country</span><span class="o">:</span><span class="w"> </span><span class="s2">"India"</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">greet</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">     </span><span class="c1">// string key: function value (this is a "method")</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="sb">`Hi, I'm </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// Property access — two syntaxes:</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="w">           </span><span class="c1">// "Vinay"    — dot notation (preferred for known keys)</span>
+<span class="nx">user</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span><span class="w">        </span><span class="c1">// "Vinay"    — bracket notation (needed for dynamic keys)</span>
+<span class="nx">user</span><span class="p">[</span><span class="s2">"age"</span><span class="p">]</span><span class="w">         </span><span class="c1">// 25</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">address</span><span class="p">.</span><span class="nx">city</span><span class="w">   </span><span class="c1">// "Mumbai"   — chained dot access</span>
+
+<span class="c1">// Dynamic property access:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">prop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"name"</span><span class="p">;</span>
+<span class="nx">user</span><span class="p">[</span><span class="nx">prop</span><span class="p">]</span><span class="w">          </span><span class="c1">// "Vinay" — bracket notation with variable key</span>
+
+<span class="c1">// Method call:</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">greet</span><span class="p">()</span><span class="w">        </span><span class="c1">// "Hi, I'm Vinay"</span>
+</code></pre></div>
+<p><strong>Objects are mutable and compared by reference:</strong>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="p">};</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="p">};</span>
+<span class="nx">a</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">b</span><span class="w">    </span><span class="c1">// false — different objects in memory, even with same content!</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">a</span><span class="p">;</span>
+<span class="nx">c</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">a</span><span class="w">    </span><span class="c1">// true — c and a point to the SAME object in memory</span>
+<span class="nx">c</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">99</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span><span class="w">  </span><span class="c1">// 99 — modifying c also modifies a! (same reference)</span>
+</code></pre></div></p>
+<p><strong>Common Object operations:</strong>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"Vinay"</span><span class="p">,</span><span class="w"> </span><span class="nx">age</span><span class="o">:</span><span class="w"> </span><span class="mf">25</span><span class="w"> </span><span class="p">};</span>
+
+<span class="c1">// Add a new property:</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"vinay@example.com"</span><span class="p">;</span>
+
+<span class="c1">// Delete a property:</span>
+<span class="ow">delete</span><span class="w"> </span><span class="nx">user</span><span class="p">.</span><span class="nx">age</span><span class="p">;</span>
+
+<span class="c1">// Check if a property exists:</span>
+<span class="s2">"name"</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">user</span><span class="w">           </span><span class="c1">// true</span>
+<span class="s2">"age"</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">user</span><span class="w">            </span><span class="c1">// false (deleted)</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s2">"name"</span><span class="p">)</span><span class="w">  </span><span class="c1">// true</span>
+
+<span class="c1">// Get all keys / values / entries:</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">user</span><span class="p">)</span><span class="w">        </span><span class="c1">// ["name", "email"]</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">values</span><span class="p">(</span><span class="nx">user</span><span class="p">)</span><span class="w">      </span><span class="c1">// ["Vinay", "vinay@example.com"]</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">user</span><span class="p">)</span><span class="w">     </span><span class="c1">// [["name", "Vinay"], ["email", "vinay@example.com"]]</span>
+
+<span class="c1">// Shallow copy (spread operator):</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">copy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="nx">user</span><span class="w"> </span><span class="p">};</span><span class="w">    </span><span class="c1">// { name: "Vinay", email: "vinay@example.com" }</span>
+
+<span class="c1">// Merge objects:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">merged</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">"admin"</span><span class="w"> </span><span class="p">};</span>
+</code></pre></div></p>
+<hr />
+<h3 id="first-class-citizen-functions">First-Class Citizen Functions</h3>
+<p>In JavaScript, <strong>functions are objects</strong> — they are <strong>first-class citizens</strong> of the language. This means functions can be:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 1. Assigned to variables:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">greet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="sb">`Hello, </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">!`</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// 2. Passed as arguments to other functions:</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">applyToFive</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">fn</span><span class="p">(</span><span class="mf">5</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">applyToFive</span><span class="p">(</span><span class="nx">x</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span><span class="w">    </span><span class="c1">// 10</span>
+<span class="nx">applyToFive</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">);</span><span class="w">      </span><span class="c1">// 2.23...</span>
+
+<span class="c1">// 3. Returned from other functions (higher-order functions):</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">makeMultiplier</span><span class="p">(</span><span class="nx">factor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1">// Returns a new function!</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">number</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">factor</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span>
+<span class="kd">const</span><span class="w"> </span><span class="kr">double</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">makeMultiplier</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">triple</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">makeMultiplier</span><span class="p">(</span><span class="mf">3</span><span class="p">);</span>
+<span class="kr">double</span><span class="p">(</span><span class="mf">5</span><span class="p">);</span><span class="w">   </span><span class="c1">// 10</span>
+<span class="nx">triple</span><span class="p">(</span><span class="mf">5</span><span class="p">);</span><span class="w">   </span><span class="c1">// 15</span>
+
+<span class="c1">// 4. Stored in arrays:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">operations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">,</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">,</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">];</span>
+<span class="nx">operations</span><span class="p">[</span><span class="mf">0</span><span class="p">](</span><span class="mf">16</span><span class="p">);</span><span class="w">   </span><span class="c1">// 4</span>
+
+<span class="c1">// 5. Stored as object properties (methods):</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">calc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">add</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">subtract</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">b</span>
+<span class="p">};</span>
+<span class="nx">calc</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">);</span><span class="w">    </span><span class="c1">// 15</span>
+
+<span class="c1">// 6. Have properties themselves (functions are objects!):</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">myFunc</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="nx">myFunc</span><span class="p">.</span><span class="nx">customProperty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"I'm a property on a function"</span><span class="p">;</span>
+<span class="nx">myFunc</span><span class="p">.</span><span class="nx">callCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myFunc</span><span class="p">.</span><span class="nx">customProperty</span><span class="p">);</span><span class="w">  </span><span class="c1">// "I'm a property on a function"</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myFunc</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span><span class="w">            </span><span class="c1">// "myFunc" — built-in property</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myFunc</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span><span class="w">          </span><span class="c1">// 0 — number of declared parameters</span>
+</code></pre></div>
+<p><strong>Why First-Class Functions Matter:</strong></p>
+<p>This capability enables powerful programming patterns used constantly in JavaScript:
+- <strong>Callbacks</strong>: Pass a function to be called when something happens (event listeners, <code>setTimeout</code>, <code>array.forEach</code>)
+- <strong>Higher-Order Functions</strong>: Functions that operate on other functions (<code>map</code>, <code>filter</code>, <code>reduce</code>)
+- <strong>Closures</strong>: Functions that "remember" the scope where they were created
+- <strong>Functional Programming</strong>: A programming paradigm built around pure functions and function composition</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Real-world first-class function usage:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">numbers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">];</span>
+
+<span class="c1">// Array methods take functions as arguments:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">doubled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">numbers</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span><span class="w">          </span><span class="c1">// [2, 4, 6, 8, 10]</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">evens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">numbers</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w">  </span><span class="c1">// [2, 4]</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">numbers</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">acc</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">acc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 15</span>
+
+<span class="c1">// Event listener — pass a function to be called on click:</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"btn"</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Button clicked!"</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<hr />
+<h2 id="83-strings-unicode">8.3 Strings &amp; Unicode</h2>
+<h3 id="utf-16-encoding">UTF-16 Encoding</h3>
+<p>JavaScript strings are internally represented as sequences of <strong>UTF-16 code units</strong>. This has important practical implications.</p>
+<h4 id="the-unicode-scale">The Unicode Scale</h4>
+<ul>
+<li><strong>Unicode</strong> is a universal character standard assigning a unique <strong>code point</strong> to every character</li>
+<li>Code points are written as <code>U+XXXX</code> (e.g., <code>U+0041</code> = 'A', <code>U+1F600</code> = '😀')</li>
+<li>Unicode has over 1.1 million code points, organized into <strong>planes</strong>:</li>
+<li><strong>Basic Multilingual Plane (BMP)</strong>: Code points U+0000 to U+FFFF (most common characters)</li>
+<li><strong>Supplementary Planes</strong>: U+10000 and above (emoji, rare scripts, ancient characters)</li>
+</ul>
+<h4 id="utf-16-and-surrogate-pairs">UTF-16 and Surrogate Pairs</h4>
+<ul>
+<li><strong>UTF-16</strong> uses <strong>16-bit code units</strong> to represent characters</li>
+<li>BMP characters (U+0000–U+FFFF) fit in <strong>one 16-bit code unit</strong> (1 JS "character")</li>
+<li>Supplementary plane characters (U+10000+) require <strong>two 16-bit code units</strong> — a <strong>surrogate pair</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">// BMP character — 1 code unit, .length = 1 as expected:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"A"</span><span class="p">;</span><span class="w">          </span><span class="c1">// U+0041</span>
+<span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="w">                </span><span class="c1">// 1 ✅</span>
+
+<span class="c1">// Supplementary character (emoji) — 2 code units, .length = 2 unexpectedly:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">emoji</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"😀"</span><span class="p">;</span><span class="w">     </span><span class="c1">// U+1F600 — requires a surrogate pair</span>
+<span class="nx">emoji</span><span class="p">.</span><span class="nx">length</span><span class="w">            </span><span class="c1">// 2 (!) — NOT 1 as a human would expect</span>
+
+<span class="c1">// Chinese/Japanese/Korean (CJK) — BMP, so length = 1 per character:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">cjk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"日"</span><span class="p">;</span><span class="w">       </span><span class="c1">// U+65E5 — BMP character</span>
+<span class="nx">cjk</span><span class="p">.</span><span class="nx">length</span><span class="w">              </span><span class="c1">// 1 ✅</span>
+
+<span class="c1">// Emoji string with multiple emoji:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">faces</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"😀😂🎉"</span><span class="p">;</span>
+<span class="nx">faces</span><span class="p">.</span><span class="nx">length</span><span class="w">            </span><span class="c1">// 6 (!) — each emoji = 2 code units</span>
+</code></pre></div>
+<h4 id="practical-length-edge-cases">Practical <code>.length</code> Edge Cases</h4>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Hello, 世界! 🌍"</span><span class="p">;</span>
+
+<span class="c1">// .length counts UTF-16 code units, not "characters" as humans see them:</span>
+<span class="nx">text</span><span class="p">.</span><span class="nx">length</span><span class="w">    </span><span class="c1">// 13 (not 11 as you might expect — 🌍 counts as 2)</span>
+
+<span class="c1">// Correct character count using spread (ES6):</span>
+<span class="p">[...</span><span class="nx">text</span><span class="p">].</span><span class="nx">length</span><span class="w">    </span><span class="c1">// 11 ✅ — spread correctly handles surrogate pairs</span>
+
+<span class="c1">// Iterating correctly over characters including emoji:</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="kr">char</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">text</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="kr">char</span><span class="p">);</span><span class="w">   </span><span class="c1">// ✅ for...of handles surrogate pairs correctly</span>
+<span class="p">}</span>
+
+<span class="c1">// Wrong way to iterate — breaks surrogate pairs:</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">text</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">text</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span><span class="w">  </span><span class="c1">// ❌ May print half of a surrogate pair (gibberish)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="es6-unicode-escape-syntax">ES6 Unicode Escape Syntax</h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Old escape syntax — only works for BMP (4 hex digits):</span>
+<span class="s2">"\u0041"</span><span class="w">    </span><span class="c1">// "A"</span>
+<span class="s2">"\u4e16"</span><span class="w">    </span><span class="c1">// "世"</span>
+
+<span class="c1">// ES6 syntax — works for ANY code point (any number of hex digits):</span>
+<span class="s2">"\u{1F600}"</span><span class="w">  </span><span class="c1">// "😀" — supplementary plane, works with curly braces</span>
+<span class="s2">"\u{41}"</span><span class="w">     </span><span class="c1">// "A" — also works for BMP</span>
+</code></pre></div>
+<h3 id="string-methods-essential-reference">String Methods — Essential Reference</h3>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Hello, World!"</span><span class="p">;</span>
+
+<span class="c1">// Information:</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">length</span><span class="w">              </span><span class="c1">// 13</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mf">0</span><span class="p">)</span><span class="w">           </span><span class="c1">// "H"</span>
+<span class="nx">str</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w">                  </span><span class="c1">// "H" — bracket access (same result)</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mf">0</span><span class="p">)</span><span class="w">       </span><span class="c1">// 72 — UTF-16 code unit</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">codePointAt</span><span class="p">(</span><span class="mf">0</span><span class="p">)</span><span class="w">      </span><span class="c1">// 72 — Unicode code point (better for emoji)</span>
+
+<span class="c1">// Searching:</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">"World"</span><span class="p">)</span><span class="w">     </span><span class="c1">// 7</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="s2">"l"</span><span class="p">)</span><span class="w">     </span><span class="c1">// 10</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s2">"Hello"</span><span class="p">)</span><span class="w">    </span><span class="c1">// true</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="s2">"Hello"</span><span class="p">)</span><span class="w">  </span><span class="c1">// true</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">endsWith</span><span class="p">(</span><span class="s2">"!"</span><span class="p">)</span><span class="w">        </span><span class="c1">// true</span>
+
+<span class="c1">// Slicing (non-mutating — returns new string):</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">7</span><span class="p">,</span><span class="w"> </span><span class="mf">12</span><span class="p">)</span><span class="w">         </span><span class="c1">// "World"</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="o">-</span><span class="mf">6</span><span class="p">)</span><span class="w">            </span><span class="c1">// "orld!" (negative = from end)</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mf">7</span><span class="p">,</span><span class="w"> </span><span class="mf">12</span><span class="p">)</span><span class="w">     </span><span class="c1">// "World" (similar to slice, no negatives)</span>
+
+<span class="c1">// Transformation (non-mutating):</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()</span><span class="w">        </span><span class="c1">// "HELLO, WORLD!"</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span><span class="w">        </span><span class="c1">// "hello, world!"</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span><span class="w">               </span><span class="c1">// Removes whitespace from both ends</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">trimStart</span><span class="p">()</span><span class="w">          </span><span class="c1">// Removes leading whitespace</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">trimEnd</span><span class="p">()</span><span class="w">            </span><span class="c1">// Removes trailing whitespace</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">"World"</span><span class="p">,</span><span class="w"> </span><span class="s2">"JS"</span><span class="p">)</span><span class="w">   </span><span class="c1">// "Hello, JS!"</span>
+<span class="nx">str</span><span class="p">.</span><span class="nx">replaceAll</span><span class="p">(</span><span class="s2">"l"</span><span class="p">,</span><span class="w"> </span><span class="s2">"L"</span><span class="p">)</span><span class="w">     </span><span class="c1">// "HeLLo, WorLd!"</span>
+
+<span class="c1">// Splitting / Joining:</span>
+<span class="s2">"a,b,c"</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)</span><span class="w">       </span><span class="c1">// ["a", "b", "c"]</span>
+<span class="p">[</span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="s2">"b"</span><span class="p">,</span><span class="w"> </span><span class="s2">"c"</span><span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s2">"-"</span><span class="p">)</span><span class="w">  </span><span class="c1">// "a-b-c"</span>
+
+<span class="c1">// Padding:</span>
+<span class="s2">"5"</span><span class="p">.</span><span class="nx">padStart</span><span class="p">(</span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">)</span><span class="w">     </span><span class="c1">// "005" — useful for formatting</span>
+<span class="s2">"5"</span><span class="p">.</span><span class="nx">padEnd</span><span class="p">(</span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="s2">"0"</span><span class="p">)</span><span class="w">       </span><span class="c1">// "500"</span>
+
+<span class="c1">// Repeating:</span>
+<span class="s2">"ha"</span><span class="p">.</span><span class="nx">repeat</span><span class="p">(</span><span class="mf">3</span><span class="p">)</span><span class="w">           </span><span class="c1">// "hahaha"</span>
+</code></pre></div>
+<hr />
+<h2 id="84-non-values-undefined-vs-null">8.4 Non-Values: <code>undefined</code> vs. <code>null</code></h2>
+<p>These two values are among the most confusing aspects of JavaScript, partly because they seem to mean the same thing — but they represent subtly different concepts.</p>
+<h3 id="undefined-system-assigned-absence"><code>undefined</code> — System-Assigned Absence</h3>
+<p><code>undefined</code> is the value JavaScript <strong>automatically assigns</strong> when something has no explicit value. It represents an <strong>unintentional or uninitialized absence</strong> — the system is telling you "no value was provided here."</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// JavaScript creates undefined automatically in these situations:</span>
+
+<span class="c1">// 1. Declared variable, not yet assigned:</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">name</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span><span class="w">         </span><span class="c1">// undefined</span>
+
+<span class="c1">// 2. Missing function argument:</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">greet</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">greeting</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greeting</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">greet</span><span class="p">(</span><span class="s2">"Vinay"</span><span class="p">);</span><span class="w">            </span><span class="c1">// undefined — greeting not provided</span>
+
+<span class="c1">// 3. Function with no return statement:</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">doNothing</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">doNothing</span><span class="p">());</span><span class="w">  </span><span class="c1">// undefined</span>
+
+<span class="c1">// 4. Accessing a non-existent object property:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">a</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">b</span><span class="p">);</span><span class="w">        </span><span class="c1">// undefined</span>
+
+<span class="c1">// 5. Array element beyond bounds:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">arr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="mf">10</span><span class="p">]);</span><span class="w">      </span><span class="c1">// undefined</span>
+
+<span class="c1">// typeof undefined is safe to use even on undeclared variables:</span>
+<span class="ow">typeof</span><span class="w"> </span><span class="nx">undeclaredVariable</span><span class="w">  </span><span class="c1">// "undefined" — no ReferenceError!</span>
+</code></pre></div>
+<blockquote>
+<p><strong>The key signal</strong>: <code>undefined</code> means "the system doesn't have a value here yet." It's usually <strong>not your fault</strong> — it's the language telling you something is missing.</p>
+</blockquote>
+<hr />
+<h3 id="null-developer-assigned-absence"><code>null</code> — Developer-Assigned Absence</h3>
+<p><code>null</code> is a value you <strong>explicitly assign</strong> to represent "no value" or "empty." It represents an <strong>intentional absence</strong> — the developer is saying "there is no value here, and I mean it."</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// null is ALWAYS assigned deliberately by a developer:</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">currentUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">          </span><span class="c1">// No user logged in yet</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">selectedItem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">         </span><span class="c1">// Nothing selected</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">pendingRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">       </span><span class="c1">// No pending request</span>
+
+<span class="c1">// Typical usage — setting to null before/after use:</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">           </span><span class="c1">// No connection yet</span>
+
+<span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">connect</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">openConnection</span><span class="p">();</span><span class="w">    </span><span class="c1">// Now has a value</span>
+<span class="p">}</span>
+
+<span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">disconnect</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">connection</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+<span class="w">  </span><span class="nx">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">             </span><span class="c1">// Explicitly cleared — "no connection" state</span>
+<span class="p">}</span>
+
+<span class="c1">// Checking for null vs undefined explicitly:</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">connection</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// connection was deliberately set to something</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p><strong>The key signal</strong>: <code>null</code> means "I, the developer, have intentionally left this empty." It's always an <strong>explicit programmer decision</strong>.</p>
+</blockquote>
+<hr />
+<h3 id="the-famous-typeof-null-bug">The Famous <code>typeof null</code> Bug</h3>
+<div class="highlight"><pre><span></span><code><span class="ow">typeof</span><span class="w"> </span><span class="kc">null</span><span class="w">    </span><span class="c1">// "object" ← This is a bug! null is NOT an object.</span>
+</code></pre></div>
+<p><strong>Why does this exist?</strong> It's a <strong>bug from 1995</strong> in the original JavaScript implementation — values were stored with a type tag, and <code>null</code> (represented as a null pointer <code>0x00</code>) was accidentally given the "object" type tag. It was caught quickly but could never be fixed without breaking millions of existing websites.</p>
+<blockquote>
+<p><strong>TC39 tried to fix it in ES6</strong> — it was proposed to make <code>typeof null === "null"</code>, but the proposal was rejected because it would break too much existing code that checks <code>typeof x === "object"</code> and expects <code>null</code> to be included.</p>
+</blockquote>
+<hr />
+<h3 id="comparison-behaviors">Comparison Behaviors</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Strict equality (===) — never coerces:</span>
+<span class="kc">null</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">null</span><span class="w">        </span><span class="c1">// true</span>
+<span class="kc">undefined</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">undefined</span><span class="w">  </span><span class="c1">// true</span>
+<span class="kc">null</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">undefined</span><span class="w">   </span><span class="c1">// false ← They are NOT the same type!</span>
+
+<span class="c1">// Loose equality (==) — null and undefined are equal to each other ONLY:</span>
+<span class="kc">null</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">undefined</span><span class="w">    </span><span class="c1">// true  ← Special case!</span>
+<span class="kc">null</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0</span><span class="w">            </span><span class="c1">// false</span>
+<span class="kc">null</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">""</span><span class="w">           </span><span class="c1">// false</span>
+<span class="kc">null</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">false</span><span class="w">        </span><span class="c1">// false</span>
+<span class="kc">undefined</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">false</span><span class="w">   </span><span class="c1">// false</span>
+<span class="kc">undefined</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0</span><span class="w">       </span><span class="c1">// false</span>
+
+<span class="c1">// This loose equality special case is actually USEFUL:</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">process</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// Catches BOTH null AND undefined in one check!</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"No value provided"</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="c1">// Process value...</span>
+<span class="p">}</span>
+<span class="nx">process</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span><span class="w">       </span><span class="c1">// "No value provided"</span>
+<span class="nx">process</span><span class="p">(</span><span class="kc">undefined</span><span class="p">);</span><span class="w">  </span><span class="c1">// "No value provided"</span>
+<span class="nx">process</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span><span class="w">          </span><span class="c1">// Not caught — 0 is a valid value</span>
+</code></pre></div>
+<h3 id="nullish-coalescing-and-optional-chaining-es2020">Nullish Coalescing <code>??</code> and Optional Chaining <code>?.</code> (ES2020)</h3>
+<p>Modern JavaScript added operators specifically to handle <code>null</code>/<code>undefined</code> elegantly:</p>
+<h4 id="nullish-coalescing">Nullish Coalescing <code>??</code></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// ?? returns the right side ONLY if the left side is null or undefined</span>
+<span class="c1">// (unlike || which also triggers on 0, "", false)</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s2">"Anonymous"</span><span class="p">;</span><span class="w">       </span><span class="c1">// "Anonymous"</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">undefined</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w">             </span><span class="c1">// 0</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="mf">42</span><span class="p">;</span><span class="w">                  </span><span class="c1">// 0  ← 0 is NOT null/undefined!</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s2">"Default"</span><span class="p">;</span><span class="w">          </span><span class="c1">// "" ← empty string is NOT null/undefined!</span>
+
+<span class="c1">// Compare with || (which replaces falsy values — 0, "", false too):</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">count2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="mf">42</span><span class="p">;</span><span class="w">    </span><span class="c1">// 42 ← WRONG if 0 is a valid value!</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">count3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="mf">42</span><span class="p">;</span><span class="w">    </span><span class="c1">// 0  ← CORRECT ✅</span>
+</code></pre></div>
+<h4 id="optional-chaining">Optional Chaining <code>?.</code></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// Access deeply nested properties safely — returns undefined instead of throwing</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+
+<span class="c1">// Without ?. — crashes if user is null:</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">address</span><span class="p">.</span><span class="nx">city</span><span class="w">     </span><span class="c1">// TypeError: Cannot read properties of null</span>
+
+<span class="c1">// With ?. — safely returns undefined:</span>
+<span class="nx">user</span><span class="o">?</span><span class="p">.</span><span class="nx">address</span><span class="o">?</span><span class="p">.</span><span class="nx">city</span><span class="w">   </span><span class="c1">// undefined ← no crash!</span>
+
+<span class="c1">// Works with method calls too:</span>
+<span class="nx">user</span><span class="o">?</span><span class="p">.</span><span class="nx">greet</span><span class="p">()</span><span class="w">         </span><span class="c1">// undefined ← no crash even if greet doesn't exist</span>
+
+<span class="c1">// Works with bracket notation:</span>
+<span class="nx">user</span><span class="o">?</span><span class="p">.[</span><span class="s2">"address"</span><span class="p">]</span><span class="w">     </span><span class="c1">// undefined</span>
+
+<span class="c1">// Combine with ?? for defaults:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">city</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">user</span><span class="o">?</span><span class="p">.</span><span class="nx">address</span><span class="o">?</span><span class="p">.</span><span class="nx">city</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s2">"Unknown City"</span><span class="p">;</span>
+<span class="c1">// If user is null, city = "Unknown City"</span>
+</code></pre></div>
+<h3 id="stylistic-best-practices-summary">Stylistic Best Practices Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Variable not yet assigned</td>
+<td><code>undefined</code> (let it be assigned by the system)</td>
+</tr>
+<tr>
+<td>Intentionally clearing a variable</td>
+<td><code>null</code></td>
+</tr>
+<tr>
+<td>Default value when <code>null</code> OR <code>undefined</code></td>
+<td><code>??</code> (nullish coalescing)</td>
+</tr>
+<tr>
+<td>Safe deep property access</td>
+<td><code>?.</code> (optional chaining)</td>
+</tr>
+<tr>
+<td>Checking for "no value" (both null + undefined)</td>
+<td><code>value == null</code> (loose equality, valid pattern)</td>
+</tr>
+<tr>
+<td>Checking for specifically null</td>
+<td><code>value === null</code></td>
+</tr>
+<tr>
+<td>Checking for specifically undefined</td>
+<td><code>value === undefined</code> or <code>typeof value === "undefined"</code></td>
+</tr>
+<tr>
+<td>Avoid using</td>
+<td><code>typeof null === "object"</code> to check for null (it's a bug!)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="summary-of-topic-8">Summary of Topic 8</h2>
+<div class="highlight"><pre><span></span><code>DATA TYPES, STRINGS &amp; NON-VALUES
+
+8.1 PRIMITIVE TYPES (7 total — immutable, by value)
+  ├── Number: Single type for int + float (IEEE 754 64-bit)
+  │     ├── Special: Infinity, -Infinity, NaN
+  │     ├── Safe range: ±(2⁵³ - 1) → use BigInt beyond that
+  │     └── Gotcha: 0.1 + 0.2 ≠ 0.3 (floating point precision)
+  ├── String: UTF-16 sequence, immutable, 3 delimiters (", ', `)
+  │     └── Template literals: `${expr}` — preferred modern form
+  ├── Boolean: true / false
+  ├── Undefined: System-assigned absence (uninitialized/missing)
+  ├── Null: Developer-assigned absence (intentional empty)
+  ├── Symbol (ES6): Guaranteed unique identifier
+  │     └── Use: unique object keys, well-known Symbols
+  └── BigInt (ES2020): Arbitrary-precision integers (suffix n: 42n)
+
+8.2 OBJECTS &amp; FUNCTIONS
+  ├── Objects: Keyed collections of properties (key-value pairs)
+  │     ├── Compared by REFERENCE (not value like primitives)
+  │     ├── Mutable — properties can be added/changed/deleted
+  │     └── Operations: keys(), values(), entries(), spread {...obj}
+  └── Functions: First-class citizens (objects with a () call ability)
+        ├── Assignable to variables
+        ├── Passable as arguments (callbacks)
+        ├── Returnable from other functions (higher-order functions)
+        ├── Storable in arrays and object properties (methods)
+        └── Can have properties attached directly
+
+8.3 STRINGS &amp; UNICODE
+  ├── Internally UTF-16 code units (16-bit)
+  ├── BMP chars (U+0000–U+FFFF): 1 code unit, .length = 1 ✅
+  ├── Supplementary chars (emoji, etc.): 2 code units (surrogate pair)
+  │     └── Gotcha: "😀".length === 2, not 1!
+  ├── Correct iteration: for...of or spread [...str] handles surrogates
+  └── ES6 Unicode: "\u{1F600}" (curly brace syntax for any code point)
+
+8.4 NULL vs. UNDEFINED
+  ├── undefined: System-assigned (uninitialized var, missing arg, no return)
+  ├── null: Developer-assigned (intentional empty — you set this!)
+  ├── typeof null === "object" ← famous historical bug (never fixed)
+  ├── null == undefined → true (loose equality special case — useful!)
+  ├── null === undefined → false (strict equality)
+  └── Modern operators:
+        ├── ?? (nullish coalescing): right side if left is null/undefined
+        └── ?. (optional chaining): safe deep access, returns undefined
+</code></pre></div>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../07_identifiers_statements_expressions/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Identifiers, statements, and expressions">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Identifiers, statements, and expressions
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../09_operators_comparisons_coercion/" class="md-footer__link md-footer__link--next" aria-label="Next: Operators, comparisons, and coercion">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Operators, comparisons, and coercion
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

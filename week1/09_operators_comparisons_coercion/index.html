@@ -1,0 +1,4832 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week1/09_operators_comparisons_coercion/">
+      
+      
+        <link rel="prev" href="../08_data_types_strings_nonvalues/">
+      
+      
+        <link rel="next" href="../10_variables_declarations_scoping/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Operators, comparisons, and coercion - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#topic-9-operators-comparisons-type-coercion" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Operators, comparisons, and coercion
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#91-arithmetic-assignment-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Arithmetic &amp; Assignment Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.1 Arithmetic &amp; Assignment Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arithmetic-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arithmetic Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-dual-nature-of-the-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Dual Nature of the + Operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-arithmetic-operators-force-numeric-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-+ Arithmetic Operators Force Numeric Conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unary-and-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unary + and - Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assignment-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assignment Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#92-type-coercion-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Type Coercion Pitfalls
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.2 Type Coercion Pitfalls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-fundamental-abstract-operations-ecma-262" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fundamental Abstract Operations (ECMA-262)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-notorious-objectarray-coercion-puzzles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Notorious Object/Array Coercion Puzzles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logical-operators-return-values-not-booleans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logical Operators Return Values, Not Booleans
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#93-equality-loose-vs-strict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 Equality: Loose (==) vs. Strict (===)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3 Equality: Loose (==) vs. Strict (===)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strict-equality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strict Equality (===)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loose-equality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loose Equality (==)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dissecting-famous-loose-equality-anomalies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dissecting Famous Loose Equality Anomalies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-equality-comparison-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Equality Comparison Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-if-ever-should-you-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When (If Ever) Should You Use ==?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-third-equality-check-objectis-es2015" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Third Equality Check: Object.is() (ES2015)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#94-relational-comparisons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 Relational Comparisons (&lt;, &lt;=, &gt;, &gt;=)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.4 Relational Comparisons (&lt;, &lt;=, &gt;, &gt;=)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-null-relational-paradox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The null Relational Paradox
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary &amp; Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary &amp; Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#golden-rules-for-modern-javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Golden Rules for Modern JavaScript:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#91-arithmetic-assignment-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Arithmetic &amp; Assignment Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.1 Arithmetic &amp; Assignment Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arithmetic-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arithmetic Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-dual-nature-of-the-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Dual Nature of the + Operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-arithmetic-operators-force-numeric-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-+ Arithmetic Operators Force Numeric Conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unary-and-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unary + and - Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assignment-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assignment Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#92-type-coercion-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Type Coercion Pitfalls
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.2 Type Coercion Pitfalls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-fundamental-abstract-operations-ecma-262" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fundamental Abstract Operations (ECMA-262)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-notorious-objectarray-coercion-puzzles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Notorious Object/Array Coercion Puzzles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logical-operators-return-values-not-booleans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logical Operators Return Values, Not Booleans
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#93-equality-loose-vs-strict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 Equality: Loose (==) vs. Strict (===)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3 Equality: Loose (==) vs. Strict (===)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strict-equality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strict Equality (===)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loose-equality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loose Equality (==)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dissecting-famous-loose-equality-anomalies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dissecting Famous Loose Equality Anomalies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-equality-comparison-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Equality Comparison Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-if-ever-should-you-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When (If Ever) Should You Use ==?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-third-equality-check-objectis-es2015" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Third Equality Check: Object.is() (ES2015)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#94-relational-comparisons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 Relational Comparisons (&lt;, &lt;=, &gt;, &gt;=)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.4 Relational Comparisons (&lt;, &lt;=, &gt;, &gt;=)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-null-relational-paradox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The null Relational Paradox
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary &amp; Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary &amp; Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#golden-rules-for-modern-javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Golden Rules for Modern JavaScript:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="topic-9-operators-comparisons-type-coercion">Topic 9: Operators, Comparisons &amp; Type Coercion</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Topic 9: Operators, Comparisons &amp; Type Coercion</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<blockquote>
+<p><strong>MAD-II Week 1 | Detailed Notes</strong></p>
+</blockquote>
+<hr />
+<h2 id="overview">Overview</h2>
+<p>JavaScript is a <strong>dynamically typed</strong> and <strong>weakly typed</strong> language:
+- <strong>Dynamic typing</strong> means variable types are resolved at runtime rather than compile-time.
+- <strong>Weak typing</strong> means JavaScript permits operations between mismatched types by silently converting (coercing) values behind the scenes rather than raising a compile-time or runtime error.</p>
+<p>This design decision was intentional. In May 1995, Brendan Eich designed JavaScript for Netscape Navigator under strict instructions to make the language forgiving for non-professional programmers writing light browser scripts (validating form fields, handling button clicks). A script throwing an unhandled type exception would halt execution and break the webpage. Therefore, JavaScript was designed to <strong>"keep running at all costs"</strong> by guessing what type conversion the programmer intended.</p>
+<p>While this makes simple tasks forgiving, implicit type coercion is arguably JavaScript's most notorious source of subtle, production-breaking bugs. Mastering operators, implicit coercion rules, and comparison algorithms is essential for writing predictable, robust full-stack code.</p>
+<pre class="mermaid"><code>flowchart TD
+    A["Operator Encountered"] --&gt; B{"Do operand types match?"}
+    B -- Yes --&gt; C["Execute native type operation"]
+    B -- No --&gt; D{"Strict or Loose Operator?"}
+    D -- "Strict (===, !==)" --&gt; E["No Coercion: Return false"]
+    D -- "Loose / Arithmetic (+, -, ==, etc.)" --&gt; F["Invoke Abstract Coercion Operations"]
+    F --&gt; G["ToPrimitive / ToNumber / ToString / ToBoolean"]
+    G --&gt; H["Perform operation on coerced primitives"]</code></pre>
+<hr />
+<h2 id="91-arithmetic-assignment-operators">9.1 Arithmetic &amp; Assignment Operators</h2>
+<p>Operators in JavaScript fall into three structural categories based on operand count:
+1. <strong>Unary operators</strong>: Accept one operand (e.g., <code>+x</code>, <code>-x</code>, <code>++x</code>, <code>!x</code>, <code>typeof x</code>).
+2. <strong>Binary operators</strong>: Accept two operands (e.g., <code>a + b</code>, <code>a * b</code>, <code>a == b</code>).
+3. <strong>Ternary operator</strong>: Accepts three operands (<code>condition ? exprIfTrue : exprIfFalse</code>).</p>
+<hr />
+<h3 id="arithmetic-operators">Arithmetic Operators</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Operator</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Example</th>
+<th style="text-align: left;">Coercion Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>+</code></td>
+<td style="text-align: left;"><strong>Addition / Concatenation</strong></td>
+<td style="text-align: left;"><code>a + b</code></td>
+<td style="text-align: left;"><strong>Overloaded</strong>: If either operand is a string, coerces both to strings. Otherwise, coerces to numbers.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-</code></td>
+<td style="text-align: left;"><strong>Subtraction</strong></td>
+<td style="text-align: left;"><code>a - b</code></td>
+<td style="text-align: left;">Purely numeric. Coerces both operands to numbers (<code>ToNumber</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>*</code></td>
+<td style="text-align: left;"><strong>Multiplication</strong></td>
+<td style="text-align: left;"><code>a * b</code></td>
+<td style="text-align: left;">Purely numeric. Coerces both operands to numbers.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>/</code></td>
+<td style="text-align: left;"><strong>Division</strong></td>
+<td style="text-align: left;"><code>a / b</code></td>
+<td style="text-align: left;">Purely numeric. Returns float. Division by zero yields <code>Infinity</code> or <code>-Infinity</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>%</code></td>
+<td style="text-align: left;"><strong>Remainder (Modulo)</strong></td>
+<td style="text-align: left;"><code>a % b</code></td>
+<td style="text-align: left;">Purely numeric. Returns remainder of integer division (retains sign of dividend).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>**</code></td>
+<td style="text-align: left;"><strong>Exponentiation (ES2016)</strong></td>
+<td style="text-align: left;"><code>a ** b</code></td>
+<td style="text-align: left;">Purely numeric. Equivalent to <code>Math.pow(a, b)</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>++</code></td>
+<td style="text-align: left;"><strong>Increment</strong></td>
+<td style="text-align: left;"><code>++x</code> or <code>x++</code></td>
+<td style="text-align: left;">Numeric. Adds <code>1</code> to variable (coerces to number if needed).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>--</code></td>
+<td style="text-align: left;"><strong>Decrement</strong></td>
+<td style="text-align: left;"><code>--x</code> or <code>x--</code></td>
+<td style="text-align: left;">Numeric. Subtracts <code>1</code> from variable.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="the-dual-nature-of-the-operator">The Dual Nature of the <code>+</code> Operator</h3>
+<p>The <code>+</code> operator is the <strong>only arithmetic operator that is overloaded</strong> to perform both mathematical addition and string concatenation.</p>
+<h4 id="the-rule-of">The Rule of <code>+</code>:</h4>
+<p>When evaluating <code>a + b</code>:
+1. Both operands are converted to primitive values using the abstract operation <code>ToPrimitive()</code>.
+2. <strong>If either operand is a string</strong>, the other operand is coerced to a string via <code>ToString()</code>, and <strong>concatenation</strong> is performed.
+3. <strong>If neither operand is a string</strong>, both operands are coerced to numbers via <code>ToNumber()</code>, and <strong>numeric addition</strong> is performed.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Pure numeric addition:</span>
+<span class="mf">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">10</span><span class="w">           </span><span class="c1">// 15</span>
+<span class="mf">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kc">true</span><span class="w">         </span><span class="c1">// 6  (true -&gt; 1)</span>
+<span class="mf">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kc">null</span><span class="w">         </span><span class="c1">// 5  (null -&gt; 0)</span>
+<span class="mf">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kc">undefined</span><span class="w">    </span><span class="c1">// NaN (undefined -&gt; NaN)</span>
+
+<span class="c1">// String concatenation triggered:</span>
+<span class="s2">"Hello "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">"World"</span><span class="w">  </span><span class="c1">// "Hello World"</span>
+<span class="s2">"5"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">10</span><span class="w">            </span><span class="c1">// "510"  (10 coerced to "10")</span>
+<span class="mf">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">"10"</span><span class="w">            </span><span class="c1">// "510"  (5 coerced to "5")</span>
+<span class="s2">"Score: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kc">true</span><span class="w">    </span><span class="c1">// "Score: true"</span>
+<span class="s2">"Value: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kc">null</span><span class="w">    </span><span class="c1">// "Value: null"</span>
+<span class="s2">"Data: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kc">undefined</span><span class="w"> </span><span class="c1">// "Data: undefined"</span>
+</code></pre></div>
+<h4 id="left-to-right-associativity-pitfall">Left-to-Right Associativity Pitfall:</h4>
+<p>Because <code>+</code> evaluates from left to right, operand order drastically alters output:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Left-to-right evaluation:</span>
+<span class="mf">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">"3"</span>
+<span class="c1">// Step 1: 1 + 2 -&gt; 3 (both numbers)</span>
+<span class="c1">// Step 2: 3 + "3" -&gt; "33" (string concatenation)</span>
+<span class="c1">// Result: "33"</span>
+
+<span class="s2">"1"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3</span>
+<span class="c1">// Step 1: "1" + 2 -&gt; "12" (string concatenation)</span>
+<span class="c1">// Step 2: "12" + 3 -&gt; "123" (string concatenation)</span>
+<span class="c1">// Result: "123"</span>
+
+<span class="c1">// Explicit grouping with parentheses overrides associativity:</span>
+<span class="s2">"1"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mf">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3</span><span class="p">)</span>
+<span class="c1">// Step 1: (2 + 3) -&gt; 5</span>
+<span class="c1">// Step 2: "1" + 5 -&gt; "15"</span>
+<span class="c1">// Result: "15"</span>
+</code></pre></div>
+<blockquote>
+<p>[!WARNING]
+<strong>Real-World Form Input Bug</strong>: HTML <code>&lt;input&gt;</code> elements always return user input as a string (<code>HTMLInputElement.value</code>).
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">input1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"50"</span><span class="p">;</span><span class="w"> </span><span class="c1">// from document.getElementById("price").value</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">input2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"10"</span><span class="p">;</span><span class="w"> </span><span class="c1">// from document.getElementById("tax").value</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">input1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">input2</span><span class="p">;</span><span class="w"> </span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">total</span><span class="p">);</span><span class="w"> </span><span class="c1">// "5010" — NOT 60!</span>
+</code></pre></div>
+Always parse form values explicitly using <code>Number()</code>, <code>parseInt()</code>, or the unary <code>+</code> operator.</p>
+</blockquote>
+<hr />
+<h3 id="non-arithmetic-operators-force-numeric-conversion">Non-<code>+</code> Arithmetic Operators Force Numeric Conversion</h3>
+<p>Unlike <code>+</code>, operators <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>, and <code>**</code> have <strong>no string variant</strong>. They strictly force conversion to <code>Number</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="s2">"10"</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">5</span><span class="w">         </span><span class="c1">// 5    ("10" -&gt; 10)</span>
+<span class="s2">"10"</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="s2">"2"</span><span class="w">       </span><span class="c1">// 20   (both -&gt; 10 and 2)</span>
+<span class="s2">"100"</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="s2">"25"</span><span class="w">     </span><span class="c1">// 4</span>
+<span class="s2">"10"</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="s2">"3"</span><span class="w">       </span><span class="c1">// 1</span>
+<span class="s2">"2"</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="s2">"3"</span><span class="w">       </span><span class="c1">// 8</span>
+
+<span class="c1">// If the string cannot be parsed as a valid number, you get NaN:</span>
+<span class="s2">"hello"</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">2</span><span class="w">      </span><span class="c1">// NaN  ("hello" -&gt; NaN)</span>
+<span class="s2">"10px"</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="w">       </span><span class="c1">// NaN  ("10px" has trailing letters -&gt; NaN)</span>
+<span class="kc">undefined</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="w">    </span><span class="c1">// NaN  (undefined -&gt; NaN)</span>
+<span class="kc">null</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="w">         </span><span class="c1">// 0    (null -&gt; 0)</span>
+<span class="kc">true</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">10</span><span class="w">        </span><span class="c1">// 10   (true -&gt; 1)</span>
+<span class="kc">false</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">10</span><span class="w">       </span><span class="c1">// 0    (false -&gt; 0)</span>
+</code></pre></div>
+<hr />
+<h3 id="unary-and-operators">Unary <code>+</code> and <code>-</code> Operators</h3>
+<p>The unary <code>+</code> operator provides the cleanest, highest-performance idiom in JavaScript to explicitly convert any value to a number:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Unary + as an explicit number cast:</span>
+<span class="o">+</span><span class="s2">"42"</span><span class="w">            </span><span class="c1">// 42 (Number)</span>
+<span class="o">+</span><span class="s2">"3.1415"</span><span class="w">        </span><span class="c1">// 3.1415</span>
+<span class="o">+</span><span class="s2">""</span><span class="w">              </span><span class="c1">// 0  (empty string coerces to 0)</span>
+<span class="o">+</span><span class="s2">"   "</span><span class="w">           </span><span class="c1">// 0  (whitespace-only string coerces to 0)</span>
+<span class="o">+</span><span class="kc">true</span><span class="w">            </span><span class="c1">// 1</span>
+<span class="o">+</span><span class="kc">false</span><span class="w">           </span><span class="c1">// 0</span>
+<span class="o">+</span><span class="kc">null</span><span class="w">            </span><span class="c1">// 0</span>
+<span class="o">+</span><span class="kc">undefined</span><span class="w">       </span><span class="c1">// NaN</span>
+<span class="o">+</span><span class="s2">"hello"</span><span class="w">         </span><span class="c1">// NaN</span>
+
+<span class="c1">// Unary - negates after numeric coercion:</span>
+<span class="o">-</span><span class="s2">"42"</span><span class="w">            </span><span class="c1">// -42</span>
+<span class="o">-</span><span class="kc">true</span><span class="w">            </span><span class="c1">// -1</span>
+<span class="o">-</span><span class="kc">false</span><span class="w">           </span><span class="c1">// -0</span>
+</code></pre></div>
+<blockquote>
+<p>[!TIP]
+<strong><code>+str</code> vs. <code>parseInt(str)</code> vs. <code>Number(str)</code></strong>:
+- <code>+str</code> and <code>Number(str)</code> parse the <strong>entire</strong> string. If any illegal characters exist (e.g., <code>"120px"</code>), they yield <code>NaN</code>.
+- <code>parseInt(str, 10)</code> parses from left to right until an invalid character is found (<code>parseInt("120px", 10)</code> returns <code>120</code>).</p>
+</blockquote>
+<hr />
+<h3 id="assignment-operators">Assignment Operators</h3>
+<h4 id="basic-compound-assignment">Basic &amp; Compound Assignment</h4>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span>
+
+<span class="nx">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">5</span><span class="p">;</span><span class="w">   </span><span class="c1">// count = count + 5  -&gt; 15</span>
+<span class="nx">count</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mf">3</span><span class="p">;</span><span class="w">   </span><span class="c1">// count = count - 3  -&gt; 12</span>
+<span class="nx">count</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span><span class="w">   </span><span class="c1">// count = count * 2  -&gt; 24</span>
+<span class="nx">count</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mf">4</span><span class="p">;</span><span class="w">   </span><span class="c1">// count = count / 4  -&gt; 6</span>
+<span class="nx">count</span><span class="w"> </span><span class="o">%=</span><span class="w"> </span><span class="mf">4</span><span class="p">;</span><span class="w">   </span><span class="c1">// count = count % 4  -&gt; 2</span>
+<span class="nx">count</span><span class="w"> </span><span class="o">**=</span><span class="w"> </span><span class="mf">3</span><span class="p">;</span><span class="w">  </span><span class="c1">// count = count ** 3 -&gt; 8</span>
+</code></pre></div>
+<h4 id="modern-logical-assignment-operators-es2021-es12">Modern Logical Assignment Operators (ES2021 / ES12)</h4>
+<p>ES2021 introduced short-circuit logical assignment operators, eliminating boilerplate checks:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 1. Logical OR assignment (||=)</span>
+<span class="c1">// Assigns ONLY if current value is FALSY</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">;</span>
+<span class="nx">title</span><span class="w"> </span><span class="o">||=</span><span class="w"> </span><span class="s2">"Untitled Document"</span><span class="p">;</span><span class="w"> </span><span class="c1">// title becomes "Untitled Document"</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">existingTitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Report"</span><span class="p">;</span>
+<span class="nx">existingTitle</span><span class="w"> </span><span class="o">||=</span><span class="w"> </span><span class="s2">"Untitled Document"</span><span class="p">;</span><span class="w"> </span><span class="c1">// unchanged: "Report"</span>
+
+<span class="c1">// 2. Logical AND assignment (&amp;&amp;=)</span>
+<span class="c1">// Assigns ONLY if current value is TRUTHY</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"Alice"</span><span class="p">,</span><span class="w"> </span><span class="nx">active</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">};</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">active</span><span class="w"> </span><span class="o">&amp;&amp;=</span><span class="w"> </span><span class="nx">sendWelcomeEmail</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span><span class="w"> </span><span class="c1">// Executes only if user.active is truthy</span>
+
+<span class="c1">// 3. Nullish Coalescing assignment (??=)</span>
+<span class="c1">// Assigns ONLY if current value is NULL or UNDEFINED (preserves 0 and "")</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">timeout</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">retries</span><span class="o">:</span><span class="w"> </span><span class="kc">undefined</span><span class="w"> </span><span class="p">};</span>
+
+<span class="nx">config</span><span class="p">.</span><span class="nx">timeout</span><span class="w"> </span><span class="o">??=</span><span class="w"> </span><span class="mf">3000</span><span class="p">;</span><span class="w">  </span><span class="c1">// Remains 0 (0 is valid, not null/undefined!)</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">retries</span><span class="w"> </span><span class="o">??=</span><span class="w"> </span><span class="mf">3</span><span class="p">;</span><span class="w">     </span><span class="c1">// Becomes 3 (retries was undefined)</span>
+</code></pre></div>
+<hr />
+<h2 id="92-type-coercion-pitfalls">9.2 Type Coercion Pitfalls</h2>
+<p>Type coercion occurs when JavaScript expects one data type in an operation or context, but receives another.</p>
+<p>There are two forms of type casting:
+1. <strong>Explicit Type Casting (Type Conversion)</strong>: The developer manually invokes a conversion function (e.g., <code>String(x)</code>, <code>Number(x)</code>, <code>Boolean(x)</code>).
+2. <strong>Implicit Type Coercion</strong>: The JavaScript runtime automatically converts the type behind the scenes based on ECMAScript abstract operations.</p>
+<hr />
+<h3 id="the-fundamental-abstract-operations-ecma-262">The Fundamental Abstract Operations (ECMA-262)</h3>
+<p>The ECMAScript specification defines internal algorithms that dictate all coercion. The three most critical are:</p>
+<h4 id="1-toboolean">1. <code>ToBoolean</code></h4>
+<p>Evaluates any value to either <code>true</code> or <code>false</code>.</p>
+<p>There are <strong>exactly 8 falsy values</strong> in JavaScript. Every other value in the language is <strong>truthy</strong>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">The 8 Falsy Values</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>false</code></td>
+<td style="text-align: left;">The boolean literal</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>0</code></td>
+<td style="text-align: left;">Positive numeric zero</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-0</code></td>
+<td style="text-align: left;">Negative numeric zero</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>0n</code></td>
+<td style="text-align: left;">BigInt zero</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>""</code></td>
+<td style="text-align: left;">Empty string (length 0)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>null</code></td>
+<td style="text-align: left;">The intentional non-value</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>undefined</code></td>
+<td style="text-align: left;">The uninitialized/missing value</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>NaN</code></td>
+<td style="text-align: left;">"Not a Number"</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Surprising Truthy Values (Common Gotchas)</strong>:
+- <code>"0"</code> (non-empty string containing the character zero) $\rightarrow$ <strong>truthy</strong>
+- <code>"false"</code> (non-empty string containing characters) $\rightarrow$ <strong>truthy</strong>
+- <code>" "</code> (string with just whitespace) $\rightarrow$ <strong>truthy</strong>
+- <code>[]</code> (empty array — it is an object) $\rightarrow$ <strong>truthy</strong>
+- <code>{}</code> (empty object literal) $\rightarrow$ <strong>truthy</strong>
+- <code>function() {}</code> (any function) $\rightarrow$ <strong>truthy</strong></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="c1">// Empty array is truthy in boolean context:</span>
+<span class="k">if</span><span class="w"> </span><span class="p">([])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Empty array executes!"</span><span class="p">);</span><span class="w"> </span><span class="c1">// This WILL print!</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="s2">"0"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"String '0' executes!"</span><span class="p">);</span><span class="w">   </span><span class="c1">// This WILL print!</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h4 id="2-tonumber">2. <code>ToNumber</code></h4>
+<p>Converts non-numeric types to numbers when evaluated by arithmetic operators, unary <code>+</code>, or numeric comparisons:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Input Value</th>
+<th style="text-align: left;">Converted Number (<code>ToNumber</code>)</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>undefined</code></td>
+<td style="text-align: left;"><code>NaN</code></td>
+<td style="text-align: left;">Does not represent a numerical quantity</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>null</code></td>
+<td style="text-align: left;"><code>0</code></td>
+<td style="text-align: left;">Historical legacy decision in JS</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>true</code></td>
+<td style="text-align: left;"><code>1</code></td>
+<td style="text-align: left;">Standard boolean mapping</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>false</code></td>
+<td style="text-align: left;"><code>0</code></td>
+<td style="text-align: left;">Standard boolean mapping</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>""</code> (empty string)</td>
+<td style="text-align: left;"><code>0</code></td>
+<td style="text-align: left;">Whitespace-only strings also coerce to <code>0</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"42"</code></td>
+<td style="text-align: left;"><code>42</code></td>
+<td style="text-align: left;">Valid numeric string parses correctly</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"3.14"</code></td>
+<td style="text-align: left;"><code>3.14</code></td>
+<td style="text-align: left;">Valid float string parses correctly</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"foo"</code>, <code>"10px"</code></td>
+<td style="text-align: left;"><code>NaN</code></td>
+<td style="text-align: left;">Invalid numeric strings evaluate to <code>NaN</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Symbol(...)</code></td>
+<td style="text-align: left;"><strong>Throws <code>TypeError</code></strong></td>
+<td style="text-align: left;">Symbols cannot be coerced to numbers</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>10n</code> (BigInt)</td>
+<td style="text-align: left;"><strong>Throws <code>TypeError</code></strong></td>
+<td style="text-align: left;">BigInt cannot implicitly mix with Number</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1">// Contrast undefined vs null:</span>
+<span class="kc">null</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">10</span><span class="w">        </span><span class="c1">// 10   (null becomes 0)</span>
+<span class="kc">undefined</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">10</span><span class="w">   </span><span class="c1">// NaN  (undefined becomes NaN)</span>
+</code></pre></div>
+<hr />
+<h4 id="3-toprimitive">3. <code>ToPrimitive</code></h4>
+<p>When an object (like an Array, Date, or Object literal) is used in a primitive context (e.g., <code>obj + 5</code> or <code>obj == "hello"</code>), JavaScript converts it to a primitive value.</p>
+<p>The algorithm checks for:
+1. <code>obj[Symbol.toPrimitive](hint)</code> if defined.
+2. Otherwise, calls <code>.valueOf()</code> and <code>.toString()</code> in an order determined by the context (hint).
+   - For strings: calls <code>.toString()</code> first, then <code>.valueOf()</code>.
+   - For numbers/default: calls <code>.valueOf()</code> first, then <code>.toString()</code>.</p>
+<p>For standard plain objects and arrays:
+- <code>[].toString()</code> yields <code>""</code> (empty array converts to empty string).
+- <code>[1, 2, 3].toString()</code> yields <code>"1,2,3"</code>.
+- <code>[42].toString()</code> yields <code>"42"</code>.
+- <code>{}.toString()</code> yields <code>"[object Object]"</code>.</p>
+<hr />
+<h3 id="the-notorious-objectarray-coercion-puzzles">The Notorious Object/Array Coercion Puzzles</h3>
+<p>Understanding <code>ToPrimitive</code> explains the classic JavaScript coercion anomalies:</p>
+<h4 id="case-1">Case 1: <code>[] + []</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="p">[]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="c1">// ""</span>
+</code></pre></div>
+<strong>Mechanism</strong>:
+1. Binary <code>+</code> requires primitive operands.
+2. Both arrays invoke <code>ToPrimitive</code>.
+3. <code>[].toString()</code> returns <code>""</code>.
+4. We evaluate <code>"" + ""</code> $\rightarrow$ <code>""</code> (empty string).</p>
+<h4 id="case-2">Case 2: <code>[] + {}</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="p">[]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="c1">// "[object Object]"</span>
+</code></pre></div>
+<strong>Mechanism</strong>:
+1. <code>ToPrimitive([])</code> $\rightarrow$ <code>""</code>.
+2. <code>ToPrimitive({})</code> $\rightarrow$ <code>"[object Object]"</code>.
+3. Concatenation: <code>"" + "[object Object]"</code> $\rightarrow$ <code>"[object Object]"</code>.</p>
+<h4 id="case-3">Case 3: <code>{} + []</code></h4>
+<p><div class="highlight"><pre><span></span><code><span class="c1">// In Node.js / Browser Console as a standalone statement:</span>
+<span class="p">{}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="c1">// 0  (in some REPLs / older browsers)</span>
+</code></pre></div>
+<strong>Mechanism</strong>:
+JavaScript parsers see <code>{}</code> at the start of a statement as an <strong>empty code block</strong> rather than an object literal!
+The remaining expression is parsed as <code>+[]</code> (unary plus on an empty array).
+1. <code>+[]</code> coerces <code>[]</code> to a number.
+2. <code>ToPrimitive([])</code> $\rightarrow$ <code>""</code>.
+3. <code>ToNumber("")</code> $\rightarrow$ <code>0</code>.
+4. Result: <code>0</code>.
+<em>(Note: Wrapping in parentheses <code>({} + [])</code> forces <code>{}</code> to parse as an object expression, correctly yielding <code>"[object Object]"</code>).</em></p>
+<hr />
+<h3 id="logical-operators-return-values-not-booleans">Logical Operators Return Values, Not Booleans</h3>
+<p>In languages like C, C++, or Java, logical AND (<code>&amp;&amp;</code>) and logical OR (<code>||</code>) return strict boolean values (<code>true</code> or <code>false</code>).</p>
+<p>In JavaScript, <strong>logical operators return the value of one of their operands directly</strong>, performing short-circuit evaluation:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Logical OR (||): Returns the FIRST TRUTHY operand, or the last operand if all are falsy</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">userProvidedName</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s2">"Guest"</span><span class="p">;</span>
+<span class="c1">// If userProvidedName is "Alice" -&gt; returns "Alice"</span>
+<span class="c1">// If userProvidedName is "" -&gt; "" is falsy -&gt; returns "Guest"</span>
+
+<span class="c1">// Logical AND (&amp;&amp;): Returns the FIRST FALSY operand, or the last operand if all are truthy</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">authenticated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">renderDashboard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">authenticated</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">showDashboard</span><span class="p">();</span>
+<span class="c1">// If authenticated is true -&gt; evaluates and returns showDashboard()</span>
+<span class="c1">// If authenticated is false -&gt; returns false immediately without calling showDashboard()</span>
+</code></pre></div>
+<h4 id="short-circuiting-table">Short-Circuiting Table:</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Expression</th>
+<th style="text-align: left;">Evaluates To</th>
+<th style="text-align: left;">Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>"hello" \|\| "world"</code></td>
+<td style="text-align: left;"><code>"hello"</code></td>
+<td style="text-align: left;">First operand is truthy; short-circuits immediately</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"" \|\| "world"</code></td>
+<td style="text-align: left;"><code>"world"</code></td>
+<td style="text-align: left;">First operand is falsy; returns second</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>null \|\| undefined</code></td>
+<td style="text-align: left;"><code>undefined</code></td>
+<td style="text-align: left;">First operand is falsy; returns second (even if falsy)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"hello" &amp;&amp; 42</code></td>
+<td style="text-align: left;"><code>42</code></td>
+<td style="text-align: left;">First is truthy; continues and returns second</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>0 &amp;&amp; "hello"</code></td>
+<td style="text-align: left;"><code>0</code></td>
+<td style="text-align: left;">First operand is falsy; short-circuits and returns <code>0</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>null &amp;&amp; false</code></td>
+<td style="text-align: left;"><code>null</code></td>
+<td style="text-align: left;">First operand is falsy; short-circuits and returns <code>null</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>[!CAUTION]
+<strong>The <code>||</code> False-Positive Trap</strong>:
+Using <code>||</code> for default settings fails when valid data includes <code>0</code>, <code>""</code>, or <code>false</code>:
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">setFontSize</span><span class="p">(</span><span class="nx">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">fontSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="mf">16</span><span class="p">;</span><span class="w"> </span><span class="c1">// If size is 0, 0 is falsy! fontSize becomes 16!</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fontSize</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">setFontSize</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// Returns 16, bug!</span>
+
+<span class="c1">// Solution: Use ES2020 Nullish Coalescing (??)</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">setFontSizeSafe</span><span class="p">(</span><span class="nx">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="mf">16</span><span class="p">;</span><span class="w"> </span><span class="c1">// Only falls back on null or undefined</span>
+<span class="p">}</span>
+<span class="nx">setFontSizeSafe</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// Correctly returns 0</span>
+</code></pre></div></p>
+</blockquote>
+<hr />
+<h2 id="93-equality-loose-vs-strict">9.3 Equality: Loose (<code>==</code>) vs. Strict (<code>===</code>)</h2>
+<p>JavaScript provides two primary equality comparison operators:
+- <strong><code>==</code> (Loose Equality / Abstract Equality)</strong>: Compares values <strong>with</strong> implicit type coercion.
+- <strong><code>===</code> (Strict Equality)</strong>: Compares both <strong>type</strong> and <strong>value</strong> without coercion.</p>
+<p>There are also the inequality counterparts: <code>!=</code> (loose inequality) and <code>!==</code> (strict inequality).</p>
+<hr />
+<h3 id="strict-equality">Strict Equality (<code>===</code>)</h3>
+<p>The strict equality operator compares values without allowing type conversions:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">a</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">b</span>
+</code></pre></div>
+<h4 id="the-strict-equality-algorithm">The Strict Equality Algorithm:</h4>
+<ol>
+<li>If <code>typeof a !== typeof b</code>, return <strong><code>false</code></strong>.</li>
+<li>If <code>typeof a</code> is <code>number</code>:</li>
+<li>If either <code>a</code> or <code>b</code> is <code>NaN</code>, return <strong><code>false</code></strong> (since <code>NaN !== NaN</code>).</li>
+<li>If <code>a</code> is <code>+0</code> and <code>b</code> is <code>-0</code>, return <strong><code>true</code></strong> (IEEE 754 zeros are equal).</li>
+<li>If values are the same number, return <strong><code>true</code></strong>.</li>
+<li>If <code>typeof a</code> is <code>string</code>, <code>boolean</code>, <code>bigint</code>, or <code>symbol</code>:</li>
+<li>Return <code>true</code> if they represent identical characters / boolean state / symbol identity.</li>
+<li>If <code>typeof a</code> is <code>null</code> or <code>undefined</code>:</li>
+<li><code>null === null</code> $\rightarrow$ <code>true</code></li>
+<li><code>undefined === undefined</code> $\rightarrow$ <code>true</code></li>
+<li>If <code>a</code> and <code>b</code> are objects:</li>
+<li>Return <code>true</code> <strong>only if they reference the identical object in memory</strong>.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1">// Strict equality examples:</span>
+<span class="mf">42</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">42</span><span class="w">            </span><span class="c1">// true</span>
+<span class="mf">42</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">"42"</span><span class="w">          </span><span class="c1">// false (types differ: number vs. string)</span>
+<span class="kc">true</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">1</span><span class="w">           </span><span class="c1">// false (boolean vs. number)</span>
+<span class="kc">null</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">undefined</span><span class="w">   </span><span class="c1">// false (object/null vs. undefined)</span>
+
+<span class="c1">// Object reference identity:</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">obj1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="p">};</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">obj2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="p">};</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">obj3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">obj1</span><span class="p">;</span>
+
+<span class="nx">obj1</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">obj2</span><span class="w">        </span><span class="c1">// false (different objects in heap memory)</span>
+<span class="nx">obj1</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">obj3</span><span class="w">        </span><span class="c1">// true  (identical memory reference)</span>
+
+<span class="p">[]</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="p">[]</span><span class="w">            </span><span class="c1">// false (two distinct array instances)</span>
+</code></pre></div>
+<hr />
+<h3 id="loose-equality">Loose Equality (<code>==</code>)</h3>
+<p>The loose equality operator applies the complex <strong>Abstract Equality Comparison Algorithm</strong> defined in ECMAScript Section 7.2.14:</p>
+<h4 id="simplified-abstract-equality-rules-x-y">Simplified Abstract Equality Rules (<code>x == y</code>):</h4>
+<ol>
+<li><strong>Same Type</strong>: If <code>typeof x === typeof y</code>, perform strict equality <code>x === y</code>.</li>
+<li><strong><code>null</code> and <code>undefined</code></strong>: </li>
+<li><code>null == undefined</code> $\rightarrow$ <strong><code>true</code></strong></li>
+<li><code>undefined == null</code> $\rightarrow$ <strong><code>true</code></strong></li>
+<li><code>null</code> and <code>undefined</code> do <strong>not</strong> loosely equal any other value in the language.</li>
+<li><strong>Number and String</strong>:</li>
+<li>If one is a <code>number</code> and the other is a <code>string</code>, convert the string to a number using <code>ToNumber(string)</code> and re-compare.</li>
+<li><strong>Boolean Involved</strong>:</li>
+<li>If either operand is a <code>boolean</code>, convert the boolean to a number (<code>true -&gt; 1</code>, <code>false -&gt; 0</code>) and re-compare!</li>
+<li><strong>Object compared with Primitive (String, Number, BigInt, Symbol)</strong>:</li>
+<li>Convert the object to a primitive using <code>ToPrimitive(object)</code> and re-compare.</li>
+</ol>
+<hr />
+<h3 id="dissecting-famous-loose-equality-anomalies">Dissecting Famous Loose Equality Anomalies</h3>
+<h4 id="anomaly-1-why-0-false-is-true-yet-0-is-truthy">Anomaly 1: Why <code>"0" == false</code> is <code>true</code>, yet <code>"0"</code> is truthy</h4>
+<p>This is the quintessential JavaScript paradox:</p>
+<div class="highlight"><pre><span></span><code><span class="s2">"0"</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w">      </span><span class="c1">// true</span>
+<span class="nb">Boolean</span><span class="p">(</span><span class="s2">"0"</span><span class="p">);</span><span class="w">      </span><span class="c1">// true</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="s2">"0"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">         </span><span class="c1">// This conditional runs!</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Truthy!"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Step-by-step trace of <code>"0" == false</code></strong>:
+1. One operand is boolean (<code>false</code>). Rule 4 triggers: convert <code>false</code> to a number $\rightarrow$ <code>0</code>.
+   - Expression becomes: <code>"0" == 0</code>
+2. One operand is string, one is number. Rule 3 triggers: convert <code>"0"</code> to a number $\rightarrow$ <code>0</code>.
+   - Expression becomes: <code>0 == 0</code>
+3. Types match (both numbers). Strict equality applies: <code>0 === 0</code> $\rightarrow$ <strong><code>true</code></strong>.</p>
+<p><strong>Why <code>if ("0")</code> runs</strong>:
+The <code>if</code> statement invokes <code>ToBoolean("0")</code>. Any non-empty string is <strong>truthy</strong>. Coercion rules for <code>ToBoolean</code> are separate from the algorithm for <code>==</code>!</p>
+<hr />
+<h4 id="anomaly-2-why-is-true">Anomaly 2: Why <code>[] == ![]</code> is <code>true</code></h4>
+<div class="highlight"><pre><span></span><code><span class="p">[]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">!</span><span class="p">[]</span><span class="w"> </span><span class="c1">// true</span>
+</code></pre></div>
+<p><strong>Step-by-step trace</strong>:
+1. Operator precedence: The unary logical NOT operator <code>!</code> has higher precedence than <code>==</code>.
+2. Evaluate <code>![]</code>:
+   - Array <code>[]</code> is an object, hence <strong>truthy</strong>.
+   - <code>!truthy</code> evaluates to <strong><code>false</code></strong>.
+   - Expression becomes: <code>[] == false</code>
+3. Boolean comparison rule: convert <code>false</code> to number $\rightarrow$ <code>0</code>.
+   - Expression becomes: <code>[] == 0</code>
+4. Object vs. Number rule: convert <code>[]</code> to primitive via <code>ToPrimitive([])</code>.
+   - <code>[].toString()</code> yields <code>""</code>.
+   - Expression becomes: <code>"" == 0</code>
+5. String vs. Number rule: convert <code>""</code> to number via <code>ToNumber("")</code> $\rightarrow$ <code>0</code>.
+   - Expression becomes: <code>0 == 0</code>
+6. Both are numbers: <code>0 === 0</code> $\rightarrow$ <strong><code>true</code></strong>.</p>
+<hr />
+<h4 id="anomaly-3-array-comparisons-with-zero">Anomaly 3: Array Comparisons with Zero</h4>
+<div class="highlight"><pre><span></span><code><span class="mf">0</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">""</span><span class="w">       </span><span class="c1">// true  ("" converts to 0)</span>
+<span class="mf">0</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"0"</span><span class="w">      </span><span class="c1">// true  ("0" converts to 0)</span>
+<span class="s2">""</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"0"</span><span class="w">     </span><span class="c1">// false (both are strings! identical types -&gt; no coercion -&gt; different strings!)</span>
+
+<span class="mf">0</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">[]</span><span class="w">       </span><span class="c1">// true  ([] -&gt; "" -&gt; 0)</span>
+<span class="mf">0</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w">      </span><span class="c1">// true  ([0] -&gt; "0" -&gt; 0)</span>
+<span class="mf">0</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">[</span><span class="s1">''</span><span class="p">]</span><span class="w">     </span><span class="c1">// true  ([''] -&gt; "" -&gt; 0)</span>
+</code></pre></div>
+<p>Notice the breakdown of transitivity:
+If $a = b$ and $b = c$, then $a = c$ should hold.
+- <code>0 == ""</code> is <code>true</code>.
+- <code>0 == "0"</code> is <code>true</code>.
+- Yet <code>"" == "0"</code> is <strong><code>false</code></strong>!</p>
+<p>Because <code>==</code> violates basic mathematical transitivity, it is dangerous in control logic.</p>
+<hr />
+<h3 id="the-equality-comparison-matrix">The Equality Comparison Matrix</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: center;">Loose (<code>==</code>)</th>
+<th style="text-align: center;">Strict (<code>===</code>)</th>
+<th style="text-align: left;">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>0 == false</code></td>
+<td style="text-align: center;"><code>true</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: left;"><code>false</code> coerces to <code>0</code> in <code>==</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"" == false</code></td>
+<td style="text-align: center;"><code>true</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: left;">Both coerce to <code>0</code> in <code>==</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"" == 0</code></td>
+<td style="text-align: center;"><code>true</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: left;"><code>""</code> coerces to <code>0</code> in <code>==</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"0" == 0</code></td>
+<td style="text-align: center;"><code>true</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: left;"><code>"0"</code> coerces to <code>0</code> in <code>==</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"1" == true</code></td>
+<td style="text-align: center;"><code>true</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: left;">Both coerce to <code>1</code> in <code>==</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>null == undefined</code></td>
+<td style="text-align: center;"><code>true</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: left;">Special loose equality exemption in spec</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>null == 0</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: left;"><code>null</code> only loosely equals <code>undefined</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>undefined == 0</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: left;"><code>undefined</code> only loosely equals <code>null</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>NaN == NaN</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: left;"><code>NaN</code> is not equal to anything, including itself</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>[] == false</code></td>
+<td style="text-align: center;"><code>true</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: left;"><code>[] -&gt; "" -&gt; 0</code>, <code>false -&gt; 0</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>[1] == 1</code></td>
+<td style="text-align: center;"><code>true</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: left;"><code>[1] -&gt; "1" -&gt; 1</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>[1, 2] == "1,2"</code></td>
+<td style="text-align: center;"><code>true</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: left;"><code>[1, 2] -&gt; "1,2"</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>{}</code> == <code>"[object Object]"</code></td>
+<td style="text-align: center;"><code>true</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: left;"><code>{}</code> converts to <code>"[object Object]"</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>{} == {}</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: left;">Distinct object references in memory</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>[] == []</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: center;"><code>false</code></td>
+<td style="text-align: left;">Distinct array references in memory</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="when-if-ever-should-you-use">When (If Ever) Should You Use <code>==</code>?</h3>
+<p>In modern software engineering, the industry standard is to <strong>use <code>===</code> everywhere</strong>.</p>
+<p>However, there is <strong>one widely accepted idiomatic exception</strong>: checking for both <code>null</code> and <code>undefined</code> simultaneously.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// The one acceptable loose equality idiom:</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Triggers if value is null OR value is undefined</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Value is missing"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Strict equality equivalent (requires two checks):</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">undefined</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Value is missing"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Because <code>null == undefined</code> is <code>true</code>, and neither equals any other value under <code>==</code>, <code>value == null</code> is guaranteed safe and concise.</p>
+<blockquote>
+<p>[!TIP]
+In TypeScript and modern codebases configured with linters (such as ESLint's <code>eqeqeq</code> rule), <code>===</code> is enforced across all expressions, often allowing <code>value == null</code> as the sole exception.</p>
+</blockquote>
+<hr />
+<h3 id="the-third-equality-check-objectis-es2015">The Third Equality Check: <code>Object.is()</code> (ES2015)</h3>
+<p>JavaScript has a third equality mechanism called <code>Object.is()</code>, which implements the <strong>SameValue</strong> algorithm.</p>
+<p><code>Object.is()</code> behaves identically to <code>===</code>, with exactly <strong>two differences</strong>:</p>
+<ol>
+<li><strong><code>NaN</code> equality</strong>:
+   <div class="highlight"><pre><span></span><code><span class="kc">NaN</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">NaN</span><span class="p">;</span><span class="w">           </span><span class="c1">// false</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="kc">NaN</span><span class="p">,</span><span class="w"> </span><span class="kc">NaN</span><span class="p">);</span><span class="w">   </span><span class="c1">// true</span>
+</code></pre></div></li>
+<li><strong><code>+0</code> vs. <code>-0</code> distinction</strong>:
+   <div class="highlight"><pre><span></span><code><span class="o">+</span><span class="mf">0</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="o">-</span><span class="mf">0</span><span class="p">;</span><span class="w">             </span><span class="c1">// true</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="o">+</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">0</span><span class="p">);</span><span class="w">     </span><span class="c1">// false</span>
+</code></pre></div></li>
+</ol>
+<p><code>Object.is()</code> is commonly used internally by frontend frameworks like <strong>React</strong> and <strong>Vue</strong> to determine if component state or props have changed and require a re-render.</p>
+<hr />
+<h2 id="94-relational-comparisons">9.4 Relational Comparisons (<code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>)</h2>
+<p>Relational comparison operators also perform type coercion, but follow different rules than equality operators:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Rule 1: If both operands are strings, compare lexicographically (dictionary order):</span>
+<span class="s2">"apple"</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s2">"banana"</span><span class="w">     </span><span class="c1">// true</span>
+<span class="s2">"10"</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s2">"9"</span><span class="w">             </span><span class="c1">// true! ("1" comes before "9" alphabetically)</span>
+<span class="s2">"100"</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s2">"2"</span><span class="w">            </span><span class="c1">// true!</span>
+
+<span class="c1">// Rule 2: If at least one operand is not a string, coerce BOTH to numbers:</span>
+<span class="mf">10</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s2">"9"</span><span class="w">               </span><span class="c1">// false ("9" -&gt; 9, 10 &lt; 9 is false)</span>
+<span class="s2">"10"</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">2</span><span class="w">               </span><span class="c1">// true  ("10" -&gt; 10, 10 &gt; 2 is true)</span>
+<span class="kc">true</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="w">               </span><span class="c1">// true  (true -&gt; 1, 1 &gt; 0 is true)</span>
+<span class="kc">null</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">0</span><span class="w">              </span><span class="c1">// true! (null -&gt; 0, 0 &gt;= 0 is true)</span>
+</code></pre></div>
+<h3 id="the-null-relational-paradox">The <code>null</code> Relational Paradox</h3>
+<p>Compare these three expressions carefully:</p>
+<div class="highlight"><pre><span></span><code><span class="kc">null</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w">   </span><span class="c1">// false  (null -&gt; 0, 0 &gt; 0 is false)</span>
+<span class="kc">null</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// false  (null does NOT coerce to 0 for ==; only equals undefined)</span>
+<span class="kc">null</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// true!  (null -&gt; 0, 0 &gt;= 0 is true!)</span>
+</code></pre></div>
+<p><strong>Why does this happen?</strong>
+- In <code>null &gt; 0</code>, relational coercion converts <code>null</code> to <code>0</code> $\rightarrow$ <code>0 &gt; 0</code> is <code>false</code>.
+- In <code>null == 0</code>, the equality algorithm specifically forbids coercing <code>null</code> to numbers $\rightarrow$ yields <code>false</code>.
+- In <code>null &gt;= 0</code>, JavaScript evaluates <code>&gt;=</code> not as <code>(null &gt; 0 || null == 0)</code>, but as the inverse of <code>&lt;</code>: <code>!(null &lt; 0)</code>. Since <code>null &lt; 0</code> is <code>false</code> (<code>0 &lt; 0</code>), <code>!false</code> evaluates to <strong><code>true</code></strong>!</p>
+<hr />
+<h2 id="summary-best-practices">Summary &amp; Best Practices</h2>
+<div class="highlight"><pre><span></span><code>                                    ┌───────────────────────┐
+                                    │    COMPARING VALUES   │
+                                    └───────────┬───────────┘
+                                                │
+                       ┌────────────────────────┴────────────────────────┐
+                       ▼                                                 ▼
+             Checking Identity?                                Checking Magnitude?
+             (a === b or a !== b)                              (a &lt; b, a &lt;= b, etc.)
+                       │                                                 │
+          ┌────────────┴────────────┐                        Ensure BOTH operands are
+          ▼                         ▼                        strictly converted first!
+   Different types?          Same type?                      Number(a) &lt; Number(b)
+   ALWAYS returns false      Compare by value (primitives)
+                             Compare by reference (objects)
+</code></pre></div>
+<h3 id="golden-rules-for-modern-javascript">Golden Rules for Modern JavaScript:</h3>
+<ol>
+<li><strong>Always use <code>===</code> and <code>!==</code></strong>: Avoid <code>==</code> to prevent unintended coercions that break mathematical logic and open edge-case security flaws.</li>
+<li><strong>The only exception for <code>==</code></strong>: <code>val == null</code> to conveniently test for <code>null</code> or <code>undefined</code> simultaneously.</li>
+<li><strong>Parse inputs explicitly</strong>:</li>
+<li>For numbers: use <code>Number(str)</code>, <code>+str</code>, or <code>parseInt(str, 10)</code>. Never rely on implicit arithmetic conversion.</li>
+<li>For booleans: use <code>Boolean(val)</code> or double negation <code>!!val</code>.</li>
+<li>For strings: use <code>String(val)</code> or template literals <code>${val}</code>.</li>
+<li><strong>Use Nullish Coalescing (<code>??</code>) instead of Logical OR (<code>||</code>)</strong> when defaulting values where <code>0</code>, <code>""</code>, or <code>false</code> are valid inputs.</li>
+<li><strong>Remember the 8 Falsy values</strong>: <code>false</code>, <code>0</code>, <code>-0</code>, <code>0n</code>, <code>""</code>, <code>null</code>, <code>undefined</code>, <code>NaN</code>. Everything else is truthy.</li>
+<li><strong>Arrays and Objects are compared by reference</strong>: <code>[] === []</code> is always <code>false</code>. To compare object or array contents, inspect elements individually or serialize them.</li>
+</ol>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../08_data_types_strings_nonvalues/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Data types, strings, and non-values">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Data types, strings, and non-values
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../10_variables_declarations_scoping/" class="md-footer__link md-footer__link--next" aria-label="Next: Variables, declarations, and scoping">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Variables, declarations, and scoping
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

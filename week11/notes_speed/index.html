@@ -1,0 +1,4422 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week11/notes_speed/">
+      
+      
+        <link rel="prev" href="../notes_performance/">
+      
+      
+        <link rel="next" href="../notes_user_experience/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Speed - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#speed-detailed-notes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Speed
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is Speed?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. What is Speed?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-speed-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Speed Matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-quick-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Quick Response
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Quick Response">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-counts-as-quick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What counts as "quick"?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perceived-vs-actual-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perceived vs Actual Performance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-contributing-factors-to-speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Contributing Factors to Speed
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Contributing Factors to Speed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-number-of-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Number of Requests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-size-of-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Size of Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-http1-vs-http2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 HTTP/1 vs HTTP/2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Compression
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-how-these-factors-interact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. How These Factors Interact
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is Speed?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. What is Speed?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-speed-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Speed Matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-quick-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Quick Response
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Quick Response">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-counts-as-quick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What counts as "quick"?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perceived-vs-actual-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perceived vs Actual Performance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-contributing-factors-to-speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Contributing Factors to Speed
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Contributing Factors to Speed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-number-of-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Number of Requests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-size-of-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Size of Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-http1-vs-http2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 HTTP/1 vs HTTP/2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Compression
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-how-these-factors-interact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. How These Factors Interact
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="speed-detailed-notes">Speed — Detailed Notes</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Speed — Detailed Notes</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<blockquote>
+<p><strong>Parent Topic:</strong> Performance
+<strong>Scope:</strong> Single-user experience — how fast does <em>one</em> user get a usable response?</p>
+</blockquote>
+<hr />
+<h2 id="1-what-is-speed">1. What is Speed?</h2>
+<p>Speed in web development is the measure of <strong>how quickly a web page loads and becomes usable</strong> for a single user. It is distinct from scaling (which deals with many users simultaneously).</p>
+<h3 id="why-speed-matters">Why Speed Matters</h3>
+<ul>
+<li><strong>User attention is finite.</strong> Research by Google shows:</li>
+<li>53% of mobile users abandon a page that takes <strong>more than 3 seconds</strong> to load.</li>
+<li>A <strong>1-second delay</strong> in page load time can result in a <strong>7% reduction</strong> in conversions.</li>
+<li><strong>SEO impact.</strong> Google uses Core Web Vitals (speed-related metrics) as a <strong>direct ranking signal</strong>.</li>
+<li><strong>First impressions.</strong> A slow page signals low quality, even if the product itself is great.</li>
+<li><strong>Revenue.</strong> Amazon estimated that <strong>every 100ms of latency costs ~1% in sales</strong>.</li>
+</ul>
+<hr />
+<h2 id="2-quick-response">2. Quick Response</h2>
+<p>"Quick response" is the user-facing goal — the user clicks something and gets feedback <strong>immediately</strong>.</p>
+<h3 id="what-counts-as-quick">What counts as "quick"?</h3>
+<p>Human perception has well-studied thresholds for response time:</p>
+<table>
+<thead>
+<tr>
+<th>Delay</th>
+<th>Perception</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>&lt; 100ms</strong></td>
+<td>Feels instantaneous — no feedback needed</td>
+</tr>
+<tr>
+<td><strong>100ms – 1s</strong></td>
+<td>User notices but flow isn't disrupted; a spinner may not be needed</td>
+</tr>
+<tr>
+<td><strong>1s – 10s</strong></td>
+<td>User's attention drifts; a loading indicator is essential</td>
+</tr>
+<tr>
+<td><strong>&gt; 10s</strong></td>
+<td>User is likely to leave or give up entirely</td>
+</tr>
+</tbody>
+</table>
+<h3 id="perceived-vs-actual-performance">Perceived vs Actual Performance</h3>
+<p>The <em>feeling</em> of speed matters as much as raw numbers:</p>
+<ul>
+<li><strong>Perceived performance</strong> = how fast the site <em>feels</em>.</li>
+<li><strong>Actual performance</strong> = how fast it <em>is</em> (measured in ms).</li>
+</ul>
+<p>Techniques to improve perceived performance (without changing actual speed):
+- <strong>Skeleton screens</strong> — Show a placeholder layout while content loads.
+- <strong>Optimistic UI</strong> — Apply changes in the UI before the server confirms them.
+- <strong>Progressive rendering</strong> — Show content as it arrives rather than waiting for everything.
+- <strong>Above-the-fold priority</strong> — Load visible content first, defer off-screen content.</p>
+<hr />
+<h2 id="3-contributing-factors-to-speed">3. Contributing Factors to Speed</h2>
+<p>Speed is not controlled by a single switch — it is the product of several interacting factors.</p>
+<div class="highlight"><pre><span></span><code>User clicks a link
+      │
+      ▼
+[1] DNS Lookup          ← Network factor
+      │
+      ▼
+[2] TCP Handshake       ← Network factor
+      │
+      ▼
+[3] TLS Handshake       ← Network factor (HTTPS)
+      │
+      ▼
+[4] HTTP Request sent   ← HTTP version matters
+      │
+      ▼
+[5] Server processes    ← App-level factor
+      │
+      ▼
+[6] Response sent back  ← Size of response + Compression
+      │
+      ▼
+[7] Browser parses HTML ← Number of sub-requests triggered
+      │
+      ▼
+[8] Sub-resources fetched (CSS, JS, fonts, images) ← Number of requests + Size
+      │
+      ▼
+[9] Page rendered &amp; interactive
+</code></pre></div>
+<hr />
+<h3 id="31-network">3.1 Network</h3>
+<p>The network is the <strong>physical and protocol layer</strong> between the user and the server. It is often the factor developers have the <em>least</em> control over, but understanding it helps make smarter decisions.</p>
+<h4 id="key-concepts">Key Concepts</h4>
+<p><strong>Latency</strong>
+- The time for a packet to travel from the client to the server and back (round-trip time / RTT).
+- Measured in milliseconds.
+- Affected by: physical distance, number of network hops, congestion.
+- Example: A server in the US and a user in India might have 150–200ms RTT. A CDN node in India might reduce that to 10–20ms.</p>
+<p><strong>Bandwidth</strong>
+- The maximum data transfer rate of a network connection.
+- Measured in Mbps or Gbps.
+- High bandwidth ≠ low latency. You can have fast download speeds but high latency (e.g., satellite internet).</p>
+<p><strong>Network Types and Their Impact</strong></p>
+<table>
+<thead>
+<tr>
+<th>Network Type</th>
+<th>Typical Bandwidth</th>
+<th>Typical Latency</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Broadband (Fiber)</td>
+<td>100–1000 Mbps</td>
+<td>5–20ms</td>
+<td>Excellent for web</td>
+</tr>
+<tr>
+<td>4G LTE</td>
+<td>10–50 Mbps</td>
+<td>30–70ms</td>
+<td>Good, but variable</td>
+</tr>
+<tr>
+<td>5G</td>
+<td>100–500 Mbps</td>
+<td>1–10ms</td>
+<td>Best mobile option</td>
+</tr>
+<tr>
+<td>3G</td>
+<td>1–5 Mbps</td>
+<td>100–500ms</td>
+<td>Significant bottleneck</td>
+</tr>
+<tr>
+<td>Satellite</td>
+<td>25–100 Mbps</td>
+<td>500–600ms</td>
+<td>High latency, bad for real-time</td>
+</tr>
+</tbody>
+</table>
+<h4 id="what-developers-can-do">What Developers Can Do</h4>
+<ul>
+<li><strong>Use a CDN</strong> (Content Delivery Network) to serve assets from geographically closer servers.</li>
+<li><strong>Reduce DNS lookup time</strong> by minimizing the number of unique domains assets are served from.</li>
+<li><strong>Enable Keep-Alive</strong> connections to reuse TCP connections across requests.</li>
+<li><strong>Preconnect</strong> to third-party origins the browser will need:
+  <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">"preconnect"</span> <span class="na">href</span><span class="o">=</span><span class="s">"https://fonts.googleapis.com"</span><span class="p">&gt;</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h3 id="32-number-of-requests">3.2 Number of Requests</h3>
+<p>Every resource a page needs triggers a separate HTTP request. Each request incurs:
+1. A DNS lookup (if new domain)
+2. A TCP handshake (if new connection)
+3. A TLS handshake (if HTTPS and new connection)
+4. The actual request/response round trip</p>
+<h4 id="the-problem-request-overhead">The Problem: Request Overhead</h4>
+<p>Even on a fast network, <strong>request overhead adds up</strong>:
+- A page with 100 resources might have 100 individual round trips on HTTP/1.1.
+- Even at 50ms latency each, that's 5 seconds just in overhead — before a single byte of content is counted.</p>
+<h4 id="typical-resources-that-generate-requests">Typical Resources That Generate Requests</h4>
+<div class="highlight"><pre><span></span><code>index.html
+  ├── style.css          (1 request)
+  ├── reset.css          (1 request)
+  ├── app.js             (1 request)
+  ├── vendor.js          (1 request)
+  ├── logo.png           (1 request)
+  ├── hero-image.jpg     (1 request)
+  ├── font.woff2         (1 request)
+  ├── analytics.js       (1 request — 3rd party)
+  └── /api/user          (1 request — API call)
+                         = 9 requests + the HTML itself = 10 total
+</code></pre></div>
+<p>A complex real-world page can easily have <strong>100–300 requests</strong>.</p>
+<h4 id="strategies-to-reduce-request-count">Strategies to Reduce Request Count</h4>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>How It Helps</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bundle JS/CSS</strong></td>
+<td>Combine many files into one (webpack, Vite, Rollup)</td>
+</tr>
+<tr>
+<td><strong>CSS/JS Sprites</strong></td>
+<td>Combine multiple small images into one image, use CSS to clip</td>
+</tr>
+<tr>
+<td><strong>Inline Critical CSS</strong></td>
+<td>Embed above-the-fold CSS directly in <code>&lt;style&gt;</code> tags</td>
+</tr>
+<tr>
+<td><strong>Lazy Loading</strong></td>
+<td>Defer loading of off-screen images/components until needed</td>
+</tr>
+<tr>
+<td><strong>Icon Fonts / SVG Sprites</strong></td>
+<td>Serve all icons in one request instead of many PNGs</td>
+</tr>
+<tr>
+<td><strong>Reduce 3rd-party scripts</strong></td>
+<td>Each external script = a new domain = DNS + TCP + TLS overhead</td>
+</tr>
+<tr>
+<td><strong>HTTP/2 Multiplexing</strong></td>
+<td>Mitigates the problem (see section 3.4) but doesn't eliminate it</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="33-size-of-response">3.3 Size of Response</h3>
+<p>Larger files take longer to transfer. <strong>Reducing the size of assets</strong> is one of the highest-impact optimizations available.</p>
+<h4 id="categories-of-assets-and-optimization-approaches">Categories of Assets and Optimization Approaches</h4>
+<p><strong>HTML</strong>
+- Remove unnecessary whitespace, comments (minification).
+- Tools: <code>html-minifier</code>, build pipeline plugins.
+- Typical savings: 10–20%.</p>
+<p><strong>CSS</strong>
+- <strong>Minify:</strong> Remove whitespace and comments.
+- <strong>Remove unused CSS:</strong> Use PurgeCSS or built-in tree-shaking to eliminate styles not used in the HTML.
+- <strong>Avoid large frameworks</strong> if only a fraction is used (e.g., loading all of Bootstrap for 2 components).
+- Typical savings: 20–60% (minification + purging).</p>
+<p><strong>JavaScript</strong>
+- <strong>Minify:</strong> Shorten variable names, remove whitespace (Terser, esbuild).
+- <strong>Tree-shake:</strong> Only include code that is actually imported/used.
+- <strong>Code-split:</strong> Don't send all JS upfront — load chunks on demand (dynamic <code>import()</code>).
+- <strong>Defer/Async:</strong> Don't block HTML parsing.
+  <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"app.js"</span> <span class="na">defer</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"analytics.js"</span> <span class="na">async</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+- Typical savings: 30–70%.</p>
+<p><strong>Images (often the biggest offender)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Best For</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JPEG</td>
+<td>Photos</td>
+<td>Lossy compression, small sizes</td>
+</tr>
+<tr>
+<td>PNG</td>
+<td>Transparency, diagrams</td>
+<td>Lossless, larger than JPEG</td>
+</tr>
+<tr>
+<td><strong>WebP</strong></td>
+<td>Both</td>
+<td>25–35% smaller than JPEG/PNG</td>
+</tr>
+<tr>
+<td><strong>AVIF</strong></td>
+<td>Both</td>
+<td>50% smaller than JPEG, newer</td>
+</tr>
+<tr>
+<td>SVG</td>
+<td>Icons, logos, illustrations</td>
+<td>Vector — scales infinitely, tiny file</td>
+</tr>
+<tr>
+<td>GIF</td>
+<td>Animations</td>
+<td>Very inefficient — use video instead</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Resize images</strong> to the display size — don't serve a 4000×3000px image for a 400×300px thumbnail.</li>
+<li><strong>Use <code>srcset</code></strong> to serve different sizes for different screen resolutions:
+  <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"hero-400.jpg"</span>
+     <span class="na">srcset</span><span class="o">=</span><span class="s">"hero-400.jpg 400w, hero-800.jpg 800w, hero-1600.jpg 1600w"</span>
+     <span class="na">sizes</span><span class="o">=</span><span class="s">"(max-width: 600px) 400px, 800px"</span><span class="p">&gt;</span>
+</code></pre></div></li>
+<li><strong>Lazy load</strong> images below the fold:
+  <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"photo.jpg"</span> <span class="na">loading</span><span class="o">=</span><span class="s">"lazy"</span> <span class="na">alt</span><span class="o">=</span><span class="s">"..."</span><span class="p">&gt;</span>
+</code></pre></div></li>
+</ul>
+<p><strong>Fonts</strong>
+- Only load font weights/styles you actually use.
+- Use <code>font-display: swap</code> to avoid invisible text while font loads.
+- Subset fonts to include only characters used (e.g., Latin subset vs. full Unicode).</p>
+<hr />
+<h3 id="34-http1-vs-http2">3.4 HTTP/1 vs HTTP/2</h3>
+<p>The version of HTTP used has a <strong>dramatic effect</strong> on how efficiently multiple resources are fetched.</p>
+<h4 id="http11-the-problem">HTTP/1.1 — The Problem</h4>
+<ul>
+<li><strong>One request per TCP connection</strong> (by default).</li>
+<li>Browsers open <strong>6–8 parallel connections</strong> per domain to work around this — but this is still limited.</li>
+<li><strong>Head-of-line blocking:</strong> If one request in a connection is slow, all subsequent requests on that connection wait.</li>
+<li><strong>No header compression:</strong> Every request sends full headers (cookies, user-agent, etc.) repeatedly — wasteful for many small requests.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>HTTP/1.1 timeline (simplified):
+
+Connection 1:  [request1]→[response1]  [request4]→[response4]
+Connection 2:  [request2]→[response2]  [request5]→[response5]
+Connection 3:  [request3]→[response3]  [request6]→[response6]
+               ← sequential within each connection →
+</code></pre></div>
+<h4 id="http2-the-solution">HTTP/2 — The Solution</h4>
+<ul>
+<li><strong>Multiplexing:</strong> Multiple requests and responses are sent <strong>simultaneously over a single TCP connection</strong>.</li>
+<li><strong>Header compression (HPACK):</strong> Headers are compressed and deduplicated across requests.</li>
+<li><strong>Stream prioritization:</strong> The server can prioritize which resources to send first.</li>
+<li><strong>Server Push:</strong> The server can proactively send resources the client will need before it asks.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>HTTP/2 timeline (simplified):
+
+Single Connection:
+  ─── [req1] [req2] [req3] [req4] [req5] [req6] ──▶
+  ◀── [res3] [res1] [res5] [res2] [res6] [res4] ───
+       (responses can arrive out of order — all simultaneous)
+</code></pre></div>
+<h4 id="http3-bonus-modern-context">HTTP/3 (Bonus — Modern Context)</h4>
+<ul>
+<li>Built on <strong>QUIC</strong> (UDP-based) instead of TCP.</li>
+<li>Eliminates TCP-level head-of-line blocking.</li>
+<li>Faster connection establishment (0-RTT or 1-RTT).</li>
+<li>Better performance on lossy networks (mobile).</li>
+</ul>
+<h4 id="comparison-table">Comparison Table</h4>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>HTTP/1.1</th>
+<th>HTTP/2</th>
+<th>HTTP/3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Transport</td>
+<td>TCP</td>
+<td>TCP</td>
+<td>QUIC (UDP)</td>
+</tr>
+<tr>
+<td>Multiplexing</td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td>Header Compression</td>
+<td>❌ No</td>
+<td>✅ HPACK</td>
+<td>✅ QPACK</td>
+</tr>
+<tr>
+<td>Server Push</td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td>Head-of-line Blocking</td>
+<td>❌ TCP + App level</td>
+<td>❌ TCP level only</td>
+<td>✅ Eliminated</td>
+</tr>
+<tr>
+<td>Connection Setup</td>
+<td>Slow (TCP + TLS)</td>
+<td>Slow (TCP + TLS)</td>
+<td>Fast (0-RTT)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="developer-implications">Developer Implications</h4>
+<ul>
+<li>Most modern hosting (Nginx, Apache, cloud providers) supports HTTP/2 — <strong>enable it</strong>.</li>
+<li>HTTP/2 makes domain sharding (splitting assets across domains) <strong>counterproductive</strong> — it hurts header compression.</li>
+<li>Test what version your server uses: Chrome DevTools → Network tab → Protocol column.</li>
+</ul>
+<hr />
+<h3 id="35-compression">3.5 Compression</h3>
+<p>Compression reduces the <strong>number of bytes transferred</strong> by encoding the response more efficiently. The browser decompresses it before use — this is transparent to the user.</p>
+<h4 id="how-it-works">How It Works</h4>
+<div class="highlight"><pre><span></span><code>Server                          Browser
+  │                                │
+  │  ← GET /app.js ─────────────── │
+  │    Accept-Encoding: gzip, br   │
+  │                                │
+  │  ─── HTTP 200 ───────────────► │
+  │    Content-Encoding: br        │
+  │    [compressed body: 23KB]     │  ← Browser decompresses
+  │                                │    Original: 120KB
+</code></pre></div>
+<h4 id="compression-algorithms">Compression Algorithms</h4>
+<p><strong>gzip</strong>
+- Available since the mid-1990s.
+- Universally supported by all browsers and servers.
+- Typically achieves <strong>60–70% compression</strong> on text content.
+- Default choice when broad compatibility is needed.</p>
+<p><strong>Brotli (br)</strong>
+- Developed by Google, released in 2015.
+- <strong>10–25% better compression</strong> than gzip for the same quality.
+- Supported by all modern browsers (Chrome, Firefox, Safari, Edge).
+- Slightly more CPU-intensive to compress (but decompression is fast).
+- <strong>Recommended for production</strong> — most CDNs support it.</p>
+<p><strong>Comparison</strong></p>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Compression Ratio</th>
+<th>Browser Support</th>
+<th>CPU to Compress</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>gzip</strong></td>
+<td>Good (~65%)</td>
+<td>Universal</td>
+<td>Low</td>
+</tr>
+<tr>
+<td><strong>Brotli</strong></td>
+<td>Better (~75%)</td>
+<td>Modern browsers</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td><strong>zstd</strong></td>
+<td>Best (emerging)</td>
+<td>Limited</td>
+<td>Low</td>
+</tr>
+</tbody>
+</table>
+<h4 id="what-compresses-well-vs-poorly">What Compresses Well vs. Poorly</h4>
+<table>
+<thead>
+<tr>
+<th>Asset Type</th>
+<th>Compresses Well?</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML</td>
+<td>✅ Yes</td>
+<td>Text is highly compressible</td>
+</tr>
+<tr>
+<td>CSS</td>
+<td>✅ Yes</td>
+<td>Lots of repetitive patterns</td>
+</tr>
+<tr>
+<td>JavaScript</td>
+<td>✅ Yes</td>
+<td>Even after minification</td>
+</tr>
+<tr>
+<td>JSON / XML</td>
+<td>✅ Yes</td>
+<td>Very repetitive structures</td>
+</tr>
+<tr>
+<td>SVG</td>
+<td>✅ Yes</td>
+<td>It's XML</td>
+</tr>
+<tr>
+<td>JPEG / PNG / WebP</td>
+<td>❌ No</td>
+<td>Already compressed internally</td>
+</tr>
+<tr>
+<td>MP4 / WebM</td>
+<td>❌ No</td>
+<td>Already compressed</td>
+</tr>
+<tr>
+<td>ZIP / GZ files</td>
+<td>❌ No</td>
+<td>Already compressed</td>
+</tr>
+</tbody>
+</table>
+<h4 id="enabling-compression">Enabling Compression</h4>
+<p><strong>Nginx:</strong>
+<div class="highlight"><pre><span></span><code><span class="k">gzip</span><span class="w"> </span><span class="no">on</span><span class="p">;</span>
+<span class="k">gzip_types</span><span class="w"> </span><span class="s">text/plain</span><span class="w"> </span><span class="s">text/css</span><span class="w"> </span><span class="s">application/javascript</span><span class="w"> </span><span class="s">application/json</span><span class="p">;</span>
+
+<span class="c1"># For Brotli (requires ngx_brotli module):</span>
+<span class="k">brotli</span><span class="w"> </span><span class="no">on</span><span class="p">;</span>
+<span class="k">brotli_types</span><span class="w"> </span><span class="s">text/plain</span><span class="w"> </span><span class="s">text/css</span><span class="w"> </span><span class="s">application/javascript</span><span class="w"> </span><span class="s">application/json</span><span class="p">;</span>
+</code></pre></div></p>
+<p><strong>Apache:</strong>
+<div class="highlight"><pre><span></span><code><span class="c"># In .htaccess or httpd.conf:</span>
+<span class="nb">AddOutputFilterByType</span><span class="w"> </span>DEFLATE<span class="w"> </span>text/html<span class="w"> </span>text/css<span class="w"> </span>application/javascript
+</code></pre></div></p>
+<p><strong>Express.js (Node):</strong>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">compression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'compression'</span><span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">compression</span><span class="p">());</span><span class="w"> </span><span class="c1">// automatically compresses responses</span>
+</code></pre></div></p>
+<p><strong>Flask (Python):</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">flask_compress</span><span class="w"> </span><span class="kn">import</span> <span class="n">Compress</span>
+<span class="n">Compress</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>  <span class="c1"># automatically compresses responses</span>
+</code></pre></div></p>
+<hr />
+<h2 id="4-how-these-factors-interact">4. How These Factors Interact</h2>
+<p>Real-world speed is a product of <strong>all these factors simultaneously</strong>:</p>
+<div class="highlight"><pre><span></span><code>Total Load Time ≈
+    DNS Lookup Time
+  + TCP Handshake (× number of new connections)
+  + TLS Handshake (× number of new connections)
+  + (Request + Response time × number of requests) / HTTP2 parallelism
+  + (Response bytes / bandwidth) after compression
+  + Browser parse &amp; render time
+</code></pre></div>
+<p><strong>Example optimization cascade:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Before</th>
+<th>After</th>
+<th>Saving</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enable HTTP/2</td>
+<td>100 sequential requests</td>
+<td>100 parallel requests</td>
+<td>~70% time reduction</td>
+</tr>
+<tr>
+<td>Enable Brotli</td>
+<td>500KB JS</td>
+<td>125KB JS</td>
+<td>75% bytes saved</td>
+</tr>
+<tr>
+<td>Lazy-load images</td>
+<td>50 images at load</td>
+<td>5 images at load</td>
+<td>45 fewer requests</td>
+</tr>
+<tr>
+<td>Use WebP</td>
+<td>2MB images</td>
+<td>1.3MB images</td>
+<td>35% bytes saved</td>
+</tr>
+<tr>
+<td>Bundle JS</td>
+<td>40 JS files</td>
+<td>2 JS files</td>
+<td>38 fewer requests</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-key-takeaways">5. Key Takeaways</h2>
+<ul>
+<li><strong>Speed is a single-user concern</strong> — how fast does one request-response cycle feel?</li>
+<li>The <strong>100ms rule</strong>: responses under 100ms feel instant; over 1s, users feel the wait.</li>
+<li><strong>Perceived performance</strong> can be improved independently of actual performance using skeleton screens and optimistic UI.</li>
+<li>The <strong>5 main contributing factors</strong> are: Network, Number of Requests, Size of Response, HTTP version, and Compression.</li>
+<li><strong>HTTP/2 multiplexing</strong> is the single biggest protocol-level improvement — enable it on your server.</li>
+<li><strong>Compression (Brotli preferred)</strong> can cut text asset sizes by 60–75% for free.</li>
+<li><strong>Images</strong> are often the largest contributors to page weight — use modern formats (WebP/AVIF), resize correctly, and lazy-load.</li>
+<li>Always <strong>measure with Lighthouse and DevTools Network tab</strong> before and after optimization.</li>
+</ul>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../notes_performance/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Performance fundamentals">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Performance fundamentals
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../notes_user_experience/" class="md-footer__link md-footer__link--next" aria-label="Next: User experience">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                User experience
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

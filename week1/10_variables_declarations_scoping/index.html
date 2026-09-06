@@ -1,0 +1,4503 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week1/10_variables_declarations_scoping/">
+      
+      
+        <link rel="prev" href="../09_operators_comparisons_coercion/">
+      
+      
+        <link rel="next" href="../11_control_flow_constructs/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Variables, declarations, and scoping - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#topic-10-variables-declarations-scoping-rules" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Variables, declarations, and scoping
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#101-variable-declaration-paradigms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Variable Declaration Paradigms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.1 Variable Declaration Paradigms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#javascript-vs-python-explicit-declaration-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript vs. Python: Explicit Declaration Required
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#javascript-vs-c-c-java-dynamic-typing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript vs. C / C++ / Java: Dynamic Typing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#102-scope-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Scope Mechanics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.2 Scope Mechanics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-global-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Global Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-module-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Module Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-function-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Function Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-block-scope-es6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Block Scope (ES6)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lexical-scoping-the-scope-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lexical Scoping &amp; The Scope Chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#103-declaration-keywords-var-let-and-const" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 Declaration Keywords: var, let, and const
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.3 Declaration Keywords: var, let, and const">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprehensive-comparison-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprehensive Comparison Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-legacy-var-mechanics-and-hazards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Legacy var: Mechanics and Hazards
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-modern-let-the-temporal-dead-zone-tdz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Modern let &amp; The Temporal Dead Zone (TDZ)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-modern-const-immutable-bindings-vs-mutable-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Modern const: Immutable Bindings vs. Mutable Values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-immutability-vs-value-mutability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Immutability vs. Value Mutability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#104-scope-leaks-namespaces-isolation-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 Scope Leaks, Namespaces &amp; Isolation Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.4 Scope Leaks, Namespaces &amp; Isolation Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-accidental-scope-leaks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Accidental Scope Leaks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-historical-namespace-isolation-iifes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Historical Namespace Isolation: IIFEs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-modern-solution-es-modules-esm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Modern Solution: ES Modules (ESM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-best-practices-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Best Practices Checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary: Best Practices Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#101-variable-declaration-paradigms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Variable Declaration Paradigms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.1 Variable Declaration Paradigms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#javascript-vs-python-explicit-declaration-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript vs. Python: Explicit Declaration Required
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#javascript-vs-c-c-java-dynamic-typing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript vs. C / C++ / Java: Dynamic Typing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#102-scope-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Scope Mechanics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.2 Scope Mechanics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-global-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Global Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-module-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Module Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-function-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Function Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-block-scope-es6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Block Scope (ES6)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lexical-scoping-the-scope-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lexical Scoping &amp; The Scope Chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#103-declaration-keywords-var-let-and-const" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 Declaration Keywords: var, let, and const
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.3 Declaration Keywords: var, let, and const">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprehensive-comparison-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprehensive Comparison Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-legacy-var-mechanics-and-hazards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Legacy var: Mechanics and Hazards
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-modern-let-the-temporal-dead-zone-tdz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Modern let &amp; The Temporal Dead Zone (TDZ)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-modern-const-immutable-bindings-vs-mutable-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Modern const: Immutable Bindings vs. Mutable Values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-immutability-vs-value-mutability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Immutability vs. Value Mutability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#104-scope-leaks-namespaces-isolation-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 Scope Leaks, Namespaces &amp; Isolation Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.4 Scope Leaks, Namespaces &amp; Isolation Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-accidental-scope-leaks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Accidental Scope Leaks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-historical-namespace-isolation-iifes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Historical Namespace Isolation: IIFEs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-modern-solution-es-modules-esm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Modern Solution: ES Modules (ESM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-best-practices-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Best Practices Checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary: Best Practices Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="topic-10-variables-declarations-scoping-rules">Topic 10: Variables, Declarations &amp; Scoping Rules</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Topic 10: Variables, Declarations &amp; Scoping Rules</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<blockquote>
+<p><strong>MAD-II Week 1 | Detailed Notes</strong></p>
+</blockquote>
+<hr />
+<h2 id="overview">Overview</h2>
+<p>A <strong>variable</strong> is a named binding between an identifier and a value stored in system memory. How a programming language manages variables—how they are declared, where they are visible (scoping), and how their lifecycles are managed in memory (hoisting and garbage collection)—forms the backbone of its execution model.</p>
+<p>JavaScript's variable system has a dramatic history:
+- From <strong>1995 to 2015 (ES1 to ES5)</strong>, JavaScript had only one declaration keyword: <code>var</code>. Variables were function-scoped, hoisted with an initial value of <code>undefined</code>, and if you forgot to type <code>var</code>, JavaScript quietly created an accidental global variable.
+- In <strong>2015 (ES6 / ECMAScript 2015)</strong>, TC39 overhauled the language by introducing <code>let</code> and <code>const</code>. These introduced true <strong>block scoping</strong>, the <strong>Temporal Dead Zone (TDZ)</strong>, and <strong>binding immutability</strong>, solving two decades of bugs and architectural pitfalls.</p>
+<p>Understanding the difference between the legacy paradigm (<code>var</code>) and the modern standard (<code>let</code> / <code>const</code>) is essential for maintaining existing codebases and building modern, bug-free web applications.</p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Variable Declaration Landscape"
+        A["Variable Declaration"] --&gt; B["Legacy: var (1995)"]
+        A --&gt; C["Modern: let (ES6 / 2015)"]
+        A --&gt; D["Modern: const (ES6 / 2015)"]
+    end
+
+    B --&gt; B1["Function Scoped"]
+    B --&gt; B2["Hoisted with undefined"]
+    B --&gt; B3["Re-declaration allowed"]
+    B --&gt; B4["Attaches to Global Object"]
+
+    C --&gt; C1["Block Scoped"]
+    C --&gt; C2["Hoisted into TDZ"]
+    C --&gt; C3["Re-declaration forbidden"]
+    C --&gt; C4["Reassignable"]
+
+    D --&gt; D1["Block Scoped"]
+    D --&gt; D2["Hoisted into TDZ"]
+    D --&gt; D3["Re-declaration forbidden"]
+    D --&gt; D4["Immutable Binding (Cannot reassign)"]</code></pre>
+<hr />
+<h2 id="101-variable-declaration-paradigms">10.1 Variable Declaration Paradigms</h2>
+<h3 id="javascript-vs-python-explicit-declaration-required">JavaScript vs. Python: Explicit Declaration Required</h3>
+<p>In Python (which you learned in MAD-I), variables do not require a declaration keyword. A variable is created the moment a value is assigned to it:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Python: Assignment implicitly creates a local or module-level variable</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">total_users</span> <span class="o">=</span> <span class="mi">100</span>
+</code></pre></div>
+<p>In JavaScript, variables <strong>must be explicitly declared</strong> using a keyword (<code>let</code>, <code>const</code>, or legacy <code>var</code>).</p>
+<h4 id="the-accidental-global-disaster-sloppy-mode">The Accidental Global Disaster (Sloppy Mode):</h4>
+<p>If you assign a value to an identifier in JavaScript without declaring it first, JavaScript does not throw a syntax error in non-strict (sloppy) mode. Instead, it navigates all the way up the scope chain and, failing to find the variable, <strong>creates it as a global property on the global object</strong> (<code>window</code> in browsers, <code>global</code> in Node.js):</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">calculateTax</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// BUG: Missing let/const/var!</span>
+<span class="w">    </span><span class="nx">taxRate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.18</span><span class="p">;</span><span class="w"> </span><span class="c1">// Pollutes global scope! window.taxRate = 0.18</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mf">1000</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">taxRate</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">calculateTax</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">taxRate</span><span class="p">);</span><span class="w"> </span><span class="c1">// 0.18 (!) Leaked into global namespace</span>
+</code></pre></div>
+<p>This creates disastrous side-effects: other scripts or functions can unintentionally overwrite <code>taxRate</code>, causing unpredictable behavior.</p>
+<h4 id="the-modern-remedy-use-strict">The Modern Remedy: <code>"use strict"</code></h4>
+<p>In ES5, JavaScript introduced <strong>Strict Mode</strong>. In strict mode, assigning to an undeclared identifier immediately throws a runtime <code>ReferenceError</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="s2">"use strict"</span><span class="p">;</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">calculateTax</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">taxRate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.18</span><span class="p">;</span><span class="w"> </span><span class="c1">// ReferenceError: taxRate is not defined</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mf">1000</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">taxRate</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Modern JS is strict by default</strong>: All ES Modules (<code>&lt;script type="module"&gt;</code> or files with <code>import</code>/<code>export</code>) and JavaScript classes automatically execute in strict mode. Explicit declaration with <code>const</code> or <code>let</code> is mandatory.</p>
+</blockquote>
+<hr />
+<h3 id="javascript-vs-c-c-java-dynamic-typing">JavaScript vs. C / C++ / Java: Dynamic Typing</h3>
+<p>Languages like C, C++, and Java are <strong>statically typed</strong>. In these languages, the variable itself is bound to a fixed data type, and the compiler enforces type checks before execution:</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* C / C++: Static typing */</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">25</span><span class="p">;</span>
+<span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"twenty-five"</span><span class="p">;</span><span class="w"> </span><span class="cm">/* COMPILE ERROR: incompatible types */</span>
+</code></pre></div>
+<p>JavaScript is <strong>dynamically typed</strong>. The variable is simply an identifier bound to a memory location. <strong>Types belong to values, not variables.</strong> Any variable can hold any data type at any time during execution:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">42</span><span class="p">;</span><span class="w">          </span><span class="c1">// data holds a Number</span>
+<span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Hello world"</span><span class="p">;</span><span class="w">   </span><span class="c1">// Valid: data now holds a String</span>
+<span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">];</span><span class="w">       </span><span class="c1">// Valid: data now holds an Array (Object)</span>
+<span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">active</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">};</span><span class="c1">// Valid: data now holds an Object literal</span>
+</code></pre></div>
+<p>While dynamic typing provides flexibility and rapid prototyping, it removes compile-time type guarantees. This is why TypeScript (a statically typed superset of JavaScript) was created and has become the industry standard for large web applications.</p>
+<hr />
+<h2 id="102-scope-mechanics">10.2 Scope Mechanics</h2>
+<p><strong>Scope</strong> defines the accessibility and visibility of variables, functions, and objects in some particular part of your code during runtime.</p>
+<p>JavaScript features four distinct scoping levels:
+1. <strong>Global Scope</strong>
+2. <strong>Module Scope</strong>
+3. <strong>Function Scope</strong>
+4. <strong>Block Scope</strong></p>
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────────────────────────────────┐
+│ GLOBAL SCOPE (window / globalThis)                       │
+│  let appName = "MyApp";                                  │
+│                                                          │
+│  ┌────────────────────────────────────────────────────┐  │
+│  │ MODULE SCOPE (ES Module / File)                    │  │
+│  │  const apiKey = "secret_123";                      │  │
+│  │                                                    │  │
+│  │  ┌──────────────────────────────────────────────┐  │  │
+│  │  │ FUNCTION SCOPE                               │  │  │
+│  │  │  function processUser(id) {                  │  │  │
+│  │  │   var localCount = 1;                        │  │  │
+│  │  │                                              │  │  │
+│  │  │   ┌──────────────────────────────────────┐   │  │  │
+│  │  │   │ BLOCK SCOPE                          │   │  │  │
+│  │  │   │  if (id &gt; 0) {                       │   │  │  │
+│  │  │   │    let status = "active";            │   │  │  │
+│  │  │   │    const token = 999;                │   │  │  │
+│  │  │   │  } // status &amp; token destroyed here  │   │  │  │
+│  │  │   └──────────────────────────────────────┘   │  │  │
+│  │  │  }                                           │  │  │
+│  │  └──────────────────────────────────────────────┘  │  │
+│  └────────────────────────────────────────────────────┘  │
+└──────────────────────────────────────────────────────────┘
+</code></pre></div>
+<hr />
+<h3 id="1-global-scope">1. Global Scope</h3>
+<p>A variable declared outside of any function or block resides in the <strong>global scope</strong>. It can be read and modified from anywhere in the application.</p>
+<ul>
+<li><strong>In the Browser</strong>: The global object is <code>window</code>.</li>
+<li><strong>In Node.js</strong>: The global object is <code>global</code>.</li>
+<li><strong>Universal Cross-Platform Standard (ES2020)</strong>: <code>globalThis</code> points to the global object regardless of environment (browser, Node, Web Worker, Deno, Bun).</li>
+</ul>
+<h4 id="the-problem-with-global-variables">The Problem with Global Variables:</h4>
+<ul>
+<li><strong>Namespace Collision</strong>: Multiple scripts or third-party libraries using the same global variable name (<code>let user = ...</code>) overwrite each other without warning.</li>
+<li><strong>Memory Leaks</strong>: Global variables remain in memory for the lifetime of the application and are never garbage-collected.</li>
+<li><strong>Security Risks</strong>: Any script running on the page (including malicious third-party analytics or ads) can read and modify global data.</li>
+</ul>
+<hr />
+<h3 id="2-module-scope">2. Module Scope</h3>
+<p>When JavaScript files are loaded as ES modules (e.g., <code>&lt;script type="module" src="app.js"&gt;</code> or using <code>import</code>/<code>export</code> syntax), the top level of the file is <strong>module-scoped</strong>, not global-scoped.</p>
+<p>Variables declared at the top of a module are private to that file unless explicitly shared via the <code>export</code> keyword:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// mathUtils.js</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">privateMultiplier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span><span class="w"> </span><span class="c1">// NOT visible to other files or window</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="kr">double</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1">// Explicitly exposed</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">privateMultiplier</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h3 id="3-function-scope">3. Function Scope</h3>
+<p>Variables declared inside a function are local to that function and cannot be accessed from outside:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">authenticate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">secretToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"xyz-123"</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">userId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">42</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"admin"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">authenticate</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">secretToken</span><span class="p">);</span><span class="w"> </span><span class="c1">// ReferenceError: secretToken is not defined</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">userId</span><span class="p">);</span><span class="w">      </span><span class="c1">// ReferenceError: userId is not defined</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">role</span><span class="p">);</span><span class="w">        </span><span class="c1">// ReferenceError: role is not defined</span>
+</code></pre></div>
+<p>Historically (before ES6), functions were the <strong>only</strong> mechanism JavaScript had to create a new scope. This forced developers to write complex IIFEs (Immediately Invoked Function Expressions) simply to create temporary variables without leaking them into the surrounding code.</p>
+<hr />
+<h3 id="4-block-scope-es6">4. Block Scope (ES6)</h3>
+<p>A <strong>block</strong> is any code enclosed within a pair of curly braces <code>{ ... }</code>. This includes:
+- <code>if (...) { ... }</code>
+- <code>for (...) { ... }</code>
+- <code>while (...) { ... }</code>
+- <code>switch (...) { ... }</code>
+- Standalone blocks: <code>{ ... }</code></p>
+<p>Variables declared with <strong><code>let</code></strong> and <strong><code>const</code></strong> are strictly <strong>block-scoped</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">blockScopedLet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"visible only in block"</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">blockScopedConst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"also visible only in block"</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">functionScopedVar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"I ignore blocks!"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">functionScopedVar</span><span class="p">);</span><span class="w">   </span><span class="c1">// "I ignore blocks!" (var leaks out!)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">blockScopedLet</span><span class="p">);</span><span class="w">     </span><span class="c1">// ReferenceError: blockScopedLet is not defined</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">blockScopedConst</span><span class="p">);</span><span class="w">   </span><span class="c1">// ReferenceError: blockScopedConst is not defined</span>
+</code></pre></div>
+<blockquote>
+<p>[!CAUTION]
+<strong>The <code>var</code> Block-Scope Blindness</strong>:
+<code>var</code> completely ignores curly-brace blocks (except functions). A <code>var</code> declared inside an <code>if</code> statement or <code>for</code> loop bleeds into the enclosing function or global scope.</p>
+</blockquote>
+<hr />
+<h3 id="lexical-scoping-the-scope-chain">Lexical Scoping &amp; The Scope Chain</h3>
+<p>JavaScript uses <strong>lexical scoping</strong> (also known as static scoping):
+- The scope of an identifier is determined by <strong>where it is physically written in the source code</strong>, not where or how the function is called at runtime.
+- When an identifier is referenced, the JavaScript engine performs an identifier resolution by traversing up the <strong>Scope Chain</strong>:
+  1. Searches the current local block / function.
+  2. If not found, searches the enclosing (outer) block / function.
+  3. Continues outward until it reaches the global scope.
+  4. If not found in the global scope, it throws a <code>ReferenceError</code>.</p>
+<h4 id="variable-shadowing">Variable Shadowing:</h4>
+<p>When an inner scope declares a variable with the exact same name as an outer scope, the inner variable <strong>shadows</strong> (hides) the outer variable within that block:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">score</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span><span class="w"> </span><span class="c1">// Outer scope</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">updateGame</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">score</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">500</span><span class="p">;</span><span class="w"> </span><span class="c1">// Shadows the outer 'score'</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Inside:"</span><span class="p">,</span><span class="w"> </span><span class="nx">score</span><span class="p">);</span><span class="w"> </span><span class="c1">// 500</span>
+<span class="p">}</span>
+
+<span class="nx">updateGame</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Outside:"</span><span class="p">,</span><span class="w"> </span><span class="nx">score</span><span class="p">);</span><span class="w">    </span><span class="c1">// 100 (outer unchanged)</span>
+</code></pre></div>
+<hr />
+<h2 id="103-declaration-keywords-var-let-and-const">10.3 Declaration Keywords: <code>var</code>, <code>let</code>, and <code>const</code></h2>
+<h3 id="comprehensive-comparison-table">Comprehensive Comparison Table</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;"><code>var</code> (Legacy ES1)</th>
+<th style="text-align: left;"><code>let</code> (Modern ES6)</th>
+<th style="text-align: left;"><code>const</code> (Modern ES6)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Scope</strong></td>
+<td style="text-align: left;"><strong>Function scope</strong> (ignores blocks)</td>
+<td style="text-align: left;"><strong>Block scope</strong> <code>{ ... }</code></td>
+<td style="text-align: left;"><strong>Block scope</strong> <code>{ ... }</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Hoisting Behavior</strong></td>
+<td style="text-align: left;">Hoisted and initialized to <code>undefined</code></td>
+<td style="text-align: left;">Hoisted into <strong>Temporal Dead Zone (TDZ)</strong></td>
+<td style="text-align: left;">Hoisted into <strong>Temporal Dead Zone (TDZ)</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Re-declaration</strong></td>
+<td style="text-align: left;"><strong>Allowed</strong> within same scope</td>
+<td style="text-align: left;"><strong>Forbidden</strong> (Throws <code>SyntaxError</code>)</td>
+<td style="text-align: left;"><strong>Forbidden</strong> (Throws <code>SyntaxError</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Re-assignment</strong></td>
+<td style="text-align: left;"><strong>Allowed</strong></td>
+<td style="text-align: left;"><strong>Allowed</strong></td>
+<td style="text-align: left;"><strong>Forbidden</strong> (Throws <code>TypeError</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Initial Value Required?</strong></td>
+<td style="text-align: left;">No (defaults to <code>undefined</code>)</td>
+<td style="text-align: left;">No (defaults to <code>undefined</code>)</td>
+<td style="text-align: left;"><strong>Yes</strong> (Throws <code>SyntaxError</code> if omitted)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Global Object Property</strong></td>
+<td style="text-align: left;">Creates property on <code>window</code>/<code>global</code></td>
+<td style="text-align: left;">Does <strong>not</strong> attach to global object</td>
+<td style="text-align: left;">Does <strong>not</strong> attach to global object</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Modern Recommendation</strong></td>
+<td style="text-align: left;"><strong>NEVER USE</strong></td>
+<td style="text-align: left;">Use when reassignment is needed</td>
+<td style="text-align: left;"><strong>DEFAULT TO THIS</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="1-legacy-var-mechanics-and-hazards">1. Legacy <code>var</code>: Mechanics and Hazards</h3>
+<h4 id="hazard-a-block-level-leakage-in-loops">Hazard A: Block-Level Leakage in Loops</h4>
+<p>Because <code>var</code> is function-scoped, a loop variable declared with <code>var</code> leaks outside the loop:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">5</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Doing work...</span>
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"After loop, i is:"</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">);</span><span class="w"> </span><span class="c1">// 5! Leaked out of loop!</span>
+</code></pre></div>
+<h4 id="hazard-b-the-classic-asynchronous-closure-bug">Hazard B: The Classic Asynchronous Closure Bug</h4>
+<p>Consider this classic interview and production problem:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">3</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="mf">100</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// Expected Output: 0, 1, 2</span>
+<span class="c1">// Actual Output:   3, 3, 3!</span>
+</code></pre></div>
+<p><strong>Why does this happen?</strong>
+1. Because <code>var</code> is function-scoped, there is <strong>only one single <code>i</code> variable</strong> allocated in memory for all iterations of the loop.
+2. The <code>setTimeout</code> callbacks are asynchronous and are scheduled to execute after the loop finishes.
+3. By the time the callbacks fire 100ms later, the loop has completed, and <code>i</code> has incremented to <code>3</code>.
+4. All three callbacks reference the <em>exact same</em> single memory binding for <code>i</code>, printing <code>3, 3, 3</code>.</p>
+<p><strong>How <code>let</code> instantly fixes this:</strong>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">3</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="mf">100</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// Output: 0, 1, 2 (Correct!)</span>
+</code></pre></div>
+<strong>Why?</strong> The ECMAScript specification explicitly defines that for <code>for (let ...)</code> loops, JavaScript <strong>creates a brand-new lexical binding of <code>i</code> for each iteration</strong>. Each callback captures its own isolated copy of <code>i</code>.</p>
+<h4 id="hazard-c-accidental-re-declaration">Hazard C: Accidental Re-declaration</h4>
+<p><code>var</code> allows the same variable name to be re-declared within the same scope without warning:</p>
+<p><div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">accountBalance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1000</span><span class="p">;</span>
+<span class="c1">// ... 200 lines of code ...</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">accountBalance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Silently overwrites! No error thrown!</span>
+</code></pre></div>
+With <code>let</code> or <code>const</code>, this throws an immediate <code>SyntaxError: Identifier 'accountBalance' has already been declared</code>.</p>
+<hr />
+<h3 id="2-modern-let-the-temporal-dead-zone-tdz">2. Modern <code>let</code> &amp; The Temporal Dead Zone (TDZ)</h3>
+<p>A variable declared with <code>let</code> is reassignable and block-scoped:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="nx">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// Valid reassignment</span>
+<span class="nx">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">5</span><span class="p">;</span><span class="w"> </span><span class="c1">// Valid</span>
+</code></pre></div>
+<h4 id="what-is-the-temporal-dead-zone-tdz">What is the Temporal Dead Zone (TDZ)?</h4>
+<p>Many beginners are told: <em>"var is hoisted, but let and const are not hoisted."</em> <strong>This is a technical misconception.</strong></p>
+<p>In JavaScript, <strong>all declarations (<code>var</code>, <code>let</code>, <code>const</code>, <code>function</code>, <code>class</code>) are hoisted</strong> to the top of their enclosing scope during the compilation/creation phase. </p>
+<p>The critical difference is how they are initialized:
+- <code>var</code>: Hoisted and <strong>immediately initialized to <code>undefined</code></strong>.
+- <code>let</code> and <code>const</code>: Hoisted, but <strong>left uninitialized</strong>. They enter the <strong>Temporal Dead Zone (TDZ)</strong>.</p>
+<blockquote>
+<p><strong>Definition</strong>: The <strong>Temporal Dead Zone</strong> is the temporal span between entering the scope where the variable is declared and the actual line of code where the variable is initialized. Accessing a variable while it is in the TDZ immediately throws a <code>ReferenceError</code>.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span><span class="w"> </span><span class="c1">// Output: undefined (hoisted &amp; initialized to undefined)</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span><span class="w"> </span><span class="c1">// ReferenceError: Cannot access 'b' before initialization!</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">20</span><span class="p">;</span><span class="w">     </span><span class="c1">// TDZ for 'b' ends here</span>
+</code></pre></div>
+<h4 id="proof-that-let-is-hoisted">Proof that <code>let</code> is Hoisted:</h4>
+<p>If <code>let</code> were not hoisted, the following code would output <code>"global"</code> because it would fall back to the outer scope. Instead, it throws a <code>ReferenceError</code>:</p>
+<p><div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"global"</span><span class="p">;</span>
+
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// The TDZ for inner 'text' begins the instant this block opens!</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span><span class="w"> </span><span class="c1">// ReferenceError: Cannot access 'text' before initialization</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"local"</span><span class="p">;</span><span class="w"> </span><span class="c1">// Declaration reached; TDZ ends</span>
+<span class="p">}</span>
+</code></pre></div>
+The error proves that the inner <code>let text</code> was hoisted and shadowed the outer <code>text</code>, but because execution had not reached the declaration line yet, reading it was forbidden.</p>
+<hr />
+<h3 id="3-modern-const-immutable-bindings-vs-mutable-values">3. Modern <code>const</code>: Immutable Bindings vs. Mutable Values</h3>
+<p>A variable declared with <code>const</code> has the same scoping and TDZ rules as <code>let</code>, with two critical differences:
+1. It <strong>must be initialized</strong> immediately upon declaration.
+2. The identifier <strong>cannot be reassigned</strong>.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">maxLimit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+<span class="nx">maxLimit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">200</span><span class="p">;</span><span class="w"> </span><span class="c1">// TypeError: Assignment to constant variable</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">uninitialized</span><span class="p">;</span><span class="w"> </span><span class="c1">// SyntaxError: Missing initializer in const declaration</span>
+</code></pre></div>
+<hr />
+<h3 id="reference-immutability-vs-value-mutability">Reference Immutability vs. Value Mutability</h3>
+<p>This is one of the most frequently tested concepts in JavaScript interviews and examinations:</p>
+<blockquote>
+<p>[!WARNING]
+<strong><code>const</code> prevents REASSIGNMENT of the identifier; it does NOT make objects or arrays immutable!</strong></p>
+</blockquote>
+<p>When you assign an Object or Array to a variable, the variable stores a <strong>memory address (reference)</strong> pointing to the heap memory where the object data lives. </p>
+<p><code>const</code> guarantees that the variable will always point to that exact same memory address. It does <strong>not</strong> protect the internal contents of that object from being modified (mutated).</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Example 1: Arrays with const</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">fruits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"apple"</span><span class="p">,</span><span class="w"> </span><span class="s2">"banana"</span><span class="p">];</span>
+
+<span class="c1">// Legal: Mutating the internal array contents:</span>
+<span class="nx">fruits</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">"cherry"</span><span class="p">);</span>
+<span class="nx">fruits</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"avocado"</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">fruits</span><span class="p">);</span><span class="w"> </span><span class="c1">// ["avocado", "banana", "cherry"]</span>
+
+<span class="c1">// Illegal: Reassigning the variable to a new array reference:</span>
+<span class="nx">fruits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"orange"</span><span class="p">,</span><span class="w"> </span><span class="s2">"grape"</span><span class="p">];</span><span class="w"> </span>
+<span class="c1">// TypeError: Assignment to constant variable!</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Example 2: Objects with const</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"Alice"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">"Admin"</span>
+<span class="p">};</span>
+
+<span class="c1">// Legal: Modifying, adding, or deleting properties:</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"SuperAdmin"</span><span class="p">;</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">lastLogin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"2026-09-05"</span><span class="p">;</span>
+<span class="ow">delete</span><span class="w"> </span><span class="nx">user</span><span class="p">.</span><span class="nx">role</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span><span class="w"> </span><span class="c1">// { name: "Alice", lastLogin: "2026-09-05" }</span>
+
+<span class="c1">// Illegal: Reassigning the user reference:</span>
+<span class="nx">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"Bob"</span><span class="w"> </span><span class="p">};</span><span class="w"> </span>
+<span class="c1">// TypeError: Assignment to constant variable!</span>
+</code></pre></div>
+<h4 id="how-to-achieve-actual-object-immutability">How to Achieve Actual Object Immutability:</h4>
+<p>If you require an object whose properties cannot be modified, added, or deleted, use <strong><code>Object.freeze()</code></strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">systemConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">freeze</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">apiEndpoint</span><span class="o">:</span><span class="w"> </span><span class="s2">"https://api.example.com/v1"</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">timeoutMs</span><span class="o">:</span><span class="w"> </span><span class="mf">5000</span>
+<span class="p">});</span>
+
+<span class="nx">systemConfig</span><span class="p">.</span><span class="nx">timeoutMs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10000</span><span class="p">;</span><span class="w"> </span><span class="c1">// Silently fails in sloppy mode; throws TypeError in strict mode!</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">systemConfig</span><span class="p">.</span><span class="nx">timeoutMs</span><span class="p">);</span><span class="w"> </span><span class="c1">// Still 5000</span>
+</code></pre></div>
+<p><em>(Note: <code>Object.freeze()</code> is shallow. Nested objects inside frozen objects can still be mutated unless you recursively apply a deep freeze).</em></p>
+<hr />
+<h2 id="104-scope-leaks-namespaces-isolation-patterns">10.4 Scope Leaks, Namespaces &amp; Isolation Patterns</h2>
+<h3 id="1-accidental-scope-leaks">1. Accidental Scope Leaks</h3>
+<p>Common causes of unintended memory leaks related to variable declarations:
+- <strong>Forgetting <code>let</code> or <code>const</code></strong>: Creates an unintended property on <code>globalThis</code> / <code>window</code>.
+- <strong>Dangling Event Listeners</strong>: Attaching callbacks that close over large data structures without removing them when no longer needed.
+- <strong>Accidental closures in timer loops</strong>: Retaining variables in memory indefinitely through <code>setInterval</code>.</p>
+<h3 id="2-historical-namespace-isolation-iifes">2. Historical Namespace Isolation: IIFEs</h3>
+<p>Before ES6 introduced modules and block scope, JavaScript developers had to wrap entire files and libraries in <strong>Immediately Invoked Function Expressions (IIFEs)</strong> to prevent polluting the global namespace:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// The Pre-ES6 Pattern: IIFE</span>
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">privateKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"secret"</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">internalHelper</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">privateKey</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Expose only public API to window</span>
+<span class="w">    </span><span class="nb">window</span><span class="p">.</span><span class="nx">MyLibrary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">run</span><span class="o">:</span><span class="w"> </span><span class="nx">internalHelper</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">})();</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">privateKey</span><span class="p">);</span><span class="w"> </span><span class="c1">// "undefined" (not leaked!)</span>
+</code></pre></div>
+<h3 id="3-the-modern-solution-es-modules-esm">3. The Modern Solution: ES Modules (ESM)</h3>
+<p>Today, <strong>ES Modules have made IIFEs obsolete for namespace isolation</strong>:
+- Every file loaded with <code>&lt;script type="module"&gt;</code> or bundled via modern tools (Vite, Webpack) automatically has its own private scope.
+- Variables do not leak into the global environment.
+- Only items explicitly marked with <code>export</code> are accessible to other modules.</p>
+<hr />
+<h2 id="summary-best-practices-checklist">Summary: Best Practices Checklist</h2>
+<div class="highlight"><pre><span></span><code>                      ┌──────────────────────────────┐
+                      │    DECLARING A VARIABLE      │
+                      └──────────────┬───────────────┘
+                                     │
+                  ┌──────────────────┴──────────────────┐
+                  ▼                                     ▼
+        Will the variable's                    Do you think you
+        BINDING be reassigned?                 need `var`?
+                  │                                     │
+         ┌────────┴────────┐                            ▼
+         ▼                 ▼                       NO! NEVER!
+        YES                NO                  `var` is obsolete
+         │                 │                   and dangerous.
+         ▼                 ▼
+     Use `let`         Use `const`
+     (e.g., loop       (DEFAULT choice
+      counters,         for objects, arrays,
+      accumulators)     functions, primitives)
+</code></pre></div>
+<h3 id="key-takeaways">Key Takeaways:</h3>
+<ol>
+<li><strong>Default to <code>const</code> for everything</strong>: Over 80–90% of variables in clean modern codebases never need to be reassigned. Using <code>const</code> signals to readers (and the JavaScript engine optimizer) that the reference is stable.</li>
+<li><strong>Use <code>let</code> only when reassignment is mandatory</strong>: Loop counters (<code>for (let i = 0; ...)</code>), accumulators, and state flags that change values over time.</li>
+<li><strong>Never use <code>var</code> in modern JavaScript</strong>: It is a legacy keyword that breaks block scoping, hoists with <code>undefined</code>, permits silent re-declarations, and introduces subtle asynchronous bugs.</li>
+<li><strong>Remember the TDZ</strong>: Variables declared with <code>let</code> and <code>const</code> exist throughout their block scope, but cannot be read or written until execution passes their declaration.</li>
+<li><strong>Remember <code>const</code> mutability</strong>: <code>const</code> freezes the <strong>binding</strong>, not the <strong>value</strong>. Arrays and objects declared with <code>const</code> can still be mutated unless locked with <code>Object.freeze()</code>.</li>
+</ol>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../09_operators_comparisons_coercion/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Operators, comparisons, and coercion">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Operators, comparisons, and coercion
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../11_control_flow_constructs/" class="md-footer__link md-footer__link--next" aria-label="Next: Control-flow constructs">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Control-flow constructs
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

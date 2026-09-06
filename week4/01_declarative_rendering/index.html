@@ -1,0 +1,5090 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week4/01_declarative_rendering/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../02_viewmodel_and_vue/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Declarative rendering - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-declarative-rendering" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Declarative rendering
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-concept-of-reactivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Concept of Reactivity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 Concept of Reactivity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-reactivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Reactivity?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-paradigm-shift-declarative-vs-imperative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Paradigm Shift: Declarative vs Imperative
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-mechanism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Mechanism
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-why-reactivity-motivation-state-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Why Reactivity? (Motivation &amp; State Changes)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Why Reactivity? (Motivation &amp; State Changes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem-ui-state-is-complex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem: UI State is Complex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-example-user-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Example: User Login
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#without-reactivity-manual-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Without Reactivity (Manual Approach):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-reactivity-vue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With Reactivity (Vue):
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-approaches-to-state-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Approaches to State &amp; Rendering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 Approaches to State &amp; Rendering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#approach-1-traditional-server-side-rendering-ssr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Approach 1: Traditional Server-Side Rendering (SSR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approach-2-traditional-client-side-javascript-jquery-era" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Approach 2: Traditional Client-Side JavaScript (jQuery era)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approach-3-vues-declarative-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Approach 3: Vue's Declarative Approach ✅
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-vue-directives-v-bind-v-model-v-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Vue Directives (v-bind, v-model, v-on)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 Vue Directives (v-bind, v-model, v-on)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v-bind-one-way-data-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v-bind — One-Way Data Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-model-two-way-data-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v-model — Two-Way Data Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-on-event-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v-on — Event Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-class-and-style-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Class and Style Binding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5 Class and Style Binding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-dynamic-class-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        :class — Dynamic Class Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#style-inline-style-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        :style — Inline Style Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-conditional-rendering-v-if-vs-v-show" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 Conditional Rendering (v-if vs v-show)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.6 Conditional Rendering (v-if vs v-show)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v-if-true-conditional-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v-if — True Conditional Rendering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-show-css-display-toggle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v-show — CSS Display Toggle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-if-vs-v-show-when-to-use-which" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v-if vs v-show — When to Use Which?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-looping-iteration-v-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7 Looping &amp; Iteration (v-for)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.7 Looping &amp; Iteration (v-for)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iterating-over-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iterating Over Arrays
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterating-over-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iterating Over Objects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterating-over-a-range-of-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iterating Over a Range of Numbers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-for-on-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v-for on &lt;template&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#template-syntax-comparison-jinja-vs-vue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template Syntax Comparison (Jinja vs Vue)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-loop-keys-virtual-dom-diffing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8 Loop Keys &amp; Virtual DOM Diffing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.8 Loop Keys &amp; Virtual DOM Diffing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-virtual-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Virtual DOM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-diffing-fails-without-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Diffing Fails Without :key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-the-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        :key — The Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        :key Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-v-for-with-key-full-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: v-for with :key — Full Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_tools_and_measurement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week11/notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-concept-of-reactivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Concept of Reactivity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 Concept of Reactivity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-reactivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Reactivity?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-paradigm-shift-declarative-vs-imperative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Paradigm Shift: Declarative vs Imperative
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-mechanism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Mechanism
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-why-reactivity-motivation-state-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Why Reactivity? (Motivation &amp; State Changes)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Why Reactivity? (Motivation &amp; State Changes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem-ui-state-is-complex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem: UI State is Complex
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-example-user-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Example: User Login
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#without-reactivity-manual-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Without Reactivity (Manual Approach):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-reactivity-vue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With Reactivity (Vue):
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-approaches-to-state-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Approaches to State &amp; Rendering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 Approaches to State &amp; Rendering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#approach-1-traditional-server-side-rendering-ssr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Approach 1: Traditional Server-Side Rendering (SSR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approach-2-traditional-client-side-javascript-jquery-era" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Approach 2: Traditional Client-Side JavaScript (jQuery era)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#approach-3-vues-declarative-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Approach 3: Vue's Declarative Approach ✅
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-vue-directives-v-bind-v-model-v-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Vue Directives (v-bind, v-model, v-on)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 Vue Directives (v-bind, v-model, v-on)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v-bind-one-way-data-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v-bind — One-Way Data Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-model-two-way-data-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v-model — Two-Way Data Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-on-event-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v-on — Event Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-class-and-style-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Class and Style Binding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5 Class and Style Binding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-dynamic-class-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        :class — Dynamic Class Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#style-inline-style-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        :style — Inline Style Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-conditional-rendering-v-if-vs-v-show" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 Conditional Rendering (v-if vs v-show)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.6 Conditional Rendering (v-if vs v-show)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v-if-true-conditional-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v-if — True Conditional Rendering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-show-css-display-toggle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v-show — CSS Display Toggle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-if-vs-v-show-when-to-use-which" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v-if vs v-show — When to Use Which?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-looping-iteration-v-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7 Looping &amp; Iteration (v-for)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.7 Looping &amp; Iteration (v-for)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iterating-over-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iterating Over Arrays
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterating-over-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iterating Over Objects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterating-over-a-range-of-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iterating Over a Range of Numbers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-for-on-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v-for on &lt;template&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#template-syntax-comparison-jinja-vs-vue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template Syntax Comparison (Jinja vs Vue)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-loop-keys-virtual-dom-diffing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8 Loop Keys &amp; Virtual DOM Diffing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.8 Loop Keys &amp; Virtual DOM Diffing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-virtual-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Virtual DOM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-diffing-fails-without-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Diffing Fails Without :key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-the-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        :key — The Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        :key Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-v-for-with-key-full-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: v-for with :key — Full Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="1-declarative-rendering">1. Declarative Rendering</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>1. Declarative Rendering</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<blockquote>
+<p><strong>Module</strong>: MAD II — Week 4 | <strong>Topic</strong>: Vue.js Fundamentals
+<strong>Subtopics</strong>: 1.1 → 1.8</p>
+</blockquote>
+<hr />
+<h2 id="11-concept-of-reactivity">1.1 Concept of Reactivity</h2>
+<h3 id="what-is-reactivity">What is Reactivity?</h3>
+<p>Reactivity in the context of UI frameworks means that the <strong>view (what you see on screen) automatically updates whenever the underlying data (state) changes</strong> — without you having to manually manipulate the DOM.</p>
+<p>Think of it like a spreadsheet: when you change a value in cell A1, every formula that depends on A1 instantly recalculates. Vue works the same way — change the data, the UI updates itself.</p>
+<h3 id="the-paradigm-shift-declarative-vs-imperative">The Paradigm Shift: Declarative vs Imperative</h3>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Style</th>
+<th>You describe...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Imperative</strong> (jQuery, vanilla JS)</td>
+<td>"How"</td>
+<td>Step-by-step DOM operations</td>
+</tr>
+<tr>
+<td><strong>Declarative</strong> (Vue)</td>
+<td>"What"</td>
+<td>The desired end state of the UI</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Imperative (old way)</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1">// You have to manually select elements and update them</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'username'</span><span class="p">).</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'avatar'</span><span class="p">).</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">user</span><span class="p">.</span><span class="nx">avatarUrl</span><span class="p">;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'nav-login'</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'none'</span><span class="p">;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'nav-logout'</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'block'</span><span class="p">;</span>
+</code></pre></div></p>
+<p><strong>Declarative (Vue way)</strong>:
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Just describe what the UI should look like based on state --&gt;</span>
+<span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>{{ user.name }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">img</span> <span class="na">:src</span><span class="o">=</span><span class="s">"user.avatarUrl"</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">v-if</span><span class="o">=</span><span class="s">"!isLoggedIn"</span><span class="p">&gt;</span>Login<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">v-if</span><span class="o">=</span><span class="s">"isLoggedIn"</span><span class="p">&gt;</span>Logout<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div>
+When <code>user.name</code> changes, the <code>&lt;span&gt;</code> updates automatically. No manual DOM calls needed.</p>
+<h3 id="core-mechanism">Core Mechanism</h3>
+<p>Vue establishes a <strong>reactive binding</strong> between:
+- The <strong>Model</strong> (your JavaScript data/state object)
+- The <strong>View</strong> (the HTML template rendered in the browser)</p>
+<p>When data changes → Vue detects it → re-renders only the affected parts of the DOM.</p>
+<hr />
+<h2 id="12-why-reactivity-motivation-state-changes">1.2 Why Reactivity? (Motivation &amp; State Changes)</h2>
+<h3 id="the-problem-ui-state-is-complex">The Problem: UI State is Complex</h3>
+<p>Modern web apps are highly interactive. A <strong>single user action</strong> can trigger a cascade of UI updates across multiple independent parts of the page simultaneously.</p>
+<h3 id="real-world-example-user-login">Real-World Example: User Login</h3>
+<p>When a user logs in, the following things might need to update:</p>
+<div class="highlight"><pre><span></span><code>User clicks "Login" button
+        │
+        ▼
+┌──────────────────────────────────────────────────────────┐
+│  Things that need to update on screen                    │
+│                                                          │
+│  1. Navigation bar  →  show "Profile" &amp; "Logout" links   │
+│  2. Main content    →  show enrolled courses / dashboard │
+│  3. Sidebar         →  show personalized recommendations │
+│  4. Theme/Colors    →  apply user's saved preferences    │
+│  5. Notifications   →  load pending alerts               │
+└──────────────────────────────────────────────────────────┘
+</code></pre></div>
+<h3 id="without-reactivity-manual-approach">Without Reactivity (Manual Approach):</h3>
+<p>You would write <strong>imperative code</strong> to touch each of these 5 DOM regions separately. Any new feature means tracking down every update location. Easy to miss one → bugs.</p>
+<h3 id="with-reactivity-vue">With Reactivity (Vue):</h3>
+<p>All those UI elements are bound to <code>isLoggedIn</code>, <code>user.courses</code>, <code>user.theme</code> etc. When the login completes and you set <code>this.isLoggedIn = true</code>, everything updates automatically through the binding system.</p>
+<blockquote>
+<p><strong>Key Insight</strong>: Reactivity shifts the developer's responsibility from <strong>"update this specific element"</strong> to <strong>"manage state"</strong>. The framework handles the rest.</p>
+</blockquote>
+<hr />
+<h2 id="13-approaches-to-state-rendering">1.3 Approaches to State &amp; Rendering</h2>
+<h3 id="approach-1-traditional-server-side-rendering-ssr">Approach 1: Traditional Server-Side Rendering (SSR)</h3>
+<ul>
+<li><strong>Where state lives</strong>: Server (session, database).</li>
+<li><strong>How rendering works</strong>: On every state change, client sends a request → server processes it → server renders full HTML page → sends entire new HTML back → browser replaces/reloads the page.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>User Action → HTTP Request → Server processes → Full HTML Response → Browser re-renders page
+</code></pre></div>
+<p><strong>Advantages</strong>: Simple mental model, good SEO by default, single source of truth.
+<strong>Disadvantages</strong>: Full page reloads are slow; poor UX for dynamic/interactive apps; high server load for frequent updates.</p>
+<hr />
+<h3 id="approach-2-traditional-client-side-javascript-jquery-era">Approach 2: Traditional Client-Side JavaScript (jQuery era)</h3>
+<ul>
+<li><strong>Where state lives</strong>: Server (for persistence) + ad-hoc JS variables on the client.</li>
+<li><strong>How rendering works</strong>: JS code manually selects DOM elements and updates them one-by-one.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">// Login happens → manually update every affected element</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">(</span><span class="s1">'/api/login'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">user</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">$</span><span class="p">(</span><span class="s1">'#nav-username'</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">$</span><span class="p">(</span><span class="s1">'#nav-login-btn'</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+<span class="w">  </span><span class="nx">$</span><span class="p">(</span><span class="s1">'#nav-logout-btn'</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+<span class="w">  </span><span class="nx">$</span><span class="p">(</span><span class="s1">'#course-list'</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">renderCourses</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">courses</span><span class="p">));</span>
+<span class="w">  </span><span class="c1">// ... (forgot to update notifications? → bug)</span>
+<span class="p">}});</span>
+</code></pre></div>
+<p><strong>Advantages</strong>: Only parts of the page update (no full reload), faster feel.
+<strong>Disadvantages</strong>:
+- Tedious and error-prone (easy to miss updating an element).
+- State becomes scattered across many variables and DOM nodes.
+- Code becomes tangled and hard to maintain as app grows ("spaghetti code").</p>
+<hr />
+<h3 id="approach-3-vues-declarative-approach">Approach 3: Vue's Declarative Approach ✅</h3>
+<ul>
+<li><strong>Where state lives</strong>: A centralized reactive <code>data</code> object on the Vue instance.</li>
+<li><strong>How rendering works</strong>: Template bindings are declared once. Vue's reactivity system tracks which template regions depend on which data. When data changes, only those regions re-render.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">v-if</span><span class="o">=</span><span class="s">"isLoggedIn"</span><span class="p">&gt;</span>Welcome, {{ user.name }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">v-if</span><span class="o">=</span><span class="s">"!isLoggedIn"</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">"login"</span><span class="p">&gt;</span>Login<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">v-if</span><span class="o">=</span><span class="s">"isLoggedIn"</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">"logout"</span><span class="p">&gt;</span>Logout<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">isLoggedIn</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">user</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>When <code>isLoggedIn</code> flips to <code>true</code>, Vue automatically updates every binding that depends on it.</p>
+<p><strong>Advantages</strong>:
+- No manual DOM manipulation.
+- Single source of truth in <code>data</code>.
+- Easier to reason about, test, and maintain.</p>
+<hr />
+<h2 id="14-vue-directives-v-bind-v-model-v-on">1.4 Vue Directives (<code>v-bind</code>, <code>v-model</code>, <code>v-on</code>)</h2>
+<p>Directives are <strong>special HTML attributes prefixed with <code>v-</code></strong> that tell Vue to do something special with a DOM element. They are the bridge between your reactive data and the HTML template.</p>
+<hr />
+<h3 id="v-bind-one-way-data-binding"><code>v-bind</code> — One-Way Data Binding</h3>
+<p><strong>Direction</strong>: Data → DOM (JavaScript → HTML attribute)</p>
+<p>Reactively binds a JavaScript expression to an HTML attribute. When the JS value changes, the attribute updates; but the user cannot change the JS value through the DOM element.</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Longhand --&gt;</span>
+<span class="p">&lt;</span><span class="nt">img</span> <span class="na">v-bind:src</span><span class="o">=</span><span class="s">"user.avatarUrl"</span> <span class="na">v-bind:alt</span><span class="o">=</span><span class="s">"user.name"</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Shorthand (colon syntax) --&gt;</span>
+<span class="p">&lt;</span><span class="nt">img</span> <span class="na">:src</span><span class="o">=</span><span class="s">"user.avatarUrl"</span> <span class="na">:alt</span><span class="o">=</span><span class="s">"user.name"</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Dynamic class binding --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">:class</span><span class="o">=</span><span class="s">"isActive ? 'active' : 'inactive'"</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Boolean attribute --&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">:disabled</span><span class="o">=</span><span class="s">"isLoading"</span><span class="p">&gt;</span>Submit<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>Use when</strong>: You want the HTML attribute to reflect JS state, but you don't need the HTML element to write back into JS.</p>
+<hr />
+<h3 id="v-model-two-way-data-binding"><code>v-model</code> — Two-Way Data Binding</h3>
+<p><strong>Direction</strong>: Data ↔ DOM (bidirectional synchronization)</p>
+<p>Keeps a form input element's value perfectly in sync with a JavaScript variable in both directions:
+- If JS variable changes → input value updates.
+- If user types in the input → JS variable updates.</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">input</span> <span class="na">v-model</span><span class="o">=</span><span class="s">"searchQuery"</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">"Search..."</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>You typed: {{ searchQuery }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nx">data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">searchQuery</span><span class="o">:</span><span class="w"> </span><span class="s1">''</span><span class="w">  </span><span class="c1">// Stays perfectly in sync with &lt;input&gt; above</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Works on</strong>: <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;select&gt;</code>, custom components (with <code>modelValue</code> prop).</p>
+<p><strong>Under the hood</strong>, <code>v-model</code> is syntactic sugar for:
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- v-model on an input is equivalent to: --&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">:value</span><span class="o">=</span><span class="s">"searchQuery"</span> <span class="err">@</span><span class="na">input</span><span class="o">=</span><span class="s">"searchQuery = $event.target.value"</span><span class="p">&gt;</span>
+</code></pre></div></p>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Synced Property</th>
+<th>Synced Event</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;input type="text"&gt;</code></td>
+<td><code>value</code></td>
+<td><code>input</code></td>
+</tr>
+<tr>
+<td><code>&lt;input type="checkbox"&gt;</code></td>
+<td><code>checked</code></td>
+<td><code>change</code></td>
+</tr>
+<tr>
+<td><code>&lt;select&gt;</code></td>
+<td><code>value</code></td>
+<td><code>change</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="v-on-event-binding"><code>v-on</code> — Event Binding</h3>
+<p><strong>Direction</strong>: DOM → Data (user action triggers JS function)</p>
+<p>Listens to DOM events and executes a JavaScript method or expression when they fire.</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Longhand --&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">v-on:click</span><span class="o">=</span><span class="s">"handleLogin"</span><span class="p">&gt;</span>Login<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Shorthand (@ syntax) --&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">"handleLogin"</span><span class="p">&gt;</span>Login<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Inline expression --&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">"count++"</span><span class="p">&gt;</span>Increment<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- With event modifiers --&gt;</span>
+<span class="p">&lt;</span><span class="nt">form</span> <span class="err">@</span><span class="na">submit</span><span class="err">.</span><span class="na">prevent</span><span class="o">=</span><span class="s">"handleSubmit"</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>  <span class="cm">&lt;!-- .prevent calls event.preventDefault() --&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="err">@</span><span class="na">keyup</span><span class="err">.</span><span class="na">enter</span><span class="o">=</span><span class="s">"search"</span><span class="p">&gt;</span>                    <span class="cm">&lt;!-- .enter fires only on Enter key --&gt;</span>
+</code></pre></div>
+<p><strong>Common Events</strong>: <code>click</code>, <code>input</code>, <code>change</code>, <code>submit</code>, <code>keyup</code>, <code>keydown</code>, <code>mouseover</code>, <code>focus</code>, <code>blur</code></p>
+<p><strong>Event Modifiers</strong>: <code>.prevent</code>, <code>.stop</code>, <code>.once</code>, <code>.capture</code>, <code>.self</code>, <code>.passive</code></p>
+<hr />
+<h3 id="summary-comparison">Summary Comparison</h3>
+<table>
+<thead>
+<tr>
+<th>Directive</th>
+<th>Alias</th>
+<th>Direction</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>v-bind</code></td>
+<td><code>:</code></td>
+<td>JS → DOM</td>
+<td>Binding JS values to HTML attributes</td>
+</tr>
+<tr>
+<td><code>v-model</code></td>
+<td>—</td>
+<td>JS ↔ DOM</td>
+<td>Form inputs, two-way sync</td>
+</tr>
+<tr>
+<td><code>v-on</code></td>
+<td><code>@</code></td>
+<td>DOM → JS</td>
+<td>Handling user events</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="15-class-and-style-binding">1.5 Class and Style Binding</h2>
+<p>Vue provides special handling for <code>:class</code> and <code>:style</code> bindings because manipulating an element's classes and inline styles is one of the most common UI patterns.</p>
+<h3 id="class-dynamic-class-binding"><code>:class</code> — Dynamic Class Binding</h3>
+<h4 id="object-syntax-most-common">Object Syntax (Most Common)</h4>
+<p>Pass an object where <strong>keys are class names</strong> and <strong>values are booleans</strong>. A class is added when its value is <code>true</code>, removed when <code>false</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">:class</span><span class="o">=</span><span class="s">"{ active: isActive, 'text-danger': hasError }"</span><span class="p">&gt;</span>
+  Content
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nx">data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">isActive</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">    </span><span class="c1">// → 'active' class IS applied</span>
+<span class="w">    </span><span class="nx">hasError</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w">    </span><span class="c1">// → 'text-danger' class is NOT applied</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// Result: &lt;div class="active"&gt;Content&lt;/div&gt;</span>
+</code></pre></div>
+<p>You can also bind to a computed object for cleaner templates:
+<div class="highlight"><pre><span></span><code><span class="nx">computed</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">classObject</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">active</span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">isActive</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">hasError</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">'text-danger'</span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">hasError</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">errorType</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">'fatal'</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">:class</span><span class="o">=</span><span class="s">"classObject"</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div></p>
+<h4 id="array-syntax">Array Syntax</h4>
+<p>Apply a list of classes:
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">:class</span><span class="o">=</span><span class="s">"[activeClass, errorClass]"</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- Renders: &lt;div class="active text-danger"&gt; --&gt;</span>
+</code></pre></div></p>
+<h4 id="mixing-static-and-dynamic">Mixing Static and Dynamic</h4>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"base-styles"</span> <span class="na">:class</span><span class="o">=</span><span class="s">"{ active: isActive }"</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- Static 'base-styles' always present; 'active' is conditional --&gt;</span>
+</code></pre></div>
+<hr />
+<h3 id="style-inline-style-binding"><code>:style</code> — Inline Style Binding</h3>
+<h4 id="object-syntax">Object Syntax</h4>
+<p><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">:style</span><span class="o">=</span><span class="s">"{ color: activeColor, fontSize: fontSize + 'px' }"</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nx">data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">activeColor</span><span class="o">:</span><span class="w"> </span><span class="s1">'#42b883'</span><span class="p">,</span><span class="w">  </span><span class="c1">// Vue green!</span>
+<span class="w">    </span><span class="nx">fontSize</span><span class="o">:</span><span class="w"> </span><span class="mf">18</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h4 id="bind-to-a-style-object-recommended-for-clarity">Bind to a Style Object (Recommended for clarity):</h4>
+<p><div class="highlight"><pre><span></span><code><span class="nx">computed</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">cardStyles</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">backgroundColor</span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">theme</span><span class="p">.</span><span class="nx">bg</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">borderColor</span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">theme</span><span class="p">.</span><span class="nx">border</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">padding</span><span class="o">:</span><span class="w"> </span><span class="s1">'1rem'</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">:style</span><span class="o">=</span><span class="s">"cardStyles"</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div></p>
+<blockquote>
+<p><strong>Note</strong>: Vue automatically handles vendor prefixes for CSS properties that require them (e.g., <code>transform</code>, <code>transition</code>).</p>
+</blockquote>
+<hr />
+<h2 id="16-conditional-rendering-v-if-vs-v-show">1.6 Conditional Rendering (<code>v-if</code> vs <code>v-show</code>)</h2>
+<p>Both control whether an element is visible, but they work very differently under the hood — and that difference matters for performance.</p>
+<hr />
+<h3 id="v-if-true-conditional-rendering"><code>v-if</code> — True Conditional Rendering</h3>
+<p>The element is <strong>added to or removed from the DOM</strong> based on the condition.</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-if</span><span class="o">=</span><span class="s">"isLoggedIn"</span><span class="p">&gt;</span>
+  Welcome back, {{ user.name }}!
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-else</span><span class="p">&gt;</span>
+  Please log in.
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><strong>How it works internally</strong>:
+- When condition is <code>true</code> → Vue <strong>mounts</strong> the element into the real DOM.
+- When condition becomes <code>false</code> → Vue <strong>unmounts and destroys</strong> the element (and its children, watchers, event listeners).</p>
+<p><strong>With <code>v-else-if</code> and <code>v-else</code></strong>:
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-if</span><span class="o">=</span><span class="s">"role === 'admin'"</span><span class="p">&gt;</span>Admin Panel<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-else-if</span><span class="o">=</span><span class="s">"role === 'editor'"</span><span class="p">&gt;</span>Editor Dashboard<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-else</span><span class="p">&gt;</span>Read-only View<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div></p>
+<p><strong><code>&lt;template&gt;</code> with <code>v-if</code></strong> (group multiple elements without a wrapper):
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">template</span> <span class="na">v-if</span><span class="o">=</span><span class="s">"isLoaded"</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>{{ title }}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{ description }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</code></pre></div></p>
+<hr />
+<h3 id="v-show-css-display-toggle"><code>v-show</code> — CSS Display Toggle</h3>
+<p>The element is <strong>always rendered and stays in the DOM</strong>. Only its CSS <code>display</code> property is toggled.</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-show</span><span class="o">=</span><span class="s">"isMenuOpen"</span><span class="p">&gt;</span>
+  <span class="cm">&lt;!-- Menu is always in DOM; just hidden/shown via CSS --&gt;</span>
+  <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<ul>
+<li>When <code>isMenuOpen = true</code> → <code>display</code> is its natural value (e.g., <code>block</code>).</li>
+<li>When <code>isMenuOpen = false</code> → Vue inlines <code>style="display: none;"</code>.</li>
+</ul>
+<blockquote>
+<p><strong>Important</strong>: <code>v-show</code> does NOT work with <code>&lt;template&gt;</code> tags or <code>v-else</code>.</p>
+</blockquote>
+<hr />
+<h3 id="v-if-vs-v-show-when-to-use-which"><code>v-if</code> vs <code>v-show</code> — When to Use Which?</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th><code>v-if</code></th>
+<th><code>v-show</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DOM presence</strong></td>
+<td>Removed when false</td>
+<td>Always in DOM</td>
+</tr>
+<tr>
+<td><strong>Initial render cost</strong></td>
+<td>Low (if initially false, nothing is rendered)</td>
+<td>Higher (always renders)</td>
+</tr>
+<tr>
+<td><strong>Toggle cost</strong></td>
+<td>High (mount/unmount cycle)</td>
+<td>Very Low (just CSS toggle)</td>
+</tr>
+<tr>
+<td><strong>Supports <code>v-else</code></strong></td>
+<td>✅ Yes</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td><strong>Lifecycle hooks fire?</strong></td>
+<td>✅ Yes (created, mounted, destroyed)</td>
+<td>❌ No (element stays alive)</td>
+</tr>
+<tr>
+<td><strong>Best for</strong></td>
+<td>Conditions that rarely change</td>
+<td>Conditions that toggle frequently</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rule of Thumb</strong>:
+- Use <code>v-if</code> when the condition is unlikely to change at runtime (e.g., user role, feature flags).
+- Use <code>v-show</code> when you need to toggle visibility frequently (e.g., dropdown menus, modals, tooltips).</p>
+<hr />
+<h2 id="17-looping-iteration-v-for">1.7 Looping &amp; Iteration (<code>v-for</code>)</h2>
+<p><code>v-for</code> renders a list of elements by iterating over a JavaScript iterable. It's the Vue equivalent of a <code>for</code> loop in your template.</p>
+<h3 id="iterating-over-arrays">Iterating Over Arrays</h3>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">v-for</span><span class="o">=</span><span class="s">"course in courses"</span> <span class="na">:key</span><span class="o">=</span><span class="s">"course.id"</span><span class="p">&gt;</span>
+    {{ course.name }} — {{ course.instructor }}
+  <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>With index:
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">li</span> <span class="na">v-for</span><span class="o">=</span><span class="s">"(course, index) in courses"</span> <span class="na">:key</span><span class="o">=</span><span class="s">"course.id"</span><span class="p">&gt;</span>
+  {{ index + 1 }}. {{ course.name }}
+<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</code></pre></div></p>
+<hr />
+<h3 id="iterating-over-objects">Iterating Over Objects</h3>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Just values --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">v-for</span><span class="o">=</span><span class="s">"value in userProfile"</span><span class="p">&gt;</span>{{ value }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Value + key (property name) --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">v-for</span><span class="o">=</span><span class="s">"(value, key) in userProfile"</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>{{ key }}:<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span> {{ value }}
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Value + key + index --&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">v-for</span><span class="o">=</span><span class="s">"(value, key, index) in userProfile"</span><span class="p">&gt;</span>
+  {{ index }}. {{ key }}: {{ value }}
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nx">data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">userProfile</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'Rajesh Kumar'</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">rollNo</span><span class="o">:</span><span class="w"> </span><span class="s1">'DS21B001'</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">program</span><span class="o">:</span><span class="w"> </span><span class="s1">'B.Sc. Data Science'</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// Renders:</span>
+<span class="c1">// 0. name: Rajesh Kumar</span>
+<span class="c1">// 1. rollNo: DS21B001</span>
+<span class="c1">// 2. program: B.Sc. Data Science</span>
+</code></pre></div>
+<hr />
+<h3 id="iterating-over-a-range-of-numbers">Iterating Over a Range of Numbers</h3>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Renders: 1, 2, 3, 4, 5 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">span</span> <span class="na">v-for</span><span class="o">=</span><span class="s">"n in 5"</span> <span class="na">:key</span><span class="o">=</span><span class="s">"n"</span><span class="p">&gt;</span>{{ n }} <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</code></pre></div>
+<hr />
+<h3 id="v-for-on-template"><code>v-for</code> on <code>&lt;template&gt;</code></h3>
+<p>To render multiple elements per iteration without adding an extra wrapper element:
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">template</span> <span class="na">v-for</span><span class="o">=</span><span class="s">"item in items"</span> <span class="na">:key</span><span class="o">=</span><span class="s">"item.id"</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">dt</span><span class="p">&gt;</span>{{ item.term }}<span class="p">&lt;/</span><span class="nt">dt</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">dd</span><span class="p">&gt;</span>{{ item.definition }}<span class="p">&lt;/</span><span class="nt">dd</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</code></pre></div></p>
+<hr />
+<h3 id="template-syntax-comparison-jinja-vs-vue">Template Syntax Comparison (Jinja vs Vue)</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Jinja2 (Server-side)</th>
+<th>Vue <code>v-for</code> (Client-side)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Loop syntax</td>
+<td><code>{% for item in items %}</code></td>
+<td><code>v-for="item in items"</code></td>
+</tr>
+<tr>
+<td>Interpolation</td>
+<td><code>{{ item.name }}</code></td>
+<td><code>{{ item.name }}</code></td>
+</tr>
+<tr>
+<td>Index access</td>
+<td><code>loop.index</code></td>
+<td><code>(item, index) in items</code></td>
+</tr>
+<tr>
+<td>End marker</td>
+<td><code>{% endfor %}</code></td>
+<td>(none needed — on the element itself)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="18-loop-keys-virtual-dom-diffing">1.8 Loop Keys &amp; Virtual DOM Diffing</h2>
+<p>This is one of the most important performance concepts in Vue. Understanding <em>why</em> <code>:key</code> exists requires understanding how Vue updates the DOM.</p>
+<h3 id="the-virtual-dom">The Virtual DOM</h3>
+<p>Vue doesn't directly manipulate the real browser DOM for every data change (that would be slow). Instead it maintains a <strong>Virtual DOM</strong> — a lightweight JavaScript tree representation of what the real DOM should look like.</p>
+<p><strong>Process</strong>:
+1. Data changes.
+2. Vue re-renders the Virtual DOM tree (fast, in-memory JS operation).
+3. Vue <strong>diffs</strong> (compares) the new Virtual DOM with the previous Virtual DOM snapshot.
+4. Vue computes the <strong>minimal set of real DOM operations</strong> needed.
+5. Vue applies only those changes to the real browser DOM.</p>
+<div class="highlight"><pre><span></span><code>Data Change
+    │
+    ▼
+New Virtual DOM Tree
+    │
+    ▼ (diff algorithm)
+Old Virtual DOM Tree ─────→ Compute minimal diff
+                                  │
+                                  ▼
+                           Patch real DOM (only changed nodes)
+</code></pre></div>
+<hr />
+<h3 id="why-diffing-fails-without-key">Why Diffing Fails Without <code>:key</code></h3>
+<p>Consider this list:
+<div class="highlight"><pre><span></span><code><span class="nx">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">'Apple'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Banana'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Cherry'</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">li</span> <span class="na">v-for</span><span class="o">=</span><span class="s">"item in items"</span><span class="p">&gt;</span>{{ item }}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</code></pre></div></p>
+<p>If you <strong>prepend</strong> an item:
+<div class="highlight"><pre><span></span><code><span class="nx">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">'Avocado'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Apple'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Banana'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Cherry'</span><span class="p">]</span>
+</code></pre></div></p>
+<p>Without <code>:key</code>, Vue uses a simple <strong>positional heuristic</strong> — it compares elements by their position in the list:
+- Position 0: <code>Apple</code> → <code>Avocado</code> → <strong>Update</strong>
+- Position 1: <code>Banana</code> → <code>Apple</code> → <strong>Update</strong>
+- Position 2: <code>Cherry</code> → <code>Banana</code> → <strong>Update</strong>
+- Position 3: <em>(new)</em> → <code>Cherry</code> → <strong>Insert</strong></p>
+<p>Vue re-renders <strong>all 4 elements</strong> even though only a single item was prepended. With complex components (having their own state, animations, inputs), this causes <strong>incorrect state</strong> being preserved in the wrong components.</p>
+<hr />
+<h3 id="key-the-solution"><code>:key</code> — The Solution</h3>
+<p>The <code>:key</code> attribute gives Vue a <strong>stable identity</strong> for each rendered element/component. Vue uses it to track which virtual node corresponds to which real DOM element across renders.</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">li</span> <span class="na">v-for</span><span class="o">=</span><span class="s">"item in items"</span> <span class="na">:key</span><span class="o">=</span><span class="s">"item.id"</span><span class="p">&gt;</span>
+  {{ item.name }}
+<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>With <code>:key</code>:
+- Position 0: key=<code>avocado-id</code> (new) → <strong>Insert</strong>
+- Position 1: key=<code>apple-id</code> → <strong>Reuse</strong> (move if needed)
+- Position 2: key=<code>banana-id</code> → <strong>Reuse</strong>
+- Position 3: key=<code>cherry-id</code> → <strong>Reuse</strong></p>
+<p>Vue now only <strong>inserts one new element</strong> and efficiently reuses the rest.</p>
+<hr />
+<h3 id="key-best-practices"><code>:key</code> Best Practices</h3>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- ✅ BEST: Use a unique, stable ID from your data --&gt;</span>
+<span class="p">&lt;</span><span class="nt">li</span> <span class="na">v-for</span><span class="o">=</span><span class="s">"user in users"</span> <span class="na">:key</span><span class="o">=</span><span class="s">"user.id"</span><span class="p">&gt;</span>{{ user.name }}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- ⚠️ ACCEPTABLE for static, non-reordering lists: Use index --&gt;</span>
+<span class="p">&lt;</span><span class="nt">li</span> <span class="na">v-for</span><span class="o">=</span><span class="s">"(item, index) in staticList"</span> <span class="na">:key</span><span class="o">=</span><span class="s">"index"</span><span class="p">&gt;</span>{{ item }}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- ❌ AVOID: Using index when list can be reordered/filtered --&gt;</span>
+<span class="cm">&lt;!-- Using index as key on a dynamic list defeats the purpose --&gt;</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Why avoid index as key?</strong> If the list gets sorted or filtered, items' indices change, but Vue will still try to reuse DOM elements at the same index — leading to stale component state bugs.</p>
+</blockquote>
+<hr />
+<h3 id="summary-v-for-with-key-full-example">Summary: <code>v-for</code> with <code>:key</code> — Full Example</h3>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-for</span><span class="o">=</span><span class="s">"course in enrolledCourses"</span> <span class="na">:key</span><span class="o">=</span><span class="s">"course.courseId"</span> <span class="na">class</span><span class="o">=</span><span class="s">"course-card"</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>{{ course.title }}<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Instructor: {{ course.instructor }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">span</span> <span class="na">:class</span><span class="o">=</span><span class="s">"{ completed: course.isCompleted }"</span><span class="p">&gt;</span>
+    {{ course.isCompleted ? '✅ Completed' : '⏳ In Progress' }}
+  <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nx">data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">enrolledCourses</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">courseId</span><span class="o">:</span><span class="w"> </span><span class="s1">'CS101'</span><span class="p">,</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">'Intro to Python'</span><span class="p">,</span><span class="w"> </span><span class="nx">instructor</span><span class="o">:</span><span class="w"> </span><span class="s1">'Dr. A'</span><span class="p">,</span><span class="w"> </span><span class="nx">isCompleted</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">courseId</span><span class="o">:</span><span class="w"> </span><span class="s1">'MA201'</span><span class="p">,</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">'Linear Algebra'</span><span class="p">,</span><span class="w"> </span><span class="nx">instructor</span><span class="o">:</span><span class="w"> </span><span class="s1">'Dr. B'</span><span class="p">,</span><span class="w"> </span><span class="nx">isCompleted</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">courseId</span><span class="o">:</span><span class="w"> </span><span class="s1">'DS301'</span><span class="p">,</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">'Machine Learning'</span><span class="p">,</span><span class="w"> </span><span class="nx">instructor</span><span class="o">:</span><span class="w"> </span><span class="s1">'Dr. C'</span><span class="p">,</span><span class="w"> </span><span class="nx">isCompleted</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="quick-reference-summary">Quick Reference Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Directive / Feature</th>
+<th>Key Point</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reactivity</td>
+<td>(framework core)</td>
+<td>Data changes → UI auto-updates</td>
+</tr>
+<tr>
+<td>One-way bind</td>
+<td><code>v-bind</code> / <code>:</code></td>
+<td>JS → DOM attribute</td>
+</tr>
+<tr>
+<td>Two-way bind</td>
+<td><code>v-model</code></td>
+<td>JS ↔ Form input (bidirectional)</td>
+</tr>
+<tr>
+<td>Event handling</td>
+<td><code>v-on</code> / <code>@</code></td>
+<td>DOM event → JS method</td>
+</tr>
+<tr>
+<td>Class binding</td>
+<td><code>:class="{ name: bool }"</code></td>
+<td>Toggle CSS classes via boolean object</td>
+</tr>
+<tr>
+<td>Style binding</td>
+<td><code>:style="{ prop: val }"</code></td>
+<td>Inline CSS via JS object</td>
+</tr>
+<tr>
+<td>DOM conditional</td>
+<td><code>v-if</code> / <code>v-else</code></td>
+<td>Mounts/unmounts DOM node</td>
+</tr>
+<tr>
+<td>CSS conditional</td>
+<td><code>v-show</code></td>
+<td>Toggles <code>display: none</code></td>
+</tr>
+<tr>
+<td>List rendering</td>
+<td><code>v-for="item in list"</code></td>
+<td>Renders element per item</td>
+</tr>
+<tr>
+<td>Identity tracking</td>
+<td><code>:key="unique-id"</code></td>
+<td>Efficient Virtual DOM diffing</td>
+</tr>
+</tbody>
+</table>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Overview
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../02_viewmodel_and_vue/" class="md-footer__link md-footer__link--next" aria-label="Next: The ViewModel pattern and Vue">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                The ViewModel pattern and Vue
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

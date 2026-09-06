@@ -1,0 +1,4960 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modern Application Development 2 course reference for the IIT Madras BS Degree">
+      
+      
+      
+        <link rel="canonical" href="https://24f2005644.github.io/appdev2coursebook/week11/notes_tools_and_measurement/">
+      
+      
+        <link rel="prev" href="../notes_user_experience/">
+      
+      
+        <link rel="next" href="../notes_scaling/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Tools and measurement - MAD2 Course Book</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/theme-v2.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tools-measurement-detailed-notes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MAD2 Course Book" class="md-header__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MAD2 Course Book
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tools and measurement
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MAD2 Course Book" class="md-nav__button md-logo" aria-label="MAD2 Course Book" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MAD2 Course Book
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/01_review_mad1_web_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review: MAD1 web fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/02_web_app_development_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web application development model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/03_course_trajectory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/04_javascript_origins_standardization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript origins and standardization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/05_architectural_implications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural implications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/06_program_structure_execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Program structure and execution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/07_identifiers_statements_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifiers, statements, and expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/08_data_types_strings_nonvalues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data types, strings, and non-values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/09_operators_comparisons_coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operators, comparisons, and coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/10_variables_declarations_scoping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variables, declarations, and scoping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/11_control_flow_constructs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control-flow constructs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/12_functions_execution_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functions and execution patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/13_dom_and_interactivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The DOM and interactivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week1/14_references_tooling_ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References, tooling, and ecosystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/01_javascript_collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript collections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/02_modularity_and_oop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modularity and object-oriented JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/03_asynchrony_and_runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchrony and the JavaScript runtime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week2/04_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/01_introduction_to_frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to frontend development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/02_programming_paradigms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/03_understanding_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/04_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week3/05_case_study_tictactoe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tic-Tac-Toe case study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/01_declarative_rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/02_viewmodel_and_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ViewModel pattern and Vue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/03_vue_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week4/04_reactivity_under_the_hood/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactivity under the hood
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 5
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 5
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/1_architecture_separation_of_concerns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture and separation of concerns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/2_asynchronous_javascript_fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous JavaScript fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/3_async_patterns_callbacks_events_promises/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks, events, and promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/4_fetch_api_and_axios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fetch API and Axios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week5/5_vue_lifecycle_async_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue lifecycle and asynchronous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 6
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 6
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/01_persistent_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/02_form_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Form validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/03_sfc_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week6/04_testing_vue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Vue applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 7
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 7
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/01_state_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/02_vue_router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue Router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/03_spa_modern_web_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-page application architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week7/04_vue_cli_single_file_components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue CLI and Single File Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 8
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 8
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/01_web_api_design_rest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web API design with REST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/02_rest_problems_graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problems with REST and GraphQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/03_markup_text_representations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markup and text representations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/04_jamstack_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JAMstack architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week8/05_vue_flask_integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue and Flask integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 9
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 9
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/01_web_servers_concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web servers and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/02_async_task_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asynchronous task architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/03_distributed_messaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed messaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/04_task_queue_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Task queue mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week9/05_celery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Celery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/01_inter_service_messaging_and_message_queues_recap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter-service messaging and message queues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/02_lightweight_api_calls_and_messaging_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lightweight API calls and messaging patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/03_webhooks_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/04_webhooks_vs_alternative_architectures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks and alternative architectures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/05_webhook_implementation_debugging_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhook implementation, debugging, and security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/06_client_side_updates_and_push_to_client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Client-side updates and push to client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/07_client_update_strategies_polling_and_long_polling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and long polling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/08_server_sent_events_sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server-Sent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week10/09_push_notifications_and_modern_push_protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push notifications and modern push protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_speed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_user_experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and measurement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-how-to-measure-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. How to Measure Performance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. How to Measure Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-environments-for-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two Environments for Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-measurement-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Measurement Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-google-lighthouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Google Lighthouse
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Google Lighthouse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-lighthouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Lighthouse?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-lighthouse-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Lighthouse Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-what-does-lighthouse-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 What Does Lighthouse Do?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-the-performance-score-is-calculated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the Performance Score is Calculated
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-performance-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Performance Metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Performance Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-first-contentful-paint-fcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 First Contentful Paint (FCP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-speed-index-si" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Speed Index (SI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-largest-contentful-paint-lcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Largest Contentful Paint (LCP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-time-to-interactive-tti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Time to Interactive (TTI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-total-blocking-time-tbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Total Blocking Time (TBT)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-cumulative-layout-shift-cls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6 Cumulative Layout Shift (CLS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metrics-summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics Summary Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-other-parameters-lighthouse-audits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Other Parameters Lighthouse Audits
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Other Parameters Lighthouse Audits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-accessibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Accessibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-search-engine-optimization-seo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Search Engine Optimization (SEO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-problems-limitations-of-automated-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Problems &amp; Limitations of Automated Checks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Problems &amp; Limitations of Automated Checks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-lab-real-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Lab ≠ Real World
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-single-point-in-time-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Single Point-in-Time Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-doesnt-capture-dynamic-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Doesn't Capture Dynamic Behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-score-gaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Score Gaming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-no-user-behavior-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 No User Behavior Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-accessibility-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 Accessibility Gaps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57-does-not-test-all-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.7 Does Not Test All Pages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-of-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_components_of_an_app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components of an application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_server_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_monitoring_and_measuring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring and measuring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Week 12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Week 12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/01_fundamentals_privacy_vs_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privacy versus security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/02_frontend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../week12/03_backend_security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-how-to-measure-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. How to Measure Performance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. How to Measure Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-environments-for-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two Environments for Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-measurement-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Measurement Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-google-lighthouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Google Lighthouse
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Google Lighthouse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-lighthouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Lighthouse?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-lighthouse-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Lighthouse Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-what-does-lighthouse-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 What Does Lighthouse Do?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-the-performance-score-is-calculated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the Performance Score is Calculated
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-performance-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Performance Metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Performance Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-first-contentful-paint-fcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 First Contentful Paint (FCP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-speed-index-si" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Speed Index (SI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-largest-contentful-paint-lcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Largest Contentful Paint (LCP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-time-to-interactive-tti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Time to Interactive (TTI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-total-blocking-time-tbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Total Blocking Time (TBT)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36-cumulative-layout-shift-cls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6 Cumulative Layout Shift (CLS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metrics-summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics Summary Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-other-parameters-lighthouse-audits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Other Parameters Lighthouse Audits
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Other Parameters Lighthouse Audits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-accessibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Accessibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-search-engine-optimization-seo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Search Engine Optimization (SEO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-problems-limitations-of-automated-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Problems &amp; Limitations of Automated Checks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Problems &amp; Limitations of Automated Checks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-lab-real-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Lab ≠ Real World
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-single-point-in-time-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Single Point-in-Time Measurement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-doesnt-capture-dynamic-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Doesn't Capture Dynamic Behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-score-gaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Score Gaming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-no-user-behavior-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 No User Behavior Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-accessibility-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 Accessibility Gaps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57-does-not-test-all-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.7 Does Not Test All Pages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-of-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further practice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="tools-measurement-detailed-notes">Tools &amp; Measurement — Detailed Notes</h1>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end of this topic, you should be able to:</p>
+<ul>
+<li>Explain the main ideas covered in <strong>Tools &amp; Measurement — Detailed Notes</strong>.</li>
+<li>Connect these ideas to modern web application development.</li>
+<li>Recognize the patterns, terminology, and trade-offs used in practice.</li>
+</ul>
+<blockquote>
+<p><strong>Parent Topic:</strong> Performance
+<strong>Scope:</strong> How to objectively measure web performance, what tools exist, what each metric means, and where automated tools fall short.</p>
+</blockquote>
+<hr />
+<h2 id="1-how-to-measure-performance">1. How to Measure Performance</h2>
+<blockquote>
+<p><strong>Golden Rule: Measure first, then optimize. Never guess.</strong></p>
+</blockquote>
+<p>Without measurement, optimization is guesswork — you might spend days improving something that doesn't affect the user experience at all, while a real bottleneck goes unnoticed.</p>
+<h3 id="two-environments-for-measurement">Two Environments for Measurement</h3>
+<table>
+<thead>
+<tr>
+<th>Environment</th>
+<th>Type</th>
+<th>Description</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lab (Synthetic)</strong></td>
+<td>Controlled</td>
+<td>Simulated, reproducible conditions</td>
+<td>Lighthouse, WebPageTest</td>
+</tr>
+<tr>
+<td><strong>Field (Real User)</strong></td>
+<td>Real-world</td>
+<td>Actual user data from production</td>
+<td>CrUX, Google Analytics, Sentry</td>
+</tr>
+</tbody>
+</table>
+<p>Each has trade-offs:</p>
+<div class="highlight"><pre><span></span><code>Lab Testing                         Field (RUM) Testing
+─────────────────────────────       ─────────────────────────────
+✅ Reproducible                     ✅ Real-world accuracy
+✅ Diagnosable (trace data)         ✅ Captures all device/network types
+✅ Works before launch              ✅ Captures real user frustration
+✅ Automatable in CI/CD             ✅ Statistical significance over time
+❌ Simulated conditions             ❌ Only works post-launch
+❌ Single device/config             ❌ Harder to debug specific issues
+❌ May not reflect real users       ❌ Slower feedback loop
+</code></pre></div>
+<blockquote>
+<p><strong>Best practice:</strong> Use <strong>both</strong>. Lab for development feedback; RUM for production truth.</p>
+</blockquote>
+<h3 id="the-measurement-lifecycle">The Measurement Lifecycle</h3>
+<div class="highlight"><pre><span></span><code>Development          Staging / Pre-prod          Production
+─────────────        ──────────────────          ──────────────────
+Run Lighthouse       Run WebPageTest             Collect RUM data
+in DevTools          against realistic            (CrUX, Analytics)
+                     server environment
+      │                      │                          │
+      ▼                      ▼                          ▼
+ Fast feedback          Catch regressions          Real truth
+ (seconds)             before users do            (ongoing)
+</code></pre></div>
+<hr />
+<h2 id="2-google-lighthouse">2. Google Lighthouse</h2>
+<p><strong>Lighthouse</strong> is the most widely used web performance auditing tool. It is open-source, maintained by Google, and built directly into Chrome DevTools.</p>
+<h3 id="what-is-lighthouse">What is Lighthouse?</h3>
+<ul>
+<li>An automated, auditing tool that tests a single URL for <strong>performance, accessibility, best practices, and SEO</strong>.</li>
+<li>Produces a <strong>score from 0–100</strong> for each category.</li>
+<li>Gives <strong>specific, actionable recommendations</strong> with estimated savings (e.g., "Serve images in next-gen formats: save 0.45s").</li>
+<li>Available in multiple environments:</li>
+<li><strong>Chrome DevTools</strong> — F12 → "Lighthouse" tab → Generate report</li>
+<li><strong>CLI</strong> — <code>npx lighthouse https://example.com --output html</code></li>
+<li><strong>CI/CD</strong> — via <code>lighthouse-ci</code> npm package to block deploys on regressions</li>
+<li><strong>PageSpeed Insights</strong> — <code>https://pagespeed.web.dev</code> (Google's hosted version)</li>
+</ul>
+<hr />
+<h3 id="21-lighthouse-architecture">2.1 Lighthouse Architecture</h3>
+<p>Understanding how Lighthouse works helps you interpret its results correctly.</p>
+<div class="highlight"><pre><span></span><code>┌────────────────────────────────────────────────────────────────┐
+│                        LIGHTHOUSE RUNNER                       │
+│                                                                │
+│  1. SETUP                                                      │
+│     ├── Launches Chrome in headless mode                       │
+│     ├── Applies throttling:                                    │
+│     │     ├── Network: Simulated Slow 4G (40ms RTT, 10Mbps)   │
+│     │     └── CPU: 4× slowdown (simulates mid-range mobile)   │
+│     └── Clears cache, cookies (fresh load simulation)         │
+│                                                                │
+│  2. PAGE LOAD                                                  │
+│     ├── Navigates to the target URL                            │
+│     ├── Collects a Chrome performance trace                    │
+│     ├── Intercepts all network requests                        │
+│     └── Waits for the page to settle (network idle)           │
+│                                                                │
+│  3. AUDIT ENGINE                                               │
+│     ├── Runs 50+ individual audits against the trace/DOM      │
+│     ├── Each audit is pass/fail or numeric                     │
+│     └── Audits grouped into 5 categories                      │
+│                                                                │
+│  4. SCORING                                                    │
+│     ├── Each metric scored against a log-normal distribution  │
+│     ├── Metrics weighted and combined into category score     │
+│     └── Score: 0–49 (Poor) | 50–89 (Needs Work) | 90–100 (Good)│
+│                                                                │
+│  5. REPORT                                                     │
+│     ├── HTML / JSON / CSV output                               │
+│     ├── Opportunities (estimated savings)                      │
+│     └── Diagnostics (informational findings)                  │
+└────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<h3 id="22-what-does-lighthouse-do">2.2 What Does Lighthouse Do?</h3>
+<p>Lighthouse runs <strong>two types of evaluations</strong> per category:</p>
+<p><strong>Audits</strong> — Specific checks, each with a pass/fail or scored result:
+- "Does every <code>&lt;img&gt;</code> have an <code>alt</code> attribute?" → Pass/Fail
+- "What is the LCP time?" → 1.8s → Score: 92</p>
+<p><strong>Opportunities</strong> — Actionable suggestions with estimated time savings:
+- "Eliminate render-blocking resources → potential savings: 0.9s"
+- "Properly size images → potential savings: 1.2s"</p>
+<p><strong>Diagnostics</strong> — Informational (not directly scored):
+- "Keep request counts low and transfer sizes small"
+- "Minimize main-thread work"</p>
+<h3 id="how-the-performance-score-is-calculated">How the Performance Score is Calculated</h3>
+<p>The Performance score is a <strong>weighted average</strong> of 6 metrics:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Largest Contentful Paint (LCP)</td>
+<td>25%</td>
+</tr>
+<tr>
+<td>Total Blocking Time (TBT)</td>
+<td>30%</td>
+</tr>
+<tr>
+<td>Cumulative Layout Shift (CLS)</td>
+<td>15%</td>
+</tr>
+<tr>
+<td>First Contentful Paint (FCP)</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>Speed Index (SI)</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>Time to Interactive (TTI)</td>
+<td>10%</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note: Weights change between Lighthouse versions. Always check the current version's weighting.</p>
+</blockquote>
+<hr />
+<h2 id="3-performance-metrics">3. Performance Metrics</h2>
+<p>These 6 metrics are the core of what Lighthouse measures for performance. Each captures a different dimension of the loading experience.</p>
+<hr />
+<h3 id="31-first-contentful-paint-fcp">3.1 First Contentful Paint (FCP)</h3>
+<p><strong>What it measures:</strong>
+The time from when the user navigates to the page until the browser renders the <strong>first piece of DOM content</strong> — any text, image, SVG, or non-white <code>&lt;canvas&gt;</code> element.</p>
+<p><strong>Why it matters:</strong>
+- Answers: <em>"Is anything happening?"</em>
+- The first signal to the user that the server responded and the page is loading.
+- Without FCP, the user sees a blank white screen and doesn't know if the page is broken or loading.</p>
+<p><strong>Timeline:</strong>
+<div class="highlight"><pre><span></span><code>Navigation Start ──────────────────────────────────────────────►
+     0ms          |FCP|        |LCP|           |TTI|
+                  ↑
+                  First text/image visible
+</code></pre></div></p>
+<p><strong>Scoring Thresholds:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Score</th>
+<th>FCP Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🟢 Good</td>
+<td>0 – 1.8s</td>
+</tr>
+<tr>
+<td>🟡 Needs Improvement</td>
+<td>1.8s – 3.0s</td>
+</tr>
+<tr>
+<td>🔴 Poor</td>
+<td>&gt; 3.0s</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Common causes of slow FCP:</strong>
+- Render-blocking CSS or JS (browser must download and parse these before rendering)
+- Large HTML document (server is slow to generate or send)
+- No server-side rendering (blank HTML shell waiting for JS to populate)
+- Slow server response (TTFB — Time to First Byte — is high)</p>
+<p><strong>How to improve:</strong>
+- Inline critical CSS
+- Defer non-critical JS (<code>defer</code> / <code>async</code>)
+- Use a CDN to reduce TTFB
+- Enable server-side rendering (SSR)</p>
+<hr />
+<h3 id="32-speed-index-si">3.2 Speed Index (SI)</h3>
+<p><strong>What it measures:</strong>
+A composite metric that measures <strong>how quickly the visual content of a page is populated</strong> over time. It considers the entire loading process, not just the first or last moment of content appearing.</p>
+<p>Technically: It captures video frames of the page loading and calculates the average time at which each pixel in the viewport becomes "visually complete."</p>
+<p><strong>Why it matters:</strong>
+- Answers: <em>"How quickly is the page filling up with content?"</em>
+- A page might have a good FCP (one word appears quickly) but a bad Speed Index (everything else takes ages).
+- Reflects the overall <em>pace</em> of visual loading.</p>
+<p><strong>Analogy:</strong>
+<div class="highlight"><pre><span></span><code>Page A: [▓░░░░░░░░░] → [▓▓░░░░░░░] → [▓▓▓▓▓▓▓▓▓]   ← Slow SI (gradual fill)
+Page B: [▓▓▓▓░░░░░] → [▓▓▓▓▓▓▓░░] → [▓▓▓▓▓▓▓▓▓]   ← Fast SI (quick fill)
+        t=0.5s          t=1.5s          t=2.5s
+</code></pre></div></p>
+<p><strong>Scoring Thresholds:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Score</th>
+<th>Speed Index</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🟢 Good</td>
+<td>0 – 3.4s</td>
+</tr>
+<tr>
+<td>🟡 Needs Improvement</td>
+<td>3.4s – 5.8s</td>
+</tr>
+<tr>
+<td>🔴 Poor</td>
+<td>&gt; 5.8s</td>
+</tr>
+</tbody>
+</table>
+<p><strong>How to improve:</strong>
+- Minimize render-blocking resources
+- Optimize and compress images
+- Reduce JavaScript execution time</p>
+<hr />
+<h3 id="33-largest-contentful-paint-lcp">3.3 Largest Contentful Paint (LCP)</h3>
+<p><strong>What it measures:</strong>
+The time from navigation start until the <strong>largest visible content element</strong> in the viewport is fully rendered. Tracked elements: <code>&lt;img&gt;</code>, <code>&lt;image&gt;</code> in SVG, <code>&lt;video&gt;</code> (poster frame), elements with a CSS <code>background-image</code>, and large block-level text nodes.</p>
+<p><strong>Why it matters:</strong>
+- Answers: <em>"When does the main content load?"</em>
+- This is the most important metric for perceived loading speed — it marks when the <strong>hero content</strong> the user came to see is visible.
+- <strong>Core Web Vital</strong> — used directly by Google as a search ranking signal.</p>
+<p><strong>Scoring Thresholds:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Score</th>
+<th>LCP Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🟢 Good</td>
+<td>0 – 2.5s</td>
+</tr>
+<tr>
+<td>🟡 Needs Improvement</td>
+<td>2.5s – 4.0s</td>
+</tr>
+<tr>
+<td>🔴 Poor</td>
+<td>&gt; 4.0s</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Common LCP elements:</strong>
+- Hero images
+- Large heading text (<code>&lt;h1&gt;</code>)
+- Video thumbnails / poster images
+- Full-width banner images</p>
+<p><strong>Common causes of slow LCP:</strong>
+- Large, unoptimized hero image (biggest offender)
+- Image not preloaded
+- Render-blocking JS/CSS delaying the element
+- Slow server response (high TTFB)
+- Client-side rendering (image loaded via JS, not HTML)</p>
+<p><strong>How to improve:</strong>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Preload the LCP image --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">"preload"</span> <span class="na">as</span><span class="o">=</span><span class="s">"image"</span> <span class="na">href</span><span class="o">=</span><span class="s">"hero.webp"</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Use modern image format --&gt;</span>
+<span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"hero.webp"</span> <span class="na">alt</span><span class="o">=</span><span class="s">"Hero"</span> <span class="na">fetchpriority</span><span class="o">=</span><span class="s">"high"</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Give images explicit dimensions to avoid CLS --&gt;</span>
+<span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"hero.webp"</span> <span class="na">width</span><span class="o">=</span><span class="s">"1200"</span> <span class="na">height</span><span class="o">=</span><span class="s">"600"</span> <span class="na">alt</span><span class="o">=</span><span class="s">"Hero"</span><span class="p">&gt;</span>
+</code></pre></div></p>
+<hr />
+<h3 id="34-time-to-interactive-tti">3.4 Time to Interactive (TTI)</h3>
+<p><strong>What it measures:</strong>
+The time from navigation start until the page is <strong>reliably interactive</strong> — defined as:
+1. The page has displayed useful content (past FCP).
+2. Event handlers are registered for most visible elements.
+3. The page responds to user interactions within <strong>50ms</strong>.</p>
+<p><strong>Why it matters:</strong>
+- Answers: <em>"When can I actually use this page?"</em>
+- A page can <em>look</em> fully loaded while the browser is still parsing and executing JavaScript, making it unresponsive.
+- Captures the frustrating experience of clicking a button that does nothing.</p>
+<p><strong>The Gap Between Visual Load and Interactivity:</strong>
+<div class="highlight"><pre><span></span><code>Navigation ──────────────────────────────────────────────────►
+           |FCP|          |LCP|         |TTI|
+                    ↑                   ↑
+           Page looks loaded      Page actually works
+           (visual)               (interactive)
+                    └── "Zombie Phase" ──┘
+                        (looks alive, but can't interact)
+</code></pre></div></p>
+<p><strong>Scoring Thresholds:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Score</th>
+<th>TTI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🟢 Good</td>
+<td>0 – 3.8s</td>
+</tr>
+<tr>
+<td>🟡 Needs Improvement</td>
+<td>3.8s – 7.3s</td>
+</tr>
+<tr>
+<td>🔴 Poor</td>
+<td>&gt; 7.3s</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Common causes of high TTI:</strong>
+- Large JavaScript bundles that take long to parse and execute
+- Synchronous third-party scripts (ads, analytics, chatbots)
+- Long tasks on the main thread</p>
+<p><strong>How to improve:</strong>
+- Code-split JavaScript — load only what's needed for the current page
+- Move non-critical JS to web workers
+- Defer third-party scripts
+- Use <code>&lt;script defer&gt;</code> / <code>&lt;script async&gt;</code></p>
+<hr />
+<h3 id="35-total-blocking-time-tbt">3.5 Total Blocking Time (TBT)</h3>
+<p><strong>What it measures:</strong>
+The <strong>total time</strong> between FCP and TTI during which the main thread was blocked for <strong>more than 50ms</strong> at a time (by "long tasks"). Only the portion <em>over</em> 50ms is counted.</p>
+<p><strong>Why it matters:</strong>
+- Answers: <em>"How much of the loading period was the page unresponsive to input?"</em>
+- The browser's main thread handles both JavaScript execution and user input. When a long task runs, <strong>user input is queued</strong> until the task completes.
+- A high TBT means the page regularly felt frozen during loading.
+- <strong>Core Web Vital</strong> (lab proxy) — correlates strongly with real-world Interaction to Next Paint (INP).</p>
+<p><strong>How Long Tasks are Counted:</strong>
+<div class="highlight"><pre><span></span><code>Main Thread ──────────────────────────────────────────────────►
+
+Task A: [░░░░░░░░░░░░░░░░░░░░░] = 200ms total
+        [──────50ms────][░░░░░] → Blocking portion = 150ms
+
+Task B: [░░░░░░░░░] = 80ms total
+        [──50ms──][░░] → Blocking portion = 30ms
+
+Task C: [░░░░] = 30ms → Not a long task → Blocking = 0ms
+
+TBT = 150ms + 30ms = 180ms
+</code></pre></div></p>
+<p><strong>Scoring Thresholds:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Score</th>
+<th>TBT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🟢 Good</td>
+<td>0 – 200ms</td>
+</tr>
+<tr>
+<td>🟡 Needs Improvement</td>
+<td>200ms – 600ms</td>
+</tr>
+<tr>
+<td>🔴 Poor</td>
+<td>&gt; 600ms</td>
+</tr>
+</tbody>
+</table>
+<p><strong>How to improve:</strong>
+- Break up long JavaScript tasks into smaller chunks (using <code>setTimeout</code>, <code>requestIdleCallback</code>, or scheduler API)
+- Reduce the amount of JavaScript executed during page load
+- Remove or defer unused third-party scripts</p>
+<hr />
+<h3 id="36-cumulative-layout-shift-cls">3.6 Cumulative Layout Shift (CLS)</h3>
+<p><strong>What it measures:</strong>
+A measure of <strong>visual stability</strong> — how much the page layout unexpectedly shifts during the entire lifetime of the page. Calculated as:</p>
+<div class="highlight"><pre><span></span><code>CLS = Σ (layout_shift_score) for all unexpected shifts
+    = Σ (impact_fraction × distance_fraction)
+
+Where:
+  impact_fraction = % of viewport affected by the shift
+  distance_fraction = % of viewport the element moved
+</code></pre></div>
+<p><strong>Why it matters:</strong>
+- Answers: <em>"Does the page stay stable as it loads?"</em>
+- Layout shifts are one of the most frustrating UX issues — you're about to click something and it jumps away.
+- <strong>Core Web Vital</strong> — used directly by Google as a ranking signal.</p>
+<p><strong>Visualized:</strong>
+<div class="highlight"><pre><span></span><code>Before shift:                    After shift:
+┌──────────────────────┐         ┌──────────────────────┐
+│  [Article Title]     │         │  [AD BANNER]         │  ← inserted
+│                      │    →    │  [Article Title]     │  ← shifted down
+│  [Read more]  ←──────┼─────────┼──[Read more]         │
+│                      │  User   │                      │
+│  [AD BANNER]         │  clicks │                      │
+└──────────────────────┘  here!  └──────────────────────┘
+</code></pre></div></p>
+<p><strong>Scoring Thresholds:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Score</th>
+<th>CLS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🟢 Good</td>
+<td>0 – 0.1</td>
+</tr>
+<tr>
+<td>🟡 Needs Improvement</td>
+<td>0.1 – 0.25</td>
+</tr>
+<tr>
+<td>🔴 Poor</td>
+<td>&gt; 0.25</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Common causes:</strong>
+- Images / videos without explicit <code>width</code> and <code>height</code> attributes
+- Ads, embeds, or iframes with unknown dimensions
+- Web fonts causing text to reflow when they load (<code>FOUT</code> — Flash of Unstyled Text)
+- Content dynamically injected above existing content</p>
+<p><strong>How to fix:</strong>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- Always specify dimensions on images --&gt;</span>
+<span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"photo.jpg"</span> <span class="na">width</span><span class="o">=</span><span class="s">"800"</span> <span class="na">height</span><span class="o">=</span><span class="s">"600"</span> <span class="na">alt</span><span class="o">=</span><span class="s">"..."</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Reserve space for dynamic content with CSS --&gt;</span>
+.ad-container {
+  min-height: 250px; /* reserve space before ad loads */
+}
+
+/* Avoid FOUT with font-display */
+@font-face {
+  font-family: 'MyFont';
+  font-display: optional; /* or 'swap' */
+}
+</code></pre></div></p>
+<hr />
+<h3 id="metrics-summary-table">Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Measures</th>
+<th>Good</th>
+<th>Needs Work</th>
+<th>Poor</th>
+<th>Core Web Vital?</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FCP</strong></td>
+<td>First content appears</td>
+<td>&lt; 1.8s</td>
+<td>1.8–3.0s</td>
+<td>&gt; 3.0s</td>
+<td>No</td>
+<td>10%</td>
+</tr>
+<tr>
+<td><strong>Speed Index</strong></td>
+<td>Pace of visual loading</td>
+<td>&lt; 3.4s</td>
+<td>3.4–5.8s</td>
+<td>&gt; 5.8s</td>
+<td>No</td>
+<td>10%</td>
+</tr>
+<tr>
+<td><strong>LCP</strong></td>
+<td>Main content loaded</td>
+<td>&lt; 2.5s</td>
+<td>2.5–4.0s</td>
+<td>&gt; 4.0s</td>
+<td>✅ Yes</td>
+<td>25%</td>
+</tr>
+<tr>
+<td><strong>TTI</strong></td>
+<td>Fully interactive</td>
+<td>&lt; 3.8s</td>
+<td>3.8–7.3s</td>
+<td>&gt; 7.3s</td>
+<td>No</td>
+<td>10%</td>
+</tr>
+<tr>
+<td><strong>TBT</strong></td>
+<td>Main thread blocked</td>
+<td>&lt; 200ms</td>
+<td>200–600ms</td>
+<td>&gt; 600ms</td>
+<td>Proxy</td>
+<td>30%</td>
+</tr>
+<tr>
+<td><strong>CLS</strong></td>
+<td>Layout stability</td>
+<td>&lt; 0.1</td>
+<td>0.1–0.25</td>
+<td>&gt; 0.25</td>
+<td>✅ Yes</td>
+<td>15%</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-other-parameters-lighthouse-audits">4. Other Parameters Lighthouse Audits</h2>
+<p>Beyond the performance score, Lighthouse audits three other categories, each producing its own 0–100 score.</p>
+<hr />
+<h3 id="41-accessibility">4.1 Accessibility</h3>
+<p><strong>What it checks:</strong>
+Whether the site is usable by people with disabilities — visual, motor, auditory, or cognitive.</p>
+<p><strong>Key audits:</strong>
+| Check | Example |
+|---|---|
+| Image alt text | Every <code>&lt;img&gt;</code> must have <code>alt</code> attribute |
+| Color contrast | Text must have sufficient contrast ratio (4.5:1 for normal, 3:1 for large text) |
+| ARIA labels | Interactive elements must have accessible names |
+| Form labels | Every <code>&lt;input&gt;</code> must have an associated <code>&lt;label&gt;</code> |
+| Keyboard navigation | All interactive elements reachable and usable via keyboard |
+| Heading order | Headings must follow a logical hierarchy (h1 → h2 → h3) |
+| Language attribute | <code>&lt;html lang="en"&gt;</code> must be set |</p>
+<p><strong>Standards it checks against:</strong> WCAG 2.1 (Web Content Accessibility Guidelines)</p>
+<blockquote>
+<p>⚠️ <strong>Caveat:</strong> Lighthouse catches ~30% of accessibility issues. Many require human judgment (e.g., does the alt text actually describe the image meaningfully?).</p>
+</blockquote>
+<hr />
+<h3 id="42-best-practices">4.2 Best Practices</h3>
+<p><strong>What it checks:</strong>
+General web hygiene — secure, modern, and correct usage of browser APIs.</p>
+<p><strong>Key audits:</strong>
+| Check | Why It Matters |
+|---|---|
+| HTTPS | Prevents man-in-the-middle attacks; required for many browser APIs |
+| No deprecated APIs | <code>document.write()</code>, <code>XMLHttpRequest</code> replacements, etc. |
+| No browser console errors | Errors indicate broken functionality |
+| Correct image aspect ratios | Distorted images signal low quality |
+| <code>&lt;DOCTYPE&gt;</code> present | Ensures browser uses standards mode |
+| No mixed content | HTTP resources on HTTPS pages compromise security |
+| Avoid <code>eval()</code> | Security and performance risk |
+| <code>rel="noopener"</code> on <code>target="_blank"</code> links | Prevents tab-napping attacks |</p>
+<hr />
+<h3 id="43-search-engine-optimization-seo">4.3 Search Engine Optimization (SEO)</h3>
+<p><strong>What it checks:</strong>
+Basic signals that help search engines discover, crawl, and understand the page.</p>
+<p><strong>Key audits:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>What to Do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;title&gt;</code> tag</td>
+<td>Every page needs a unique, descriptive title</td>
+</tr>
+<tr>
+<td><code>&lt;meta name="description"&gt;</code></td>
+<td>Summarize page content (150–160 characters)</td>
+</tr>
+<tr>
+<td>Legible font sizes</td>
+<td>Body text should be ≥ 12px</td>
+</tr>
+<tr>
+<td>Tap target sizing</td>
+<td>Buttons/links ≥ 48×48px on mobile</td>
+</tr>
+<tr>
+<td><code>robots.txt</code></td>
+<td>Should not block crawler access to important resources</td>
+</tr>
+<tr>
+<td>Crawlable links</td>
+<td>Links must use <code>&lt;a href&gt;</code>, not JS-only click handlers</td>
+</tr>
+<tr>
+<td><code>hreflang</code></td>
+<td>Correct language/region targeting for international sites</td>
+</tr>
+<tr>
+<td>Structured data</td>
+<td>Valid schema.org markup (eligible for rich results)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Caveat:</strong> Lighthouse's SEO score only checks technical basics. It cannot assess content quality, backlinks, keyword relevance, or domain authority — which are far more important ranking factors.</p>
+</blockquote>
+<hr />
+<h2 id="5-problems-limitations-of-automated-checks">5. Problems &amp; Limitations of Automated Checks</h2>
+<p>Lighthouse is a powerful tool, but it has <strong>real limitations</strong> that developers must understand to avoid misusing the results.</p>
+<h3 id="51-lab-real-world">5.1 Lab ≠ Real World</h3>
+<p>Lighthouse simulates one specific device + network condition (mid-range Android, Slow 4G). Real users have:
+- Different devices (low-end phones to high-end desktops)
+- Different network conditions (2G to fiber)
+- Different geographic locations (latency varies)
+- Different browsers (Chrome, Safari, Firefox, Edge)</p>
+<p>A score of 95 in Lighthouse might correspond to a score of 60 in the field for users on older devices in rural areas.</p>
+<h3 id="52-single-point-in-time-measurement">5.2 Single Point-in-Time Measurement</h3>
+<ul>
+<li>A Lighthouse run is a <strong>snapshot</strong> — one run, one moment.</li>
+<li>Scores can vary significantly between runs (±10–15 points) due to:</li>
+<li>Server-side variability</li>
+<li>Background tasks on the test machine</li>
+<li>Randomness in Chrome's internal processes</li>
+<li><strong>Solution:</strong> Run Lighthouse 3–5 times and use the median score. Use Lighthouse CI for consistent automated baselines.</li>
+</ul>
+<h3 id="53-doesnt-capture-dynamic-behavior">5.3 Doesn't Capture Dynamic Behavior</h3>
+<p>Lighthouse tests the <strong>initial page load only</strong>. It does not capture:
+- Performance of Single Page Application (SPA) route transitions
+- Performance of user interactions after load (clicking, scrolling, filtering)
+- Performance of features behind authentication (dashboards, admin panels)
+- Long-session performance (memory leaks, accumulated slowdowns)</p>
+<h3 id="54-score-gaming">5.4 Score Gaming</h3>
+<p>Developers can achieve a high Lighthouse score without delivering a genuinely good user experience:
+- Lazy-loading everything (good for score, bad if users never see content)
+- Deferring all JS (score improves, but app is unusable until JS loads)
+- Running Lighthouse on a page with no real content (empty state scores well)</p>
+<h3 id="55-no-user-behavior-data">5.5 No User Behavior Data</h3>
+<p>Lighthouse cannot tell you:
+- Where users are rage-clicking (clicking repeatedly because something isn't working)
+- Where users are getting confused and abandoning tasks
+- Which pages have the most real-world performance problems
+- What the 95th percentile experience looks like (outliers who have it worst)</p>
+<h3 id="56-accessibility-gaps">5.6 Accessibility Gaps</h3>
+<ul>
+<li>Lighthouse catches only <strong>~30% of accessibility issues</strong> automatically.</li>
+<li>Many issues require human judgment: meaningful alt text, logical reading order, cognitive clarity.</li>
+<li>A score of 100 in accessibility does <strong>not</strong> mean the site is fully accessible.</li>
+</ul>
+<h3 id="57-does-not-test-all-pages">5.7 Does Not Test All Pages</h3>
+<ul>
+<li>Typically run on one or a few URLs.</li>
+<li>Large sites have hundreds or thousands of pages — Lighthouse won't find performance issues on product detail pages, checkout flows, or paginated lists.</li>
+</ul>
+<hr />
+<h3 id="summary-of-limitations">Summary of Limitations</h3>
+<table>
+<thead>
+<tr>
+<th>Limitation</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simulated conditions</td>
+<td>Supplement with RUM (Chrome UX Report, Sentry)</td>
+</tr>
+<tr>
+<td>Score variability</td>
+<td>Run multiple times; use median; use Lighthouse CI</td>
+</tr>
+<tr>
+<td>SPA / post-load performance</td>
+<td>Use browser Profiler, trace analysis, Web Vitals library</td>
+</tr>
+<tr>
+<td>Auth-gated pages</td>
+<td>Run Lighthouse via CI with authenticated sessions</td>
+</tr>
+<tr>
+<td>Score gaming</td>
+<td>Focus on real user metrics, not just the Lighthouse score</td>
+</tr>
+<tr>
+<td>Accessibility gaps</td>
+<td>Combine with manual audits and screen reader testing</td>
+</tr>
+<tr>
+<td>Single page only</td>
+<td>Integrate Lighthouse CI across multiple URLs</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-key-takeaways">6. Key Takeaways</h2>
+<ul>
+<li><strong>Always measure before optimizing</strong> — guessing leads to wasted effort.</li>
+<li>Use <strong>both lab (Lighthouse) and field (RUM) data</strong> for a complete picture.</li>
+<li><strong>Lighthouse architecture:</strong> headless Chrome + throttling + 50+ audits → 0–100 category scores.</li>
+<li>Know the <strong>6 performance metrics</strong>, what each measures, and what "good" looks like.</li>
+<li><strong>LCP, TBT, and CLS</strong> carry the most weight in the Lighthouse Performance score (70% combined).</li>
+<li><strong>LCP and CLS are Core Web Vitals</strong> — they directly influence Google Search ranking.</li>
+<li>Lighthouse also audits <strong>Accessibility, Best Practices, and SEO</strong> — treat all four categories seriously.</li>
+<li><strong>Automated checks have real limits</strong> — a high score doesn't guarantee a good experience. Use them as starting points, not final verdicts.</li>
+</ul>
+<h2 id="further-practice">Further practice</h2>
+<ul>
+<li>Revisit the examples in this topic and explain each step in your own words.</li>
+<li>Identify one place where the concept could be used in a web application.</li>
+<li>Test a small variation and note how the behavior changes.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../notes_user_experience/" class="md-footer__link md-footer__link--prev" aria-label="Previous: User experience">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                User experience
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../notes_scaling/" class="md-footer__link md-footer__link--next" aria-label="Next: Scaling">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Scaling
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer", "search.highlight", "search.share", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
